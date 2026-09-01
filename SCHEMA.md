@@ -25,21 +25,38 @@ window.FF14_DATA.push(
 ```js
 {
   id: "arr-sastasha",           // 必填，全域唯一，小寫 kebab-case，前綴用資料片代碼
-  type: "dungeon",              // 必填：dungeon | trial | extreme | raid | savage | alliance | ultimate | other
+  type: "dungeon",              // 必填：dungeon | trial | extreme | raid | savage | alliance | chaotic | ultimate | other
                                 //   dungeon=4人迷宮  trial=討伐戰(普通/困難)  extreme=極  raid=8人大型任務(普通)
-                                //   savage=零式  alliance=24人聯盟  ultimate=絕
+                                //   savage=零式  alliance=普通24人聯盟  chaotic=滅聯盟高難  ultimate=絕
   expansion: "arr",             // 必填：arr | hw | sb | shb | ew | dt
   patch: "2.0",                 // 必填，字串
   level: 15,                    // 必填，等級同步等級（副本等級）
   ilvl: null,                   // 選填，最低裝等
+  ilvlSync: null,               // 選填，裝等同步上限；不得與最低裝等混用
   name: {
     cn: "沙斯塔夏溶洞",          // 必填，陸服名（簡體）
     en: "Sastasha",             // 必填，英文名
     tw: "沙斯塔夏溶洞",          // 必填，cn 的繁體字版本（給搜尋用；字型一樣就照抄）
   },
   aliases: ["沙斯塔夏", "水虎鱼", "水虎魚"],  // 選填，搜尋用別名/簡稱（簡繁都放）
+  identity: {                     // 官方副本身分；稽核後的資料必填
+    officialKey: "cfc:1010",              // ContentFinderCondition 唯一列 ID，不由名稱或別名推測
+    contentType: "chaotic-alliance-raid", // dungeon/trial/extreme-trial/normal-raid/savage-raid/alliance-raid/chaotic-alliance-raid/ultimate-raid
+    partySize: 24,
+    sourceUrl: "https://na.finalfantasyxiv.com/lodestone/playguide/db/duty/4a2a0efdb91/"
+  },
   overview: "一句話總結整個副本的重點",           // 必填
   route: "道中/路線提示，可多行用 \n 分隔",        // 選填（4人本建議填：怪要不要拉一起、鑰匙/機關怎麼開）
+  sources: [{ label: "攻略名稱", url: "https://..." }], // 選填；高難本建議列出實際採用的 PF/攻略基準
+  strategies: [{                 // 選填；同一副本可並列國服主流、日基、早期開荒等多套打法
+    name: "子言宏（國服野隊）",
+    primary: true,               // 是否為目前國服野隊主流
+    summary: "這套打法的差異與適用場合",
+    positions: "八人站位文字圖",
+    macro: "/p 可直接貼進遊戲的完整宏",
+    diagramUrl: "https://...",   // 原作者的站位圖／圖文頁；不盜連或重傳圖片
+    source: { label: "原始攻略", url: "https://..." },
+  }],
   bosses: [                     // 必填，至少 1 個
     {
       name: { cn: "巧舌的萧", en: "Chopper" },   // 必填

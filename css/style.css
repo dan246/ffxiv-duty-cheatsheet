@@ -109,6 +109,7 @@ input { font: inherit; }
 .badge.t-raid { color: #c9a6ff; border-color: #5f3f8a; }
 .badge.t-savage { color: #ff7b9c; border-color: #8a2f4a; }
 .badge.t-alliance { color: #8ae0d2; border-color: #2f8a7a; }
+.badge.t-chaotic { color: #d7a5ff; border-color: #7d45a8; font-weight: 700; }
 .badge.t-ultimate { color: #ff5c5c; border-color: #a02020; font-weight: 700; }
 
 /* ---------- content ---------- */
@@ -132,9 +133,26 @@ input { font: inherit; }
   background: var(--bg2); border-left: 4px solid var(--accent); border-radius: 6px;
   padding: 10px 14px; margin-bottom: 14px;
 }
+
 .route { margin-bottom: 14px; }
 .route summary { cursor: pointer; color: var(--fg2); font-weight: 600; }
 .route .body { white-space: pre-line; color: var(--fg2); padding: 8px 0 0 14px; }
+.sources { margin: -4px 0 14px; color: var(--fg2); font-size: .92em; }
+.sources a { color: var(--accent); text-decoration: none; }
+.sources a:hover { text-decoration: underline; }
+.strategies { margin: 18px 0; }
+.strategies > h2 { font-size: 1.12em; margin: 0 0 8px; }
+.strategy { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg2); margin-bottom: 8px; padding: 9px 12px; }
+.strategy summary { cursor: pointer; font-weight: 700; }
+.strategy .primary { margin-left: 8px; color: var(--accent2); font-size: .78em; }
+.strategy p { color: var(--fg2); margin: 8px 0; }
+.strategy .macro-status { color: var(--warn); }
+.strategy pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 9px; margin: 8px 0; font: .88em/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.macro-head { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+.macro-head button { border: 1px solid var(--line); border-radius: 5px; background: var(--bg); color: var(--fg); cursor: pointer; padding: 3px 9px; }
+.strategy-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.strategy-links a { color: var(--accent); text-decoration: none; }
+.strategy-links a:hover { text-decoration: underline; }
 
 .boss { margin: 24px 0; scroll-margin-top: 60px; }
 .boss-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }

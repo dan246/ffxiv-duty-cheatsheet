@@ -18,15 +18,16 @@ const files = ctx.window.FF14_MANIFEST.filter((f) => fs.existsSync(path.join(ROO
 let html = read("index.html");
 html = html.replace(/<link rel="stylesheet" href="css\/style.css">/, () => `<style>\n${read("css/style.css")}\n</style>`);
 const dataJs = files.map((f) => `/* ---- ${f} ---- */\n${read("data/" + f)}`).join("\n");
+const zhTwJs = read("js/zh_tw_map.js");
 const appJs = read("js/app.js").replace(
   "loadData(window.FF14_MANIFEST || [])",
   "Promise.resolve()"  // 單檔版：資料已內嵌，不需動態載入
 );
 html = html.replace(
-  /<script src="data\/manifest.js"><\/script>\s*<script src="js\/app.js"><\/script>/,
-  () => `<script>\n${dataJs}\n</script>\n<script>\n${appJs}\n</script>`
+  /<script src="data\/manifest.js"><\/script>\s*<script src="js\/zh_tw_map.js"><\/script>\s*<script src="js\/app.js"><\/script>/,
+  () => `<script>\n${dataJs}\n</script>\n<script>\n${zhTwJs}\n${appJs}\n</script>`
 );
-if (/<\/script/i.test(dataJs + appJs)) throw new Error("內嵌內容含有 </script>，請改寫");
+if (/<\/script/i.test(dataJs + zhTwJs + appJs)) throw new Error("內嵌內容含有 </script>，請改寫");
 
 // --artifact：輸出不含 doctype/html/head/body 外殼的片段（給 claude.ai Artifact 用）
 const args = process.argv.slice(2);

@@ -414,7 +414,7 @@ window.FF14_DATA.push(
       summary: "形態王：雙螺旋=王腳下大圈往外跑、甜甜圈=貼王；精神入侵會強制往一個方向走，要提前面對。",
       mechanics: [
         { name: { cn: "请求支援", en: "AI Takeover" }, desc: "召出一隻小怪（**欧米茄框架**／**改造龙族**／**原型火箭飞拳**），會自爆。", solve: "可以不理，H 補穿自爆傷害；有空就打掉。", danger: 2 },
-        { name: { cn: "形态变化", en: "Transformation" }, desc: "王變形：**雙螺旋**=腳下大圈，**甜甜圈**=月環。", solve: "螺旋就跑遠，甜甜圈就貼王。", danger: 3 },
+        { name: { cn: "形态变化（外观提示）", en: "Transformation (visual cue)" }, desc: "這不是可在 Action 表定位的讀條名；王變成**雙螺旋**時是腳下大圈，變成**甜甜圈**時是月環。", solve: "螺旋就跑遠，甜甜圈就貼王。", danger: 3 },
         { name: { cn: "精神入侵", en: "Mindhack" }, desc: "每人上「強制向前/後/左/右移動」debuff，時間到會朝那個方向走一段。", solve: "看自己 debuff 的方向，**提前轉身**讓強制移動把你帶到安全處（配合王的形態）。", danger: 3 },
         { name: { cn: "原子射线", en: "Atomic Ray" }, desc: "全體傷害＋流血。", solve: "H 補血。", role: "H", danger: 2 },
         { name: { cn: "请求综合支援", en: "Multi-AI Takeover" }, desc: "同時召兩種小怪。", solve: "同上，優先躲機制，減傷吃自爆。", danger: 2 },
@@ -685,3 +685,28 @@ window.FF14_DATA.push(
   ],
 }
 );
+
+// Stable game-data identities; do not derive these from localized names.
+[
+  ["ew-tower-of-zot", 783],
+  ["ew-tower-of-babil", 785],
+  ["ew-vanaspati", 789],
+  ["ew-ktisis-hyperboreia", 787],
+  ["ew-aitiascope", 786],
+  ["ew-dead-ends", 792],
+  ["ew-smileton", 794],
+  ["ew-stigma-dreamscape", 784],
+  ["ew-alzadaals-legacy", 844],
+  ["ew-fell-court-of-troia", 869],
+  ["ew-lapis-manalis", 896],
+  ["ew-aetherfont", 822],
+  ["ew-lunar-subterrane", 823],
+].forEach(([id, row]) => {
+  const duty = window.FF14_DATA.find((entry) => entry.id === id);
+  if (duty) duty.identity = {
+    officialKey: `cfc:${row}`,
+    contentType: "dungeon",
+    partySize: 4,
+    sourceUrl: `https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/ContentFinderCondition.csv#L${row + 2}`,
+  };
+});

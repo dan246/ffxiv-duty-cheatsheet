@@ -4,6 +4,7 @@ window.FF14_DATA.push(
 // ===================== 4.0 須佐之男 =====================
 {
   id: "sb-the-pool-of-tribute",
+  identity: { officialKey: "cfc:243", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/243?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.0",
@@ -35,6 +36,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-the-pool-of-tribute-ex",
+  identity: { officialKey: "cfc:244", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/244?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.0",
@@ -71,6 +73,7 @@ window.FF14_DATA.push(
 // ===================== 4.0 吉祥天女 =====================
 {
   id: "sb-emanation",
+  identity: { officialKey: "cfc:263", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/263?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.0",
@@ -103,6 +106,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-emanation-ex",
+  identity: { officialKey: "cfc:264", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/264?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.0",
@@ -139,6 +143,7 @@ window.FF14_DATA.push(
 // ===================== 4.0 神龍 =====================
 {
   id: "sb-the-royal-menagerie",
+  identity: { officialKey: "cfc:239", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/239?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.0",
@@ -176,6 +181,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-the-royal-menagerie-ex",
+  identity: { officialKey: "cfc:278", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/278?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.1",
@@ -225,6 +231,7 @@ window.FF14_DATA.push(
 // ===================== 4.2 白虎 =====================
 {
   id: "sb-the-jade-stoa",
+  identity: { officialKey: "cfc:290", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/290?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.2",
@@ -258,6 +265,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-the-jade-stoa-ex",
+  identity: { officialKey: "cfc:291", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/291?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.2",
@@ -295,6 +303,7 @@ window.FF14_DATA.push(
 // ===================== 4.3 月讀 =====================
 {
   id: "sb-castrum-fluminis",
+  identity: { officialKey: "cfc:537", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/537?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.3",
@@ -326,6 +335,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-castrum-fluminis-ex",
+  identity: { officialKey: "cfc:538", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/538?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.3",
@@ -367,6 +377,7 @@ window.FF14_DATA.push(
 // ===================== 4.4 朱雀 =====================
 {
   id: "sb-hells-kier",
+  identity: { officialKey: "cfc:596", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/596?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.4",
@@ -400,6 +411,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-hells-kier-ex",
+  identity: { officialKey: "cfc:597", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/597?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.4",
@@ -438,6 +450,7 @@ window.FF14_DATA.push(
 // ===================== 4.5 青龍 =====================
 {
   id: "sb-the-wreath-of-snakes",
+  identity: { officialKey: "cfc:637", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/637?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.5",
@@ -472,6 +485,7 @@ window.FF14_DATA.push(
 },
 {
   id: "sb-the-wreath-of-snakes-ex",
+  identity: { officialKey: "cfc:638", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/638?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.5",
@@ -513,6 +527,7 @@ window.FF14_DATA.push(
 // ===================== 4.56 保鏢（黃金大橋） =====================
 {
   id: "sb-kugane-ohashi",
+  identity: { officialKey: "cfc:595", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/595?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.56",
@@ -533,7 +548,7 @@ window.FF14_DATA.push(
         { name: { cn: "命尽于此", en: "Bitter End" }, desc: "對坦克的正面順劈。", solve: "T 讓王背對隊伍。", role: "T", danger: 2, phase: "P2" },
         { name: { cn: "缩小旋律", en: "Tiny Song" }, desc: "全員紅箭頭標記。", solve: "**全員擠在一起**，落單的人會被縮小。", danger: 2, phase: "P2" },
         { name: { cn: "龙星击", en: "Dragon Night" }, desc: "幽靈龍頭橫越場地，碰到受傷 + 受傷加重，之後全體傷害。", solve: "站在龍頭之間的空隙。", danger: 2, phase: "P2" },
-        { name: { cn: "小怪階段（恩奇都）", en: "Embodiment" }, desc: "約 40% 兩名坦克被核爆標記，小怪跳到坦克身上並開始累積條，條滿 100% 或小怪死亡後王放**天之丛云**：中線大劈 + 依條的多寡打全體。", solve: "兩 T 分別到相對的角落吃核爆，全員快速殺掉小怪讓條越低越好；天之丛云時離開中線。", danger: 3, phase: "P3（約 40%）" },
+        { name: { cn: "小怪階段", en: "Embodiment" }, desc: "約 40% 兩名坦克被核爆標記，各有一隻小怪跳到坦克身上並開始累積條；兩隻靠近會得到極高減傷。條滿 100% 或小怪死亡後王放**天之丛云**：中線大劈 + 依條的多寡打全體。", solve: "兩 T 分別到相對角落，把兩隻小怪拉開；全員快速殺掉讓條越低越好，天之丛云時離開中線。", danger: 3, phase: "P3（約 40%）" },
         { name: { cn: "十亿跳跃", en: "Giga Jump" }, desc: "MT 身上核爆標記，王跳過來打距離衰減。", solve: "MT 遠離人群，其他人離他遠。", role: "T", danger: 2, phase: "P3 結尾" },
         { name: { cn: "雷击", en: "Electrogenetic Force" }, desc: "兩種：多顆紫球排出重疊 AOE 只留一個安全點；或紫球落在隨機玩家身上。", solve: "找唯一的安全點；被點的人走開。吃到一顆很痛，兩顆會死。", danger: 3, phase: "P4" },
         { name: { cn: "捕获 / 狱门", en: "Enchain / Hells' Gate" }, desc: "兩 T 兩 H 被連線並被**铁链**鎖住，王讀**狱门**，讀完鎖住的人全死。", solve: "四名 DPS 立刻打壞四條铁链（可選中）。", role: "D", danger: 3, phase: "P4" },
@@ -546,6 +561,7 @@ window.FF14_DATA.push(
 // ===================== 4.36 火龍（怪物獵人合作） =====================
 {
   id: "sb-the-great-hunt",
+  identity: { officialKey: "cfc:474", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/474?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "sb",
   patch: "4.36",
@@ -553,16 +569,16 @@ window.FF14_DATA.push(
   ilvl: 320,
   name: { cn: "火龙狩猎战", en: "The Great Hunt", tw: "火龍狩獵戰" },
   aliases: ["火龙", "火龍", "雄火龙", "雄火龍", "Rathalos", "怪物猎人", "怪物獵人", "MHW"],
-  overview: "4 人本（1T1H2D），火龙沒有仇恨、不能被坦。看動作躲：頭朝你就閃、尾巴抬起繞左側；中段先殺加鲁拉再騎龍；P3 治療無效只能喝**回复药G**。",
+  overview: "8 人本（2T2H4D），火龙沒有固定仇恨。看動作躲：頭朝你就閃、尾巴抬起繞左側；中段先殺加鲁拉再騎龍；P3 治療無效只能喝**回复药G**。",
   bosses: [
     {
       name: { cn: "火龙", en: "Rathalos" },
       summary: "站左側躲尾巴、看動作躲衝撞；P3 治療無效，靠藥水撐並在牠倒地時爆發。",
       mechanics: [
         { name: { cn: "咆哮", en: "Roar" }, desc: "全體傷害，約每分鐘一次。", solve: "血量維持 40% 以上再吃。", danger: 2, phase: "P1" },
-        { name: { cn: "咬 + 甩尾", en: "Whipping Bite" }, desc: "火龙看左邊、張嘴、抬尾：咬正面同時尾巴掃後面。", solve: "往側面走或退遠。", danger: 2, phase: "P1" },
-        { name: { cn: "拍尾", en: "Tail Swipe" }, desc: "火龙看右邊抬尾：連續兩次逆時針 180 度掃尾，擊退 + 可能暈。", solve: "站到牠的**左側**或拉開距離。", danger: 2, phase: "P1" },
-        { name: { cn: "冲撞咬", en: "Charging Bite" }, desc: "轉向目標並小吼一聲後直線撲過去，路徑上的人受傷 + 擊退 + 可能暈。", solve: "看到牠轉向你就往旁邊閃。", danger: 2, phase: "P1" },
+        { name: { cn: "动作判读：咬 + 甩尾", en: "Whipping Bite" }, desc: "火龙看左邊、張嘴、抬尾：咬正面同時尾巴掃後面。", solve: "往側面走或退遠；沒有可等讀條。", danger: 2, phase: "P1" },
+        { name: { cn: "动作判读：拍尾", en: "Tail Swipe" }, desc: "火龙看右邊抬尾：連續兩次逆時針 180 度掃尾，擊退 + 可能暈。", solve: "站到牠的**左側**或拉開距離；沒有可等讀條。", danger: 2, phase: "P1" },
+        { name: { cn: "动作判读：冲撞咬", en: "Charging Bite" }, desc: "轉向目標並小吼一聲後直線撲過去，路徑上的人受傷 + 擊退 + 可能暈。", solve: "看到牠轉向你就往旁邊閃；沒有可等讀條。", danger: 2, phase: "P1" },
         { name: { cn: "火球", en: "Fireball" }, desc: "頭上標記一人，吐無法躲的火球，濺射 + 火伤（可康復）。", solve: "被點的人離開隊友，H 康復。", danger: 2, phase: "P1" },
         { name: { cn: "后跳火焰吐息", en: "Evasive Breath" }, desc: "低頭朝目標後往後跳並噴火，提示極短，正面大傷害 + 火伤 + 擊退。", solve: "看到低頭立刻繞到側後方。", danger: 3, phase: "P1" },
         { name: { cn: "野生动物", en: "Adds (Coeurl etc.)" }, desc: "約 80% 起野生動物進場攻擊火龙，有仇恨可以坦；库尔会放大扇形。", solve: "T 把牠們拉到火龙旁邊讓兩邊互打；库尔特先殺或背對隊伍。", danger: 2, phase: "P2" },
@@ -576,10 +592,11 @@ window.FF14_DATA.push(
       tips: ["死亡三人即任務失敗；沒有復活羽毛。", "近戰全程站火龙左側最安全。"],
     },
   ],
-  notes: ["4 人輕小隊副本，可解除限制。"],
+  notes: ["普通難度為 8 人副本；只有上位狩猎战（Extreme）是 4 人。可解除限制。"],
 },
 {
   id: "sb-the-great-hunt-ex",
+  identity: { officialKey: "cfc:475", contentType: "extreme-trial", partySize: 4, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/475?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "sb",
   patch: "4.36",
@@ -594,9 +611,9 @@ window.FF14_DATA.push(
       summary: "全程看動作躲，P2 加鲁拉要快，P3 靠藥水與倒地爆發。",
       mechanics: [
         { name: { cn: "咆哮", en: "Roar" }, desc: "全體傷害，約每分鐘一次。", solve: "全員維持 40% 以上血，H 提前補滿。", danger: 2, phase: "P1" },
-        { name: { cn: "咬 + 甩尾", en: "Whipping Bite" }, desc: "看左邊張嘴抬尾：咬前面 + 尾掃後面。", solve: "側面或退遠。", danger: 2, phase: "P1" },
-        { name: { cn: "拍尾", en: "Tail Swipe" }, desc: "看右邊抬尾：兩次逆時針 180 度掃尾 + 擊退 + 暈。", solve: "站左側或拉遠。", danger: 3, phase: "P1" },
-        { name: { cn: "冲撞咬", en: "Charging Bite" }, desc: "轉向目標小吼後直線撲擊。", solve: "牠轉向你時往側邊閃。", danger: 3, phase: "P1" },
+        { name: { cn: "动作判读：咬 + 甩尾", en: "Whipping Bite" }, desc: "看左邊張嘴抬尾：咬前面 + 尾掃後面。", solve: "側面或退遠；沒有可等讀條。", danger: 2, phase: "P1" },
+        { name: { cn: "动作判读：拍尾", en: "Tail Swipe" }, desc: "看右邊抬尾：兩次逆時針 180 度掃尾 + 擊退 + 暈。", solve: "站左側或拉遠；沒有可等讀條。", danger: 3, phase: "P1" },
+        { name: { cn: "动作判读：冲撞咬", en: "Charging Bite" }, desc: "轉向目標小吼後直線撲擊。", solve: "牠轉向你時往側邊閃；沒有可等讀條。", danger: 3, phase: "P1" },
         { name: { cn: "火球", en: "Fireball" }, desc: "頭上標記一人，無法躲的火球濺射 + 火伤。", solve: "被點者遠離隊友，H 康復。", danger: 2, phase: "P1" },
         { name: { cn: "后跳火焰吐息", en: "Evasive Breath" }, desc: "低頭後往後跳噴火，提示極短，正面大傷害 + 火伤 + 擊退。", solve: "看到低頭立刻繞到背後，這招最容易死人。", danger: 3, phase: "P1" },
         { name: { cn: "野生动物 / 库尔", en: "Adds / Coeurl" }, desc: "80% 野生動物進場，可坦；库尔放大扇形。", solve: "T 拉到火龙旁互打，库尔先殺或背對。", danger: 2, phase: "P2" },

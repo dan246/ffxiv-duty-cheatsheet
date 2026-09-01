@@ -7,7 +7,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 91,
-  ilvl: null,
+  ilvl: 630,
   name: { cn: "丛林竞流生息河岸", en: "Ihuykatumu", tw: "叢林競流生息河岸" },
   aliases: ["生息河岸", "河岸", "海牛本", "伊胡伊卡图穆", "Ihuy"],
   overview: "7.0 第一本。三王都是「看預兆躲」的教學：海牛連線分散、藤蔓看朝向、末王蝗蟲直線與閃電扇形。",
@@ -35,7 +35,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "亚波伦", en: "Apex Predator: Apollyon" },
+      name: { cn: "亚波伦", en: "Apollyon" },
       summary: "吃了豹貓和沙蟲會變強：蝗蟲直線、閃電四向扇形、旋風直線。主要是找縫站。",
       mechanics: [
         { name: { cn: "空气削割", en: "Razor Zephyr" }, desc: "對隨機一人的寬直線。", solve: "被指的人橫向移開，其他人別站王和他之間。", danger: 1 },
@@ -56,7 +56,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 93,
-  ilvl: null,
+  ilvl: 635,
   name: { cn: "通天绝壁沃刻佐莫山", en: "Worqor Zormor", tw: "通天絕壁沃刻佐莫山" },
   aliases: ["沃刻佐莫山", "沃科尔", "雪山本", "雪精本", "Worqor"],
   overview: "雪山本。一王看哪隻雪精被冰凍就站哪、二王結晶碎片的圓/月環、末王吃鬥氣球。",
@@ -95,7 +95,7 @@ window.FF14_DATA.push(
         { name: { cn: "投掷石板 → 大洪水", en: "Stonework → Great Flood" }, desc: "召出水像，從東或西整排擊退。", solve: "開防擊退，或站在靠近水像那一側被推得少。", danger: 2 },
         { name: { cn: "投掷石板 → 火山弹", en: "Stonework → Volcanic Drop" }, desc: "召出火像，方格一格一格連鎖炸，同時全員分散圓。", solve: "沿著還沒炸的方格躲並拉開距離。", danger: 2 },
         { name: { cn: "三重猛击", en: "Sledgehammer" }, desc: "對隨機一人的直線分攤，連打三下。", solve: "全員排在直線內分攤，開減傷。", danger: 3 },
-        { name: { cn: "强力脚 / 英灵的加护", en: "Arcane Stomp / Allfire" }, desc: "場邊出現鬥氣球飛向王，碰到玩家給玩家「傷害提高」，飛到王身上給王疊層；王層數太多後放**不朽荣光**全滅。", solve: "四人分頭去碰球，一顆都別讓它飛到王。萬一疊太多，T 開 LB 硬吃。", danger: 3 },
+        { name: { cn: "强力脚 / 猛火喷发", en: "Arcane Stomp / Allfire" }, desc: "場邊出現鬥氣球飛向王，碰到玩家給玩家「傷害提高」，飛到王身上給王疊層；王層數太多後放**不朽荣光**造成致命傷害。", solve: "四人分頭去碰球，一顆都別讓它飛到王；若王已疊到高層數，預留團隊減傷與 T LB。", danger: 3 },
         { name: { cn: "投掷石板 → 龙卷风", en: "Stonework → Windswrath" }, desc: "風像從場中擊退，同時東西各兩個龍捲沿著橫排移動。", solve: "防擊退，站在龍捲不會經過的橫排。", danger: 2 },
         { name: { cn: "水火同時", en: "Stonework (combined)" }, desc: "火像和水像一起出現，方格連鎖＋整排擊退同時來。", solve: "先算擊退方向站好（或防擊退），再沿方格躲。", danger: 3 },
       ],
@@ -108,7 +108,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 95,
-  ilvl: null,
+  ilvl: 640,
   name: { cn: "神圣禁地深空天坑", en: "The Skydeep Cenote", tw: "神聖禁地深空天坑" },
   aliases: ["深空天坑", "天坑", "泡泡本", "Cenote"],
   overview: "一王泡泡和「自己也會放技能」的添乱、二王鏡子反射、末王擊退落場。防擊退技能在末王很重要。",
@@ -136,7 +136,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "锤颅巨兵", en: "Sculptor of Silence: Maulskull" },
+      name: { cn: "锤颅巨兵", en: "Maulskull" },
       summary: "擊退＋半場拳的組合，被推下去就死；手先亮的那邊先砍。",
       mechanics: [
         { name: { cn: "削岩拳", en: "Stonecarver" }, desc: "王的左右手先後發光，依序放兩次半場 AOE。", solve: "先站「後亮那隻手」的那側，第一拳砍完立刻換邊。", danger: 3 },
@@ -158,7 +158,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 97,
-  ilvl: null,
+  ilvl: 645,
   name: { cn: "前哨基地先锋营", en: "Vanguard", tw: "前哨基地先鋒營" },
   aliases: ["先锋营", "先鋒營", "机器人本", "機器人本", "Vanguard"],
   overview: "機器人本。一王看小兵的直線縫、二王電網＋定身炸彈、末王裂縫半場＋蛇形彎道。",
@@ -185,8 +185,8 @@ window.FF14_DATA.push(
         { name: { cn: "旋回式冲击炮 / 轰炸", en: "Battery Circuit / Bombardment" }, desc: "王兩側扇形順/逆時針旋轉，中間穿插鋼鐵和圓 AOE。", solve: "跟著扇形轉，注意不要撞電網。", danger: 2 },
         { name: { cn: "湍雷", en: "Rapid Thunder" }, desc: "死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
         { name: { cn: "动态感应炸弹（加速度炸弹）", en: "Motion Sensor / Acceleration Bomb" }, desc: "全員得到 13～15 秒「加速度炸彈」，倒數歸零時有動作就爆；同時雷射砲塔依序掃橫排直線。", solve: "看自己的秒數，提前站到砲塔不會掃到的位置，倒數到 1 秒前停手停腳（停自動攻擊）。", danger: 3 },
-        { name: { cn: "追踪电击", en: "Tracking Bolt" }, desc: "全員大分散圓。", solve: "拉遠，別跟隊友重疊。", danger: 2 },
-        { name: { cn: "重冲击炮", en: "Heavy Blast Cannon" }, desc: "對隨機一人的直線分攤。", solve: "全員排進直線內分攤。", danger: 2 },
+        { name: { cn: "追踪式闪雷", en: "Tracking Bolt" }, desc: "全員大分散圓。", solve: "拉遠，別跟隊友重疊。", danger: 2 },
+        { name: { cn: "重击式冲击炮", en: "Heavy Blast Cannon" }, desc: "對隨機一人的直線分攤。", solve: "全員排進直線內分攤。", danger: 2 },
       ],
     },
     {
@@ -201,7 +201,7 @@ window.FF14_DATA.push(
         { name: { cn: "曲蛇融魂斩", en: "Syntheslither" }, desc: "王到場邊，場上出現一條彎曲軌跡與四把劍標記，王沿軌跡前進並在每個標記左右交替放扇形。", solve: "站在**第一個彎的內側、王身邊**（軌跡一開始彎向哪邊，就站反方向貼近王），連續兩次。", danger: 3, phase: "P2" },
         { name: { cn: "暗影弹", en: "Shade Shot" }, desc: "死刑。", solve: "T 開減傷。", role: "T", danger: 2, phase: "P2" },
         { name: { cn: "前尾祸剑击 / 后尾祸剑击", en: "Slitherbane Foreguard / Rearguard" }, desc: "直線裂縫＋前方 180°（前尾）或後方 180°（後尾）順劈，四連發各轉 90°。", solve: "看技能名：**前尾→站王背後**、**后尾→站王正面**，同時避開裂縫那半場。", danger: 3, phase: "P2" },
-        { name: { cn: "尖啸", en: "Screech" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1, phase: "P2" },
+        { name: { cn: "嘶嚎", en: "Screech" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1, phase: "P2" },
       ],
     },
   ],
@@ -212,7 +212,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 99,
-  ilvl: null,
+  ilvl: 650,
   name: { cn: "魂魄工厂创生设施", en: "Origenics", tw: "魂魄工廠創生設施" },
   aliases: ["创生设施", "創生設施", "起源研究所", "Origenics"],
   overview: "一王毒水坑看抬哪隻腳、二王「模糊的是假的」、末王四象限擊退＋雷槍直線。",
@@ -243,7 +243,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "实验体安布罗斯", en: "Innovation's Excess: Ambrose the Undeparted" },
+      name: { cn: "实验体安布罗斯", en: "Ambrose the Undeparted" },
       summary: "四象限箭頭擊退＋半場順劈的組合，雷槍的紅線要記住。",
       mechanics: [
         { name: { cn: "念动波", en: "Psychic Wave" }, desc: "全體傷害＋場邊危險區。", solve: "H 補血。", role: "H", danger: 1 },
@@ -264,7 +264,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 100,
-  ilvl: 660,
+  ilvl: 670,
   name: { cn: "忆中金曦亚历山德里亚", en: "Alexandria", tw: "憶中金曦亞歷山德里亞" },
   aliases: ["亚历山德里亚", "亞歷山德里亞", "亚历山大迷宫", "7.0 满级本", "Alexandria"],
   overview: "7.0 滿級主線本。一王節點順序、二王直線放電、末王「打發電機」與雷抗性下降分散不能疊。",
@@ -291,7 +291,7 @@ window.FF14_DATA.push(
         { name: { cn: "静电火花", en: "Static Spark" }, desc: "全員分散圓。", solve: "拉開。", danger: 2 },
         { name: { cn: "融合威能", en: "Amalgamight" }, desc: "範圍死刑。", solve: "T 開減傷，其他人離開。", role: "T", danger: 2 },
         { name: { cn: "超电击", en: "Superbolt" }, desc: "非 T 隨機一人分攤。", solve: "集合。", danger: 2 },
-        { name: { cn: "三段充能", en: "Ternary Charge" }, desc: "鋼鐵後接兩圈月環由內往外。", solve: "先站外圈，中心炸完往內走。", danger: 2 },
+        { name: { cn: "三重放电", en: "Ternary Charge" }, desc: "鋼鐵後接兩圈月環由內往外。", solve: "先站外圈，中心炸完往內走。", danger: 2 },
       ],
     },
     {
@@ -317,7 +317,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.0",
   level: 100,
-  ilvl: 675,
+  ilvl: 670,
   name: { cn: "荒野秘境仙人刺谷", en: "Tender Valley", tw: "荒野秘境仙人刺谷" },
   aliases: ["仙人刺谷", "仙人掌本", "温柔谷", "溫柔谷", "大蛇本", "Tender Valley"],
   overview: "7.0 專家本之一。一王仙人掌擊退、二王箭頭炸彈看牆洞、末王迷宮箭頭與分身。",
@@ -350,7 +350,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "图拉尔的大蛇？", en: "Inexplicable Entity: The Greatest Serpent of Tural" },
+      name: { cn: "图拉尔的大蛇？", en: "The Greatest Serpent of Tural" },
       summary: "分身看頭上藍箭頭；迷宮從 O 格反推路線；水蛇三次分攤留水坑。",
       mechanics: [
         { name: { cn: "图拉尔灾祸？", en: "Dubious Tulidisaster" }, desc: "全體傷害，場邊長刺踩到流血。", solve: "H 補血，別貼牆。", role: "H", danger: 1 },
@@ -371,7 +371,7 @@ window.FF14_DATA.push(
   expansion: "dt",
   patch: "7.1",
   level: 100,
-  ilvl: 690,
+  ilvl: 670,
   name: { cn: "噩梦乐园迷途鬼区", en: "The Strayborough Deadwalk", tw: "噩夢樂園迷途鬼區" },
   aliases: ["迷途鬼区", "迷途鬼區", "鬼屋本", "乐园本", "樂園本", "Strayborough"],
   overview: "7.1 主線本。一王娃娃衝鋒、二王茶杯旋轉找被附身的杯、末王靈體化切換（除灵要變人、戮肉要變鬼）。",
@@ -399,7 +399,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "梦像", en: "Daylit Nightmare: Träumerei" },
+      name: { cn: "梦像", en: "Träumerei" },
       summary: "踩靈體板變鬼才能穿箱子拉連線；除灵前要變回人、戮肉前要變成鬼，看技能名切換。",
       mechanics: [
         { name: { cn: "痛苦回忆", en: "Bitter Regret" }, desc: "北側一個魔法陣＝中間直線（兩側安全）；後期兩側各一個＝兩側直線（中間安全）。", solve: "魔法陣在中間站兩邊、在兩邊站中間。", danger: 2 },
@@ -432,10 +432,10 @@ window.FF14_DATA.push(
       summary: "水晶柱丟出去前三組直線，落點大圓；雷轉質小怪讀條前打死。",
       mechanics: [
         { name: { cn: "广域放电", en: "Electrical Overload" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
-        { name: { cn: "刺牙 / 投掷水晶", en: "Gore / Caber Toss" }, desc: "王把牙插進水晶柱充電，接著三組直線預兆，然後把水晶丟到新位置炸大圓。", solve: "躲三組直線，看水晶飛向哪就遠離那個大圓。", danger: 2 },
+        { name: { cn: "刺牙 / 投掷", en: "Gore / Caber Toss" }, desc: "王把牙插進水晶柱充電，接著三組直線預兆，然後把水晶丟到新位置炸大圓。", solve: "躲三組直線，看水晶飛向哪就遠離那個大圓。", danger: 2 },
         { name: { cn: "百雷", en: "Lightning Storm" }, desc: "全員分散圓。", solve: "拉開。", danger: 2 },
-        { name: { cn: "电光裂隙", en: "Sparking Fissure" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
-        { name: { cn: "雷转质原石（小怪）", en: "Raw Electrope adds / Electrify" }, desc: "數隻雷轉質原石讀條**通电**，讀完全體傷害＋魔法易傷；兩隻同時讀完＝團滅。", solve: "四人分頭打，遠程打遠的，讀條前全部打死。", danger: 3 },
+        { name: { cn: "对地放电", en: "Sparking Fissure" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
+        { name: { cn: "雷转质原石 / 大放电", en: "Raw Electrope / Electrify" }, desc: "數隻雷轉質原石讀條**大放电**，讀完全體傷害＋魔法易傷；兩隻同時讀完＝團滅。", solve: "四人分頭打，遠程打遠的，讀條前全部打死。", danger: 3 },
       ],
     },
     {
@@ -443,29 +443,29 @@ window.FF14_DATA.push(
       summary: "月環縮圈後要在小場地分散；恍惚後移動方向會跟著指針，移動前看指針。",
       mechanics: [
         { name: { cn: "灵魂释放", en: "Free Spirits" }, desc: "全體傷害＋場邊危險區（加重、出血、傷害降低）。", solve: "H 補血，別踩邊。", role: "H", danger: 1 },
-        { name: { cn: "灵魂前线（曲线）", en: "Soul Frontier" }, desc: "橘色曲線依序出現並炸。", solve: "一條一條躲。", danger: 2 },
+        { name: { cn: "灵魂飞掠", en: "Soulweave" }, desc: "橘色曲線依序出現並炸。", solve: "一條一條躲。", danger: 2 },
         { name: { cn: "幽魂泛滥", en: "Phantom Flood" }, desc: "月環，並留下持續區把場地縮成小圓。", solve: "貼王。", danger: 2 },
         { name: { cn: "昏暗", en: "Dark II" }, desc: "六個 30° 扇形隔一個炸一個，第二輪炸第一輪的縫。", solve: "先站縫，第一輪炸完站進去。", danger: 2 },
         { name: { cn: "幽魂之泪", en: "Telltale Tears" }, desc: "三名非 T 分散圓。", solve: "小場地內盡量拉開。", danger: 2 },
         { name: { cn: "恍惚的叫声", en: "Lost Hope" }, desc: "全員 17 秒「暫時性方向錯亂」：按移動鍵會往頭上旋轉指針的方向走。", solve: "要動的時候看指針指到想去的方向再按；或用衝刺/位移技（不受影響）。", danger: 2 },
-        { name: { cn: "死灵灾害", en: "Necrohazard" }, desc: "王消失，場中出現接近型 AOE。", solve: "在錯亂狀態下沿安全路徑走到牆邊，越遠越好。", danger: 3 },
+        { name: { cn: "死灵危机", en: "Necrohazard" }, desc: "王消失，場中出現接近型 AOE。", solve: "在錯亂狀態下沿安全路徑走到牆邊，越遠越好。", danger: 3 },
         { name: { cn: "血爆", en: "Bloodburst" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
         { name: { cn: "失魂", en: "Soul Douse" }, desc: "隨機一人分攤。", solve: "集合。", danger: 2 },
         { name: { cn: "黑暗之魂", en: "Dark Souls" }, desc: "死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
       ],
     },
     {
-      name: { cn: "鲁尼皮亚提", en: "Tural Vidraal: Lunipyati" },
+      name: { cn: "鲁尼皮亚提", en: "Lunipyati" },
       summary: "五連 180° 順劈去背後；場中被挖空後變環形，沿環躲繞圈的圓。",
       mechanics: [
         { name: { cn: "暴怒连爪", en: "Raging Claw" }, desc: "王轉向隨機一人，對前方連放五次 180° 順劈。", solve: "看王面向，跑到背後。", danger: 3 },
-        { name: { cn: "兔身压制", en: "Leporine Loaf" }, desc: "全體傷害＋場邊危險區縮圈。", solve: "H 補血。", role: "H", danger: 1 },
+        { name: { cn: "稳如兔山", en: "Leporine Loaf" }, desc: "全體傷害＋場邊危險區縮圈。", solve: "H 補血。", role: "H", danger: 1 },
         { name: { cn: "跃动的大地", en: "Leaping Earth" }, desc: "沿橘色曲線由內往外的螺旋圓 AOE，速度很快。", solve: "跟著螺旋方向走，踩在剛炸完的位置。", danger: 2 },
-        { name: { cn: "巨石之舞", en: "Boulder Dance" }, desc: "沙蟲鑽出的曲線箭頭處炸圓。", solve: "看箭頭終點躲。", danger: 2 },
-        { name: { cn: "锯齿岩", en: "Jagged Edge" }, desc: "全員分散圓。", solve: "拉開。", danger: 2 },
+        { name: { cn: "舞动的岩石", en: "Boulder Dance" }, desc: "沙蟲鑽出的曲線箭頭處炸圓。", solve: "看箭頭終點躲。", danger: 2 },
+        { name: { cn: "岩石突击", en: "Jagged Edge" }, desc: "全員分散圓。", solve: "拉開。", danger: 2 },
         { name: { cn: "刨坑", en: "Crater Carve" }, desc: "王把場地中間挖空跳到北側，場地變環形。", solve: "之後**不要對王用突進技**（會掉下去死），走位沿環走。", danger: 3, phase: "血量約 60% 後" },
-        { name: { cn: "野兽咆哮", en: "Beastly Roar" }, desc: "王腳下接近型 AOE，之後快速的圓 AOE 沿環順/逆時針繞。", solve: "先跑到王對面，看圓的方向反方向跑；被打到會被暈＋擊飛。", danger: 3, phase: "環形場地" },
-        { name: { cn: "图拉尔飞石", en: "Turali Stone IV" }, desc: "隨機一人分攤。", solve: "集合。", danger: 2 },
+        { name: { cn: "残虐咆哮", en: "Beastly Roar" }, desc: "王腳下接近型 AOE，之後快速的圓 AOE 沿環順/逆時針繞。", solve: "先跑到王對面，看圓的方向反方向跑；被打到會被暈＋擊飛。", danger: 3, phase: "環形場地" },
+        { name: { cn: "图拉尔崩石", en: "Turali Stone IV" }, desc: "隨機一人分攤。", solve: "集合。", danger: 2 },
         { name: { cn: "音嚎", en: "Sonic Howl" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
         { name: { cn: "唾液飞溅", en: "Slabber" }, desc: "死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
       ],
@@ -508,7 +508,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "灵变柱", en: "Indefatigable Defense: Valia Pira" },
+      name: { cn: "灵变柱", en: "Valia Pira" },
       summary: "王不會動只會轉；藍線的方塊碰到紅線的珠子就炸整排整列，別跟珠子同排同列。",
       mechanics: [
         { name: { cn: "熵球", en: "Entropic Sphere" }, desc: "全體傷害。", solve: "H 補血。", role: "H", danger: 1 },
@@ -557,9 +557,9 @@ window.FF14_DATA.push(
         { name: { cn: "断罪的铁球", en: "Flaying Flail" }, desc: "三顆鐵球從上方砸下小圓。", solve: "看陰影躲。", danger: 2 },
         { name: { cn: "连续处刑", en: "Serial Torture" }, desc: "直線→鐵球圓→直線→鋼鐵/月環的連段。", solve: "一個接一個躲，注意最後是鋼鐵還是月環。", danger: 3 },
         { name: { cn: "死刑宣告", en: "Death Penalty" }, desc: "H 專屬：10 秒死亡宣告。", solve: "自己康復。", role: "H", danger: 3 },
-        { name: { cn: "破坏意志 / 强连击", en: "Will Breaker / Relentless Torment" }, desc: "T 專屬：長讀條**破坏意志**，讀完受傷＋物理易傷；接著三連死刑**强连击**。", solve: "用打斷（插言）打斷讀條，然後開減傷吃三下。", role: "T", danger: 3 },
-        { name: { cn: "地狱制造者", en: "Hellmaker" }, desc: "D 專屬：地板持續燃燒，場上出現**地狱制造者**小怪，不殺掉燃燒越來越痛（軟狂暴），期間還有雷劍和鐵球。", solve: "先轉火打死地狱制造者再回頭打處刑人。", role: "D", danger: 3 },
-        { name: { cn: "逃脱", en: "Fugitive from Justice" }, desc: "打死自己的處刑人後牢房消失，可以去幫其他人。", solve: "先去幫最慢的（通常是 T），一起打。", danger: 1 },
+        { name: { cn: "破碎弹 / 强连击", en: "Will Breaker / Relentless Torment" }, desc: "T 專屬：長讀條**破碎弹**，讀完受傷＋物理易傷；接著三連死刑**强连击**。", solve: "用打斷（插言）打斷破碎弹，然後開減傷吃三下强连击。", role: "T", danger: 3 },
+        { name: { cn: "焦热刑具", en: "Hellmaker" }, desc: "D 專屬：場地外側出現**焦热刑具**；不打掉就會持續附加火傷，之後傷害大幅提高。期間還有雷劍和鐵球。", solve: "先轉火打死焦热刑具，再回頭打處刑人。", role: "D", danger: 3 },
+        { name: { cn: "破狱", en: "Fugitive from Justice" }, desc: "打死自己的處刑人後獲得**破狱**狀態，可以攻擊其他人的處刑人。", solve: "先去幫還沒打完的人；通常優先幫 T 或輸出較慢的一側。", danger: 1 },
       ],
     },
     {
@@ -586,7 +586,7 @@ window.FF14_DATA.push(
   patch: "7.4",
   level: 100,
   ilvl: 735,
-  name: { cn: "遗忘行路雾之迹", en: "The Mistwake", tw: "遺忘行路霧之跡" },
+  name: { cn: "遗忘行路雾之迹", en: "Mistwake", tw: "遺忘行路霧之跡" },
   aliases: ["雾之迹", "霧之跡", "遗忘行路", "雾中本", "石化牛本", "Mistwake"],
   overview: "7.4 主線本，全程雷屬性。一王要留石頭當掩體躲石化光、二王雷球缺口＋毒泡、末王雷球連線直線與場邊電池。",
   route: "1. 道中怪可兩包拉，有幾隻會放直線衝鋒，稍微側站。\n2. 一王場上的石頭是掩體，開場就別亂丟 AOE 打壞它們。",
@@ -624,7 +624,7 @@ window.FF14_DATA.push(
         { name: { cn: "雷霆咆哮", en: "Thundering Roar" }, desc: "王跳到場邊，王和每顆雷球、雷球彼此之間兩兩連線，連線處放直線。", solve: "站在任何連線都不經過的區塊（通常是王側面靠內的空地）。", danger: 3 },
         { name: { cn: "黄金爪", en: "Golden Talons" }, desc: "物理死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
         { name: { cn: "雷光坠击", en: "Fulgurous Fall" }, desc: "王跳到場邊沿中線衝過場地（10m 直線），線外的人被往外擊退；同時場上生成四顆雷球，王再垂直衝回來，接一次雷霆咆哮。", solve: "站在衝鋒直線旁邊開防擊退；沒防擊退就靠近中心，被推也不會到電池。之後再解一次連線直線。", danger: 3 },
-        { name: { cn: "风暴涌动", en: "Storm Surge" }, desc: "王在場邊放一條橫跨場地的直線，對側生成一個雷之漩渦，接下來兩次雷霆咆哮它也算一顆雷球。", solve: "躲直線，之後算連線時把漩渦也算進去。", danger: 2 },
+        { name: { cn: "电暴", en: "Storm Surge" }, desc: "王在場邊放一條橫跨場地的直線，對側生成一個雷之漩渦，接下來兩次雷霆咆哮它也算一顆雷球。", solve: "躲直線，之後算連線時把漩渦也算進去。", danger: 2 },
       ],
     },
   ],
@@ -665,7 +665,7 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "玛帕斯", en: "Masterful Manipulator: Malphas" },
+      name: { cn: "玛帕斯", en: "Malphas" },
       summary: "廢料人偶：比布鲁斯（大）放前方扇形、石像鬼（小）放自身圓；提線讀完要一直走；機偶操控看人偶落點提早站好。",
       mechanics: [
         { name: { cn: "废品处理", en: "Rubbish Disposal" }, desc: "全體傷害，第一次縮圈，並清掉場上人偶。", solve: "H 補血。", role: "H", danger: 1 },
@@ -684,3 +684,28 @@ window.FF14_DATA.push(
   notes: ["7.55 沒有新增 4 人迷宮（新增的是禁地 北之角與分歧塔：魔，屬於野外 24 人內容），本檔到 7.5 為止。"],
 }
 );
+
+// Stable game-data identities; do not derive these from localized names.
+[
+  ["dt-ihuykatumu", 826],
+  ["dt-worqor-zormor", 824],
+  ["dt-skydeep-cenote", 829],
+  ["dt-vanguard", 831],
+  ["dt-origenics", 825],
+  ["dt-alexandria", 827],
+  ["dt-tender-valley", 834],
+  ["dt-strayborough-deadwalk", 981],
+  ["dt-yuweyawata-field-station", 1008],
+  ["dt-underkeep", 1027],
+  ["dt-meso-terminal", 1028],
+  ["dt-mistwake", 1064],
+  ["dt-clyteum", 1011],
+].forEach(([id, row]) => {
+  const duty = window.FF14_DATA.find((entry) => entry.id === id);
+  if (duty) duty.identity = {
+    officialKey: `cfc:${row}`,
+    contentType: "dungeon",
+    partySize: 4,
+    sourceUrl: `https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/ContentFinderCondition.csv#L${row + 2}`,
+  };
+});

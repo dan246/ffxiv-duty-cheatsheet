@@ -10,6 +10,7 @@
     ["raid", "大型"],
     ["savage", "零式"],
     ["alliance", "24人"],
+    ["chaotic", "滅聯盟"],
     ["ultimate", "絕"],
   ];
   const TYPE_LABEL = Object.fromEntries(TYPES);
@@ -24,7 +25,7 @@
   ];
   const EXP_LABEL = Object.fromEntries(EXPS);
   const EXP_ORDER = { arr: 0, hw: 1, sb: 2, shb: 3, ew: 4, dt: 5 };
-  const TYPE_ORDER = { dungeon: 0, trial: 1, extreme: 2, raid: 3, savage: 4, alliance: 5, ultimate: 6, other: 7 };
+  const TYPE_ORDER = { dungeon: 0, trial: 1, extreme: 2, raid: 3, savage: 4, alliance: 5, chaotic: 6, ultimate: 7, other: 8 };
 
   const $ = (s) => document.querySelector(s);
   const els = {
@@ -39,6 +40,34 @@
     get(k, d) { try { const v = localStorage.getItem("ff14." + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
     set(k, v) { try { localStorage.setItem("ff14." + k, JSON.stringify(v)); } catch { } },
   };
+  const toTW = (value) => {
+    const text = String(value ?? "");
+    return window.FF14_ZH_TW?.[text] || text;
+  };
+  const LOCALIZE_SKIP_KEYS = new Set(["id", "en", "url", "sourceUrl", "diagramUrl", "officialKey", "aliases"]);
+  function localizeInPlace(value) {
+    if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        if (typeof value[i] === "string") value[i] = toTW(value[i]);
+        else localizeInPlace(value[i]);
+      }
+    } else if (value && typeof value === "object") {
+      for (const [key, child] of Object.entries(value)) {
+        if (LOCALIZE_SKIP_KEYS.has(key)) continue;
+        if (typeof child === "string") value[key] = toTW(child);
+        else localizeInPlace(child);
+      }
+    }
+    return value;
+  }
+  async function copyText(value) {
+    try {
+      if (navigator.clipboard?.writeText) return await navigator.clipboard.writeText(value);
+    } catch { /* file:// 可能沒有 Clipboard API，改用舊式複製 */ }
+    const ta = document.createElement("textarea");
+    ta.value = value; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
+  }
 
   const state = {
     data: [], byId: new Map(),
@@ -51,22 +80,24 @@
   };
 
   /* ---------- 載入資料檔 ---------- */
-  function loadData(files) {
-    return Promise.all(files.map((f) => new Promise((res) => {
+  async function loadData(files) {
+    const loaded = [];
+    for (const f of files) loaded.push(await new Promise((res) => {
       const s = document.createElement("script");
       s.src = "data/" + f;
       s.onload = () => res(true);
       s.onerror = () => { console.warn("[資料檔未載入]", f); res(false); };
       document.head.appendChild(s);
-    })));
+    }));
+    return loaded;
   }
 
   /* ---------- 搜尋 ---------- */
   function norm(s) { return String(s || "").toLowerCase().replace(/[\s\-_'’.:：·・()（）【】\[\]]/g, ""); }
   function buildIndex(d) {
-    const parts = [d.name.cn, d.name.tw, d.name.en, ...(d.aliases || [])];
-    d._names = parts.filter(Boolean).map(norm);
-    d._bossNames = (d.bosses || []).flatMap((b) => [b.name.cn, b.name.en]).filter(Boolean).map(norm);
+    const parts = [d.name.cn, d.name.tw, d.name.en, ...(d.aliases || []), ...(d.strategies || []).map((s) => s.name)];
+    d._names = parts.filter(Boolean).flatMap((value) => [value, toTW(value)]).map(norm);
+    d._bossNames = (d.bosses || []).flatMap((b) => [b.name.cn, toTW(b.name.cn), b.name.en]).filter(Boolean).map(norm);
     d._text = [...d._names, ...d._bossNames].join(" ");
   }
   function score(d, q) {
@@ -95,7 +126,7 @@
       || (TYPE_ORDER[a.type] - TYPE_ORDER[b.type])
       || (parseFloat(a.patch) - parseFloat(b.patch))
       || (a.level - b.level)
-      || a.name.cn.localeCompare(b.name.cn, "zh");
+      || toTW(a.name.cn).localeCompare(toTW(b.name.cn), "zh-Hant");
   }
 
   /* ---------- 渲染：側欄 ---------- */
@@ -107,13 +138,13 @@
       else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
       else if (v != null) e.setAttribute(k, v);
     }
-    for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+    for (const k of kids.flat(Infinity)) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
     return e;
   }
   function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
   function fmt(s) {
     // 支援 **粗體** 與換行
-    return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+    return esc(toTW(s)).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
   }
 
   function renderChips() {
@@ -142,7 +173,7 @@
           onclick: () => { location.hash = "#/" + d.id; closeSidebar(); },
         },
           h("span", { class: "lv" }, "Lv" + d.level),
-          h("span", { class: "nm" }, d.name.cn, h("small", null, d.name.en)),
+          h("span", { class: "nm" }, toTW(d.name.cn), h("small", null, d.name.en)),
           state.favs.has(d.id) ? h("span", { class: "fav" }, "★") : null,
           state.q ? h("span", { class: "badge t-" + d.type }, TYPE_LABEL[d.type] || d.type) : null,
         ));
@@ -155,7 +186,7 @@
 
   /* ---------- 渲染：內容 ---------- */
   function renderHome() {
-    const link = (d) => h("a", { href: "#/" + d.id }, d.name.cn, h("small", null, `Lv${d.level} ${d.name.en}`));
+    const link = (d) => h("a", { href: "#/" + d.id }, toTW(d.name.cn), h("small", null, `Lv${d.level} ${d.name.en}`));
     const favs = [...state.favs].map((id) => state.byId.get(id)).filter(Boolean).sort(cmp);
     const recent = state.recent.map((id) => state.byId.get(id)).filter(Boolean);
     const counts = {};
@@ -185,21 +216,46 @@
           h("span", { class: "badge t-" + d.type }, TYPE_LABEL[d.type] || d.type),
           h("span", null, EXP_LABEL[d.expansion] || d.expansion),
           h("span", null, "Patch " + d.patch),
-          h("span", null, "Lv " + d.level + (d.ilvl ? ` · IL ${d.ilvl}` : "")),
+          h("span", null, "Lv " + d.level
+            + (d.ilvl ? ` · 最低 IL ${d.ilvl}` : "")
+            + (d.ilvlSync ? ` · 同步 IL ${d.ilvlSync}` : "")),
         ),
         h("h1", null,
-          d.name.cn,
+          toTW(d.name.cn),
           h("span", { class: "en" }, d.name.en),
           h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, isFav ? "★" : "☆"),
         ),
       ),
       h("div", { class: "overview", html: fmt(d.overview) }),
       d.route ? h("details", { class: "route", open: "" }, h("summary", null, "道中 / 路線提示"), h("div", { class: "body", html: fmt(d.route) })) : null,
-      d.bosses.length > 1 ? h("div", { class: "boss-nav" }, d.bosses.map((b, i) => h("a", { href: "#" + bossId(i), onclick: (e) => { e.preventDefault(); document.getElementById(bossId(i))?.scrollIntoView({ behavior: "smooth" }); } }, `${i + 1}. ${b.name.cn}`))) : null,
+      d.sources && d.sources.length ? h("div", { class: "sources" },
+        h("strong", null, "攻略基準："),
+        d.sources.map((s, i) => [i ? "、" : "", h("a", { href: s.url, target: "_blank", rel: "noopener noreferrer" }, toTW(s.label))]),
+      ) : null,
+      d.strategies && d.strategies.length ? h("section", { class: "strategies" },
+        h("h2", null, "主流打法／宏／站位"),
+        d.strategies.map((s) => h("details", { class: "strategy", open: !!s.primary },
+          h("summary", null, toTW(s.name), s.primary ? h("span", { class: "primary" }, "陸服野隊主流") : null),
+          s.summary ? h("p", { html: fmt(s.summary) }) : null,
+          s.positions ? h("pre", { class: "positions" }, toTW(s.positions)) : null,
+          s.positionsStatus ? h("p", { class: "macro-status" }, toTW(s.positionsStatus)) : null,
+          s.macroStatus ? h("p", { class: "macro-status" }, toTW(s.macroStatus)) : null,
+          s.macro ? h("div", { class: "macro" },
+            h("div", { class: "macro-head" }, h("strong", null, "可複製隊伍宏"), h("button", { onclick: () => copyText(toTW(s.macro)) }, "複製")),
+            h("pre", null, toTW(s.macro)),
+          ) : null,
+          h("div", { class: "strategy-links" },
+            s.diagramUrl ? h("a", { href: s.diagramUrl, target: "_blank", rel: "noopener noreferrer" }, "站位圖／圖文") : null,
+            s.source?.url ? h("a", { href: s.source.url, target: "_blank", rel: "noopener noreferrer" }, toTW(s.source.label || "原始攻略")) : null,
+          ),
+          s.diagramStatus ? h("p", { class: "macro-status" }, toTW(s.diagramStatus)) : null,
+        )),
+      ) : null,
+      d.bosses.length > 1 ? h("div", { class: "boss-nav" }, d.bosses.map((b, i) => h("a", { href: "#" + bossId(i), onclick: (e) => { e.preventDefault(); document.getElementById(bossId(i))?.scrollIntoView({ behavior: "smooth" }); } }, `${i + 1}. ${toTW(b.name.cn)}`))) : null,
       d.bosses.map((b, i) => h("section", { class: "boss", id: bossId(i) },
         h("div", { class: "boss-head" },
           h("span", { class: "num" }, "BOSS " + (i + 1)),
-          h("h2", null, b.name.cn),
+          h("h2", null, toTW(b.name.cn)),
           h("span", { class: "en" }, b.name.en),
         ),
         b.summary ? h("p", { class: "summary", html: fmt(b.summary) }) : null,
@@ -207,10 +263,10 @@
           h("div", { class: "bar" }),
           h("div", null,
             h("div", { class: "mech-title" },
-              m.name.cn,
+              toTW(m.name.cn),
               m.name.en ? h("span", { class: "en" }, m.name.en) : null,
               m.role && m.role !== "all" ? h("span", { class: "role " + m.role }, m.role) : null,
-              m.phase ? h("span", { class: "phase" }, m.phase) : null,
+              m.phase ? h("span", { class: "phase" }, toTW(m.phase)) : null,
             ),
             m.desc ? h("div", { class: "desc", html: fmt(m.desc) }) : null,
             h("div", { class: "solve", html: fmt(m.solve) }),
@@ -220,7 +276,7 @@
       )),
       d.notes && d.notes.length ? h("div", { class: "notes" }, h("h3", null, "備註"), h("ul", null, d.notes.map((t) => h("li", { html: fmt(t) })))) : null,
     ));
-    document.title = `${d.name.cn} — FF14 副本小抄`;
+    document.title = `${toTW(d.name.cn)} — FF14 副本小抄`;
     window.scrollTo(0, 0);
   }
 
@@ -291,6 +347,7 @@
       if (seen.has(d.id)) { console.warn("[重複 id]", d.id); continue; }
       seen.add(d.id);
       buildIndex(d);
+      localizeInPlace(d);
       state.data.push(d);
       state.byId.set(d.id, d);
     }

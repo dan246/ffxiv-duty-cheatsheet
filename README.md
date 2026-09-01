@@ -20,14 +20,20 @@
 | A− / A+ | 調字級 |
 | ☆ | 收藏（存在瀏覽器 localStorage） |
 
-搜尋支援：陸服名（簡體）、繁體、英文、常見簡稱（如「水虎魚」「O5」「P8」「巴哈T5」）、Boss 名。
+介面、副本名、Boss、技能與攻略內容統一顯示繁體中文；搜尋仍支援陸服簡中原名、繁體、英文、常見簡稱（如「水虎魚」「O5」「P8」「巴哈T5」）與 Boss 名。
 
 ## 資料
 
 - 說明文字：繁體中文；副本/Boss/技能名稱：陸服（簡體）＋英文。
 - 每場副本一個物件，放在 `data/*.js`；檔案清單在 `data/manifest.js`。
 - 格式規範見 [`SCHEMA.md`](SCHEMA.md)，完整範例見 `data/_example.js`。
-- 新增/修改後執行 `node scripts/validate.js` 檢查格式。
+- 新增/修改後依序執行：
+  - `node scripts/validate.js`：格式、唯一身分與內容完整性。
+  - `node scripts/audit_official_identity.js`：逐筆對照官方 CFC 目錄。
+  - `node scripts/audit_routes.js`：全量 hash 路由唯一性。
+  - `node scripts/audit_high_end.js`：零式／絕／滅聯盟的逐本宏、站位與來源缺口。
+  - `node scripts/audit_traditional_display.js`：繁體顯示覆蓋與 URL／官方鍵保留檢查。
+- 資料文字有更新時，先執行 `python3 scripts/generate_zh_tw_map.py` 重新產生離線繁體對照表。
 
 ### 目錄
 
@@ -38,10 +44,16 @@ js/app.js           App 邏輯（搜尋、路由、渲染）
 data/manifest.js    資料檔清單
 data/*.js           副本資料（依資料片、類型分檔）
 scripts/validate.js 資料驗證
+scripts/audit_official_identity.js 官方身分逐筆稽核
+scripts/audit_routes.js 全量路由稽核
+scripts/audit_high_end.js 高難攻略來源與逐本內容稽核
+scripts/audit_traditional_display.js 繁體顯示稽核
+scripts/generate_zh_tw_map.py 產生離線繁體顯示表
 scripts/build.js    打包成單一 HTML
 ```
 
 ## 涵蓋範圍
 
-2.0 ～ 7.5：4 人迷宮、討伐戰（普通/困難/極）、8 人大型任務（普通）、24 人聯盟。
-零式與絕尚未收錄（格式已支援 `type: "savage" | "ultimate"`，可自行加）。
+2.0 ～ 7.51：4 人迷宮、討伐戰（普通/困難/極）、8 人大型任務（普通/零式/絕）、24 人聯盟與滅聯盟高難。
+
+零式收錄全部 64 場官方獨立副本（ARR 只有入侵之章 1～4 另設零式）；絕本收錄全部 7 場，包含 7.51 `Dancing Mad (Ultimate)`；滅聯盟獨立收錄 7.15 `The Cloud of Darkness (Chaotic)`。每場以官方 Duty ID、內容類型與玩家數建立獨立身分，不以首領名稱推測副本。高難條目會直接寫出採用的解法、分隊站位、優先級與「看到什麼 → 怎麼做」；整理宏會明示並非原作者逐字宏。只有能確認與該流派相符的圖文頁才標為站位圖，純影片或不同流派圖片不會冒充配套圖。

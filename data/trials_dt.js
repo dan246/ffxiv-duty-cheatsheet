@@ -4,6 +4,7 @@ window.FF14_DATA.push(
 // ===================== 7.0 艳翼蛇鸟 =====================
 {
   id: "dt-valigarmanda",
+  identity: { officialKey: "cfc:832", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/832?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.0",
@@ -41,6 +42,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-valigarmanda-ex",
+  identity: { officialKey: "cfc:833", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/833?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.0",
@@ -83,6 +85,7 @@ window.FF14_DATA.push(
 // ===================== 7.0 佐拉加 =====================
 {
   id: "dt-zoraal-ja",
+  identity: { officialKey: "cfc:995", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/995?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.0",
@@ -116,6 +119,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-zoraal-ja-ex",
+  identity: { officialKey: "cfc:996", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/996?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.0",
@@ -155,6 +159,7 @@ window.FF14_DATA.push(
 // ===================== 7.0 / 7.1 永恒女王 =====================
 {
   id: "dt-sphene",
+  identity: { officialKey: "cfc:984", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/984?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.0",
@@ -189,6 +194,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-sphene-ex",
+  identity: { officialKey: "cfc:1017", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1017?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.1",
@@ -232,6 +238,7 @@ window.FF14_DATA.push(
 // ===================== 7.2 泽莲尼娅 =====================
 {
   id: "dt-zelenia",
+  identity: { officialKey: "cfc:1030", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1030?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.2",
@@ -262,6 +269,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-zelenia-ex",
+  identity: { officialKey: "cfc:1031", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1031?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.2",
@@ -295,7 +303,7 @@ window.FF14_DATA.push(
         { name: { cn: "王国强放逐", en: "Alexandrian Banish III" }, desc: "重傷分攤，優先點 H；若在玫瑰格上，傷害會擴散到所有相連玫瑰格。", solve: "集合分攤，不站玫瑰格。", danger: 3, phase: "四式" },
         { name: { cn: "破势之剑", en: "Power Break" }, desc: "半場斬，看舉劍側；第二次可能同側或反側，中間夾凌空错。", solve: "站舉劍反側；凌空错照組別近/遠。", danger: 3, phase: "四式" },
         { name: { cn: "凌空破", en: "Valorous Ascension" }, desc: "2 段全體物理＋場邊荊棘放直線掃過場地。", solve: "看第一組直線找安全側，之後配合雷鸣剑進出。", danger: 3, phase: "五式 / 六式" },
-        { name: { cn: "神圣破", en: "Holy Hazard" }, desc: "2 組相對 120 度扇形依序，配合塔與活性纹。", solve: "PF 常見解：標記組固定把玫瑰放內側格，全員開大減傷（可上 T LB）硬吃玫瑰格與神圣破傷害；正規解是判斷內/外塔哪座會被第二組打到，用玫瑰格把路連過去，近戰踩內塔、遠程踩外塔。", danger: 3, phase: "六式" },
+        { name: { cn: "神圣破（六式）", en: "Holy Hazard (Sixth Bloom)" }, desc: "兩組相對的 120° 扇形依序判定，同時出現 4 座塔與 4 個活性纹標記；塔的內／外格會被其中一組扇形覆蓋。", solve: "正規解：先判斷第二組扇形會打到哪座塔的內格或外格，標記者把玫瑰格連到遠端安全塔，未標記者踩塔。Game8 常見減傷法：標記者按分配放在互不相鄰的內側格，塔組踩指定塔；全員站位只承受一發神圣破，開大減傷，必要時坦克 LB。", danger: 3, phase: "六式" },
         { name: { cn: "魔法阵展开·零式 + 终曲之玫瑰", en: "Roseblood Withering + Rose Red" }, desc: "全場變玫瑰，接狂暴全體。", solve: "在之前打死（前面會再來一輪一式機制＋三次破灵之剑、三次破防之剑）。", danger: 3, phase: "狂暴" },
       ],
       tips: ["凌空错一定要先講好誰吃奇數、誰吃偶數，並看標記順序決定第一下站近還是遠。", "所有雷屬性技能（震雷/暴雷/霹雷/放逐）都會打到玫瑰格，站上去等於多吃一次。"],
@@ -305,6 +313,7 @@ window.FF14_DATA.push(
 // ===================== 7.3 永远之暗 =====================
 {
   id: "dt-necron",
+  identity: { officialKey: "cfc:1061", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1061?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.3",
@@ -327,7 +336,7 @@ window.FF14_DATA.push(
         { name: { cn: "中子环", en: "Neutron Ring" }, desc: "全體傷害，場地復原。", solve: "減傷補血。", danger: 2 },
         { name: { cn: "小怪階段", en: "Icy Hands (adds)" }, desc: "王消失，一對一對出招死之手，「死之恐惧上升」條滿即滅。", solve: "集火一隻一隻殺，躲直線。", danger: 3, phase: "小怪" },
         { name: { cn: "永远之暗", en: "Darkness of Eternity" }, desc: "每人 40 秒死宣，被丟進深淵單獨打 3 隻小怪，打完解除。", solve: "自己打死三隻，時間內回來。", danger: 3, phase: "小怪" },
-        { name: { cn: "黑暗巨腕", en: "Specter of Death" }, desc: "兩隻大手放橫向直線「邀请」，吃到被拖進深淵單挑。", solve: "站沒有直線的那一列。", danger: 3, phase: "P2" },
+        { name: { cn: "死亡幽影 → 邀请", en: "Specter of Death → Invitation" }, desc: "兩隻大手依序放橫向直線邀请；每次只留三列中的一列安全，吃到會被拖進深淵單挑。", solve: "看手的橫線，逐次移到沒有直線的那一列。", danger: 3, phase: "P2" },
         { name: { cn: "青之连魂 + 灵魂轮转", en: "Relentless Reaping + Crop Rotation" }, desc: "王存 4 個圈/月環（交替），輪盤轉動後依序放；第一個符號是偶數個就反序。", solve: "記順序（例如 出-進-出-進），輪轉後照順序進出。", danger: 3, phase: "P2" },
         { name: { cn: "群体恐慌", en: "Mass Macabre" }, desc: "4 個 4 人召喚陣，每個要 4 人同時踩。", solve: "分兩小隊各踩兩個。", danger: 3, phase: "P2" },
       ],
@@ -336,6 +345,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-necron-ex",
+  identity: { officialKey: "cfc:1062", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1062?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.3",
@@ -361,7 +371,7 @@ window.FF14_DATA.push(
         { name: { cn: "中子环", en: "Neutron Ring" }, desc: "全體大傷，場地復原。", solve: "減傷補血。", danger: 2, phase: "大十字結束" },
         { name: { cn: "小怪階段", en: "Adds" }, desc: "4 波，每波 3 隻招死之手（压溃直線），第 2、3 波多一隻邀死之手（击溃：直線死刑）。", solve: "殺小怪、躲直線，T 把死刑朝外。全部死後集合吃 永远之暗（大傷）。", danger: 3, phase: "小怪" },
         { name: { cn: "永远之暗（深淵）", en: "Darkness of Eternity (Abyss)" }, desc: "每人進深淵，50 秒死宣，職能小怪擋路：T→一隻會讀「散布」要打斷、之後連續死刑；H→撕破（出血 DoT）、死缠（減速可康復）；DPS→兩隻，其中一隻會讀散布狂暴。", solve: "T 打斷散布後撐死刑打死；H 康復減速、邊補邊打；DPS 先殺要狂暴的那隻。打完跳平台回場。", danger: 3, phase: "深淵" },
-        { name: { cn: "黑暗巨腕", en: "Specter of Death" }, desc: "左右出幽靈手橫掃直線，只有一列安全；吃到會被拖進深淵。", solve: "全員排在安全列（用死之恐惧站位），被抓就趕快死等拉人。", danger: 3, phase: "P2" },
+        { name: { cn: "死亡幽影 → 邀请", en: "Specter of Death → Invitation" }, desc: "左右幽靈手依序放橫向直線邀请，每次只有一列安全；吃到會被拖進深淵。", solve: "全員依手的直線逐次換到安全列；不要把被抓當成可接受解法。", danger: 3, phase: "P2" },
         { name: { cn: "青之连魂 + 灵魂轮转", en: "Relentless Reaping + Crop Rotation" }, desc: "存 4 個青魂（圈內菱形數＝順序），輪轉後依序放，最後接兩兩分攤（四重青之波潮）或小隊分攤（二重青之波潮）。", solve: "打在聊天例如「1出 2進 3中 4側」，依序走，第四個時站好分攤。", danger: 3, phase: "P2" },
         { name: { cn: "青之环波", en: "Circle of Lives" }, desc: "5 顆星球（4 斜角＋1 中），依序縮放後放月環；中途插一次黑暗巨腕直線；結尾接青魂＋Blight。", solve: "跟著星球一顆一顆走；若直線蓋住下一顆，等直線判定後再進；第二次星球都靠中間，站在直線安全的那半。", danger: 3, phase: "P2" },
         { name: { cn: "群体恐慌", en: "Mass Macabre" }, desc: "地上傳送門，各需指定人數同時踩，踩掉後 5 秒魔法易傷；中間穿插死亡警告與青之冲击。", solve: "4 人門：T 近戰北中、H 遠程南中；死亡警告分兩側；2 人門：T 近戰北、H 遠程南；青之冲击後 3 人門：西組後、東組前；最後 2 人門西前東後。每次等易傷消失再踩。", danger: 3, phase: "P2" },
@@ -371,9 +381,68 @@ window.FF14_DATA.push(
     },
   ],
 },
+// ===================== 7.35 护锁刃龙 =====================
+{
+  id: "dt-guardian-arkveld",
+  identity: { officialKey: "cfc:1043", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1043?fields=Name,ContentMemberType.MembersPerParty" },
+  type: "trial",
+  expansion: "dt",
+  patch: "7.35",
+  level: 100,
+  ilvl: 725,
+  name: { cn: "护锁刃龙狩猎战", en: "The Windward Wilds", tw: "護鎖刃龍狩獵戰" },
+  aliases: ["护锁刃龙", "護鎖刃龍", "Arkveld", "Guardian Arkveld", "白色访客", "白色訪客"],
+  overview: "怪物獵人 荒野聯動討伐戰。王沒有讀條，要看抬起哪側身體、尾巴與衝鋒動作；每人有 10 次回复药“大”任務技能可瞬間回滿。",
+  bosses: [
+    {
+      name: { cn: "护锁刃龙", en: "Guardian Arkveld" },
+      summary: "看動作躲半場與背後直線；先把誘導圈放離塔，再踩雙坦塔與普通塔；步進圈同時分散。",
+      mechanics: [
+        { name: { cn: "锁刃敲打／龙闪", en: "Chainblade Slam / Dragonflash" }, desc: "王抬起一側身體，先打前方兩條直線，再打該側大半場。", solve: "先避開正面直線，再移到王未抬起的另一側。", danger: 3 },
+        { name: { cn: "龙尾突刺", en: "Tail Thrust" }, desc: "王抬起尾巴後對正後方放擊退直線。", solve: "離開王正後方。", danger: 2 },
+        { name: { cn: "锁刃下挥", en: "Chainblade Drop" }, desc: "隨機玩家圓形分攤。", solve: "全隊集合分攤。", danger: 2 },
+        { name: { cn: "地脉共振", en: "Earthen Resonance" }, desc: "兩座坦克塔、四座普通塔；塔前有三輪玩家腳下誘導圈，塔後留下大小不同的惰性水晶。", solve: "先把圈誘導到塔外；兩坦各踩大塔，其餘人一人一塔。", danger: 3 },
+        { name: { cn: "波状龙闪", en: "Wave Dragonflash" }, desc: "場中交替出現四向步進圓圈，途中兩輪四人分散；碰到水晶還會引爆水晶鋼鐵。", solve: "跟著第一組步進圈走並按鐘面分散，遠離被打中的水晶。", danger: 3 },
+        { name: { cn: "护龙乱击", en: "Guardian's Wrath" }, desc: "兩次物理全體與一次高傷魔法全體，之後全員承受永久增傷與持續傷害。", solve: "安排團隊減傷與連續治療。", role: "H", danger: 3, phase: "後半" },
+        { name: { cn: "旋转直线", en: "Rotating Line AoE" }, desc: "紫色直線按箭頭方向旋轉，接全員分散。", solve: "站在箭頭後方跟著旋轉，再按鐘面散開。", danger: 3, phase: "後半" },
+      ],
+      tips: ["可避免傷害會疊加 1 分鐘易傷；回复药“大”有動畫延遲，別等到連續傷害已開始才按。"],
+    },
+  ],
+},
+{
+  id: "dt-guardian-arkveld-ex",
+  identity: { officialKey: "cfc:1044", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1044?fields=Name,ContentMemberType.MembersPerParty" },
+  type: "extreme",
+  expansion: "dt",
+  patch: "7.35",
+  level: 100,
+  ilvl: 740,
+  name: { cn: "护锁刃龙上位狩猎战", en: "The Windward Wilds (Extreme)", tw: "護鎖刃龍上位狩獵戰" },
+  aliases: ["上位护锁刃龙", "上位護鎖刃龍", "护锁刃龙EX", "Arkveld EX", "Guardian Arkveld EX"],
+  overview: "8 人上位狩獵。所有技能仍無讀條；半場、分攤、塔、步進圈會與不可重疊的龙光扩散組合，後半永久增傷後節奏加快。",
+  bosses: [
+    {
+      name: { cn: "护锁刃龙", en: "Guardian Arkveld" },
+      summary: "固定鐘面與兩小隊；看王動作判斷半場／尾直線，誘導圈先放塔外，步進圈時維持分散。",
+      mechanics: [
+        { name: { cn: "锁刃敲打／龙闪", en: "Chainblade Slam / Dragonflash" }, desc: "前方雙直線後接抬起側的大半場，後續再向另一側重複。", solve: "先站安全側，第一次半場判定後穿到另一側。", danger: 3 },
+        { name: { cn: "回旋锁刃／龙光扩散", en: "Sweeping Chainblade / Dragonlight" }, desc: "半場攻擊同時全員不可重疊圓形傷害。", solve: "先到安全半場，再按鐘面分散。", danger: 3 },
+        { name: { cn: "锁刃下挥", en: "Chainblade Drop" }, desc: "隨機玩家圓形分攤。", solve: "依指定小隊或全隊集合分攤。", danger: 2 },
+        { name: { cn: "地脉共振", en: "Earthen Resonance" }, desc: "兩坦塔與四普通塔，期間三輪誘導圈，最後一輪與塔同時判定並留下水晶。", solve: "三輪圈往外放；兩坦各踩死刑塔，其餘人一人一座。", danger: 3 },
+        { name: { cn: "波状龙闪", en: "Wave Dragonflash" }, desc: "兩組四向步進圈，期間兩輪四人龙光扩散；圈打中水晶會追加爆炸。", solve: "沿步進圈後方移動，兩組玩家交錯分散並避開水晶爆炸範圍。", danger: 3 },
+        { name: { cn: "锁刃飞翔突进／护龙共振", en: "Chainblade Dive / Guardian Resonance" }, desc: "王從北側衝鋒，白色直線會擴張，並同時判定分攤。", solve: "先離開衝鋒與擴張線，再在安全側完成分攤。", danger: 3 },
+        { name: { cn: "护龙乱击", en: "Guardian's Wrath" }, desc: "兩次物理全體與一次高傷魔法全體，賦予永久增傷與持續傷害。", solve: "分配三段減傷，治療保留資源處理後半。", role: "H", danger: 3 },
+        { name: { cn: "狂暴", en: "Enrage" }, desc: "後半高速重複組合後的硬狂暴。", solve: "在讀完前擊殺。", danger: 3, phase: "狂暴" },
+      ],
+      tips: ["這場不是火龍上位的 4 人三倒地制：護鎖刃龍上位是標準 8 人極難度討伐戰。"],
+    },
+  ],
+},
 // ===================== 7.4 格莱杨拉波尔 =====================
 {
   id: "dt-doomtrain",
+  identity: { officialKey: "cfc:1076", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1076?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.4",
@@ -384,7 +453,7 @@ window.FF14_DATA.push(
   overview: "一節一節換車廂的列車王：直線看傳送門的欄、吸引後打前排、砲塔躲箱子、上下層看嘴或前燈。",
   bosses: [
     {
-      name: { cn: "格莱杨拉波尔", en: "Siege Engine: Doomtrain" },
+      name: { cn: "格莱杨拉波尔", en: "Doomtrain" },
       summary: "每節車廂一套機制，小怪階段殺以太球，後半看魔法陣旋轉找安全點。",
       mechanics: [
         { name: { cn: "雷电爆发", en: "Lightning Burst" }, desc: "雙 T 圈型魔法死刑。", solve: "T 分開站、減傷。", role: "T", danger: 2 },
@@ -405,6 +474,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-doomtrain-ex",
+  identity: { officialKey: "cfc:1077", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1077?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.4",
@@ -415,7 +485,7 @@ window.FF14_DATA.push(
   overview: "六節車廂，機制少但節奏快：記住「超增压」是分攤（4 球）還是分散（8 球）、擊退/吸引用防擊退、彈指後一起走出隱形圈。",
   bosses: [
     {
-      name: { cn: "格莱杨拉波尔", en: "Siege Engine: Doomtrain" },
+      name: { cn: "格莱杨拉波尔", en: "Doomtrain" },
       summary: "每節都是「儲存超增压→擊退或吸引→放超增压」的組合，第 3 節小怪、第 4 節魔法陣、第 5 節念动反应。",
       mechanics: [
         { name: { cn: "超增压", en: "Dead Man's Overdraught" }, desc: "王儲存：4 顆球＝爆雷（兩兩分攤）、8 顆球＝重爆雷（8 人分散）；之後某個時間點放出。", solve: "看球數記住，放出時跟搭檔分攤或分散。", danger: 3 },
@@ -438,6 +508,7 @@ window.FF14_DATA.push(
 // ===================== 7.5 恩欧 =====================
 {
   id: "dt-enuo",
+  identity: { officialKey: "cfc:1115", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1115?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "dt",
   patch: "7.5",
@@ -448,7 +519,7 @@ window.FF14_DATA.push(
   overview: "圓形場地掉下去即死。看王連線的無之漩渦決定遠離哪個門，10 顆球的扇形要繞著躲，中間小怪條滿即滅，之後要躲在澤羅後面吃無光的世界。",
   bosses: [
     {
-      name: { cn: "恩欧", en: "Sovereign of Naught: Enuo" },
+      name: { cn: "恩欧", en: "Enuo" },
       summary: "看門、看球、看追蹤圈，小怪清完後站在澤羅的守護後面。",
       mechanics: [
         { name: { cn: "流星雨", en: "Meteorain" }, desc: "全體魔法傷害。", solve: "補血。", danger: 1 },
@@ -470,6 +541,7 @@ window.FF14_DATA.push(
 },
 {
   id: "dt-enuo-ex",
+  identity: { officialKey: "cfc:1116", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/1116?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "dt",
   patch: "7.5",
@@ -480,7 +552,7 @@ window.FF14_DATA.push(
   overview: "圓場掉落即死。P1 門的鋼鐵/月環＋熱病核心熔毁＋10 球扇形；小怪階段踩塔生出職能小怪各自處理；P2 門會放雷射、追蹤圈要沿邊拉。約 11 分狂暴。",
   bosses: [
     {
-      name: { cn: "恩欧", en: "Sovereign of Naught: Enuo" },
+      name: { cn: "恩欧", en: "Enuo" },
       summary: "分兩小隊＋時鐘位（需要異職能配對時 DPS 逆時針移一格）；門看箭頭方向、球分黃快紫慢。",
       mechanics: [
         { name: { cn: "流星雨", en: "Meteorain" }, desc: "全體魔法傷害。", solve: "補血。", danger: 1, phase: "P1" },

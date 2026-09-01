@@ -3,6 +3,7 @@ window.FF14_DATA = window.FF14_DATA || [];
 window.FF14_DATA.push(
 {
   id: "ew-the-dark-inside",
+  identity: { officialKey: "cfc:802", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/802?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.0",
@@ -36,6 +37,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-zodiark-ex",
+  identity: { officialKey: "cfc:803", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/803?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.0",
@@ -76,6 +78,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-the-mothercrystal",
+  identity: { officialKey: "cfc:790", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/790?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.0",
@@ -107,6 +110,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-hydaelyn-ex",
+  identity: { officialKey: "cfc:791", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/791?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.0",
@@ -148,6 +152,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-the-final-day",
+  identity: { officialKey: "cfc:796", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/796?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.0",
@@ -155,7 +160,7 @@ window.FF14_DATA.push(
   ilvl: 540,
   name: { cn: "终结之战", en: "The Final Day", tw: "終結之戰" },
   aliases: ["终末歌者", "終末歌者", "讴歌终结之物", "Endsinger", "终结之战"],
-  overview: "星球和頭：紅星大圓、藍星擊退、頭的正面 180 度扇形；過場連續灾祟要開坦克 LB3。",
+  overview: "星球和頭：紅星大圓、藍星擊退、頭的正面 180 度扇形；過場的终极命运要開坦克 LB3。",
   bosses: [
     {
       name: { cn: "讴歌终结之物", en: "The Endsinger" },
@@ -171,7 +176,7 @@ window.FF14_DATA.push(
         { name: { cn: "恍惚 / 后裔", en: "Ekstasis / Epigonoi" }, desc: "星球間相互影響，出現多個小圓 AOE。", solve: "看地板躲。", danger: 2 },
         { name: { cn: "星际穿越 / 复仇", en: "Interstellar / Nemesis" }, desc: "王無法選取，強力全體 AOE。", solve: "減傷補血。", danger: 2 },
         { name: { cn: "行迈之星（過場）", en: "Planetes" }, desc: "過場：陨石辐射点（隕石落點）、冲撞 ×4、陨石爆发。", solve: "陨石落在正邊就站斜角、落在斜角就站正邊；冲撞看地板躲。", danger: 3, phase: "過場" },
-        { name: { cn: "灾祟", en: "Katastrophe" }, desc: "連續 6 次全體 AOE，一次比一次痛，最後一下正常扛不住。", solve: "全體減傷輪流開，最後一下前開坦克 LB3（3 格）。", danger: 3, phase: "過場結尾" },
+        { name: { cn: "终极命运", en: "Ultimate Fate" }, desc: "卡科代蒙小怪階段結束後的巨大單段全體傷害；下一次终极命运是劇情演出的必敗判定。", solve: "第一次判定前補滿並開坦克 LB3（3 格）與團隊減傷；第二次是固定過場，不是機制失敗。", danger: 3, phase: "過場結尾" },
         { name: { cn: "终末", en: "Telos" }, desc: "全體 AOE。", solve: "補血。", role: "H", danger: 1, phase: "最終段" },
         { name: { cn: "终末狂热", en: "Telomania" }, desc: "4 下小 AOE + 1 下大 AOE，附流血。", solve: "減傷，大下打完馬上補。", danger: 3, phase: "最終段" },
         { name: { cn: "坍缩星", en: "Dead Star" }, desc: "三顆星球連續爆炸。", solve: "躲到沒有星球的區域。", danger: 3, phase: "最終段" },
@@ -181,6 +186,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-endsinger-ex",
+  identity: { officialKey: "cfc:846", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/846?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.1",
@@ -217,6 +223,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-storms-crown",
+  identity: { officialKey: "cfc:870", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/870?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.2",
@@ -252,6 +259,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-barbariccia-ex",
+  identity: { officialKey: "cfc:871", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/871?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.2",
@@ -267,7 +275,7 @@ window.FF14_DATA.push(
       mechanics: [
         { name: { cn: "虚空飙风 / 愤怒风暴", en: "Void Aero IV / Raging Storm" }, desc: "全體 AOE。", solve: "補血。", role: "H", danger: 1, phase: "P1" },
         { name: { cn: "野蛮剃", en: "Savage Barbery" }, desc: "劍立起＝月環、劍橫放＝穿場寬直線，之後再一個大圓。", solve: "月環→貼身後往外；直線→兩側後往外。", danger: 3, phase: "P1" },
-        { name: { cn: "咒发操控 → 咒发突袭", en: "Brush with Death → Hair Raid" }, desc: "頭髮鑽進玩家，接著牆版（一面牆長頭髮，只有那面牆附近安全）或月環版（貼身安全），之後接分散或治療組分攤。", solve: "牆版→貼那面牆，再分散/分攤；月環版→貼王，再分散/分攤。", danger: 3, phase: "P1" },
+        { name: { cn: "咒发操控 → 咒发突袭", en: "Brush with Death → Hair Raid" }, desc: "頭髮鑽進玩家；牆／衝鋒版會衝向丟出的劍並朝劍的方向劈出巨大前方扇形，浮空版則收回劍並放月環。之後接分散或治療組分攤。", solve: "牆／衝鋒版→去王衝鋒方向的左右兩側場邊，避開王與劍之間及正前方扇形；浮空月環版→貼王。再處理分散/分攤。", danger: 3, phase: "P1" },
         { name: { cn: "咒发针 / 咒发刺", en: "Hair Spray / Deadly Twist" }, desc: "咒发针＝分散小圈；咒发刺＝治療組分攤。", solve: "針分散、刺分攤。", danger: 2, phase: "P1" },
         { name: { cn: "虚空暴风", en: "Void Aero III" }, desc: "全員分散。", solve: "各站各的。", danger: 2, phase: "P1" },
         { name: { cn: "咒发拘束 + 咒发突", en: "Teasing Tangles + Upbraid" }, desc: "四人被綁住不能動，接著兩兩分攤（咒发突）。", solve: "沒被綁的人各自去找一個被綁的人站在一起分攤。", danger: 2, phase: "P1" },
@@ -292,6 +300,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-mount-ordeals",
+  identity: { officialKey: "cfc:886", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/886?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.3",
@@ -323,6 +332,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-rubicante-ex",
+  identity: { officialKey: "cfc:924", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/924?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.3",
@@ -357,6 +367,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-the-voidcast-dais",
+  identity: { officialKey: "cfc:949", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/949?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.4",
@@ -388,6 +399,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-golbez-ex",
+  identity: { officialKey: "cfc:950", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/950?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.4",
@@ -409,7 +421,7 @@ window.FF14_DATA.push(
         { name: { cn: "虚空陨石 / 虚空彗星", en: "Void Meteor / Void Comet" }, desc: "雙 T 死刑連打 5 下 + 其他人小圈。", solve: "雙 T 分開減傷，其他人分散。", role: "T", danger: 2, phase: "P1" },
         { name: { cn: "黑龙剑阿珠达雅（預告）", en: "Azdaja's Shadow" }, desc: "黑龍出現時會預告之後的組合：龍在王身邊＝「內＋分散」，龍在遠處＝「外＋治療組分攤」。", solve: "記住這次是哪一種，等弦月黑龙连剑時用。", danger: 2, phase: "P2" },
         { name: { cn: "黑牙", en: "Black Fang" }, desc: "超大傷害全體 AOE（狂暴也是它）。", solve: "全體減傷、盾。", danger: 3, phase: "P2 開頭" },
-        { name: { cn: "黑龙炎", en: "Flames of Eventide" }, desc: "黑龍對 MT 連線射三發雷射，同一人吃兩發會死。", solve: "MT 吃第一發後 ST 挑釁換連線吃第二發，MT 再換回吃第三發（或 1-2-3 輪流）。", role: "T", danger: 3, phase: "P2" },
+        { name: { cn: "黑龙炎", en: "Flames of Eventide" }, desc: "黑龍沿連線對坦克射三發雷射，每發疊加 Flames of Eventide；同一人連吃兩發會死。", solve: "兩坦逐發換手：MT 吃第 1 發，ST 挑釁接第 2 發，MT 再挑釁接第 3 發（MT→ST→MT）。", role: "T", danger: 3, phase: "P2" },
         { name: { cn: "弦月黑龙连剑 + 升龙烽火 / 升龙环火", en: "Phases of the Shadow + Rising Beacon / Rising Ring" }, desc: "前後砍之後：烽火＝大圓（往外）+ 重黑炎治療組分攤；环火＝月環（貼身）+ 黑炎分散。", solve: "背後→前面→依預告：外＋分攤 或 內＋分散。", danger: 3, phase: "P2" },
         { name: { cn: "降龙爆火 + 双重陨石 + 爆炸", en: "Dragon's Descent + Double Meteor + Explosion" }, desc: "一人擊退標記、兩人核爆標記、場上出塔，黑龍再直線俯衝（黑炎俯冲）。", solve: "擊退的人站中間被推出去；核爆的人跑遠離塔；沒標記的人踩塔；躲龍的直線。", danger: 3, phase: "P2" },
         { name: { cn: "虚空彗星雨", en: "Void Stardust" }, desc: "隕石雨從東或西一路推過來。", solve: "站到第一顆爆完的位置，往反方向走。", danger: 3, phase: "P2" },
@@ -425,6 +437,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-the-abyssal-fracture",
+  identity: { officialKey: "cfc:964", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/964?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
   patch: "6.5",
@@ -460,6 +473,7 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-zeromus-ex",
+  identity: { officialKey: "cfc:965", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/965?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "ew",
   patch: "6.5",
@@ -498,9 +512,10 @@ window.FF14_DATA.push(
 },
 {
   id: "ew-the-gilded-araya",
+  identity: { officialKey: "cfc:944", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/944?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "ew",
-  patch: "6.5",
+  patch: "6.55",
   level: 90,
   ilvl: 625,
   name: { cn: "阿修罗歼灭战", en: "The Gilded Araya", tw: "阿修羅殲滅戰" },

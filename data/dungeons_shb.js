@@ -29,8 +29,8 @@ window.FF14_DATA.push(
       summary: "頭上 1~4 數字點名四方分散，驅魔分攤完離開冰圈。",
       mechanics: [
         { name: { cn: "挠痒", en: "The Tickler" }, desc: "對 T 的死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
-        { name: { cn: "泼妇口勒", en: "Scold's Bridle" }, desc: "全體 AOE。", solve: "H 補血。", role: "H", danger: 1 },
-        { name: { cn: "狂热鞭刑", en: "Fevered Flagellation" }, desc: "四人頭上出現 1~4 的圓餅點名，王依序衝向每個人並順劈。", solve: "四人以王為中心往四個方向分散，別重疊，等王衝完。", danger: 2 },
+        { name: { cn: "毒舌钩", en: "Scold's Bridle" }, desc: "全體 AOE。", solve: "H 補血。", role: "H", danger: 1 },
+        { name: { cn: "热情鞭笞", en: "Fevered Flagellation" }, desc: "四人頭上出現 1~4 的圓餅點名，王依序衝向每個人並順劈。", solve: "四人以王為中心往四個方向分散，別重疊，等王衝完。", danger: 2 },
         { name: { cn: "驱魔", en: "Exorcise" }, desc: "一人分攤標記＋場上 4 個圓 AOE，之後原地留下冰圈（持續掉血）。", solve: "全員先在分攤點集合吃完，再一起離開分攤點和 AOE 預警範圍，不要站冰圈。", danger: 2 },
       ],
     },
@@ -223,7 +223,7 @@ window.FF14_DATA.push(
     },
     {
       name: { cn: "得到宽恕的猥亵", en: "Forgiven Obscenity" },
-      summary: "灵光卫。渐弱神音貼圈躲（強化版外圈再一層）、金圓片躲正面、羽制傀儡分身複讀、戒钻相合軌道砲換軌。",
+      summary: "灵光卫。渐弱神音貼圈躲（強化版外圈再一層）、金圓片躲正面、羽制傀儡分身複讀、指环之钻軌道砲換軌。",
       mechanics: [
         { name: { cn: "祈祷极强音", en: "Orison Fortissimo" }, desc: "全體 AOE。", solve: "H 補血。", role: "H", danger: 1 },
         { name: { cn: "圣礼突强音", en: "Sacrament Sforzando" }, desc: "對 T 的死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
@@ -231,7 +231,7 @@ window.FF14_DATA.push(
         { name: { cn: "定罪强音", en: "Conviction Marcato" }, desc: "王周身出現金色圓片，從王正面和每個金圓正面放直線。", solve: "站在兩個金圓之間、且不在王正面的位置。", danger: 2 },
         { name: { cn: "羽制傀儡", en: "Feather Marionette" }, desc: "召喚 4 個分身，本體頭上有金光，分身跟著複讀上面兩招。", solve: "腳下圓圈版：靠近本體的圓圈邊緣躲；金圓片版：躲開本體正面和金圓正面就好。", danger: 3 },
         { name: { cn: "悔罪极弱音", en: "Penance Pianissimo" }, desc: "場地縮小成一個小圓。", solve: "站進圈內，之後機制都在小場地處理。", danger: 2 },
-        { name: { cn: "戒钻相合", en: "Solitaire Ring" }, desc: "場上出現幾條軌道，光球依序沿軌道放直線砲（軌道砲）。", solve: "先站到離場邊最遠那顆球所在的軌道上等，旁邊軌道砲放完就換到旁邊軌道。", danger: 3 },
+        { name: { cn: "指环之钻", en: "Solitaire Ring" }, desc: "場上出現幾條軌道，光球依序沿軌道放直線砲（軌道砲）。", solve: "先站到離場邊最遠那顆球所在的軌道上等，旁邊軌道砲放完就換到旁邊軌道。", danger: 3 },
       ],
     },
   ],
@@ -302,7 +302,7 @@ window.FF14_DATA.push(
         { name: { cn: "预兆", en: "Augurium" }, desc: "對 T 的無預警扇形死刑，打地面。", solve: "T 看到讀條穿過王到背後就能躲掉。", role: "T", danger: 2 },
         { name: { cn: "野兽咆哮", en: "Beastly Roar" }, desc: "全體 AOE。", solve: "H 補血。", role: "H", danger: 1 },
         { name: { cn: "游荡猛扑", en: "Pounce Errant" }, desc: "每人一個大綠圈點名，王依序跳向每個人。", solve: "四人分散，放在場地前後方，別蓋到兩側玻璃罩。", danger: 2 },
-        { name: { cn: "孤独冲击", en: "Forlorn Impact" }, desc: "王拔下頭上的刀，每人頭上出現刀數 1~4 的點名，依序朝每人放直線。", solve: "正面站 2 人、場地後方站 2 人，互不重疊，把直線引在前後方向，避開兩側玻璃罩。", danger: 2 },
+        { name: { cn: "绝望冲击", en: "Forlorn Impact" }, desc: "王拔下頭上的刀，每人頭上出現刀數 1~4 的點名，依序朝每人放直線。", solve: "正面站 2 人、場地後方站 2 人，互不重疊，把直線引在前後方向，避開兩側玻璃罩。", danger: 2 },
         { name: { cn: "根除冲击", en: "Charge Eradicated" }, desc: "分攤標記，留下火焰地板（燒傷）。", solve: "集合在場地前方或後方分攤，別靠罩子；吃完離開火。", danger: 2 },
       ],
       tips: ["罩子被打破小怪跑出來時優先處理小怪，不然 T 很難撐。"],
@@ -420,7 +420,7 @@ window.FF14_DATA.push(
       name: { cn: "卢格斯", en: "Lugus" },
       summary: "家具是拿來吃必灭之炎的，十字 AOE 和衝鋒順劈都不能燒到家具；左右炎狱斩看王抬劍那側躲另一邊。",
       mechanics: [
-        { name: { cn: "屠宰枪", en: "Captive Bolt" }, desc: "對 T 的超高死刑。", solve: "T 開大減傷，H 先鋪盾。", role: "T", danger: 3 },
+        { name: { cn: "破碎斩", en: "Captive Bolt" }, desc: "對 T 的超高死刑。", solve: "T 開大減傷，H 先鋪盾。", role: "T", danger: 3 },
         { name: { cn: "处决之刃", en: "Culling Blade" }, desc: "全體 AOE，第一次會把吊燈砸下來（圓 AOE）。", solve: "H 補血，躲吊燈的圈。", role: "H", danger: 1 },
         { name: { cn: "左/右炎狱斩", en: "Scorching Left/Right" }, desc: "王轉身後砍左或右半場（高傷＋易傷）。", solve: "看王面向和抬劍那側：左斩往王的右邊躲、右斩往左邊躲。", danger: 3 },
         { name: { cn: "鬼炎斩", en: "Otherworldly Heat" }, desc: "每人頭上紅點名，腳下圓 AOE 後留下中等大小的十字裂縫再爆。", solve: "四人到空曠處放（可就近重疊但點名本身有傷害），十字絕對不能蓋到場邊家具；不確定範圍就離家具遠一點。", danger: 2 },
@@ -562,8 +562,8 @@ window.FF14_DATA.push(
       name: { cn: "水滴精", en: "Nixie" },
       summary: "王連線那面牆的水管會發亮噴直線，往沒亮的方向躲；王跳到北邊雲上時找最北的間歇泉跳上去打小怪。",
       mechanics: [
-        { name: { cn: "粉碎撞击", en: "Smash-Crash" }, desc: "對 T 的十字順劈死刑（四條連線）。", solve: "T 開減傷，其他人別站十字上。", role: "T", danger: 2 },
-        { name: { cn: "淋浴之力", en: "Shower Power" }, desc: "王往場地一側連線，那面牆的 3 支水管發亮，發亮的水管噴直線水柱。", solve: "站到沒發亮的水管對應的直線上。", danger: 2 },
+        { name: { cn: "咣当咣当", en: "Crash-smash" }, desc: "對 T 的十字順劈死刑（四條連線）。", solve: "T 開減傷，其他人別站十字上。", role: "T", danger: 2 },
+        { name: { cn: "哗啦哗啦", en: "Shower Power" }, desc: "王往場地一側連線，那面牆的 3 支水管發亮，發亮的水管噴直線水柱。", solve: "站到沒發亮的水管對應的直線上。", danger: 2 },
         { name: { cn: "雨中曲", en: "Singing in the Rain" }, desc: "王從北場跳到場外雲上，北場出現雲朵，場地冒出間歇泉（會把人噴上天）。", solve: "找最靠北的間歇泉踩上去被噴到雲上，打死雲上的小怪。", danger: 3 },
         { name: { cn: "水手歌谣", en: "Sea Shanty" }, desc: "雲上小怪沒打完就全場即死級 AOE；打完後王回來放全體 AOE。", solve: "四人都上雲一起打小怪，打完 H 補血。", danger: 3 },
       ],
@@ -628,7 +628,7 @@ window.FF14_DATA.push(
         { name: { cn: "死亡轮回", en: "Akh Morn" }, desc: "分攤標記，連續打 4 次。", solve: "全員集合吃到結束不要提早散開，T/H 交減傷群補。", danger: 3 },
         { name: { cn: "百万核爆", en: "Megaflare" }, desc: "每人橙色點名分散，之後原地還有延遲的第二次爆炸。", solve: "四人散開放，放完再移動離開原位。", danger: 2 },
         { name: { cn: "百万核爆俯冲", en: "Megaflare Dive" }, desc: "王消失後從場外俯衝直線穿場，高傷害＋擊退。", solve: "看場邊王的位置離開它的直線。", danger: 2 },
-        { name: { cn: "无尽光", en: "Kan Rhai" }, desc: "隨機一人被短十字 AOE 點名，留下持續傷害地板。", solve: "被點的往場邊放，別踩殘留。", danger: 2 },
+        { name: { cn: "天光交错", en: "Kan Rhai" }, desc: "隨機一人被短十字 AOE 點名，留下持續傷害地板。", solve: "被點的往場邊放，別踩殘留。", danger: 2 },
         { name: { cn: "真月核爆", en: "Lunar Flare" }, desc: "場上蓋滿黑紫色圓圈並逐漸縮小。", solve: "看是「中央安全」還是「四角安全」的排列，站到圈縮小後不會蓋到的地方。", danger: 3 },
         { name: { cn: "十亿核爆", en: "Gigaflare" }, desc: "全體大傷害。", solve: "H 補滿、T 開減傷。", role: "H", danger: 2 },
         { name: { cn: "压扁", en: "Flatten" }, desc: "對 T 的死刑。", solve: "T 開減傷。", role: "T", danger: 2, phase: "後半" },
@@ -637,3 +637,28 @@ window.FF14_DATA.push(
   ],
 }
 );
+
+// Stable game-data identities; do not derive these from localized names.
+[
+  ["shb-holminster-switch", 676],
+  ["shb-dohn-mheg", 649],
+  ["shb-qitana-ravel", 651],
+  ["shb-malikahs-well", 656],
+  ["shb-mt-gulg", 659],
+  ["shb-amaurot", 652],
+  ["shb-twinning", 655],
+  ["shb-akadaemia-anyder", 661],
+  ["shb-grand-cosmos", 692],
+  ["shb-anamnesis-anyder", 714],
+  ["shb-heroes-gauntlet", 737],
+  ["shb-matoyas-relict", 746],
+  ["shb-paglthan", 777],
+].forEach(([id, row]) => {
+  const duty = window.FF14_DATA.find((entry) => entry.id === id);
+  if (duty) duty.identity = {
+    officialKey: `cfc:${row}`,
+    contentType: "dungeon",
+    partySize: 4,
+    sourceUrl: `https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/ContentFinderCondition.csv#L${row + 2}`,
+  };
+});

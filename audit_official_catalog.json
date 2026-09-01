@@ -1,0 +1,8579 @@
+{
+  "generatedAt": "2026-09-01T06:46:37.328Z",
+  "sources": {
+    "cn": "https://raw.githubusercontent.com/thewakingsands/ffxiv-datamining-cn/master/ContentFinderCondition.csv",
+    "global": "https://v2.xivapi.com/api/sheet/ContentFinderCondition?fields=Name,ContentType,ContentMemberType,ClassJobLevelRequired,ItemLevelRequired,ItemLevelSync"
+  },
+  "entries": [
+    {
+      "cfcId": 1,
+      "cn": "监狱废墟托托·拉克千狱",
+      "en": "the Thousand Maws of Toto–Rak",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 24,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 2,
+      "cn": "地下灵殿塔姆·塔拉墓园",
+      "en": "the Tam–Tara Deepcroft",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 16,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 3,
+      "cn": "封锁坑道铜铃铜山",
+      "en": "Copperbell Mines",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 17,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 4,
+      "cn": "天然要害沙斯塔夏溶洞",
+      "en": "Sastasha",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 5,
+      "cn": "毒雾洞窟黄金谷",
+      "en": "the Aurum Vale",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 47,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 6,
+      "cn": "名门府邸静语庄园",
+      "en": "Haukke Manor",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 28,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 7,
+      "cn": "魔兽领域日影地修炼所",
+      "en": "Halatali",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 20,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 8,
+      "cn": "休养胜地布雷福洛克斯野营地",
+      "en": "Brayflox's Longstop",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 32,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 9,
+      "cn": "古代遗迹喀恩埋没圣堂",
+      "en": "the Sunken Temple of Qarn",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 35,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 10,
+      "cn": "神灵圣域放浪神古神殿",
+      "en": "the Wanderer's Palace",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 45,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 11,
+      "cn": "对龙城塞石卫塔",
+      "en": "the Stone Vigil",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 41,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 12,
+      "cn": "流沙迷宫樵鸣洞",
+      "en": "Cutter's Cry",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 38,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 13,
+      "cn": "山中战线泽梅尔要塞",
+      "en": "Dzemael Darkhold",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 44,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 14,
+      "cn": "邪教驻地无限城古堡",
+      "en": "Amdapor Keep",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 45,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 15,
+      "cn": "神兵要塞帝国南方堡",
+      "en": "Castrum Meridianum",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 42,
+      "itemLevelSync": 60
+    },
+    {
+      "cfcId": 16,
+      "cn": "最终决战天幕魔导城",
+      "en": "the Praetorium",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 42,
+      "itemLevelSync": 60
+    },
+    {
+      "cfcId": 17,
+      "cn": "领航明灯天狼星灯塔",
+      "en": "Pharos Sirius",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 48,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 18,
+      "cn": "骚乱坑道铜铃铜山",
+      "en": "Copperbell Mines (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 48,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 19,
+      "cn": "恶灵府邸静语庄园",
+      "en": "Haukke Manor (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 48,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 20,
+      "cn": "纷争要地布雷福洛克斯野营地",
+      "en": "Brayflox's Longstop (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 55,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 21,
+      "cn": "剑斗领域日影地修炼所",
+      "en": "Halatali (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 55,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 22,
+      "cn": "腐坏遗迹无限城市街古迹",
+      "en": "the Lost City of Amdapor",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 55,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 23,
+      "cn": "财宝传说破舰岛",
+      "en": "Hullbreaker Isle",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 24,
+      "cn": "惨剧灵殿塔姆·塔拉墓园",
+      "en": "the Tam–Tara Deepcroft (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 25,
+      "cn": "激战城塞石卫塔",
+      "en": "the Stone Vigil (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 26,
+      "cn": "苏醒遗迹喀恩埋没圣堂",
+      "en": "the Sunken Temple of Qarn (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 27,
+      "cn": "凛冽洞天披雪大冰壁",
+      "en": "Snowcloak",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 28,
+      "cn": "逆转要害沙斯塔夏溶洞",
+      "en": "Sastasha (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 29,
+      "cn": "邪念妖地无限城古堡",
+      "en": "Amdapor Keep (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 30,
+      "cn": "武装圣域放浪神古神殿",
+      "en": "the Wanderer's Palace (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 31,
+      "cn": "学识宝库迦巴勒幻想图书馆",
+      "en": "the Great Gubal Library",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 59,
+      "itemLevel": 120,
+      "itemLevelSync": 150
+    },
+    {
+      "cfcId": 32,
+      "cn": "幻龙残骸密约之塔",
+      "en": "the Keeper of the Lake",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 33,
+      "cn": "空中神域不获岛",
+      "en": "Neverreap",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 145,
+      "itemLevelSync": 210
+    },
+    {
+      "cfcId": 34,
+      "cn": "圣教中枢伊修加德教皇厅",
+      "en": "the Vault",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 57,
+      "itemLevel": 115,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 35,
+      "cn": "博物战舰无限回廊",
+      "en": "the Fractal Continuum",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 145,
+      "itemLevelSync": 210
+    },
+    {
+      "cfcId": 36,
+      "cn": "冰雪废堡暮卫塔",
+      "en": "the Dusk Vigil",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 51,
+      "itemLevel": 100,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 37,
+      "cn": "天山绝顶索姆阿尔灵峰",
+      "en": "Sohm Al",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 53,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 38,
+      "cn": "血战苍穹魔科学研究所",
+      "en": "the Aetherochemical Research Facility",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 142,
+      "itemLevelSync": 180
+    },
+    {
+      "cfcId": 39,
+      "cn": "邪龙王座龙巢神殿",
+      "en": "the Aery",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 55,
+      "itemLevel": 110,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 40,
+      "cn": "地脉灵灯天狼星灯塔",
+      "en": "Pharos Sirius (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 240
+    },
+    {
+      "cfcId": 41,
+      "cn": "草木庭园圣茉夏娜植物园",
+      "en": "Saint Mocianne's Arboretum",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 240
+    },
+    {
+      "cfcId": 42,
+      "cn": "完成集团战训练！",
+      "en": "Basic Training: Enemy Parties",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 10,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 43,
+      "cn": "讨伐彷徨死灵！",
+      "en": "Under the Armor",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 10,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 44,
+      "cn": "突破所有关门，讨伐最深处的敌人！",
+      "en": "Basic Training: Enemy Strongholds",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 45,
+      "cn": "捕获金币龟！",
+      "en": "Hero on the Half Shell",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 46,
+      "cn": "驱除剧毒妖花！",
+      "en": "Pulling Poison Posies",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 20,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 47,
+      "cn": "消灭恶徒团伙寄生蜂团！",
+      "en": "Stinging Back",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 20,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 48,
+      "cn": "讨伐梦幻之布拉奇希奥！",
+      "en": "All's Well that Ends in the Well",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 25,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 49,
+      "cn": "击溃哥布林炸弹军团！",
+      "en": "Flicking Sticks and Taking Names",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 25,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 50,
+      "cn": "讨伐污染源头魔界花！",
+      "en": "More than a Feeler",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 51,
+      "cn": "讨伐坑道中出现的妖异！",
+      "en": "Annoy the Void",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 52,
+      "cn": "注意无敌的眷属，讨伐大型妖异！",
+      "en": "Shadow and Claw",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 35,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 53,
+      "cn": "讨伐爆弹怪的女王！",
+      "en": "Long Live the Queen",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 35,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 54,
+      "cn": "歼灭特殊阵型的妖异！",
+      "en": "Ward Up",
+      "contentType": "Guildhests",
+      "partySize": 4,
+      "level": 40,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 55,
+      "cn": "制止三方混战的巨人族，守住遗物！",
+      "en": "Solemn Trinity",
+      "contentType": "Guildhests",
+      "partySize": 8,
+      "level": 40,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 56,
+      "cn": "伊弗利特讨伐战",
+      "en": "the Bowl of Embers",
+      "contentType": "Trials",
+      "partySize": 4,
+      "level": 20,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 57,
+      "cn": "泰坦讨伐战",
+      "en": "the Navel",
+      "contentType": "Trials",
+      "partySize": 4,
+      "level": 34,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 58,
+      "cn": "迦楼罗讨伐战",
+      "en": "the Howling Eye",
+      "contentType": "Trials",
+      "partySize": 4,
+      "level": 44,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 59,
+      "cn": "伊弗利特歼灭战",
+      "en": "the Bowl of Embers (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 49,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 60,
+      "cn": "泰坦歼灭战",
+      "en": "the Navel (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 57,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 61,
+      "cn": "迦楼罗歼灭战",
+      "en": "the Howling Eye (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 52,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 63,
+      "cn": "伊弗利特歼殛战",
+      "en": "the Bowl of Embers (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 64,
+      "cn": "泰坦歼殛战",
+      "en": "the Navel (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 67,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 65,
+      "cn": "迦楼罗歼殛战",
+      "en": "the Howling Eye (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 65,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 66,
+      "cn": "莫古力贤王歼灭战",
+      "en": "Thornmarch (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 54,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 67,
+      "cn": "莫古力贤王歼殛战",
+      "en": "Thornmarch (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 68,
+      "cn": "究极神兵假想作战",
+      "en": "the Minstrel's Ballad: Ultima's Bane",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 61,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 69,
+      "cn": "阿修罗歼灭战",
+      "en": "The Gilded Araya",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 70,
+      "cn": "活动挑战2",
+      "en": "Special Event I",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 71,
+      "cn": "活动挑战3",
+      "en": "Special Event II",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 73,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 72,
+      "cn": "利维亚桑歼灭战",
+      "en": "the Whorleater (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 60,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 73,
+      "cn": "利维亚桑歼殛战",
+      "en": "the Whorleater (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 74,
+      "cn": "死化奇美拉讨伐战",
+      "en": "A Relic Reborn: the Chimera",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 52,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 75,
+      "cn": "海德拉讨伐战",
+      "en": "A Relic Reborn: the Hydra",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 52,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 76,
+      "cn": "大桥上的决斗",
+      "en": "Battle on the Big Bridge",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 50,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 77,
+      "cn": "拉姆歼灭战",
+      "en": "the Striking Tree (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 65,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 78,
+      "cn": "拉姆歼殛战",
+      "en": "the Striking Tree (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 85,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 79,
+      "cn": "希瓦歼灭战",
+      "en": "the Akh Afah Amphitheatre (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 80,
+      "cn": "希瓦歼殛战",
+      "en": "the Akh Afah Amphitheatre (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 95,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 81,
+      "cn": "艾玛吉娜杯斗技大会决赛",
+      "en": "the Dragon's Neck",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 80,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 82,
+      "cn": "奥丁歼灭战",
+      "en": "Urth's Fount",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 95,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 84,
+      "cn": "那布里亚勒斯讨伐战",
+      "en": "the Chrysalis",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 85,
+      "cn": "无限城的死斗",
+      "en": "Battle in the Big Keep",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 86,
+      "cn": "罗波那歼灭战",
+      "en": "Thok ast Thok (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 53,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 87,
+      "cn": "罗波那歼殛战",
+      "en": "Thok ast Thok (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 175,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 88,
+      "cn": "俾斯麦歼灭战",
+      "en": "the Limitless Blue (Hard)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 57,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 89,
+      "cn": "俾斯麦歼殛战",
+      "en": "the Limitless Blue (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 165,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 90,
+      "cn": "圆桌骑士歼灭战",
+      "en": "the Singularity Reactor",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 142,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 91,
+      "cn": "圆桌骑士幻想歼灭战",
+      "en": "the Minstrel's Ballad: Thordan's Reign",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 190,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 92,
+      "cn": "水晶塔 古代人迷宫",
+      "en": "the Labyrinth of the Ancients",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 50,
+      "itemLevel": 50,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 93,
+      "cn": "巴哈姆特大迷宫 邂逅之章1",
+      "en": "the Binding Coil of Bahamut - Turn 1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 94,
+      "cn": "巴哈姆特大迷宫 邂逅之章2",
+      "en": "the Binding Coil of Bahamut - Turn 2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 73,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 95,
+      "cn": "巴哈姆特大迷宫 邂逅之章3",
+      "en": "the Binding Coil of Bahamut - Turn 3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 96,
+      "cn": "巴哈姆特大迷宫 邂逅之章4",
+      "en": "the Binding Coil of Bahamut - Turn 4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 77,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 97,
+      "cn": "巴哈姆特大迷宫 邂逅之章5",
+      "en": "the Binding Coil of Bahamut - Turn 5",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 82,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 98,
+      "cn": "巴哈姆特大迷宫 入侵之章1",
+      "en": "the Second Coil of Bahamut - Turn 1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 99,
+      "cn": "巴哈姆特大迷宫 入侵之章2",
+      "en": "the Second Coil of Bahamut - Turn 2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 95,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 100,
+      "cn": "巴哈姆特大迷宫 入侵之章3",
+      "en": "the Second Coil of Bahamut - Turn 3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 100,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 101,
+      "cn": "巴哈姆特大迷宫 入侵之章4",
+      "en": "the Second Coil of Bahamut - Turn 4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 102,
+      "cn": "水晶塔 希尔科斯塔",
+      "en": "Syrcus Tower",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 50,
+      "itemLevel": 70,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 103,
+      "cn": "巴哈姆特零式大迷宫 入侵之章1",
+      "en": "the Second Coil of Bahamut (Savage) - Turn 1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 104,
+      "cn": "巴哈姆特零式大迷宫 入侵之章2",
+      "en": "the Second Coil of Bahamut (Savage) - Turn 2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 105,
+      "cn": "巴哈姆特零式大迷宫 入侵之章3",
+      "en": "the Second Coil of Bahamut (Savage) - Turn 3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 106,
+      "cn": "巴哈姆特零式大迷宫 入侵之章4",
+      "en": "the Second Coil of Bahamut (Savage) - Turn 4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 105,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 107,
+      "cn": "巴哈姆特大迷宫 真源之章1",
+      "en": "the Final Coil of Bahamut - Turn 1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 110,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 108,
+      "cn": "巴哈姆特大迷宫 真源之章2",
+      "en": "the Final Coil of Bahamut - Turn 2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 115,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 109,
+      "cn": "巴哈姆特大迷宫 真源之章3",
+      "en": "the Final Coil of Bahamut - Turn 3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 120,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 110,
+      "cn": "巴哈姆特大迷宫 真源之章4",
+      "en": "the Final Coil of Bahamut - Turn 4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 50,
+      "itemLevel": 123,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 111,
+      "cn": "水晶塔 暗之世界",
+      "en": "the World of Darkness",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 50,
+      "itemLevel": 90,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 112,
+      "cn": "亚历山大机神城 启动之章1",
+      "en": "Alexander - The Fist of the Father",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 113,
+      "cn": "亚历山大机神城 启动之章2",
+      "en": "Alexander - The Cuff of the Father",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 114,
+      "cn": "亚历山大机神城 启动之章3",
+      "en": "Alexander - The Arm of the Father",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 115,
+      "cn": "亚历山大机神城 启动之章4",
+      "en": "Alexander - The Burden of the Father",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 170,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 116,
+      "cn": "亚历山大零式机神城 启动之章1",
+      "en": "Alexander - The Fist of the Father (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 190,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 117,
+      "cn": "亚历山大零式机神城 启动之章2",
+      "en": "Alexander - The Cuff of the Father (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 195,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 118,
+      "cn": "亚历山大零式机神城 启动之章3",
+      "en": "Alexander - The Arm of the Father (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 119,
+      "cn": "亚历山大零式机神城 启动之章4",
+      "en": "Alexander - The Burden of the Father (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 205,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 120,
+      "cn": "魔航船虚无方舟",
+      "en": "the Void Ark",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 60,
+      "itemLevel": 175,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 127,
+      "cn": "周边遗迹群（阵地战）",
+      "en": "the Borderland Ruins (Secure)",
+      "contentType": "PvP",
+      "partySize": 72,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 130,
+      "cn": "尘封秘岩（争夺战）",
+      "en": "Seal Rock (Seize)",
+      "contentType": "PvP",
+      "partySize": 72,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 131,
+      "cn": "云冠群岛白昼探索",
+      "en": "the Diadem (Easy)",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 132,
+      "cn": "云冠群岛黄昏探索",
+      "en": "the Diadem",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 133,
+      "cn": "云冠群岛夜晚探索",
+      "en": "the Diadem (Hard)",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 134,
+      "cn": "萨菲洛特歼灭战",
+      "en": "Containment Bay S1T7",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 190,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 135,
+      "cn": "萨菲洛特歼殛战",
+      "en": "Containment Bay S1T7 (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 205,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 136,
+      "cn": "亚历山大机神城 律动之章1",
+      "en": "Alexander - The Fist of the Son",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 137,
+      "cn": "亚历山大机神城 律动之章2",
+      "en": "Alexander - The Cuff of the Son",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 138,
+      "cn": "亚历山大机神城 律动之章3",
+      "en": "Alexander - The Arm of the Son",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 139,
+      "cn": "亚历山大机神城 律动之章4",
+      "en": "Alexander - The Burden of the Son",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 140,
+      "cn": "神圣遗迹无限城市街古迹",
+      "en": "the Lost City of Amdapor (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 180,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 141,
+      "cn": "星海空间颠倒塔",
+      "en": "the Antitower",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 180,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 147,
+      "cn": "亚历山大零式机神城 律动之章1",
+      "en": "Alexander - The Fist of the Son (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 215,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 148,
+      "cn": "亚历山大零式机神城 律动之章2",
+      "en": "Alexander - The Cuff of the Son (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 220,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 149,
+      "cn": "亚历山大零式机神城 律动之章3",
+      "en": "Alexander - The Arm of the Son (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 225,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 150,
+      "cn": "亚历山大零式机神城 律动之章4",
+      "en": "Alexander - The Burden of the Son (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 225,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 151,
+      "cn": "躲避范围攻击",
+      "en": "Avoid Area of Effect Attacks",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 152,
+      "cn": "掌握仇恨连击",
+      "en": "Execute a Combo to Increase Enmity",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 153,
+      "cn": "控制敌人的仇恨",
+      "en": "Execute a Combo in Battle",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 154,
+      "cn": "控制多个敌人的仇恨",
+      "en": "Accrue Enmity from Multiple Targets",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 155,
+      "cn": "实战控制多个敌人的仇恨",
+      "en": "Engage Multiple Targets",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 156,
+      "cn": "控制远处敌人的仇恨",
+      "en": "Execute a Ranged Attack to Increase Enmity",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 157,
+      "cn": "留心增援的敌人",
+      "en": "Engage Enemy Reinforcements",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 158,
+      "cn": "配合防护职业打倒单个敌人",
+      "en": "Assist Allies in Defeating a Target",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 159,
+      "cn": "配合防护职业打倒多个敌人",
+      "en": "Defeat an Occupied Target",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 160,
+      "cn": "躲避范围攻击的同时进行战斗",
+      "en": "Avoid Engaged Targets",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 161,
+      "cn": "打倒增援的敌人",
+      "en": "Engage Enemy Reinforcements",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 162,
+      "cn": "灵活运用场地机关",
+      "en": "Interact with the Battlefield",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 163,
+      "cn": "治疗防护职业",
+      "en": "Heal an Ally",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 164,
+      "cn": "治疗小队队员",
+      "en": "Heal Multiple Allies",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 165,
+      "cn": "躲避范围攻击的同时进行战斗",
+      "en": "Avoid Engaged Targets",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 166,
+      "cn": "最终训练",
+      "en": "Final Exercise",
+      "contentType": "",
+      "partySize": 1,
+      "level": 15,
+      "itemLevel": 0,
+      "itemLevelSync": 5
+    },
+    {
+      "cfcId": 167,
+      "cn": "四国联合军演",
+      "en": "a Spectacle for the Ages",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 168,
+      "cn": "禁忌城邦玛哈",
+      "en": "the Weeping City of Mhach",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 60,
+      "itemLevel": 205,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 169,
+      "cn": "尼德霍格征龙战",
+      "en": "the Final Steps of Faith",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 205,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 170,
+      "cn": "尼德霍格传奇征龙战",
+      "en": "the Minstrel's Ballad: Nidhogg's Rage",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 220,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 171,
+      "cn": "天龙宫殿忆罪宫",
+      "en": "Sohr Khai",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 172,
+      "cn": "黑涡传说破舰岛",
+      "en": "Hullbreaker Isle (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 200,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 173,
+      "cn": "雷古拉·范·休著斯追击战",
+      "en": "a Bloody Reunion",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 174,
+      "cn": "死者宫殿 地下1～10层",
+      "en": "the Palace of the Dead (Floors 1-10)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 175,
+      "cn": "死者宫殿 地下11～20层",
+      "en": "the Palace of the Dead (Floors 11-20)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 176,
+      "cn": "死者宫殿 地下21～30层",
+      "en": "the Palace of the Dead (Floors 21-30)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 177,
+      "cn": "死者宫殿 地下31～40层",
+      "en": "the Palace of the Dead (Floors 31-40)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 178,
+      "cn": "死者宫殿 地下41～50层",
+      "en": "the Palace of the Dead (Floors 41-50)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 179,
+      "cn": "水城宝物库",
+      "en": "the Aquapolis",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 180
+    },
+    {
+      "cfcId": 180,
+      "cn": "荣誉野（碎冰战）",
+      "en": "the Fields of Glory (Shatter)",
+      "contentType": "PvP",
+      "partySize": 72,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 181,
+      "cn": "亡灵府邸闹鬼庄园",
+      "en": "the Haunted Manor",
+      "contentType": "",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 182,
+      "cn": "险峻峡谷塞尔法特尔溪谷",
+      "en": "Xelphatol",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 210,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 183,
+      "cn": "索菲娅歼灭战",
+      "en": "Containment Bay P1T6",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 220,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 184,
+      "cn": "索菲娅歼殛战",
+      "en": "Containment Bay P1T6 (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 235,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 186,
+      "cn": "亚历山大机神城 天动之章1",
+      "en": "Alexander - The Eyes of the Creator",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 187,
+      "cn": "亚历山大机神城 天动之章2",
+      "en": "Alexander - The Breath of the Creator",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 188,
+      "cn": "亚历山大机神城 天动之章3",
+      "en": "Alexander - The Heart of the Creator",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 189,
+      "cn": "亚历山大机神城 天动之章4",
+      "en": "Alexander - The Soul of the Creator",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 190,
+      "cn": "亚历山大零式机神城 天动之章1",
+      "en": "Alexander - The Eyes of the Creator (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 245,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 191,
+      "cn": "亚历山大零式机神城 天动之章2",
+      "en": "Alexander - The Breath of the Creator (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 250,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 192,
+      "cn": "亚历山大零式机神城 天动之章3",
+      "en": "Alexander - The Heart of the Creator (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 255,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 193,
+      "cn": "亚历山大零式机神城 天动之章4",
+      "en": "Alexander - The Soul of the Creator (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 255,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 194,
+      "cn": "纠缠不清的宿命",
+      "en": "One Life for One World",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 195,
+      "cn": "九宫幻卡：幻卡对局室",
+      "en": "The Triple Triad Battlehall",
+      "contentType": "Gold Saucer",
+      "partySize": 576,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 196,
+      "cn": "秘本宝库迦巴勒幻想图书馆",
+      "en": "the Great Gubal Library (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 210,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 197,
+      "cn": "萌宠之王：玩家对战（绩点赛）",
+      "en": "LoVM: Player Battle (RP)",
+      "contentType": "Gold Saucer",
+      "partySize": 2,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 198,
+      "cn": "萌宠之王：大赛对战（玩家对战）",
+      "en": "LoVM: Tournament",
+      "contentType": "Gold Saucer",
+      "partySize": 2,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 199,
+      "cn": "萌宠之王：玩家对战（无绩点赛）",
+      "en": "LoVM: Player Battle (Non-RP)",
+      "contentType": "Gold Saucer",
+      "partySize": 2,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 202,
+      "cn": "云冠群岛白昼探索（狩猎专用）",
+      "en": "the Diadem Hunting Grounds (Easy)",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 203,
+      "cn": "云冠群岛黄昏探索（狩猎专用）",
+      "en": "the Diadem Hunting Grounds",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 204,
+      "cn": "死者宫殿 地下51～60层",
+      "en": "the Palace of the Dead (Floors 51-60)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 205,
+      "cn": "死者宫殿 地下61～70层",
+      "en": "the Palace of the Dead (Floors 61-70)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 206,
+      "cn": "死者宫殿 地下71～80层",
+      "en": "the Palace of the Dead (Floors 71-80)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 207,
+      "cn": "死者宫殿 地下81～90层",
+      "en": "the Palace of the Dead (Floors 81-90)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 208,
+      "cn": "死者宫殿 地下91～100层",
+      "en": "the Palace of the Dead (Floors 91-100)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 209,
+      "cn": "死者宫殿 地下101～110层",
+      "en": "the Palace of the Dead (Floors 101-110)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 210,
+      "cn": "死者宫殿 地下111～120层",
+      "en": "the Palace of the Dead (Floors 111-120)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 211,
+      "cn": "死者宫殿 地下121～130层",
+      "en": "the Palace of the Dead (Floors 121-130)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 212,
+      "cn": "死者宫殿 地下131～140层",
+      "en": "the Palace of the Dead (Floors 131-140)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 213,
+      "cn": "死者宫殿 地下141～150层",
+      "en": "the Palace of the Dead (Floors 141-150)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 214,
+      "cn": "死者宫殿 地下151～160层",
+      "en": "the Palace of the Dead (Floors 151-160)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 215,
+      "cn": "死者宫殿 地下161～170层",
+      "en": "the Palace of the Dead (Floors 161-170)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 216,
+      "cn": "死者宫殿 地下171～180层",
+      "en": "the Palace of the Dead (Floors 171-180)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 217,
+      "cn": "死者宫殿 地下181～190层",
+      "en": "the Palace of the Dead (Floors 181-190)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 218,
+      "cn": "死者宫殿 地下191～200层",
+      "en": "the Palace of the Dead (Floors 191-200)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 219,
+      "cn": "坚牢铁壁巴埃萨长城",
+      "en": "Baelsar's Wall",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 220,
+      "cn": "影之国",
+      "en": "Dun Scaith",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 60,
+      "itemLevel": 235,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 221,
+      "cn": "天山深境索姆阿尔灵峰",
+      "en": "Sohm Al (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 60,
+      "itemLevel": 230,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 222,
+      "cn": "加尔提诺平原遭遇战",
+      "en": "The Carteneau Flats: Heliodrome",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 223,
+      "cn": "祖尔宛歼灭战",
+      "en": "Containment Bay Z1T9",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 235,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 224,
+      "cn": "祖尔宛歼殛战",
+      "en": "Containment Bay Z1T9 (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 60,
+      "itemLevel": 250,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 225,
+      "cn": "云冠群岛战争神猎场",
+      "en": "the Diadem - Trials of the Fury",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 220,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 234,
+      "cn": "云冠群岛丰饶神福地",
+      "en": "the Diadem - Trials of the Matron",
+      "contentType": "",
+      "partySize": 72,
+      "level": 60,
+      "itemLevel": 179,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 235,
+      "cn": "海底宫殿紫水宫",
+      "en": "Shisui of the Violet Tides",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 63,
+      "itemLevel": 245,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 236,
+      "cn": "修行古刹星导寺",
+      "en": "the Temple of the Fist",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 280,
+      "itemLevelSync": 340
+    },
+    {
+      "cfcId": 237,
+      "cn": "鱼道现身！",
+      "en": "It's Probably a Trap",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 238,
+      "cn": "漂流海域妖歌海",
+      "en": "the Sirensong Sea",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 240,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 239,
+      "cn": "神龙歼灭战",
+      "en": "the Royal Menagerie",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 280,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 240,
+      "cn": "试炼行路巴儿达木霸道",
+      "en": "Bardam's Mettle",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 65,
+      "itemLevel": 250,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 241,
+      "cn": "解放决战多玛王城",
+      "en": "Doma Castle",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 67,
+      "itemLevel": 255,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 242,
+      "cn": "巨炮要塞帝国白山堡",
+      "en": "Castrum Abania",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 69,
+      "itemLevel": 260,
+      "itemLevelSync": 290
+    },
+    {
+      "cfcId": 243,
+      "cn": "须佐之男歼灭战",
+      "en": "the Pool of Tribute",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 63,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 244,
+      "cn": "须佐之男歼殛战",
+      "en": "the Pool of Tribute (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 300,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 245,
+      "cn": "抗争之力",
+      "en": "With Heart and Steel",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 246,
+      "cn": "那达慕",
+      "en": "Naadam",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 247,
+      "cn": "鏖战红莲阿拉米格",
+      "en": "Ala Mhigo",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 280,
+      "itemLevelSync": 310
+    },
+    {
+      "cfcId": 248,
+      "cn": "海都路人身首异",
+      "en": "Blood on the Deck",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 54,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 249,
+      "cn": "极恶之人木枯",
+      "en": "The Face of True Evil",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 250,
+      "cn": "松叶门外之变",
+      "en": "Matsuba Mayhem",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 65,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 251,
+      "cn": "决战龟甲岛",
+      "en": "The Battle on Bekko",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 252,
+      "cn": "欧米茄时空狭缝 德尔塔幻境1",
+      "en": "Deltascape V1.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 295,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 253,
+      "cn": "欧米茄时空狭缝 德尔塔幻境2",
+      "en": "Deltascape V2.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 295,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 254,
+      "cn": "欧米茄时空狭缝 德尔塔幻境3",
+      "en": "Deltascape V3.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 295,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 255,
+      "cn": "欧米茄时空狭缝 德尔塔幻境4",
+      "en": "Deltascape V4.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 295,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 256,
+      "cn": "欧米茄零式时空狭缝 德尔塔幻境1",
+      "en": "Deltascape V1.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 310,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 257,
+      "cn": "欧米茄零式时空狭缝 德尔塔幻境2",
+      "en": "Deltascape V2.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 315,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 258,
+      "cn": "欧米茄零式时空狭缝 德尔塔幻境3",
+      "en": "Deltascape V3.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 320,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 259,
+      "cn": "欧米茄零式时空狭缝 德尔塔幻境4",
+      "en": "Deltascape V4.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 320,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 260,
+      "cn": "原初的战士",
+      "en": "Curious Gorge Meets His Match",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 261,
+      "cn": "大会开始",
+      "en": "In Thal's Name",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 63,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 262,
+      "cn": "恶党孤城黄金阁",
+      "en": "Kugane Castle",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 280,
+      "itemLevelSync": 340
+    },
+    {
+      "cfcId": 263,
+      "cn": "吉祥天女歼灭战",
+      "en": "Emanation",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 67,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 264,
+      "cn": "吉祥天女歼殛战",
+      "en": "Emanation (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 300,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 265,
+      "cn": "穿越时空的夙愿",
+      "en": "Our Unsung Heroes",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 266,
+      "cn": "燃烧吧高吉",
+      "en": "The Heart of the Problem",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 267,
+      "cn": "漆黑的巨龙",
+      "en": "Dark as the Night Sky",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 68,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 268,
+      "cn": "运河宝物库",
+      "en": "the Lost Canals of Uznair",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 370
+    },
+    {
+      "cfcId": 269,
+      "cn": "于里昂热的秘策",
+      "en": "The Resonant",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 270,
+      "cn": "为了更强",
+      "en": "Raising the Sword",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 271,
+      "cn": "遥远的憧憬",
+      "en": "The Orphans and the Broken Blade",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 65,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 272,
+      "cn": "再次相见",
+      "en": "Our Compromise",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 273,
+      "cn": "红血之龙骑士",
+      "en": "Dragon Sound",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 274,
+      "cn": "影隐忍法贴",
+      "en": "When Clans Collide",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 275,
+      "cn": "时空狭缝外缘",
+      "en": "Interdimensional Rift",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 276,
+      "cn": "运河宝物库深层",
+      "en": "the Hidden Canals of Uznair",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 370
+    },
+    {
+      "cfcId": 277,
+      "cn": "距骨研究所（机动战）",
+      "en": "Astragalos",
+      "contentType": "PvP",
+      "partySize": 48,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 278,
+      "cn": "神龙梦幻歼灭战",
+      "en": "the Minstrel's Ballad: Shinryu's Domain",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 320,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 279,
+      "cn": "沉没神殿斯卡拉遗迹",
+      "en": "the Drowned City of Skalla",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 300,
+      "itemLevelSync": 370
+    },
+    {
+      "cfcId": 280,
+      "cn": "巴哈姆特绝境战",
+      "en": "the Unending Coil of Bahamut (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 345
+    },
+    {
+      "cfcId": 281,
+      "cn": "失落之都拉巴纳斯塔",
+      "en": "the Royal City of Rabanastre",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 70,
+      "itemLevel": 305,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 282,
+      "cn": "英雄归来",
+      "en": "Return of the Bull",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 283,
+      "cn": "禁地优雷卡 常风之地",
+      "en": "the Forbidden Land, Eureka Anemos",
+      "contentType": "Eureka",
+      "partySize": 1152,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 300
+    },
+    {
+      "cfcId": 284,
+      "cn": "红玉火山狱之盖",
+      "en": "Hells' Lid",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 310,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 285,
+      "cn": "疯狂战舰无限回廊",
+      "en": "the Fractal Continuum (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 310,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 286,
+      "cn": "欧米茄时空狭缝 西格玛幻境1",
+      "en": "Sigmascape V1.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 325,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 287,
+      "cn": "欧米茄时空狭缝 西格玛幻境2",
+      "en": "Sigmascape V2.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 325,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 288,
+      "cn": "欧米茄时空狭缝 西格玛幻境3",
+      "en": "Sigmascape V3.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 325,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 289,
+      "cn": "欧米茄时空狭缝 西格玛幻境4",
+      "en": "Sigmascape V4.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 325,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 290,
+      "cn": "白虎镇魂战",
+      "en": "the Jade Stoa",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 325,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 291,
+      "cn": "白虎诗魂战",
+      "en": "the Jade Stoa (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 340,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 292,
+      "cn": "欧米茄零式时空狭缝 西格玛幻境1",
+      "en": "Sigmascape V1.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 340,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 293,
+      "cn": "欧米茄零式时空狭缝 西格玛幻境2",
+      "en": "Sigmascape V2.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 345,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 294,
+      "cn": "欧米茄零式时空狭缝 西格玛幻境3",
+      "en": "Sigmascape V3.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 350,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 295,
+      "cn": "欧米茄零式时空狭缝 西格玛幻境4",
+      "en": "Sigmascape V4.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 350,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 473,
+      "cn": "良缘仪式",
+      "en": "the Valentione's Ceremony",
+      "contentType": "",
+      "partySize": 2,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 474,
+      "cn": "火龙狩猎战",
+      "en": "the Great Hunt",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 320,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 475,
+      "cn": "火龙上位狩猎战",
+      "en": "the Great Hunt (Extreme)",
+      "contentType": "Trials",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 350,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 481,
+      "cn": "陆行鸟竞赛：竞赛教学",
+      "en": "Chocobo Race: Tutorial",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 482,
+      "cn": "第1关：抢占内圈赛道",
+      "en": "Race 1 - Hugging the Inside",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 483,
+      "cn": "第2关：躲避范围攻击",
+      "en": "Race 2 - Keep Away",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 484,
+      "cn": "第3关：能力不是万能的",
+      "en": "Race 3 - Inability",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 485,
+      "cn": "第4关：沉重的竞赛（上）",
+      "en": "Race 4 - Heavy Hooves",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 486,
+      "cn": "第5关：站住别跑",
+      "en": "Race 5 - Defending the Rush",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 487,
+      "cn": "第6关：打击竞争对手",
+      "en": "Race 6 - Road Rivals",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 488,
+      "cn": "第7关：梦幻的结界",
+      "en": "Race 7 - Field of Dreams",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 489,
+      "cn": "第8关：鹬蚌相争渔翁得利",
+      "en": "Race 8 - Playing Both Ends",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 490,
+      "cn": "第9关：体力之战",
+      "en": "Race 9 - Stamina",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 491,
+      "cn": "第10关：逃亡者和追赶者",
+      "en": "Race 10 - Cat and Mouse",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 492,
+      "cn": "第11关：全速冲刺",
+      "en": "Race 11 - Mad Dash",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 493,
+      "cn": "第12关：活用竞赛能力",
+      "en": "Race 12 - Bag of Tricks",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 494,
+      "cn": "第13关：突破对手的协作",
+      "en": "Race 13 - Tag Team",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 495,
+      "cn": "第14关：沉重的竞赛（下）",
+      "en": "Race 14 - Heavier Hooves",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 496,
+      "cn": "第15关：究极陆行鸟竞赛",
+      "en": "Race 15 - Ultimatum",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 497,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 498,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 499,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 500,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 501,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 502,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 503,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 504,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 505,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 506,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 507,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 508,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 509,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 510,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 511,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 512,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 513,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 514,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 515,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 516,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 517,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 518,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 519,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 520,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 521,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 522,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 523,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 524,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 525,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 526,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 527,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 528,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 529,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 530,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 531,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 532,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 533,
+      "cn": "陆行鸟竞赛：荒野大道",
+      "en": "Chocobo Race: Sagolii Road",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 534,
+      "cn": "陆行鸟竞赛：太阳海岸",
+      "en": "Chocobo Race: Costa del Sol",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 535,
+      "cn": "陆行鸟竞赛：恬静小路",
+      "en": "Chocobo Race: Tranquil Paths",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 536,
+      "cn": "风水灵庙岩燕庙",
+      "en": "the Swallow's Compass",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 330,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 537,
+      "cn": "月读歼灭战",
+      "en": "Castrum Fluminis",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 335,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 538,
+      "cn": "月读幽夜歼灭战",
+      "en": "the Minstrel's Ballad: Tsukuyomi's Pain",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 350,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 539,
+      "cn": "究极神兵绝境战",
+      "en": "the Weapon's Refrain (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 375
+    },
+    {
+      "cfcId": 540,
+      "cn": "天之御柱 1～10层",
+      "en": "Heaven-on-High  (Floors 1-10)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 541,
+      "cn": "天之御柱 11～20层",
+      "en": "Heaven-on-High  (Floors 11-20)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 542,
+      "cn": "天之御柱 21～30层",
+      "en": "Heaven-on-High  (Floors 21-30)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 543,
+      "cn": "天之御柱 31～40层",
+      "en": "Heaven-on-High  (Floors 31-40)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 544,
+      "cn": "天之御柱 41～50层",
+      "en": "Heaven-on-High  (Floors 41-50)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 545,
+      "cn": "天之御柱 51～60层",
+      "en": "Heaven-on-High  (Floors 51-60)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 546,
+      "cn": "天之御柱 61～70层",
+      "en": "Heaven-on-High  (Floors 61-70)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 547,
+      "cn": "天之御柱 71～80层",
+      "en": "Heaven-on-High  (Floors 71-80)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 548,
+      "cn": "天之御柱 81～90层",
+      "en": "Heaven-on-High  (Floors 81-90)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 549,
+      "cn": "天之御柱 91～100层",
+      "en": "Heaven-on-High  (Floors 91-100)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 61,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 550,
+      "cn": "封闭圣塔黎铎拉纳大灯塔",
+      "en": "the Ridorana Lighthouse",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 70,
+      "itemLevel": 335,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 552,
+      "cn": "第1关：新手教学",
+      "en": "Stage 1: Tutorial",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 553,
+      "cn": "第2关：到处都是巧儿鸟",
+      "en": "Stage 2: Hatching a Plan",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 554,
+      "cn": "第3关：万事开头难",
+      "en": "Stage 3: The First Move",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 555,
+      "cn": "第4关：小小巨兽",
+      "en": "Stage 4: Little Big Beast",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 556,
+      "cn": "第5关：蛮族叛乱",
+      "en": "Stage 5: Turning Tribes",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 557,
+      "cn": "第6关：恐怖的墓园",
+      "en": "Stage 6: Off the Deepcroft",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 558,
+      "cn": "第7关：劲敌共斗",
+      "en": "Stage 7: Rivals",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 559,
+      "cn": "第8关：光暗之界乃拂晓",
+      "en": "Stage 8: Always Darkest",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 560,
+      "cn": "第9关：铜山爆破",
+      "en": "Stage 9: Mine Your Minions",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 561,
+      "cn": "第10关：蔓德拉之子",
+      "en": "Stage 10: Children of Mandragora",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 562,
+      "cn": "第11关：女王陛下万岁！",
+      "en": "Stage 11: The Queen and I",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 563,
+      "cn": "第12关：打砖块",
+      "en": "Stage 12: Breakout",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 564,
+      "cn": "第13关：首席机械师",
+      "en": "Stage 13: My Name Is Cid",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 565,
+      "cn": "第14关：硬如坚果",
+      "en": "Stage 14: Like a Nut",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 566,
+      "cn": "第15关：小小斗神讨伐战",
+      "en": "Stage 15: Urth's Spout",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 567,
+      "cn": "第16关：陆行鸟大进军",
+      "en": "Stage 16: Exodus",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 568,
+      "cn": "第17关：披雪小冰壁",
+      "en": "Stage 17: Over the Wall",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 569,
+      "cn": "第18关：小怪物狩猎",
+      "en": "Stage 18: The Hunt",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 570,
+      "cn": "第19关：小桥上的决斗",
+      "en": "Stage 19: Battle on the Bitty Bridge",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 571,
+      "cn": "第20关：愿水晶给予你指引",
+      "en": "Stage 20: Guiding Light",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 572,
+      "cn": "第21关：贤人的试炼",
+      "en": "Stage 21: Wise Words",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 573,
+      "cn": "第22关：暗淡的世界",
+      "en": "Stage 22: World of Poor Lighting",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 574,
+      "cn": "第23关：巴哈姆特小迷宫邂逅之章",
+      "en": "Stage 23: The Binding Coil",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 575,
+      "cn": "第24关：巴哈姆特小迷宫真源之章",
+      "en": "Stage 24: The Final Coil",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 576,
+      "cn": "萌宠之王：讨伐级单人战",
+      "en": "LoVM: Master Battle",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 577,
+      "cn": "萌宠之王：歼灭级单人战",
+      "en": "LoVM: Master Battle (Hard)",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 578,
+      "cn": "萌宠之王：歼殛级单人战",
+      "en": "LoVM: Master Battle (Extreme)",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 579,
+      "cn": "萌宠之王：大赛对战（人机对战）",
+      "en": "LoVM: Master Tournament",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 581,
+      "cn": "禁地优雷卡 恒冰之地",
+      "en": "the Forbidden Land, Eureka Pagos",
+      "contentType": "Eureka",
+      "partySize": 1152,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 300
+    },
+    {
+      "cfcId": 582,
+      "cn": "拂晓的少年",
+      "en": "Emissary of the Dawn",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 583,
+      "cn": "灾厄重现军事演习",
+      "en": "the Calamity Retold",
+      "contentType": "",
+      "partySize": 1152,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 584,
+      "cn": "污染庭园圣茉夏娜植物园",
+      "en": "Saint Mocianne's Arboretum (Hard)",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 340,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 585,
+      "cn": "死亡大地终末焦土",
+      "en": "the Burn",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 340,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 586,
+      "cn": "运河宝物库神殿",
+      "en": "the Shifting Altars of Uznair",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 370
+    },
+    {
+      "cfcId": 587,
+      "cn": "欧米茄时空狭缝 阿尔法幻境1",
+      "en": "Alphascape V1.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 355,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 588,
+      "cn": "欧米茄时空狭缝 阿尔法幻境2",
+      "en": "Alphascape V2.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 355,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 589,
+      "cn": "欧米茄时空狭缝 阿尔法幻境3",
+      "en": "Alphascape V3.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 355,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 590,
+      "cn": "欧米茄时空狭缝 阿尔法幻境4",
+      "en": "Alphascape V4.0",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 355,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 591,
+      "cn": "欧米茄零式时空狭缝 阿尔法幻境1",
+      "en": "Alphascape V1.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 370,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 592,
+      "cn": "欧米茄零式时空狭缝 阿尔法幻境2",
+      "en": "Alphascape V2.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 375,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 593,
+      "cn": "欧米茄零式时空狭缝 阿尔法幻境3",
+      "en": "Alphascape V3.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 380,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 594,
+      "cn": "欧米茄零式时空狭缝 阿尔法幻境4",
+      "en": "Alphascape V4.0 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 380,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 595,
+      "cn": "保镖歼灭战",
+      "en": "Kugane Ohashi",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 365,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 596,
+      "cn": "朱雀镇魂战",
+      "en": "Hells' Kier",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 355,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 597,
+      "cn": "朱雀诗魂战",
+      "en": "Hells' Kier (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 370,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 598,
+      "cn": "禁地优雷卡 涌火之地",
+      "en": "the Forbidden Land, Eureka Pyros",
+      "contentType": "Eureka",
+      "partySize": 1152,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 300
+    },
+    {
+      "cfcId": 599,
+      "cn": "隐塞（机动战）",
+      "en": "Hidden Gorge",
+      "contentType": "PvP",
+      "partySize": 48,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 600,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 601,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 602,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 603,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 604,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 605,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 606,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 607,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 608,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 609,
+      "cn": "楔石洞",
+      "en": "The Will of the Moon",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 610,
+      "cn": "出道战",
+      "en": "All's Well That Starts Well",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 611,
+      "cn": "国境防线基姆利特暗区",
+      "en": "the Ghimlyt Dark",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 70,
+      "itemLevel": 360,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 612,
+      "cn": "布丁拼盘",
+      "en": "Much Ado About Pudding",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 613,
+      "cn": "最初的岩壁——希帕克纳",
+      "en": "Waiting for Golem",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 614,
+      "cn": "怪力铁巨人——克利俄斯",
+      "en": "Gentlemen Prefer Swords",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 615,
+      "cn": "金币龟兄弟",
+      "en": "The Threepenny Turtles",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 616,
+      "cn": "铁鹰战士",
+      "en": "Eye Society",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 617,
+      "cn": "粘液怪合唱团",
+      "en": "A Chorus Slime",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 618,
+      "cn": "青之牙、红之牙",
+      "en": "Bomb-edy of Errors",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 619,
+      "cn": "七彩甜点——棉花软糖",
+      "en": "To Kill a Mockingslime",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 620,
+      "cn": "王者骑士——幽黑曲偶",
+      "en": "A Little Knight Music",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 621,
+      "cn": "爆前速攻",
+      "en": "Some Like It Excruciatingly Hot",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 622,
+      "cn": "寄生植物——火花草",
+      "en": "The Plant-om of the Opera",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 623,
+      "cn": "猩红死妖姬——卡蜜拉",
+      "en": "Beauty and a Beast",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 624,
+      "cn": "陪葬",
+      "en": "Blobs in the Woods",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 625,
+      "cn": "来自亚拉戈的威胁——斗兽系统",
+      "en": "The Me Nobody Nodes",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 626,
+      "cn": "怪力兽王——迪克巴朗",
+      "en": "Sunset Bull-evard",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 627,
+      "cn": "刚柔铁巨人——克利俄斯改",
+      "en": "The Sword of Music",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 628,
+      "cn": "爆破死斗",
+      "en": "Midsummer Night's Explosion",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 629,
+      "cn": "魅惑芳香——反射魔花瑞贝卡",
+      "en": "On a Clear Day You Can Smell Forever",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 630,
+      "cn": "著名组合——奥尔特罗斯&提丰",
+      "en": "Miss Typhon",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 631,
+      "cn": "愤怒合成兽——阿帕德马克",
+      "en": "Chimera on a Hot Tin Roof",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 632,
+      "cn": "爆炸湮灭——爆弹之祖",
+      "en": "Here Comes the Boom",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 633,
+      "cn": "魔兽皇太子——贝希摩斯太子",
+      "en": "Behemoths and Broomsticks",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 634,
+      "cn": "异形人偶师——艾匹罗基",
+      "en": "Amazing Technicolor Pit Fiends",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 635,
+      "cn": "邪恶青魔法师——启示者",
+      "en": "Dirty Rotten Azulmagia",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 636,
+      "cn": "乐欲之所瓯博讷修道院",
+      "en": "the Orbonne Monastery",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 70,
+      "itemLevel": 365,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 637,
+      "cn": "青龙镇魂战",
+      "en": "the Wreath of Snakes",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 365,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 638,
+      "cn": "青龙诗魂战",
+      "en": "the Wreath of Snakes (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 70,
+      "itemLevel": 380,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 639,
+      "cn": "禁地优雷卡 丰水之地",
+      "en": "the Forbidden Land, Eureka Hydatos",
+      "contentType": "Eureka",
+      "partySize": 1152,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 300
+    },
+    {
+      "cfcId": 640,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 641,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 642,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 643,
+      "cn": "多玛方城战：半庄战一般桌（段位战）",
+      "en": "Novice Mahjong (Full Ranked Match)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 644,
+      "cn": "多玛方城战：半庄战有段桌（段位战）",
+      "en": "Advanced Mahjong (Full Ranked Match)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 645,
+      "cn": "多玛方城战：半庄战4人亲友桌（带食断）",
+      "en": "Four-player Mahjong (Full Match, Kuitan Enabled)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 646,
+      "cn": "风之使者",
+      "en": "Messenger of the Winds",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 648,
+      "cn": "英雄挽歌",
+      "en": "a Requiem for Heroes",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 649,
+      "cn": "水妖幻园多恩美格禁园",
+      "en": "Dohn Mheg",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 73,
+      "itemLevel": 375,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 650,
+      "cn": "多玛方城战：半庄战4人亲友桌（不带食断）",
+      "en": "Four-player Mahjong (Full Match, Kuitan Disabled)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 651,
+      "cn": "文明古迹奇坦那神影洞",
+      "en": "the Qitana Ravel",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 75,
+      "itemLevel": 380,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 652,
+      "cn": "末日暗影亚马乌罗提",
+      "en": "Amaurot",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 410,
+      "itemLevelSync": 440
+    },
+    {
+      "cfcId": 653,
+      "cn": "伊甸希望乐园 觉醒之章1",
+      "en": "Eden's Gate: Resurrection",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 425,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 654,
+      "cn": "伊甸零式希望乐园 觉醒之章1",
+      "en": "Eden's Gate: Resurrection (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 440,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 655,
+      "cn": "异界遗构希尔科斯孪晶塔",
+      "en": "the Twinning",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 410,
+      "itemLevelSync": 470
+    },
+    {
+      "cfcId": 656,
+      "cn": "避暑离宫马利卡大井",
+      "en": "Malikah's Well",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 77,
+      "itemLevel": 385,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 657,
+      "cn": "缇坦妮雅歼灭战",
+      "en": "the Dancing Plague",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 73,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 658,
+      "cn": "缇坦妮雅歼殛战",
+      "en": "the Dancing Plague (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 430,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 659,
+      "cn": "伪造天界格鲁格火山",
+      "en": "Mt. Gulg",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 79,
+      "itemLevel": 390,
+      "itemLevelSync": 420
+    },
+    {
+      "cfcId": 661,
+      "cn": "创造机构阿尼德罗学院",
+      "en": "Akadaemia Anyder",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 410,
+      "itemLevelSync": 470
+    },
+    {
+      "cfcId": 666,
+      "cn": "无瑕灵君歼灭战",
+      "en": "the Crown of the Immaculate",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 79,
+      "itemLevel": 0,
+      "itemLevelSync": 420
+    },
+    {
+      "cfcId": 667,
+      "cn": "无瑕灵君歼殛战",
+      "en": "the Crown of the Immaculate (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 430,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 676,
+      "cn": "遇袭集落水滩村",
+      "en": "Holminster Switch",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 71,
+      "itemLevel": 370,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 678,
+      "cn": "摇摆的天平",
+      "en": "The Hardened Heart",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 679,
+      "cn": "古代大再生魔法",
+      "en": "The Lost and the Found",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 680,
+      "cn": "废都拿巴示艾兰",
+      "en": "Coming Clean",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 681,
+      "cn": "机关、诅咒、剧毒与……",
+      "en": "Legend of the Not-so-hidden Temple",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 406
+    },
+    {
+      "cfcId": 682,
+      "cn": "伊甸希望乐园 觉醒之章3",
+      "en": "Eden's Gate: Inundation",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 425,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 683,
+      "cn": "伊甸零式希望乐园 觉醒之章3",
+      "en": "Eden's Gate: Inundation (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 450,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 684,
+      "cn": "伊甸希望乐园 觉醒之章2",
+      "en": "Eden's Gate: Descent",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 425,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 685,
+      "cn": "伊甸零式希望乐园 觉醒之章2",
+      "en": "Eden's Gate: Descent (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 445,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 686,
+      "cn": "奈贝尔特的后悔",
+      "en": "Nyelbert's Lament",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 687,
+      "cn": "哈迪斯歼灭战",
+      "en": "the Dying Gasp",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 410,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 688,
+      "cn": "梦羽宝境",
+      "en": "The Dungeons of Lyhe Ghiah",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 505
+    },
+    {
+      "cfcId": 689,
+      "cn": "伊甸希望乐园 觉醒之章4",
+      "en": "Eden's Gate: Sepulture",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 425,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 690,
+      "cn": "伊甸零式希望乐园 觉醒之章4",
+      "en": "Eden's Gate: Sepulture (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 450,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 691,
+      "cn": "勇敢的猎人",
+      "en": "The Hunter's Legacy",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 0,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 692,
+      "cn": "魔法宫殿宇宙宫",
+      "en": "the Grand Cosmos",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 430,
+      "itemLevelSync": 470
+    },
+    {
+      "cfcId": 693,
+      "cn": "哈迪斯孤念歼灭战",
+      "en": "the Minstrel's Ballad: Hades's Elegy",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 450,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 694,
+      "cn": "亚历山大绝境战",
+      "en": "the Epic of Alexander (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 475
+    },
+    {
+      "cfcId": 695,
+      "cn": "强大的老爹——洪巴巴之父",
+      "en": "Papa Mia",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 696,
+      "cn": "鼻息爆破死斗",
+      "en": "Lock up Your Snorters",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 697,
+      "cn": "绝妙傀儡师——都灵",
+      "en": "Dangerous When Dead",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 698,
+      "cn": "水与火之歌",
+      "en": "Red, Fraught, and Blue",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 699,
+      "cn": "世界第一剑士——齐格弗里德",
+      "en": "The Catch of the Siegfried",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 60,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 700,
+      "cn": "复制工厂废墟",
+      "en": "the Copied Factory",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 80,
+      "itemLevel": 435,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 701,
+      "cn": "昂萨哈凯尔（竞争战）",
+      "en": "Onsal Hakair (Danshig Naadam)",
+      "contentType": "PvP",
+      "partySize": 72,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 702,
+      "cn": "纯白誓约、漆黑密约",
+      "en": "Vows of Virtue, Deeds of Cruelty",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 703,
+      "cn": "我心依旧",
+      "en": "As the Heart Bids",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 395
+    },
+    {
+      "cfcId": 705,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 706,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 707,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 708,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 709,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 710,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 711,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 712,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 713,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 714,
+      "cn": "黑风海底阿尼德罗追忆馆",
+      "en": "Anamnesis Anyder",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 440,
+      "itemLevelSync": 500
+    },
+    {
+      "cfcId": 715,
+      "cn": "伊甸希望乐园 共鸣之章1",
+      "en": "Eden's Verse: Fulmination",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 455,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 716,
+      "cn": "伊甸零式希望乐园 共鸣之章1",
+      "en": "Eden's Verse: Fulmination (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 470,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 717,
+      "cn": "红宝石神兵破坏作战",
+      "en": "Cinder Drift",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 455,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 718,
+      "cn": "红宝石神兵狂想作战",
+      "en": "Cinder Drift (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 470,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 719,
+      "cn": "伊甸希望乐园 共鸣之章2",
+      "en": "Eden's Verse: Furor",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 455,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 720,
+      "cn": "伊甸零式希望乐园 共鸣之章2",
+      "en": "Eden's Verse: Furor (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 475,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 721,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 722,
+      "cn": "天上福地云冠群岛",
+      "en": "the Diadem",
+      "contentType": "Disciples of the Land",
+      "partySize": 1152,
+      "level": 10,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 723,
+      "cn": "博兹雅堡垒蒸发事件",
+      "en": "the Bozja Incident",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 724,
+      "cn": "英雄无法安息",
+      "en": "A Sleep Disturbed",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 725,
+      "cn": "博兹雅堡垒追忆战",
+      "en": "Memoria Misera (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 470,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 726,
+      "cn": "伊甸希望乐园 共鸣之章3",
+      "en": "Eden's Verse: Iconoclasm",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 455,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 727,
+      "cn": "伊甸零式希望乐园 共鸣之章3",
+      "en": "Eden's Verse: Iconoclasm (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 480,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 728,
+      "cn": "伊甸希望乐园 共鸣之章4",
+      "en": "Eden's Verse: Refulgence",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 455,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 729,
+      "cn": "伊甸零式希望乐园 共鸣之章4",
+      "en": "Eden's Verse: Refulgence (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 480,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 730,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 731,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 732,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 733,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 734,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 735,
+      "cn": "南方博兹雅战线",
+      "en": "the Bozjan Southern Front",
+      "contentType": "Save the Queen",
+      "partySize": 576,
+      "level": 71,
+      "itemLevel": 0,
+      "itemLevelSync": 430
+    },
+    {
+      "cfcId": 736,
+      "cn": "人偶军事基地",
+      "en": "the Puppets' Bunker",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 80,
+      "itemLevel": 465,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 737,
+      "cn": "暗影决战诺弗兰特",
+      "en": "the Heroes' Gauntlet",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 460,
+      "itemLevelSync": 500
+    },
+    {
+      "cfcId": 738,
+      "cn": "光之战士歼灭战",
+      "en": "the Seat of Sacrifice",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 465,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 739,
+      "cn": "光之战士幻耀歼灭战",
+      "en": "the Seat of Sacrifice (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 480,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 740,
+      "cn": "飞翔吧，前往维尔利特！",
+      "en": "Sleep Now in Sapphire",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 741,
+      "cn": "飞翔吧，前往维尔利特！",
+      "en": "Sleep Now in Sapphire",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 742,
+      "cn": "天上福地云冠群岛",
+      "en": "the Diadem",
+      "contentType": "Disciples of the Land",
+      "partySize": 1152,
+      "level": 10,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 743,
+      "cn": "褪色的记忆",
+      "en": "Faded Memories",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 490
+    },
+    {
+      "cfcId": 745,
+      "cn": "梦羽宝殿",
+      "en": "the Shifting Oubliettes of Lyhe Ghiah",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 505
+    },
+    {
+      "cfcId": 746,
+      "cn": "魔术工房玛托雅工作室",
+      "en": "Matoya's Relict",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 470,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 747,
+      "cn": "伊甸希望乐园 再生之章2",
+      "en": "Eden's Promise: Litany",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 485,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 748,
+      "cn": "伊甸零式希望乐园 再生之章2",
+      "en": "Eden's Promise: Litany (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 505,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 749,
+      "cn": "伊甸希望乐园 再生之章1",
+      "en": "Eden's Promise: Umbra",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 485,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 750,
+      "cn": "伊甸零式希望乐园 再生之章1",
+      "en": "Eden's Promise: Umbra (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 500,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 751,
+      "cn": "伊甸希望乐园 再生之章3",
+      "en": "Eden's Promise: Anamorphosis",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 485,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 752,
+      "cn": "伊甸零式希望乐园 再生之章3",
+      "en": "Eden's Promise: Anamorphosis (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 510,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 753,
+      "cn": "天上福地云冠群岛",
+      "en": "the Diadem",
+      "contentType": "Disciples of the Land",
+      "partySize": 1152,
+      "level": 10,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 754,
+      "cn": "黄金头巾——模仿师格格",
+      "en": "Anything Gogo's",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 755,
+      "cn": "九宫幻卡：官方锦标赛",
+      "en": "Triple Triad Open Tournament",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 756,
+      "cn": "九宫幻卡：锦标赛对局室",
+      "en": "Triple Triad Invitational Parlor",
+      "contentType": "Gold Saucer",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 758,
+      "cn": "伊甸希望乐园 再生之章4",
+      "en": "Eden's Promise: Eternity",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 485,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 759,
+      "cn": "伊甸零式希望乐园 再生之章4",
+      "en": "Eden's Promise: Eternity (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 510,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 760,
+      "cn": "女王古殿",
+      "en": "Delubrum Reginae",
+      "contentType": "Save the Queen",
+      "partySize": 24,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 430
+    },
+    {
+      "cfcId": 761,
+      "cn": "零式女王古殿",
+      "en": "Delubrum Reginae (Savage)",
+      "contentType": "Save the Queen",
+      "partySize": 48,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 430
+    },
+    {
+      "cfcId": 762,
+      "cn": "绿宝石神兵破坏作战",
+      "en": "Castrum Marinum",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 485,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 763,
+      "cn": "绿宝石神兵狂想作战",
+      "en": "Castrum Marinum (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 500,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 764,
+      "cn": "威尔布兰德扬帆起航",
+      "en": "The Great Ship Vylbrand",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 765,
+      "cn": "神佑女王",
+      "en": "Fit for a Queen",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 430
+    },
+    {
+      "cfcId": 766,
+      "cn": "多玛方城战：东风战一般桌（段位战）",
+      "en": "Novice Mahjong (Quick Ranked Match)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 767,
+      "cn": "多玛方城战：东风战有段桌（段位战）",
+      "en": "Advanced Mahjong (Quick Ranked Match)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 768,
+      "cn": "多玛方城战：东风战4人亲友桌（带食断）",
+      "en": "Four-player Mahjong (Quick Match, Kuitan Enabled)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 769,
+      "cn": "多玛方城战：东风战4人亲友桌（不带食断）",
+      "en": "Four-player Mahjong (Quick Match, Kuitan Disabled)",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 770,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 771,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 772,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 773,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 774,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 775,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 777,
+      "cn": "黄金平原帕戈尔赞草原",
+      "en": "Paglth'an",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 80,
+      "itemLevel": 490,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 778,
+      "cn": "扎杜诺尔高原",
+      "en": "Zadnor",
+      "contentType": "Save the Queen",
+      "partySize": 576,
+      "level": 71,
+      "itemLevel": 0,
+      "itemLevelSync": 430
+    },
+    {
+      "cfcId": 779,
+      "cn": "希望之炮台：“塔”",
+      "en": "the Tower at Paradigm's Breach",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 80,
+      "itemLevel": 495,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 780,
+      "cn": "死斗至黎明",
+      "en": "Death Unto Dawn",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 781,
+      "cn": "钻石神兵捕获作战",
+      "en": "the Cloud Deck",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 495,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 782,
+      "cn": "钻石神兵狂想作战",
+      "en": "the Cloud Deck (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 80,
+      "itemLevel": 510,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 783,
+      "cn": "异形楼阁佐特塔",
+      "en": "the Tower of Zot",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 500,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 784,
+      "cn": "电脑梦境斯提格玛四",
+      "en": "the Stigma Dreamscape",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 540,
+      "itemLevelSync": 600
+    },
+    {
+      "cfcId": 785,
+      "cn": "魔导神门巴别塔",
+      "en": "the Tower of Babil",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 83,
+      "itemLevel": 505,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 786,
+      "cn": "星海深幽寻因星晶镜",
+      "en": "the Aitiascope",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 89,
+      "itemLevel": 520,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 787,
+      "cn": "创造环境极北造物院",
+      "en": "Ktisis Hyperboreia",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 87,
+      "itemLevel": 515,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 788,
+      "cn": "幻想龙诗绝境战",
+      "en": "Dragonsong's Reprise (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 605
+    },
+    {
+      "cfcId": 789,
+      "cn": "末日树海万相森国",
+      "en": "Vanaspati",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 85,
+      "itemLevel": 510,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 790,
+      "cn": "海德林歼灭战",
+      "en": "the Mothercrystal",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 89,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 791,
+      "cn": "海德林晖光歼灭战",
+      "en": "the Minstrel's Ballad: Hydaelyn's Call",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 560,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 792,
+      "cn": "最终幻想末世终迹",
+      "en": "the Dead Ends",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 540,
+      "itemLevelSync": 570
+    },
+    {
+      "cfcId": 793,
+      "cn": "无尽寒夜",
+      "en": "In from the Cold",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 83,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 794,
+      "cn": "乐园都市笑笑镇",
+      "en": "Smileton",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 540,
+      "itemLevelSync": 600
+    },
+    {
+      "cfcId": 795,
+      "cn": "上一任阿谢姆的教导",
+      "en": "Worthy of His Back",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 87,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 796,
+      "cn": "终结之战",
+      "en": "the Final Day",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 540,
+      "itemLevelSync": 570
+    },
+    {
+      "cfcId": 797,
+      "cn": "滑稽灵殿闹鬼盛宴",
+      "en": "The Phantoms' Feast",
+      "contentType": "",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 798,
+      "cn": "晓月之终途",
+      "en": "Endwalker",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 799,
+      "cn": "驶向融合的巨轮",
+      "en": "To Calmer Seas",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 800,
+      "cn": "万魔殿 边境之狱4",
+      "en": "Asphodelos: The Fourth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 565,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 801,
+      "cn": "零式万魔殿 边境之狱4",
+      "en": "Asphodelos: The Fourth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 580,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 802,
+      "cn": "佐迪亚克歼灭战",
+      "en": "the Dark Inside",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 83,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 803,
+      "cn": "佐迪亚克暝暗歼灭战",
+      "en": "the Minstrel's Ballad: Zodiark's Fall",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 560,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 804,
+      "cn": "扩散的末日",
+      "en": "As the Heavens Burn",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 88,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 805,
+      "cn": "未来之路",
+      "en": "A Path Unveiled",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 806,
+      "cn": "万魔殿 边境之狱3",
+      "en": "Asphodelos: The Third Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 565,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 807,
+      "cn": "零式万魔殿 边境之狱3",
+      "en": "Asphodelos: The Third Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 580,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 808,
+      "cn": "万魔殿 边境之狱1",
+      "en": "Asphodelos: The First Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 565,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 809,
+      "cn": "零式万魔殿 边境之狱1",
+      "en": "Asphodelos: The First Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 570,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 810,
+      "cn": "万魔殿 边境之狱2",
+      "en": "Asphodelos: The Second Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 565,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 811,
+      "cn": "零式万魔殿 边境之狱2",
+      "en": "Asphodelos: The Second Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 575,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 812,
+      "cn": "踏破风雪",
+      "en": "A Frosty Reception",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 82,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 813,
+      "cn": "贤者的短杖",
+      "en": "Sage's Focus",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 395
+    },
+    {
+      "cfcId": 814,
+      "cn": "大镰的意义",
+      "en": "The Harvest Begins",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 70,
+      "itemLevel": 0,
+      "itemLevelSync": 395
+    },
+    {
+      "cfcId": 815,
+      "cn": "仰望苍穹，不断迈进",
+      "en": "Ever March Heavensward",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 816,
+      "cn": "暗杀道",
+      "en": "The Killing Art",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 525
+    },
+    {
+      "cfcId": 817,
+      "cn": "生命瞬逝，术道恒久",
+      "en": "Life Ephemeral, Path Eternal",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 525
+    },
+    {
+      "cfcId": 818,
+      "cn": "英魂安息",
+      "en": "Laid to Rest",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 819,
+      "cn": "惊奇百宝城",
+      "en": "the Excitatron 6000",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 820,
+      "cn": "目送生者前行",
+      "en": "The Gift of Mercy",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 550
+    },
+    {
+      "cfcId": 822,
+      "cn": "间歇灵泉哈姆岛",
+      "en": "the Aetherfont",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 605,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 823,
+      "cn": "异界深渊月面地下溪谷",
+      "en": "the Lunar Subterrane",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 620,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 824,
+      "cn": "通天绝壁沃刻佐莫山",
+      "en": "Worqor Zormor",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 93,
+      "itemLevel": 635,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 825,
+      "cn": "魂魄工厂创生设施",
+      "en": "Origenics",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 99,
+      "itemLevel": 650,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 826,
+      "cn": "丛林竞流生息河岸",
+      "en": "Ihuykatumu",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 630,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 827,
+      "cn": "忆中金曦亚历山德里亚",
+      "en": "Alexandria",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 670,
+      "itemLevelSync": 700
+    },
+    {
+      "cfcId": 828,
+      "cn": "一位国王，一位父亲",
+      "en": "A Father First",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 92,
+      "itemLevel": 0,
+      "itemLevelSync": 655
+    },
+    {
+      "cfcId": 829,
+      "cn": "神圣禁地深空天坑",
+      "en": "the Skydeep Cenote",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 95,
+      "itemLevel": 640,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 830,
+      "cn": "究极神兵破坏作战",
+      "en": "the Porta Decumana",
+      "contentType": "Trials",
+      "partySize": 4,
+      "level": 50,
+      "itemLevel": 42,
+      "itemLevelSync": 60
+    },
+    {
+      "cfcId": 831,
+      "cn": "前哨基地先锋营",
+      "en": "Vanguard",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 97,
+      "itemLevel": 645,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 832,
+      "cn": "艳翼蛇鸟歼灭战",
+      "en": "Worqor Lar Dor",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 93,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 833,
+      "cn": "艳翼蛇鸟歼殛战",
+      "en": "Worqor Lar Dor (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 834,
+      "cn": "荒野秘境仙人刺谷",
+      "en": "Tender Valley",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 670,
+      "itemLevelSync": 730
+    },
+    {
+      "cfcId": 835,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 836,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 837,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 838,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 839,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 840,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 841,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 842,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 843,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 844,
+      "cn": "近东秘宝阿尔扎达尔海底遗迹群",
+      "en": "Alzadaal's Legacy",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 560,
+      "itemLevelSync": 600
+    },
+    {
+      "cfcId": 845,
+      "cn": "涅尔瓦的帝国",
+      "en": "Forlorn Glory",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 846,
+      "cn": "终极之战",
+      "en": "the Minstrel's Ballad: Endsinger's Aria",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 580,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 847,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 848,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 849,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 850,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 851,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 852,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 853,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 854,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 855,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 856,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 857,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 858,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 859,
+      "cn": "角力学校",
+      "en": "the Palaistra",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 860,
+      "cn": "火山之心",
+      "en": "the Volcanic Heart",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 861,
+      "cn": "九霄云上",
+      "en": "Cloud Nine",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 862,
+      "cn": "水晶冲突（角力学校：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - The Palaistra)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 863,
+      "cn": "水晶冲突（火山之心：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - The Volcanic Heart)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 864,
+      "cn": "水晶冲突（九霄云上：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - Cloud Nine)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 865,
+      "cn": "里塔提恩强攻战",
+      "en": "Cape Westwind",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 49,
+      "itemLevel": 0,
+      "itemLevelSync": 50
+    },
+    {
+      "cfcId": 866,
+      "cn": "灿烂神域阿格莱亚",
+      "en": "Aglaia",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 90,
+      "itemLevel": 565,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 867,
+      "cn": "拉哈布雷亚讨伐战",
+      "en": "Devastation",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 60
+    },
+    {
+      "cfcId": 868,
+      "cn": "多变迷宫 希拉狄哈水道",
+      "en": "the Sil'dihn Subterrane",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 575,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 869,
+      "cn": "异界孤城特罗亚宫廷",
+      "en": "the Fell Court of Troia",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 575,
+      "itemLevelSync": 630
+    },
+    {
+      "cfcId": 870,
+      "cn": "巴尔巴莉希娅歼灭战",
+      "en": "Storm's Crown",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 585,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 871,
+      "cn": "巴尔巴莉希娅歼殛战",
+      "en": "Storm's Crown (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 600,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 872,
+      "cn": "万魔殿 炼净之狱1",
+      "en": "Abyssos: The Fifth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 585,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 873,
+      "cn": "零式万魔殿 炼净之狱1",
+      "en": "Abyssos: The Fifth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 600,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 874,
+      "cn": "失传的力量",
+      "en": "Where Everything Begins",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 620
+    },
+    {
+      "cfcId": 876,
+      "cn": "万魔殿 炼净之狱3",
+      "en": "Abyssos: The Seventh Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 585,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 877,
+      "cn": "零式万魔殿 炼净之狱3",
+      "en": "Abyssos: The Seventh Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 610,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 878,
+      "cn": "异闻希拉狄哈水道",
+      "en": "Another Sil'dihn Subterrane",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 610,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 879,
+      "cn": "零式异闻希拉狄哈水道",
+      "en": "Another Sil'dihn Subterrane (Savage)",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 880,
+      "cn": "万魔殿 炼净之狱2",
+      "en": "Abyssos: The Sixth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 585,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 881,
+      "cn": "零式万魔殿 炼净之狱2",
+      "en": "Abyssos: The Sixth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 605,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 883,
+      "cn": "万魔殿 炼净之狱4",
+      "en": "Abyssos: The Eighth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 585,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 884,
+      "cn": "零式万魔殿 炼净之狱4",
+      "en": "Abyssos: The Eighth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 610,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 885,
+      "cn": "皇都伊修加德保卫战",
+      "en": "the Steps of Faith",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 886,
+      "cn": "卢比坎特歼灭战",
+      "en": "Mount Ordeals",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 595,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 896,
+      "cn": "雪山奥窟冥魂石洞",
+      "en": "Lapis Manalis",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 590,
+      "itemLevelSync": 630
+    },
+    {
+      "cfcId": 897,
+      "cn": "正统优雷卡 地下1～10层",
+      "en": "Eureka Orthos (Floors 1-10)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 898,
+      "cn": "正统优雷卡 地下11～20层",
+      "en": "Eureka Orthos (Floors 11-20)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 899,
+      "cn": "正统优雷卡 地下21～30层",
+      "en": "Eureka Orthos (Floors 21-30)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 900,
+      "cn": "正统优雷卡 地下31～40层",
+      "en": "Eureka Orthos (Floors 31-40)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 901,
+      "cn": "正统优雷卡 地下41～50层",
+      "en": "Eureka Orthos (Floors 41-50)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 902,
+      "cn": "正统优雷卡 地下51～60层",
+      "en": "Eureka Orthos (Floors 51-60)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 903,
+      "cn": "正统优雷卡 地下61～70层",
+      "en": "Eureka Orthos (Floors 61-70)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 904,
+      "cn": "正统优雷卡 地下71～80层",
+      "en": "Eureka Orthos (Floors 71-80)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 905,
+      "cn": "正统优雷卡 地下81～90层",
+      "en": "Eureka Orthos (Floors 81-90)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 906,
+      "cn": "正统优雷卡 地下91～100层",
+      "en": "Eureka Orthos (Floors 91-100)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 81,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 907,
+      "cn": "充满活力的父子",
+      "en": "Generational Bonding",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 908,
+      "cn": "欧米茄绝境验证战",
+      "en": "the Omega Protocol (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 909,
+      "cn": "厄尔庇斯育体宝殿",
+      "en": "the Shifting Gymnasion Agonon",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 635
+    },
+    {
+      "cfcId": 910,
+      "cn": "一块面包的交易",
+      "en": "An Unforeseen Bargain",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 630
+    },
+    {
+      "cfcId": 911,
+      "cn": "喜悦神域欧芙洛绪涅",
+      "en": "Euphrosyne",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 90,
+      "itemLevel": 595,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 912,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 913,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 914,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 915,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 916,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 917,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 918,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 919,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 920,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 921,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 922,
+      "cn": "机关大殿",
+      "en": "the Clockwork Castletown",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 923,
+      "cn": "水晶冲突（机关大殿：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - The Clockwork Castletown)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 924,
+      "cn": "卢比坎特歼殛战",
+      "en": "Mount Ordeals (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 610,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 925,
+      "cn": "蝰蛇剑士的使命",
+      "en": "Fangs of the Viper",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 525
+    },
+    {
+      "cfcId": 927,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 928,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 929,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 930,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 931,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 932,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 933,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 934,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 935,
+      "cn": "虚景跳跳乐大挑战",
+      "en": "Leap of Faith",
+      "contentType": "Gold Saucer",
+      "partySize": 1152,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 936,
+      "cn": "万魔殿 荒天之狱1",
+      "en": "Anabaseios: The Ninth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 615,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 937,
+      "cn": "零式万魔殿 荒天之狱1",
+      "en": "Anabaseios: The Ninth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 630,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 938,
+      "cn": "万魔殿 荒天之狱2",
+      "en": "Anabaseios: The Tenth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 615,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 939,
+      "cn": "零式万魔殿 荒天之狱2",
+      "en": "Anabaseios: The Tenth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 635,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 940,
+      "cn": "万魔殿 荒天之狱3",
+      "en": "Anabaseios: The Eleventh Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 615,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 941,
+      "cn": "零式万魔殿 荒天之狱3",
+      "en": "Anabaseios: The Eleventh Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 640,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 942,
+      "cn": "万魔殿 荒天之狱4",
+      "en": "Anabaseios: The Twelfth Circle",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 615,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 943,
+      "cn": "零式万魔殿 荒天之狱4",
+      "en": "Anabaseios: The Twelfth Circle (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 640,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 944,
+      "cn": "阿修罗歼灭战",
+      "en": "the Gilded Araya",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 625,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 945,
+      "cn": "多变迷宫 六根山",
+      "en": "Mount Rokkon",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 605,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 946,
+      "cn": "异闻六根山",
+      "en": "Another Mount Rokkon",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 640,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 947,
+      "cn": "零式异闻六根山",
+      "en": "Another Mount Rokkon (Savage)",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 948,
+      "cn": "黄金斗士——金德尔",
+      "en": "A Golden Opportunity",
+      "contentType": "The Masked Carnivale",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 949,
+      "cn": "高贝扎歼灭战",
+      "en": "the Voidcast Dais",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 615,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 950,
+      "cn": "高贝扎歼殛战",
+      "en": "the Voidcast Dais (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 630,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 952,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 953,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 954,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 955,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 956,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 957,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 958,
+      "cn": "金碟巨豆中心",
+      "en": "Blunderville",
+      "contentType": "Gold Saucer",
+      "partySize": 192,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 959,
+      "cn": "纵使前路狱火焰毒",
+      "en": "Memory of Embers",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 50,
+      "itemLevel": 0,
+      "itemLevelSync": 110
+    },
+    {
+      "cfcId": 960,
+      "cn": "那双眼中映出的是",
+      "en": "The Game Is Afoot",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 660
+    },
+    {
+      "cfcId": 961,
+      "cn": "多变迷宫 阿罗阿罗岛",
+      "en": "Aloalo Island",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 605,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 962,
+      "cn": "荣华神域塔利亚",
+      "en": "Thaleia",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 90,
+      "itemLevel": 625,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 964,
+      "cn": "泽罗姆斯歼灭战",
+      "en": "the Abyssal Fracture",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 625,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 965,
+      "cn": "泽罗姆斯歼殛战",
+      "en": "the Abyssal Fracture (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 90,
+      "itemLevel": 640,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 966,
+      "cn": "旅行画家的幻想旅程",
+      "en": "Somewhere Only She Knows",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 655
+    },
+    {
+      "cfcId": 967,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 968,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 969,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 970,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 971,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 972,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 973,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 974,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 975,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 976,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 977,
+      "cn": "赤土红沙",
+      "en": "the Red Sands",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 978,
+      "cn": "水晶冲突（赤土红沙：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - The Red Sands)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 979,
+      "cn": "异闻阿罗阿罗岛",
+      "en": "Another Aloalo Island",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 640,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 980,
+      "cn": "零式异闻阿罗阿罗岛",
+      "en": "Another Aloalo Island (Savage)",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 665
+    },
+    {
+      "cfcId": 981,
+      "cn": "噩梦乐园迷途鬼区",
+      "en": "The Strayborough Deadwalk",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 670,
+      "itemLevelSync": 730
+    },
+    {
+      "cfcId": 982,
+      "cn": "友之试炼",
+      "en": "The Feat of the Brotherhood",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 95,
+      "itemLevel": 0,
+      "itemLevelSync": 666
+    },
+    {
+      "cfcId": 983,
+      "cn": "为守护笑容而战",
+      "en": "Taking a Stand",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 94,
+      "itemLevel": 0,
+      "itemLevelSync": 663
+    },
+    {
+      "cfcId": 984,
+      "cn": "永恒女王歼灭战",
+      "en": "the Interphos",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 670,
+      "itemLevelSync": 700
+    },
+    {
+      "cfcId": 985,
+      "cn": "阿卡狄亚登天斗技场 轻量级1",
+      "en": "AAC Light-heavyweight M1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 685,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 986,
+      "cn": "阿卡狄亚零式登天斗技场 轻量级1",
+      "en": "AAC Light-heavyweight M1 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 700,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 987,
+      "cn": "阿卡狄亚登天斗技场 轻量级2",
+      "en": "AAC Light-heavyweight M2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 685,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 988,
+      "cn": "阿卡狄亚零式登天斗技场 轻量级2",
+      "en": "AAC Light-heavyweight M2 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 705,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 989,
+      "cn": "阿卡狄亚登天斗技场 轻量级3",
+      "en": "AAC Light-heavyweight M3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 685,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 990,
+      "cn": "阿卡狄亚零式登天斗技场 轻量级3",
+      "en": "AAC Light-heavyweight M3 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 710,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 991,
+      "cn": "阿卡狄亚登天斗技场 轻量级4",
+      "en": "AAC Light-heavyweight M4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 685,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 992,
+      "cn": "阿卡狄亚零式登天斗技场 轻量级4",
+      "en": "AAC Light-heavyweight M4 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 710,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 993,
+      "cn": "加加财富天坑",
+      "en": "Cenote Ja Ja Gural",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 765
+    },
+    {
+      "cfcId": 994,
+      "cn": "剧毒与康复的巅峰对决",
+      "en": "An Antidote for Anarchy",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 995,
+      "cn": "佐拉加歼灭战",
+      "en": "Everkeep",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 99,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 996,
+      "cn": "佐拉加歼殛战",
+      "en": "Everkeep (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 997,
+      "cn": "无可指摘的猎人",
+      "en": "A Hunter True",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 998,
+      "cn": "守护者还是毁灭者",
+      "en": "The Protector and the Destroyer",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 98,
+      "itemLevel": 0,
+      "itemLevelSync": 675
+    },
+    {
+      "cfcId": 999,
+      "cn": "打倒！沙尔托菲特盗贼团！",
+      "en": "The Mightiest Shield",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 1000,
+      "cn": "旅行画家的森都旅程",
+      "en": "Mind over Manor",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 80,
+      "itemLevel": 0,
+      "itemLevelSync": 525
+    },
+    {
+      "cfcId": 1001,
+      "cn": "祭器创造的假象",
+      "en": "Heroes and Pretenders",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 1002,
+      "cn": "图拉尔威爪猎手",
+      "en": "Vengeance of the Viper",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 655
+    },
+    {
+      "cfcId": 1003,
+      "cn": "不论酣睡还是无眠",
+      "en": "Dreams of a New Day",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 680
+    },
+    {
+      "cfcId": 1006,
+      "cn": "光暗未来绝境战",
+      "en": "Futures Rewritten (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 735
+    },
+    {
+      "cfcId": 1008,
+      "cn": "废弃据点玉韦亚瓦塔实验站",
+      "en": "Yuweyawata Field Station",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 730
+    },
+    {
+      "cfcId": 1009,
+      "cn": "家人的温暖",
+      "en": "The Warmth of Family",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 730
+    },
+    {
+      "cfcId": 1010,
+      "cn": "暗黑之云诛灭战",
+      "en": "the Cloud of Darkness (Chaotic)",
+      "contentType": "Chaotic Alliance Raid",
+      "partySize": 24,
+      "level": 100,
+      "itemLevel": 710,
+      "itemLevelSync": 735
+    },
+    {
+      "cfcId": 1011,
+      "cn": "军工要地克吕提俄斯魔导工厂",
+      "en": "the Clyteum",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 750,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1012,
+      "cn": "处理显示标记的攻击",
+      "en": "React to Attack Markers",
+      "contentType": "",
+      "partySize": 1,
+      "level": 49,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1013,
+      "cn": "处理在地面显示预兆的攻击",
+      "en": "React to Floor Markers",
+      "contentType": "",
+      "partySize": 1,
+      "level": 49,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1014,
+      "cn": "处理各种攻击",
+      "en": "React to Advanced Visual Indicators",
+      "contentType": "",
+      "partySize": 1,
+      "level": 49,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1015,
+      "cn": "朱诺：第一巡行",
+      "en": "Jeuno: The First Walk",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 100,
+      "itemLevel": 695,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1016,
+      "cn": "决战！佐戈永结桥",
+      "en": "Bar the Passage",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 730
+    },
+    {
+      "cfcId": 1017,
+      "cn": "永恒女王忆想歼灭战",
+      "en": "the Minstrel's Ballad: Sphene's Burden",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 710,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1018,
+      "cn": "蜃景幻界新月岛 南征之章",
+      "en": "the Occult Crescent: South Horn",
+      "contentType": "Occult Crescent",
+      "partySize": 576,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 700
+    },
+    {
+      "cfcId": 1019,
+      "cn": "阿卡狄亚登天斗技场 中量级1",
+      "en": "AAC Cruiserweight M1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 715,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1020,
+      "cn": "阿卡狄亚零式登天斗技场 中量级1",
+      "en": "AAC Cruiserweight M1 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 730,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1021,
+      "cn": "阿卡狄亚登天斗技场 中量级2",
+      "en": "AAC Cruiserweight M2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 715,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1022,
+      "cn": "阿卡狄亚零式登天斗技场 中量级2",
+      "en": "AAC Cruiserweight M2 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 735,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1023,
+      "cn": "阿卡狄亚登天斗技场 中量级3",
+      "en": "AAC Cruiserweight M3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 715,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1024,
+      "cn": "阿卡狄亚零式登天斗技场 中量级3",
+      "en": "AAC Cruiserweight M3 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 740,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1025,
+      "cn": "阿卡狄亚登天斗技场 中量级4",
+      "en": "AAC Cruiserweight M4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 715,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1026,
+      "cn": "阿卡狄亚零式登天斗技场 中量级4",
+      "en": "AAC Cruiserweight M4 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 740,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1027,
+      "cn": "王城古迹永护塔底",
+      "en": "the Underkeep",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 705,
+      "itemLevelSync": 760
+    },
+    {
+      "cfcId": 1028,
+      "cn": "永久幽界中央终端",
+      "en": "the Meso Terminal",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 720,
+      "itemLevelSync": 760
+    },
+    {
+      "cfcId": 1030,
+      "cn": "泽莲尼娅歼灭战",
+      "en": "Recollection",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 715,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1031,
+      "cn": "泽莲尼娅歼殛战",
+      "en": "Recollection (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 730,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1032,
+      "cn": "朝圣交错路 第1～10朝圣路",
+      "en": "Pilgrim's Traverse (Stones 1-10)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1033,
+      "cn": "朝圣交错路 第11～20朝圣路",
+      "en": "Pilgrim's Traverse (Stones 11-20)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1034,
+      "cn": "朝圣交错路 第21～30朝圣路",
+      "en": "Pilgrim's Traverse (Stones 21-30)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1035,
+      "cn": "朝圣交错路 第31～40朝圣路",
+      "en": "Pilgrim's Traverse (Stones 31-40)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1036,
+      "cn": "朝圣交错路 第41～50朝圣路",
+      "en": "Pilgrim's Traverse (Stones 41-50)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1037,
+      "cn": "朝圣交错路 第51～60朝圣路",
+      "en": "Pilgrim's Traverse (Stones 51-60)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1038,
+      "cn": "朝圣交错路 第61～70朝圣路",
+      "en": "Pilgrim's Traverse (Stones 61-70)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1039,
+      "cn": "朝圣交错路 第71～80朝圣路",
+      "en": "Pilgrim's Traverse (Stones 71-80)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1040,
+      "cn": "朝圣交错路 第81～90朝圣路",
+      "en": "Pilgrim's Traverse (Stones 81-90)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1041,
+      "cn": "朝圣交错路 第91～100朝圣路",
+      "en": "Pilgrim's Traverse (Stones 91-100)",
+      "contentType": "Deep Dungeons",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1043,
+      "cn": "护锁刃龙狩猎战",
+      "en": "the Windward Wilds",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 725,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1044,
+      "cn": "护锁刃龙上位狩猎战",
+      "en": "the Windward Wilds (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 740,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1045,
+      "cn": "瓦伦提昂蛋糕店",
+      "en": "the Pâtisserie",
+      "contentType": "",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1046,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1047,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1048,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1049,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1050,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1051,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1052,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1053,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1054,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1055,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1056,
+      "cn": "海岸斗场",
+      "en": "the Bayside Battleground",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1057,
+      "cn": "水晶冲突（海岸斗场：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - The Bayside Battleground)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1058,
+      "cn": "桑多利亚：第二巡行",
+      "en": "San d'Oria: The Second Walk",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 100,
+      "itemLevel": 725,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1060,
+      "cn": "巡梦金库",
+      "en": "Vault Oneiron",
+      "contentType": "Treasure Hunt",
+      "partySize": 8,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 765
+    },
+    {
+      "cfcId": 1061,
+      "cn": "永远之暗歼灭战",
+      "en": "the Ageless Necropolis",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 725,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1062,
+      "cn": "永远之暗悲惶歼灭战",
+      "en": "the Minstrel's Ballad: Necron's Embrace",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 740,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1063,
+      "cn": "卓异的悲寂深想战",
+      "en": "the Final Verse (Quantum)",
+      "contentType": "",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1064,
+      "cn": "遗忘行路雾之迹",
+      "en": "Mistwake",
+      "contentType": "Dungeons",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 735,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1065,
+      "cn": "卓异的悲寂歼灭战",
+      "en": "the Final Verse",
+      "contentType": "",
+      "partySize": 4,
+      "level": 91,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1066,
+      "cn": "多变迷宫 商客奇谭",
+      "en": "The Merchant's Tale",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 90,
+      "itemLevel": 0,
+      "itemLevelSync": 765
+    },
+    {
+      "cfcId": 1068,
+      "cn": "阿卡狄亚登天斗技场 重量级1",
+      "en": "AAC Heavyweight M1",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 745,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1069,
+      "cn": "阿卡狄亚零式登天斗技场 重量级1",
+      "en": "AAC Heavyweight M1 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 760,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1070,
+      "cn": "阿卡狄亚登天斗技场 重量级2",
+      "en": "AAC Heavyweight M2",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 745,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1071,
+      "cn": "阿卡狄亚零式登天斗技场 重量级2",
+      "en": "AAC Heavyweight M2 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 765,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1072,
+      "cn": "阿卡狄亚登天斗技场 重量级3",
+      "en": "AAC Heavyweight M3",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 745,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1073,
+      "cn": "阿卡狄亚零式登天斗技场 重量级3",
+      "en": "AAC Heavyweight M3 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 770,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1074,
+      "cn": "阿卡狄亚登天斗技场 重量级4",
+      "en": "AAC Heavyweight M4",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 745,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1075,
+      "cn": "阿卡狄亚零式登天斗技场 重量级4",
+      "en": "AAC Heavyweight M4 (Savage)",
+      "contentType": "Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 770,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1076,
+      "cn": "格莱杨拉波尔歼灭战",
+      "en": "Hell on Rails",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 745,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1077,
+      "cn": "格莱杨拉波尔歼殛战",
+      "en": "Hell on Rails (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 760,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1079,
+      "cn": "异闻商客奇谭",
+      "en": "Another Merchant's Tale",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 770,
+      "itemLevelSync": 795
+    },
+    {
+      "cfcId": 1080,
+      "cn": "沃刻其特（演习战）",
+      "en": "Worqor Chirteh (Triumph)",
+      "contentType": "PvP",
+      "partySize": 72,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1081,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1082,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1083,
+      "cn": "空军装甲驾驶员",
+      "en": "Air Force One",
+      "contentType": "Gold Saucer",
+      "partySize": 1,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1084,
+      "cn": "深读商客奇谭",
+      "en": "The Merchant's Tale (Advanced)",
+      "contentType": "V&C Dungeon Finder",
+      "partySize": 4,
+      "level": 100,
+      "itemLevel": 760,
+      "itemLevelSync": 785
+    },
+    {
+      "cfcId": 1085,
+      "cn": "梦想造就风花遍地的",
+      "en": "Where We Call Home",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 735
+    },
+    {
+      "cfcId": 1087,
+      "cn": "绅士与硬汉",
+      "en": "Clotted Crime",
+      "contentType": "Quest Battles",
+      "partySize": 1,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1093,
+      "cn": "蜃景幻界新月岛 北征之章",
+      "en": "the Occult Crescent: North Horn",
+      "contentType": "Occult Crescent",
+      "partySize": 576,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 700
+    },
+    {
+      "cfcId": 1094,
+      "cn": "妖星乱舞绝境战",
+      "en": "Dancing Mad (Ultimate)",
+      "contentType": "Ultimate Raids",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1095,
+      "cn": "魔光键影",
+      "en": "Keybound Brawler",
+      "contentType": "Gold Saucer",
+      "partySize": 4,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1098,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1099,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1100,
+      "cn": "出海垂钓",
+      "en": "Ocean Fishing",
+      "contentType": "Disciples of the Land",
+      "partySize": 24,
+      "level": 1,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1102,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1103,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1104,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1105,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1106,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1107,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1108,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1109,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1110,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1111,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1112,
+      "cn": "休兵书库",
+      "en": "Archeia Harmonias",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1113,
+      "cn": "水晶冲突（休兵书库：自定赛）",
+      "en": "Crystalline Conflict (Custom Match - Archeia Harmonias)",
+      "contentType": "PvP",
+      "partySize": 10,
+      "level": 30,
+      "itemLevel": 0,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1114,
+      "cn": "蜃景幻界新月岛 北征之章（两歧塔 超魔之塔）",
+      "en": "the Occult Crescent: North Horn - The Forked Tower: Magic (Extreme)",
+      "contentType": "Occult Crescent",
+      "partySize": 48,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 700
+    },
+    {
+      "cfcId": 1115,
+      "cn": "恩欧歼灭战",
+      "en": "the Unmaking",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 755,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1116,
+      "cn": "恩欧歼殛战",
+      "en": "the Unmaking (Extreme)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 770,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1117,
+      "cn": "温达斯：第三巡行",
+      "en": "Windurst: The Third Walk",
+      "contentType": "Raids",
+      "partySize": 24,
+      "level": 100,
+      "itemLevel": 755,
+      "itemLevelSync": 0
+    },
+    {
+      "cfcId": 1118,
+      "cn": "神龙幻巧战",
+      "en": "Shinryu's Domain (Unreal)",
+      "contentType": "Trials",
+      "partySize": 8,
+      "level": 100,
+      "itemLevel": 690,
+      "itemLevelSync": 695
+    }
+  ]
+}

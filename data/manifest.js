@@ -23,6 +23,15 @@ window.FF14_MANIFEST = [
   "raids_shb.js",        // 伊甸
   "raids_ew.js",         // 萬魔殿
   "raids_dt.js",         // 阿卡狄亞
+  // 高難 8 人任務
+  "savage_arr_hw.js",    // 巴哈入侵零式＋亞歷山大零式
+  "savage_sb.js",        // 歐米茄零式
+  "savage_shb.js",       // 伊甸零式
+  "savage_ew.js",        // 萬魔殿零式逐招小抄
+  "savage_dt.js",        // 阿卡狄亞零式逐招小抄（7.05～7.4）
+  "ultimate.js",         // 歷代絕本（4.11～7.51）
+  "chaotic_dt.js",       // 7.15 滅聯盟高難
+  "strategies_cn.js",    // 补齐所有零式／绝本的国服主流打法入口
   // 24人聯盟
   "alliance_arr_hw.js",
   "alliance_sb_shb.js",

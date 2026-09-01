@@ -4,6 +4,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 罗波那 Ravana ─────────────────────────
 {
   id: "hw-thok-ast-thok-hard",
+  identity: { officialKey: "cfc:86", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/86?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.0",
@@ -36,6 +37,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-thok-ast-thok-ex",
+  identity: { officialKey: "cfc:87", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/87?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.0",
@@ -49,7 +51,7 @@ window.FF14_DATA.push(
       name: { cn: "罗波那", en: "Ravana" },
       summary: "全程看姿態換打法；光焰【急】要記 A/B/C/D 標點，光焰【灭】猎物要拉開。",
       mechanics: [
-        { name: { cn: "武神闪", en: "Blinding Blade" }, desc: "對 MT 的正面重擊，傷害很高。", solve: "MT 開減傷；OT 可以站進去一起分攤。其他人別站正面。", role: "T", danger: 2, phase: "P1 武毅化身" },
+        { name: { cn: "武神闪", en: "Blinding Blade" }, desc: "對王正面的高伤害顺劈，设计为两人分摊。", solve: "双 T 一起站王正面并开减伤分摊；其余人不要站正面。若单 T 挑战，需让队伍分摊而不是让坦克单吃。", role: "T", danger: 3, phase: "P1 武毅化身" },
         { name: { cn: "左翼防御 / 右翼防御 / 两翼防御", en: "The Seeing Left / Right / Wings" }, desc: "王身邊 5 秒屏障，擋左側、右側或兩側。", solve: "左翼防御→站右邊，右翼防御→站左邊，两翼防御→站正後方（或正面）。站錯會被打飛。", danger: 2, phase: "P1 武毅化身" },
         { name: { cn: "武神魂", en: "Atma-Linga" }, desc: "全體傷害，整場非常頻繁。", solve: "H 隨時把血補回來。", role: "H", danger: 1, phase: "P1 武毅化身" },
         { name: { cn: "鬼武神", en: "Tapasya" }, desc: "正面扇形三連斬，全打 MT。", solve: "MT 開減傷硬吃（第一下後也可側移躲後兩下）；其他人絕對別在正面。", role: "T", danger: 2, phase: "P1 武毅化身" },
@@ -77,6 +79,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 俾斯麦 Bismarck ─────────────────────────
 {
   id: "hw-limitless-blue-hard",
+  identity: { officialKey: "cfc:88", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/88?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.0",
@@ -106,6 +109,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-limitless-blue-ex",
+  identity: { officialKey: "cfc:89", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/89?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.0",
@@ -143,6 +147,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 骑神托尔丹 King Thordan ─────────────────────────
 {
   id: "hw-singularity-reactor",
+  identity: { officialKey: "cfc:90", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/90?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.0",
@@ -177,6 +182,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-thordans-reign-ex",
+  identity: { officialKey: "cfc:91", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/91?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.1",
@@ -221,6 +227,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 萨菲洛特 Sephirot ─────────────────────────
 {
   id: "hw-containment-bay-s1t7",
+  identity: { officialKey: "cfc:134", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/134?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.2",
@@ -253,6 +260,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-containment-bay-s1t7-ex",
+  identity: { officialKey: "cfc:135", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/135?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.2",
@@ -295,6 +303,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 尼德霍格 Nidhogg ─────────────────────────
 {
   id: "hw-final-steps-of-faith",
+  identity: { officialKey: "cfc:169", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/169?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.3",
@@ -327,6 +336,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-nidhoggs-rage-ex",
+  identity: { officialKey: "cfc:170", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/170?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.3",
@@ -371,6 +381,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 索菲娅 Sophia ─────────────────────────
 {
   id: "hw-containment-bay-p1t6",
+  identity: { officialKey: "cfc:183", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/183?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.4",
@@ -382,7 +393,7 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "索菲娅", en: "Sophia" },
-      summary: "後半的类星体：藍色隕石重 3、橘色重 1，往「輕」的那側跑免得被擊飛出場。",
+      summary: "後半的类星体：藍色隕石重 3、橘色重 1；平台会向重侧倾斜并把人滑向重侧，先站轻侧留出滑行距离。",
       mechanics: [
         { name: { cn: "震雷", en: "Thunder II" }, desc: "王面向方向的大扇形。", solve: "側移離開扇形。", danger: 2, phase: "P1" },
         { name: { cn: "暴雷", en: "Thunder III" }, desc: "以王為中心的月環，只有貼身安全。", solve: "貼到王身上。", danger: 2, phase: "P1" },
@@ -391,7 +402,7 @@ window.FF14_DATA.push(
         { name: { cn: "睿智之秤", en: "Arms of Wisdom" }, desc: "無讀條死刑。", solve: "MT 減傷。", role: "T", danger: 2, phase: "P1" },
         { name: { cn: "阴云天堂 / 死灵宣告", en: "Cloudy Heavens / Eternal Doom" }, desc: "王無敵，全員上死灵宣告倒數，出三個信徒。", solve: "先殺信徒其二（會補血、有視線恐慌，別看牠）→ 信徒其三（留冻伤冰地，拉到場邊）→ 信徒其一（有格擋方向，從側面打）。殺完 debuff 消失。", danger: 3, phase: "P2 小怪" },
         { name: { cn: "睿智之天平", en: "The Scales of Wisdom" }, desc: "小怪清完後全體大傷害。", solve: "H 補滿。", danger: 2, phase: "P2 結尾" },
-        { name: { cn: "类星体", en: "Quasar" }, desc: "東西兩側出現天平，隕石掉上去：藍色重 3（只出一邊）、橘色重 1，重的那側往下傾，全員被往輕的那邊擊飛。", solve: "算出哪邊重，跑到「重」的那側靠內（被推向輕側不會出場）；簡單記法：往藍色隕石的反方向被推，所以站藍色那邊。", danger: 3, phase: "P3" },
+        { name: { cn: "类星体", en: "Quasar" }, desc: "東西兩側天平落下隕石：藍色重量 3、橘色重量 1；平台向较重的一侧倾斜，玩家也会滑向重侧。", solve: "先算两侧总重量，站到较轻的一侧，为滑向重侧留出距离；不要站在重侧边缘。", danger: 3, phase: "P3" },
         { name: { cn: "不平衡之罚", en: "Dischordant Cleansing" }, desc: "兩人白圈、兩人黑圈。", solve: "白配黑兩兩站一起（一白一黑）；配錯會受傷上 debuff。", danger: 2, phase: "P3" },
         { name: { cn: "如意宝珠", en: "Cintamani" }, desc: "連續三下全體傷害。", solve: "H 補。", role: "H", danger: 2, phase: "P3" },
         { name: { cn: "信徒其二（再現）", en: "The Second Demiurge (return)" }, desc: "王 15% 時再出一隻會補血的信徒其二。", solve: "血夠就直接把王打死，不然先殺信徒。", danger: 2, phase: "P3 15%" },
@@ -401,6 +412,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-containment-bay-p1t6-ex",
+  identity: { officialKey: "cfc:184", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/184?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.4",
@@ -442,6 +454,7 @@ window.FF14_DATA.push(
 // ───────────────────────── 祖尔宛 Zurvan ─────────────────────────
 {
   id: "hw-containment-bay-z1t9",
+  identity: { officialKey: "cfc:223", contentType: "trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/223?fields=Name,ContentMemberType.MembersPerParty" },
   type: "trial",
   expansion: "hw",
   patch: "3.5",
@@ -474,6 +487,7 @@ window.FF14_DATA.push(
 },
 {
   id: "hw-containment-bay-z1t9-ex",
+  identity: { officialKey: "cfc:224", contentType: "extreme-trial", partySize: 8, sourceUrl: "https://v2.xivapi.com/api/sheet/ContentFinderCondition/224?fields=Name,ContentMemberType.MembersPerParty" },
   type: "extreme",
   expansion: "hw",
   patch: "3.5",

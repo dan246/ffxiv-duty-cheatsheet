@@ -1,0 +1,302 @@
+/* FF14 副本小抄 — 單頁 App，無 build、無框架 */
+(function () {
+  "use strict";
+
+  const TYPES = [
+    ["all", "全部"],
+    ["dungeon", "迷宮"],
+    ["trial", "討伐"],
+    ["extreme", "極"],
+    ["raid", "大型"],
+    ["savage", "零式"],
+    ["alliance", "24人"],
+    ["ultimate", "絕"],
+  ];
+  const TYPE_LABEL = Object.fromEntries(TYPES);
+  const EXPS = [
+    ["all", "全部"],
+    ["arr", "2.x 新生"],
+    ["hw", "3.x 蒼天"],
+    ["sb", "4.x 紅蓮"],
+    ["shb", "5.x 暗影"],
+    ["ew", "6.x 曉月"],
+    ["dt", "7.x 黃金"],
+  ];
+  const EXP_LABEL = Object.fromEntries(EXPS);
+  const EXP_ORDER = { arr: 0, hw: 1, sb: 2, shb: 3, ew: 4, dt: 5 };
+  const TYPE_ORDER = { dungeon: 0, trial: 1, extreme: 2, raid: 3, savage: 4, alliance: 5, ultimate: 6, other: 7 };
+
+  const $ = (s) => document.querySelector(s);
+  const els = {
+    search: $("#searchInput"), clear: $("#clearBtn"),
+    typeChips: $("#typeChips"), expChips: $("#expChips"),
+    list: $("#list"), content: $("#content"),
+    sidebar: $("#sidebar"), backdrop: $("#backdrop"), menuBtn: $("#menuBtn"),
+    compactBtn: $("#compactBtn"), fontPlus: $("#fontPlus"), fontMinus: $("#fontMinus"),
+  };
+
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("ff14." + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("ff14." + k, JSON.stringify(v)); } catch { } },
+  };
+
+  const state = {
+    data: [], byId: new Map(),
+    q: "", type: store.get("type", "all"), exp: store.get("exp", "all"),
+    favs: new Set(store.get("favs", [])),
+    recent: store.get("recent", []),
+    current: null,
+    compact: store.get("compact", false),
+    fs: store.get("fs", 15),
+  };
+
+  /* ---------- 載入資料檔 ---------- */
+  function loadData(files) {
+    return Promise.all(files.map((f) => new Promise((res) => {
+      const s = document.createElement("script");
+      s.src = "data/" + f;
+      s.onload = () => res(true);
+      s.onerror = () => { console.warn("[資料檔未載入]", f); res(false); };
+      document.head.appendChild(s);
+    })));
+  }
+
+  /* ---------- 搜尋 ---------- */
+  function norm(s) { return String(s || "").toLowerCase().replace(/[\s\-_'’.:：·・()（）【】\[\]]/g, ""); }
+  function buildIndex(d) {
+    const parts = [d.name.cn, d.name.tw, d.name.en, ...(d.aliases || [])];
+    d._names = parts.filter(Boolean).map(norm);
+    d._bossNames = (d.bosses || []).flatMap((b) => [b.name.cn, b.name.en]).filter(Boolean).map(norm);
+    d._text = [...d._names, ...d._bossNames].join(" ");
+  }
+  function score(d, q) {
+    if (!q) return 1;
+    let best = 0;
+    for (const n of d._names) {
+      if (n === q) return 100;
+      if (n.startsWith(q)) best = Math.max(best, 80);
+      else if (n.includes(q)) best = Math.max(best, 60);
+    }
+    for (const n of d._bossNames) if (n.includes(q)) best = Math.max(best, 40);
+    if (!best && d._text.includes(q)) best = 20;
+    return best;
+  }
+  function filtered() {
+    const q = norm(state.q);
+    return state.data
+      .filter((d) => (state.type === "all" || d.type === state.type) && (state.exp === "all" || d.expansion === state.exp))
+      .map((d) => ({ d, s: score(d, q) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => q ? (b.s - a.s || cmp(a.d, b.d)) : cmp(a.d, b.d))
+      .map((x) => x.d);
+  }
+  function cmp(a, b) {
+    return (EXP_ORDER[a.expansion] - EXP_ORDER[b.expansion])
+      || (TYPE_ORDER[a.type] - TYPE_ORDER[b.type])
+      || (parseFloat(a.patch) - parseFloat(b.patch))
+      || (a.level - b.level)
+      || a.name.cn.localeCompare(b.name.cn, "zh");
+  }
+
+  /* ---------- 渲染：側欄 ---------- */
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (k === "class") e.className = v;
+      else if (k === "html") e.innerHTML = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else if (v != null) e.setAttribute(k, v);
+    }
+    for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+    return e;
+  }
+  function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+  function fmt(s) {
+    // 支援 **粗體** 與換行
+    return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+  }
+
+  function renderChips() {
+    els.typeChips.replaceChildren(...TYPES.map(([k, l]) =>
+      h("button", { class: "chip" + (state.type === k ? " on" : ""), onclick: () => { state.type = k; store.set("type", k); renderChips(); renderList(); } }, l)));
+    els.expChips.replaceChildren(...EXPS.map(([k, l]) =>
+      h("button", { class: "chip" + (state.exp === k ? " on" : ""), onclick: () => { state.exp = k; store.set("exp", k); renderChips(); renderList(); } }, l)));
+  }
+
+  function renderList() {
+    const items = filtered();
+    const frag = document.createDocumentFragment();
+    if (!items.length) {
+      frag.append(h("div", { class: "list-empty" }, state.data.length ? "找不到符合的副本" : "尚無資料，請確認 data/ 目錄"));
+    } else {
+      let lastGroup = null;
+      for (const d of items) {
+        const g = state.q ? null : d.expansion + "|" + d.type;
+        if (g && g !== lastGroup) {
+          frag.append(h("div", { class: "list-group" }, `${EXP_LABEL[d.expansion] || d.expansion} · ${TYPE_LABEL[d.type] || d.type}`));
+          lastGroup = g;
+        }
+        frag.append(h("button", {
+          class: "list-item" + (state.current && state.current.id === d.id ? " active" : ""),
+          "data-id": d.id,
+          onclick: () => { location.hash = "#/" + d.id; closeSidebar(); },
+        },
+          h("span", { class: "lv" }, "Lv" + d.level),
+          h("span", { class: "nm" }, d.name.cn, h("small", null, d.name.en)),
+          state.favs.has(d.id) ? h("span", { class: "fav" }, "★") : null,
+          state.q ? h("span", { class: "badge t-" + d.type }, TYPE_LABEL[d.type] || d.type) : null,
+        ));
+      }
+    }
+    els.list.replaceChildren(frag);
+    const act = els.list.querySelector(".list-item.active");
+    if (act) act.scrollIntoView({ block: "nearest" });
+  }
+
+  /* ---------- 渲染：內容 ---------- */
+  function renderHome() {
+    const link = (d) => h("a", { href: "#/" + d.id }, d.name.cn, h("small", null, `Lv${d.level} ${d.name.en}`));
+    const favs = [...state.favs].map((id) => state.byId.get(id)).filter(Boolean).sort(cmp);
+    const recent = state.recent.map((id) => state.byId.get(id)).filter(Boolean);
+    const counts = {};
+    for (const d of state.data) counts[d.type] = (counts[d.type] || 0) + 1;
+    els.content.replaceChildren(
+      h("div", { class: "home" },
+        h("h1", null, "FF14 副本小抄"),
+        h("p", null, "進本前打副本名稱搜尋（中文、陸服名、英文、Boss 名都可以），機制怎麼解、要往哪跑，一頁看完。"),
+        h("p", null, h("kbd", null, "/"), " 聚焦搜尋 　", h("kbd", null, "Esc"), " 清除 　", h("kbd", null, "Enter"), " 開啟第一個結果 　「精簡」只留機制名＋解法"),
+        h("div", { class: "cols" },
+          h("div", null, h("h3", null, "★ 我的收藏"), h("div", { class: "linklist" }, favs.length ? favs.map(link) : h("span", { style: "color:var(--fg3)" }, "在副本頁按 ☆ 收藏"))),
+          h("div", null, h("h3", null, "最近查看"), h("div", { class: "linklist" }, recent.length ? recent.map(link) : h("span", { style: "color:var(--fg3)" }, "—"))),
+        ),
+        h("div", { class: "stat" }, `目前收錄 ${state.data.length} 場：` +
+          Object.entries(counts).sort((a, b) => TYPE_ORDER[a[0]] - TYPE_ORDER[b[0]]).map(([t, n]) => `${TYPE_LABEL[t] || t} ${n}`).join("、")),
+      )
+    );
+    document.title = "FF14 副本小抄";
+  }
+
+  function renderDuty(d) {
+    const isFav = state.favs.has(d.id);
+    const bossId = (i) => "boss-" + (i + 1);
+    els.content.replaceChildren(h("div", { class: "duty" },
+      h("div", { class: "duty-head" },
+        h("div", { class: "meta" },
+          h("span", { class: "badge t-" + d.type }, TYPE_LABEL[d.type] || d.type),
+          h("span", null, EXP_LABEL[d.expansion] || d.expansion),
+          h("span", null, "Patch " + d.patch),
+          h("span", null, "Lv " + d.level + (d.ilvl ? ` · IL ${d.ilvl}` : "")),
+        ),
+        h("h1", null,
+          d.name.cn,
+          h("span", { class: "en" }, d.name.en),
+          h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, isFav ? "★" : "☆"),
+        ),
+      ),
+      h("div", { class: "overview", html: fmt(d.overview) }),
+      d.route ? h("details", { class: "route", open: "" }, h("summary", null, "道中 / 路線提示"), h("div", { class: "body", html: fmt(d.route) })) : null,
+      d.bosses.length > 1 ? h("div", { class: "boss-nav" }, d.bosses.map((b, i) => h("a", { href: "#" + bossId(i), onclick: (e) => { e.preventDefault(); document.getElementById(bossId(i))?.scrollIntoView({ behavior: "smooth" }); } }, `${i + 1}. ${b.name.cn}`))) : null,
+      d.bosses.map((b, i) => h("section", { class: "boss", id: bossId(i) },
+        h("div", { class: "boss-head" },
+          h("span", { class: "num" }, "BOSS " + (i + 1)),
+          h("h2", null, b.name.cn),
+          h("span", { class: "en" }, b.name.en),
+        ),
+        b.summary ? h("p", { class: "summary", html: fmt(b.summary) }) : null,
+        (b.mechanics || []).map((m) => h("div", { class: "mech d" + (m.danger || 0) },
+          h("div", { class: "bar" }),
+          h("div", null,
+            h("div", { class: "mech-title" },
+              m.name.cn,
+              m.name.en ? h("span", { class: "en" }, m.name.en) : null,
+              m.role && m.role !== "all" ? h("span", { class: "role " + m.role }, m.role) : null,
+              m.phase ? h("span", { class: "phase" }, m.phase) : null,
+            ),
+            m.desc ? h("div", { class: "desc", html: fmt(m.desc) }) : null,
+            h("div", { class: "solve", html: fmt(m.solve) }),
+          ),
+        )),
+        b.tips && b.tips.length ? h("ul", { class: "tips" }, b.tips.map((t) => h("li", { html: fmt(t) }))) : null,
+      )),
+      d.notes && d.notes.length ? h("div", { class: "notes" }, h("h3", null, "備註"), h("ul", null, d.notes.map((t) => h("li", { html: fmt(t) })))) : null,
+    ));
+    document.title = `${d.name.cn} — FF14 副本小抄`;
+    window.scrollTo(0, 0);
+  }
+
+  function toggleFav(id) {
+    if (state.favs.has(id)) state.favs.delete(id); else state.favs.add(id);
+    store.set("favs", [...state.favs]);
+    route();
+    renderList();
+  }
+  function pushRecent(id) {
+    state.recent = [id, ...state.recent.filter((x) => x !== id)].slice(0, 12);
+    store.set("recent", state.recent);
+  }
+
+  /* ---------- 路由 ---------- */
+  function route() {
+    const m = location.hash.match(/^#\/([\w-]+)/);
+    const d = m ? state.byId.get(m[1]) : null;
+    state.current = d || null;
+    if (d) { renderDuty(d); pushRecent(d.id); } else renderHome();
+    els.list.querySelectorAll(".list-item").forEach((el) => el.classList.toggle("active", !!d && el.dataset.id === d.id));
+    const act = els.list.querySelector(".list-item.active");
+    if (act) act.scrollIntoView({ block: "nearest" });
+  }
+
+  /* ---------- UI 事件 ---------- */
+  function openSidebar() { els.sidebar.classList.add("open"); els.backdrop.classList.add("show"); }
+  function closeSidebar() { els.sidebar.classList.remove("open"); els.backdrop.classList.remove("show"); }
+  els.menuBtn.addEventListener("click", () => els.sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
+  els.backdrop.addEventListener("click", closeSidebar);
+
+  els.search.addEventListener("input", () => {
+    state.q = els.search.value;
+    els.clear.hidden = !state.q;
+    renderList();
+    if (state.q && window.innerWidth <= 860) openSidebar();
+  });
+  els.search.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const first = filtered()[0];
+      if (first) { location.hash = "#/" + first.id; closeSidebar(); els.search.blur(); }
+    } else if (e.key === "Escape") { clearSearch(); }
+  });
+  function clearSearch() { els.search.value = ""; state.q = ""; els.clear.hidden = true; renderList(); }
+  els.clear.addEventListener("click", () => { clearSearch(); els.search.focus(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== els.search) { e.preventDefault(); els.search.focus(); els.search.select(); }
+  });
+
+  function applyPrefs() {
+    document.body.classList.toggle("compact", state.compact);
+    els.compactBtn.classList.toggle("on", state.compact);
+    document.documentElement.style.setProperty("--fs", state.fs + "px");
+  }
+  els.compactBtn.addEventListener("click", () => { state.compact = !state.compact; store.set("compact", state.compact); applyPrefs(); });
+  els.fontPlus.addEventListener("click", () => { state.fs = Math.min(24, state.fs + 1); store.set("fs", state.fs); applyPrefs(); });
+  els.fontMinus.addEventListener("click", () => { state.fs = Math.max(12, state.fs - 1); store.set("fs", state.fs); applyPrefs(); });
+  window.addEventListener("hashchange", route);
+
+  /* ---------- 啟動 ---------- */
+  applyPrefs();
+  renderChips();
+  els.content.replaceChildren(h("div", { class: "home" }, h("p", null, "載入資料中…")));
+  loadData(window.FF14_MANIFEST || []).then(() => {
+    const seen = new Set();
+    for (const d of (window.FF14_DATA || [])) {
+      if (!d || !d.id || !d.name || !d.bosses) { console.warn("[資料格式錯誤]", d); continue; }
+      if (seen.has(d.id)) { console.warn("[重複 id]", d.id); continue; }
+      seen.add(d.id);
+      buildIndex(d);
+      state.data.push(d);
+      state.byId.set(d.id, d);
+    }
+    state.data.sort(cmp);
+    renderList();
+    route();
+    if (window.innerWidth > 860) els.search.focus();
+  });
+})();

@@ -14,6 +14,7 @@
   --d1: #6fbf73;
   --d2: #f0b429;
   --d3: #ff4d4f;
+  --warn: #f0b429;
   --radius: 10px;
   --fs: 15px;
   --sidebar-w: 320px;
@@ -190,11 +191,32 @@ input { font: inherit; }
 .boss-nav a { font-size: .85em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--fg2); }
 .boss-nav a:hover { border-color: var(--accent); color: var(--fg); }
 
+/* 機制篩選 + /echo 巨集 */
+.mech-filter {
+  display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  margin: 0 0 10px; padding: 8px 10px;
+  background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+  position: sticky; top: 50px; z-index: 5;
+}
+.mech-filter .chips { margin: 0; }
+.mech-filter .lbl { color: var(--fg3); font-size: .8em; }
+.echo { margin: 0 0 10px; }
+.echo > summary { cursor: pointer; color: var(--fg2); font-size: .9em; }
+.echo > summary .cnt { color: var(--fg3); margin-left: 8px; font-size: .9em; }
+.echo-panel { margin-top: 6px; }
+.echo-help { color: var(--fg3); font-size: .85em; margin: 0 0 6px; line-height: 1.5; }
+.echo-panel .macro-head { margin-top: 6px; }
+.echo-panel .macro-head .cnt { color: var(--fg3); font-weight: 400; font-size: .85em; }
+.echo-panel pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 9px; margin: 6px 0; font: .88em/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.boss .echo { margin: 0 0 8px; }
+.hidden-note { color: var(--fg3); font-size: .85em; margin: 2px 0 8px; }
+
 /* compact mode */
 body.compact .mech .desc { display: none; }
 body.compact .boss .summary { display: none; }
 body.compact .mech { padding: 6px 10px; margin-bottom: 4px; }
 body.compact .tips { display: none; }
+body.compact .echo { display: none; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 860px) {

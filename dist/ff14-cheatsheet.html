@@ -22,6 +22,7 @@
   --d1: #6fbf73;
   --d2: #f0b429;
   --d3: #ff4d4f;
+  --warn: #f0b429;
   --radius: 10px;
   --fs: 15px;
   --sidebar-w: 320px;
@@ -198,11 +199,32 @@ input { font: inherit; }
 .boss-nav a { font-size: .85em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--fg2); }
 .boss-nav a:hover { border-color: var(--accent); color: var(--fg); }
 
+/* 機制篩選 + /echo 巨集 */
+.mech-filter {
+  display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  margin: 0 0 10px; padding: 8px 10px;
+  background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+  position: sticky; top: 50px; z-index: 5;
+}
+.mech-filter .chips { margin: 0; }
+.mech-filter .lbl { color: var(--fg3); font-size: .8em; }
+.echo { margin: 0 0 10px; }
+.echo > summary { cursor: pointer; color: var(--fg2); font-size: .9em; }
+.echo > summary .cnt { color: var(--fg3); margin-left: 8px; font-size: .9em; }
+.echo-panel { margin-top: 6px; }
+.echo-help { color: var(--fg3); font-size: .85em; margin: 0 0 6px; line-height: 1.5; }
+.echo-panel .macro-head { margin-top: 6px; }
+.echo-panel .macro-head .cnt { color: var(--fg3); font-weight: 400; font-size: .85em; }
+.echo-panel pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 9px; margin: 6px 0; font: .88em/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.boss .echo { margin: 0 0 8px; }
+.hidden-note { color: var(--fg3); font-size: .85em; margin: 2px 0 8px; }
+
 /* compact mode */
 body.compact .mech .desc { display: none; }
 body.compact .boss .summary { display: none; }
 body.compact .mech { padding: 6px 10px; margin-bottom: 4px; }
 body.compact .tips { display: none; }
+body.compact .echo { display: none; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 860px) {
@@ -14867,6 +14889,9 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
     current: null,
     compact: store.get("compact", false),
     fs: store.get("fs", 15),
+    dmin: store.get("dmin", 0),     // 機制篩選：最低危險度 0=全部 2=要處理 3=會死
+    role: store.get("role", "all"), // 機制篩選：職能 all/T/H/D
+    echoOpen: new Set(),            // 本次開著的 /echo 面板（不存）
   };
 
   /* ---------- 載入資料檔 ---------- */
@@ -14937,6 +14962,90 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
     return esc(toTW(s)).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
   }
 
+  /* ---------- 機制篩選 ---------- */
+  const DANGERS = [[0, "全部機制"], [2, "要處理 ≥2"], [3, "只看會死 ★3"]];
+  const ROLES = [["all", "全職能"], ["T", "T"], ["H", "H"], ["D", "D"]];
+  function mechVisible(m) {
+    const danger = m.danger ?? 2;
+    const role = m.role || "all";
+    return danger >= state.dmin && (state.role === "all" || role === "all" || role === state.role);
+  }
+  function filterLabel() {
+    const parts = [];
+    if (state.dmin) parts.push(state.dmin === 3 ? "只看會死" : "危險度 ≥2");
+    if (state.role !== "all") parts.push("職能 " + state.role);
+    return parts.join("、");
+  }
+
+  /* ---------- /echo 巨集（遊戲規格：每顆 15 行；每行保守 60 字，CJK 以 3 bytes 計也在 180 內） ---------- */
+  const MACRO_LINES = 15, MACRO_LINE_MAX = 60;
+  function plain(s) { return toTW(s).replace(/\*\*/g, "").replace(/\s*\n\s*/g, " ").trim(); }
+  function clip(s, max) {
+    s = plain(s);
+    if ([...s].length <= max) return s;
+    const noParen = s.replace(/[（(][^（）()]*[）)]/g, "").replace(/\s{2,}/g, " ").trim();
+    if (noParen && [...noParen].length <= max) return noParen;
+    const chars = [...s].slice(0, max);
+    let cut = -1;
+    for (let i = chars.length - 1; i > max * 0.5; i--) if ("。；;，,".includes(chars[i])) { cut = i; break; }
+    return (cut > 0 ? chars.slice(0, cut) : chars.slice(0, max - 1)).join("") + "…";
+  }
+  function echoLine(prefix, body) {
+    const head = "/echo " + prefix;
+    return head + clip(body, MACRO_LINE_MAX - [...head].length);
+  }
+  function mechLine(m) {
+    const mark = m.danger === 3 ? "★" : m.danger === 1 ? "·" : "◆";
+    const role = m.role && m.role !== "all" ? `[${m.role}]` : "";
+    const phase = m.phase ? `(${clip(m.phase, 10)})` : "";
+    return echoLine(`${mark}${role} `, `${plain(m.name.cn)}${phase} → ${m.solve}`);
+  }
+  function buildEcho(bosses, title) {
+    const lines = [];
+    for (const b of bosses) {
+      lines.push(echoLine("■ ", plain(b.name.cn) + (b.summary ? "：" + plain(b.summary) : "")));
+      for (const m of (b.mechanics || []).filter(mechVisible)) lines.push(mechLine(m));
+    }
+    if (lines.length <= MACRO_LINES) return [lines];
+    const per = MACRO_LINES - 1; // 每顆留 1 行給「(1/2)」標頭
+    const n = Math.ceil(lines.length / per);
+    return Array.from({ length: n }, (_, i) =>
+      [`/echo ── ${clip(title, 40)} (${i + 1}/${n}) ──`, ...lines.slice(i * per, (i + 1) * per)]);
+  }
+  async function copyWithFeedback(btn, text) {
+    await copyText(text);
+    const t = btn.textContent; btn.textContent = "已複製 ✓"; btn.disabled = true;
+    setTimeout(() => { btn.textContent = t; btn.disabled = false; }, 1500);
+  }
+  function echoPanel(key, bosses, title, summaryText) {
+    const chunks = buildEcho(bosses, title);
+    const total = chunks.reduce((a, c) => a + c.length, 0);
+    const fl = filterLabel();
+    return h("details", { class: "echo", open: state.echoOpen.has(key) ? "" : null,
+      ontoggle: (e) => { if (e.target.open) state.echoOpen.add(key); else state.echoOpen.delete(key); } },
+      h("summary", null, summaryText, h("span", { class: "cnt" }, chunks.length > 1 ? `${total} 行 → ${chunks.length} 顆` : `${total} 行`)),
+      h("div", { class: "echo-panel" },
+        h("p", { class: "echo-help" },
+          chunks.length > 1 ? `共 ${total} 行，超過遊戲每顆 15 行上限，已拆成 ${chunks.length} 顆。` : `${total} 行（每顆上限 15）。`,
+          fl ? ` 已套用篩選：${fl}。` : " 用上方「要處理 / 只看會死」與職能篩選可以減少行數。",
+          " 貼法：遊戲內 系統 → 使用者巨集 → 選一格 → 在內容欄貼上 → 拖到熱鍵列；開王前按一下，內容只有你自己看得到。",
+          " 建議另開一個只勾「回聲」的聊天分頁並拖出成獨立視窗，就不會被戰鬥訊息洗掉。"),
+        chunks.map((lines, i) => h("div", { class: "macro" },
+          h("div", { class: "macro-head" },
+            h("strong", null, chunks.length > 1 ? `巨集 ${i + 1}/${chunks.length}` : "巨集", h("span", { class: "cnt" }, ` ${lines.length} 行`)),
+            h("button", { onclick: (e) => copyWithFeedback(e.currentTarget, lines.join("\n")) }, "複製")),
+          h("pre", null, lines.join("\n")),
+        )),
+      ),
+    );
+  }
+  function rerenderDuty() {
+    if (!state.current) return;
+    const y = window.scrollY;
+    renderDuty(state.current, { keepScroll: true });
+    window.scrollTo(0, y);
+  }
+
   function renderChips() {
     els.typeChips.replaceChildren(...TYPES.map(([k, l]) =>
       h("button", { class: "chip" + (state.type === k ? " on" : ""), onclick: () => { state.type = k; store.set("type", k); renderChips(); renderList(); } }, l)));
@@ -14986,6 +15095,7 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
         h("h1", null, "FF14 副本小抄"),
         h("p", null, "進本前打副本名稱搜尋（中文、陸服名、英文、Boss 名都可以），機制怎麼解、要往哪跑，一頁看完。"),
         h("p", null, h("kbd", null, "/"), " 聚焦搜尋 　", h("kbd", null, "Esc"), " 清除 　", h("kbd", null, "Enter"), " 開啟第一個結果 　「精簡」只留機制名＋解法"),
+        h("p", null, "想在遊戲裡看：副本頁每隻 Boss 都有「/echo 巨集」，複製後貼進遊戲的使用者巨集，開王前按一下就會印在自己的聊天欄（只有你看得到）。搭配「只看會死」篩選可以把行數壓進 15 行內。"),
         h("div", { class: "cols" },
           h("div", null, h("h3", null, "★ 我的收藏"), h("div", { class: "linklist" }, favs.length ? favs.map(link) : h("span", { style: "color:var(--fg3)" }, "在副本頁按 ☆ 收藏"))),
           h("div", null, h("h3", null, "最近查看"), h("div", { class: "linklist" }, recent.length ? recent.map(link) : h("span", { style: "color:var(--fg3)" }, "—"))),
@@ -14997,8 +15107,10 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
     document.title = "FF14 副本小抄";
   }
 
-  function renderDuty(d) {
+  function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);
+    const filterChip = (list, cur, key) => list.map(([k, l]) =>
+      h("button", { class: "chip" + (cur === k ? " on" : ""), onclick: () => { state[key] = k; store.set(key, k); rerenderDuty(); } }, l));
     const bossId = (i) => "boss-" + (i + 1);
     els.content.replaceChildren(h("div", { class: "duty" },
       h("div", { class: "duty-head" },
@@ -15041,6 +15153,12 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
           s.diagramStatus ? h("p", { class: "macro-status" }, toTW(s.diagramStatus)) : null,
         )),
       ) : null,
+      h("div", { class: "mech-filter" },
+        h("span", { class: "lbl" }, "機制篩選"),
+        h("div", { class: "chips" }, filterChip(DANGERS, state.dmin, "dmin")),
+        h("div", { class: "chips" }, filterChip(ROLES, state.role, "role")),
+      ),
+      echoPanel(d.id, d.bosses, d.name.cn, "整本 /echo 巨集（進本前貼一次）"),
       d.bosses.length > 1 ? h("div", { class: "boss-nav" }, d.bosses.map((b, i) => h("a", { href: "#" + bossId(i), onclick: (e) => { e.preventDefault(); document.getElementById(bossId(i))?.scrollIntoView({ behavior: "smooth" }); } }, `${i + 1}. ${toTW(b.name.cn)}`))) : null,
       d.bosses.map((b, i) => h("section", { class: "boss", id: bossId(i) },
         h("div", { class: "boss-head" },
@@ -15049,7 +15167,8 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
           h("span", { class: "en" }, b.name.en),
         ),
         b.summary ? h("p", { class: "summary", html: fmt(b.summary) }) : null,
-        (b.mechanics || []).map((m) => h("div", { class: "mech d" + (m.danger || 0) },
+        echoPanel(d.id + "#" + i, [b], b.name.cn, "/echo 巨集"),
+        (b.mechanics || []).filter(mechVisible).map((m) => h("div", { class: "mech d" + (m.danger || 0) },
           h("div", { class: "bar" }),
           h("div", null,
             h("div", { class: "mech-title" },
@@ -15062,12 +15181,13 @@ window.FF14_ZH_TW = {"水虎鱼":"水虎魚","海盗洞":"海盜洞","1. 入口�
             h("div", { class: "solve", html: fmt(m.solve) }),
           ),
         )),
+        (() => { const n = (b.mechanics || []).filter((m) => !mechVisible(m)).length; return n ? h("div", { class: "hidden-note" }, `已依篩選隱藏 ${n} 個機制`) : null; })(),
         b.tips && b.tips.length ? h("ul", { class: "tips" }, b.tips.map((t) => h("li", { html: fmt(t) }))) : null,
       )),
       d.notes && d.notes.length ? h("div", { class: "notes" }, h("h3", null, "備註"), h("ul", null, d.notes.map((t) => h("li", { html: fmt(t) })))) : null,
     ));
     document.title = `${toTW(d.name.cn)} — FF14 副本小抄`;
-    window.scrollTo(0, 0);
+    if (!opts.keepScroll) window.scrollTo(0, 0);
   }
 
   function toggleFav(id) {

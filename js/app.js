@@ -144,6 +144,20 @@
     for (const k of kids.flat(Infinity)) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
     return e;
   }
+  const ICONS = {
+    star: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+  };
+  function icon(name, filled) {
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "ic" + (filled ? " fill" : ""));
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", ICONS[name]);
+    svg.appendChild(path);
+    return svg;
+  }
   function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
   function fmt(s) {
     // 支援 **粗體** 與換行
@@ -261,7 +275,7 @@
         },
           h("span", { class: "lv" }, "Lv" + d.level),
           h("span", { class: "nm" }, toTW(d.name.cn), h("small", null, d.name.en)),
-          state.favs.has(d.id) ? h("span", { class: "fav" }, "★") : null,
+          state.favs.has(d.id) ? h("span", { class: "fav" }, icon("star", true)) : null,
           state.q ? h("span", { class: "badge t-" + d.type }, TYPE_LABEL[d.type] || d.type) : null,
         ));
       }
@@ -285,7 +299,7 @@
         h("p", null, h("kbd", null, "/"), " 聚焦搜尋 　", h("kbd", null, "Esc"), " 清除 　", h("kbd", null, "Enter"), " 開啟第一個結果 　「精簡」只留機制名＋解法"),
         h("p", null, "想在遊戲裡看：副本頁每隻 Boss 都有「/echo 巨集」，複製後貼進遊戲的使用者巨集，開王前按一下就會印在自己的聊天欄（只有你看得到）。搭配「只看會死」篩選可以把行數壓進 15 行內。"),
         h("div", { class: "cols" },
-          h("div", null, h("h3", null, "★ 我的收藏"), h("div", { class: "linklist" }, favs.length ? favs.map(link) : h("span", { style: "color:var(--fg3)" }, "在副本頁按 ☆ 收藏"))),
+          h("div", null, h("h3", null, icon("star", true), " 我的收藏"), h("div", { class: "linklist" }, favs.length ? favs.map(link) : h("span", { style: "color:var(--fg3)" }, "在副本頁按 ☆ 收藏"))),
           h("div", null, h("h3", null, "最近查看"), h("div", { class: "linklist" }, recent.length ? recent.map(link) : h("span", { style: "color:var(--fg3)" }, "—"))),
         ),
         h("div", { class: "stat" }, `目前收錄 ${state.data.length} 場：` +
@@ -313,7 +327,7 @@
         h("h1", null,
           toTW(d.name.cn),
           h("span", { class: "en" }, d.name.en),
-          h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, isFav ? "★" : "☆"),
+          h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, icon("star", isFav)),
         ),
       ),
       h("div", { class: "overview", html: fmt(d.overview) }),

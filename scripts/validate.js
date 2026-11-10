@@ -25,7 +25,7 @@ const CONTENT_TYPE_TO_TYPE = new Map([
 const OUTSOURCED_SOLVE = /(看宏|依宏|按宏|隊伍宏|先確認.{0,12}流派|招募文|隊伍圖|依圖站|固定圖站位|實際站位一律)/;
 const OFFICIAL_MECHANIC_CN = new Map([
   ["Almagest", "至高无上"],
-  ["Forsaken", "妖星乱舞"],
+  ["Forsaken", "遗弃末世"],
   ["Flame Floater", "浪顶炽火"],
   ["Alley-oop Inferno + Cutback Blaze", "空中旋火＋火浪回切"],
   ["Alley-oop Double-Dip / Reverse Alley-oop", "双重旋水／交错旋水"],

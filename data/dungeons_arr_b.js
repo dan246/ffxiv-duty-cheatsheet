@@ -1,4 +1,6 @@
 // ARR 2.1～2.5 追加的 Lv50 四人迷宮（共 15 本）
+// 本機灰機頁面僅收錄各本一王正文；後續王依目錄維持分組，未收錄的機制保留。
+// 英文無法由 cactbot 核實時沿用原值；新增招式查無英文則省略 en。
 window.FF14_DATA = window.FF14_DATA || [];
 window.FF14_DATA.push(
 {
@@ -15,13 +17,15 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "不沉者 西蒙德", en: "Symond the Unsinkable" },
-      summary: "所有攻擊都會疊「腐坏结晶」，3 層就爆炸；分散站、躲 AOE、狗優先殺。",
+      summary: "躲直線和水晶地板；偏属性水晶疊到 3 層後 3.5 秒爆炸，離隊至少 6 米；軍犬出現就清。",
       mechanics: [
-        { name: { cn: "腐坏结晶", en: "Corrupting Crystal" }, desc: "王和小怪的攻擊都會給一層腐坏结晶，疊到 3 層會爆炸，傷到周圍的人並給易傷。", solve: "全員分散站、盡量不吃 AOE。已經 3 層的人自己跑離隊伍再爆。", danger: 2 },
-        { name: { cn: "腐坏射击", en: "Corrupting Shot" }, desc: "從王的位置射出的直線 AOE。", solve: "側移離開直線。", danger: 1 },
-        { name: { cn: "天上击", en: "Crystalline Shot" }, desc: "地上出現 1～2 個大水漥，會擴大兩次，踩到 +1 層結晶。", solve: "1 個水漥就往場邊站；2 個就分兩邊站進安全區。", danger: 2 },
-        { name: { cn: "十亿斩击", en: "Giga Slash" }, desc: "大範圍擊退 AOE（不疊層）。", solve: "背後留點空間，別被推進水漥。", danger: 1 },
-        { name: { cn: "被魅惑的军犬", en: "Zombie War Hound" }, desc: "定期出狗，咬人也會疊層；15% 左右會一次出 3～4 隻。", solve: "狗出來立刻殺。15% 時直接近戰 LB 收王，或法系 LB 清狗。", danger: 2 },
+        { name: { cn: "贯穿刺" }, desc: "對第一仇恨目標的無讀條單體攻擊。", solve: "T 維持血量，H 補好單體傷害。", role: "T", danger: 1 },
+        { name: { cn: "被魅惑的军犬", en: "Zombie War Hound" }, desc: "王在 90%、75%、50%、40%、30%、20% 血量喊話召喚軍犬；每波兩隻，最後一波三隻。", solve: "狗出來立刻集火，避免場上累積多波。", danger: 2 },
+        { name: { cn: "腐坏爆发", en: "Corrupting Crystal" }, desc: "偏属性水晶達 3 層後 3.5 秒，以自己為中心炸 6 米圓圈，範圍內玩家再疊一層受伤加重。", solve: "3 層時立刻離隊至少 6 米；其餘人不要靠近爆炸者。", danger: 3 },
+        { name: { cn: "腐坏唾液" }, desc: "軍犬讀條 0.7 秒，向指定地點放 6 米圓形 AOE；命中疊一層偏属性水晶。", solve: "保持移動躲開腳下圈，優先清軍犬。", danger: 2 },
+        { name: { cn: "腐坏射击", en: "Corrupting Shot" }, desc: "王正前方的直線 AOE，命中疊一層偏属性水晶。", solve: "側移離開直線。", danger: 2 },
+        { name: { cn: "天上击／水晶弹雨", en: "Crystalline Shot" }, desc: "兩塊水晶落下造成圓形傷害，留下持續傷害區；踩入疊偏属性水晶，每 5 秒擴大一次，共兩次。", solve: "先躲落點，再向乾淨地面退，別貼著尚未擴大的圈邊。", danger: 2 },
+        { name: { cn: "十亿斩击", en: "Giga Slash" }, desc: "以王為中心的大範圍圓形高傷害 AOE。", solve: "及早拉開距離離開範圍；來不及就開減傷，H 補血。", danger: 2 },
       ],
     },
     {
@@ -72,14 +76,18 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "百臂主脑巨人", en: "Hecatoncheir Mastermind" },
-      summary: "火會佔掉平台，炸彈怪走到火裡就滅團，出現就秒。",
+      summary: "先清場上小怪，烈火弹怪出現立刻集火；黑暗爆炎會逐段燒掉場地，往未燃燒區退。",
       mechanics: [
-        { name: { cn: "黑暗爆炎", en: "Dark Fire III" }, desc: "每 45～60 秒放火燒掉一段平台，火不會消。", solve: "全員往橋的另一頭退，別踩火。", danger: 2 },
-        { name: { cn: "烈火弹怪", en: "Flambeau" }, desc: "放火時走道尾端會出現炸彈怪，慢慢走向火場；碰到火或放著不管都會自爆滅團。", solve: "出現立刻集火殺掉，來不及就先暈住。", danger: 3 },
+        { name: { cn: "流散" }, desc: "礦渣怪對一仇施加狀態：入口為可疊加的 15 秒中毒，中段為 30 秒麻痹，出口為 30 秒病弱。", solve: "先清礦渣怪；H 留意 T 的持續掉血與異常狀態。", phase: "採掘礦渣怪", danger: 2 },
+        { name: { cn: "超压斧", en: "Overpower" }, desc: "撐岩巨人讀條 2.5 秒，朝一仇方向放 90° 扇形。", solve: "離開扇形；T 把巨人面向隊伍外側。", phase: "百臂撐岩巨人", danger: 2 },
+        { name: { cn: "自爆", en: "Self-destruct" }, desc: "烈火弹怪血量降低或碰到燃燒區後讀條 10 秒，造成大範圍圓形高傷害。", solve: "炸彈出現就集火；壓低血量後一口氣打死，別讓它走進火場。", phase: "烈火彈怪", danger: 3 },
+        { name: { cn: "超猛击" }, desc: "對當前仇恨目標的單體高傷害。", solve: "T 開減傷，H 預留單補。", phase: "百臂主腦巨人", role: "T", danger: 2 },
+        { name: { cn: "黑暗爆炎", en: "Dark Fire III" }, desc: "讀條 2.5 秒，在入口或火場邊緣炸圓圈並附 15 秒火伤、點燃一段場地；四次後全場燃燒。", solve: "往未燃燒區退、避開圓圈，四次放火前盡快擊倒王。", phase: "百臂主腦巨人", danger: 2 },
+        { name: { cn: "蓄力", en: "Boost" }, desc: "王為自己附加 30 秒蓄力。", solve: "T 保留減傷應對後續攻擊，H 先穩住坦克血量。", phase: "百臂主腦巨人", danger: 2 },
       ],
     },
     {
-      name: { cn: "哥革巨像", en: "Gogmagolem" },
+      name: { cn: "比吉，哥革巨像", en: "Biggy / Gogmagolem" },
       summary: "巨像幾乎打不動，靠搬炸彈放在它路徑上炸；其他人清小精靈。",
       mechanics: [
         { name: { cn: "碎岩炸弹", en: "Waymaker Bomb" }, desc: "一人操作「新型爆破装置」會生成炸彈，撿起後有倒數；巨像會在房間裡來回走。", solve: "指定一名 D 專職：點裝置→撿炸彈→顯示「5 秒後爆炸」時放到巨像走的路徑上，這是主要傷害來源。", role: "D", danger: 2 },
@@ -116,11 +124,14 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "庄园的小丑", en: "Manor Jester" },
-      summary: "驅散減速、躲冰地板、殺管家。",
+      summary: "王的讀條都可中斷；驅散減速、躲持續冰圈，優先中斷死者之舞避免管家復活合體。",
       mechanics: [
-        { name: { cn: "虚空冰结", en: "Void Blizzard" }, desc: "傷害並上減速。", solve: "H 驅散。", role: "H", danger: 1 },
-        { name: { cn: "冰瀑", en: "Icefall" }, desc: "地上出現冰塊 AOE。", solve: "走出去。", danger: 1 },
-        { name: { cn: "庄园的管家", en: "Manor Butler" }, desc: "中途出小怪。", solve: "先殺小怪再回頭打王。", danger: 1 },
+        { name: { cn: "虚空冰封", en: "Void Blizzard III" }, desc: "較高傷害的單體魔法攻擊。", solve: "可中斷讀條；沒斷到就減傷並補好被打的人。", danger: 2 },
+        { name: { cn: "虚空冰结", en: "Void Blizzard" }, desc: "單體魔法傷害並附加可驅散的減速，延長自動攻擊、戰技與魔法的間隔。", solve: "H 驅散減速，也可中斷讀條。", role: "H", danger: 1 },
+        { name: { cn: "冰瀑", en: "Icefall" }, desc: "對目標造成魔法傷害，在其位置留下圓形持續傷害區。", solve: "走出冰圈，別站回殘留區域。", danger: 2 },
+        { name: { cn: "死者之舞" }, desc: "場邊燈籠亮起會出管家；王以隨機管家屍體為中心復活圈內管家，圈內有四隻會合成總管。", solve: "優先中斷讀條；管家分散位置擊殺，避免四具屍體集中。", danger: 2 },
+        { name: { cn: "地狱挥" }, desc: "管家與總管對單體造成小傷害。", solve: "T 接住小怪，隊友集火清掉。", danger: 1 },
+        { name: { cn: "幽冥爆发" }, desc: "總管施放全場 AOE。", solve: "全隊減傷，H 群補；優先擊倒總管。", danger: 2 },
       ],
     },
     {
@@ -161,12 +172,13 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "腐坏贪吃鬼", en: "Decaying Gourmand" },
-      summary: "被吞的人要靠隊友打死大嘴救出來。",
+      summary: "被連線的人會遭吞食；隊友立刻打破贪婪大口救人，否則呕吐會直接擊殺。",
       mechanics: [
-        { name: { cn: "捕食", en: "Devour" }, desc: "點名一人上 Prey 標記，幾秒後被吞，場上出現「贪婪大口」。", solve: "其他人立刻集火贪婪大口，時間內沒打死被吞的人會直接死。", danger: 3 },
-        { name: { cn: "霉痰", en: "Moldy Phlegm" }, desc: "中型圓 AOE，留下花粉地板持續掉血；被本體打到會減免疫。", solve: "走出圈、別站地板。", danger: 1 },
-        { name: { cn: "孢子云", en: "Spore Cloud" }, desc: "瞬發全體小傷，上可驅散的疊層毒。", solve: "H 驅散，層數高的優先。", role: "H", danger: 1 },
-        { name: { cn: "腐坏喷嚏", en: "Dirty Sneeze" }, desc: "對 T 的中傷。", solve: "H 補一下。", role: "T", danger: 1 },
+        { name: { cn: "腐坏喷嚏", en: "Dirty Sneeze" }, desc: "對隨機目標的單體攻擊。", solve: "H 留意被打者血量並單補。", danger: 1 },
+        { name: { cn: "贪婪大口／呕吐", en: "Devour" }, desc: "隨機連線一人，將其暈住拉到身前吞食；贪婪大口未及時擊破就用呕吐強制擊殺。", solve: "其他人立刻集火贪婪大口，把被吞的人救出來。", danger: 3 },
+        { name: { cn: "击倒" }, desc: "讀條後對正面扇形造成傷害並小幅擊退。", solve: "讀條時繞到王側後方。", danger: 2 },
+        { name: { cn: "霉痰", en: "Moldy Phlegm" }, desc: "讀條後對目標區域造成圓形傷害並留下持續傷害區，踩入還會附加減益。", solve: "走出預兆，別踩回殘留地板。", danger: 2 },
+        { name: { cn: "孢子云", en: "Spore Cloud" }, desc: "全場 AOE 並附加異常狀態。", solve: "H 群補，檢查隊友狀態並驅散可解除的減益。", danger: 2 },
       ],
     },
     {
@@ -203,17 +215,20 @@ window.FF14_DATA.push(
   ilvl: 55,
   name: { cn: "剑斗领域日影地修炼所", en: "Halatali (Hard)", tw: "劍鬥領域日影地修煉所" },
   aliases: ["哈拉塔利困难", "哈拉塔利困難", "日影地困难", "日影地困難", "修炼所困难", "修煉所困難"],
-  overview: "一王拉桿拿魔法屏障擋千吨回转、二王四人各點一個台座擋恶魔之瞳、最終戰是四人組＋主教連戰。",
+  overview: "一王拉桿拿坚壁擋千吨回转、二王四人各點一個台座擋恶魔之瞳、最終戰是四人組＋主教連戰。",
   route: "1. 道中普通，可兩包拉。\n2. 一王房間後方有拉桿，二王房間四角各有台座，開打前先看好。",
   bosses: [
     {
       name: { cn: "皮拉刻蒙", en: "Pyracmon" },
-      summary: "獨眼巨人：兩手舉起是近身圓、單手是正面扇形；千吨回转要拿魔法屏障擋。",
+      summary: "單手揮武器繞背、雙手回轉遠離；千吨回转前拿坚壁，吸引後先退再避開轉身扇形。",
       mechanics: [
-        { name: { cn: "百吨回转", en: "100-tonze Swing" }, desc: "王雙手握武器讀條，以自身為中心的大圓。", solve: "遠離王。", danger: 2 },
-        { name: { cn: "十吨横扫", en: "10-tonze Swipe" }, desc: "單手讀條，正面大扇形。", solve: "穿過王到背後。", danger: 2 },
-        { name: { cn: "眼魔之眼", en: "Eye of the Beholder" }, desc: "以王為中心的月環雷射。", solve: "貼王腳下。", danger: 2 },
-        { name: { cn: "千吨回转", en: "1000-tonze Swing" }, desc: "長讀條全場致死 AOE。場上有隻木人在走，連線到後方的拉桿。", solve: "王開始讀千吨回转時，一人去點拉桿，木人停下來放出藍色光圈，全員站進去拿「魔法屏障」（Manawall）就能擋掉。太早拉光圈會先消失。", danger: 3 },
+        { name: { cn: "坚壁" }, desc: "點魔法人偶启动装置後人偶停止移動，讀條為自己與周圍玩家附加 30 秒坚壁，之後充能。", solve: "千吨回转前一人點裝置，全員靠近人偶取得坚壁再回去打王。", danger: 3 },
+        { name: { cn: "百吨横扫", en: "10-tonze Swipe" }, desc: "讀條 3 秒，右手舉武器，朝一仇方向放無地板提示的扇形並擊退。", solve: "穿過王到背後。", danger: 2 },
+        { name: { cn: "百吨回转", en: "100-tonze Swing" }, desc: "讀條 4 秒，雙手握武器，以自己為中心放無地板提示的圓形並擊退。", solve: "看到雙手動作或讀條就遠離王。", danger: 2 },
+        { name: { cn: "千吨回转", en: "1000-tonze Swing" }, desc: "讀條 6 秒，紫色全場預兆，高傷害並擊退。", solve: "全員在結算前取得人偶的坚壁；別等快讀完才點裝置。", danger: 3 },
+        { name: { cn: "狞视" }, desc: "讀條 2.3 秒，對隨機玩家放無地板提示的雷屬性直線。", solve: "王轉向你開始讀條時往側面移開。", danger: 2 },
+        { name: { cn: "掠夺本能" }, desc: "先將玩家拉近，立刻接百吨回转，再轉身 180° 接眼魔之眼。", solve: "被拉近後先離王躲圓圈，回轉結算後繞到王轉身後的背面。", danger: 2 },
+        { name: { cn: "眼魔之眼", en: "Eye of the Beholder" }, desc: "讀條 3 秒，前方約 210° 無地板提示扇形，命中附 15 秒感电。", solve: "以王當下朝向為準，站在背後安全扇區，不能只貼王腳下。", danger: 2 },
       ],
     },
     {
@@ -227,22 +242,16 @@ window.FF14_DATA.push(
       ],
     },
     {
-      name: { cn: "四人组（女帝 赛伦特·莫斯 等）", en: "Silent Moss the Solemn, Franz the Fair, Langloisiert the Lionheart, U'linbho the Sand Devil" },
-      summary: "四個劍鬥士一起上，先殺補師（女帝 赛伦特·莫斯），槍兵沒有仇恨會隨機打人。",
+      name: { cn: "退位主教 穆穆埃珀，那罗希摩，女帝 赛伦特·莫斯，无双枪 朗格卢瓦西耶，沙漠猎人 乌·琳波，美貌剑 弗朗茨", en: "Mumuepo the Beholden & Narasimha / Silent Moss the Solemn, Franz the Fair, Langloisiert the Lionheart, U'linbho the Sand Devil" },
+      summary: "兩波連戰：四人組先殺會補血的女帝；主教與那罗希摩出場後先打主教，沒被鎖的人點杖救隊友。",
       mechanics: [
-        { name: { cn: "集火順序", en: "Kill Order" }, desc: "女帝 赛伦特·莫斯 會補血並放蛙变之歌/缩小旋律；无双枪 朗格卢瓦西耶 無仇恨隨機打人。", solve: "先殺女帝，再殺其他人；被槍兵追的人放風箏，T 抓好另外兩隻。", danger: 2 },
-        { name: { cn: "普拉达曼特 / 旋风斩", en: "Pradamante / Whirlwind Slash" }, desc: "弗朗茨的正面劍技和旋轉 AOE。", solve: "非 T 站側後方，看到旋轉就退。", danger: 1 },
+        { name: { cn: "集火順序", en: "Kill Order" }, desc: "女帝 赛伦特·莫斯 會補血並放蛙变之歌/缩小旋律；无双枪 朗格卢瓦西耶 無仇恨隨機打人。", solve: "先殺女帝，再殺其他人；被槍兵追的人放風箏，T 抓好另外兩隻。", phase: "女帝 賽倫特·莫斯，無雙槍 朗格盧瓦西耶，沙漠獵人 烏·琳波，美貌劍 弗朗茨", danger: 2 },
+        { name: { cn: "普拉达曼特 / 旋风斩", en: "Pradamante / Whirlwind Slash" }, desc: "弗朗茨的正面劍技和旋轉 AOE。", solve: "非 T 站側後方，看到旋轉就退。", phase: "女帝 賽倫特·莫斯，無雙槍 朗格盧瓦西耶，沙漠獵人 烏·琳波，美貌劍 弗朗茨", danger: 1 },
+        { name: { cn: "女神的束缚 → 来生神之怒", en: "Divine Embrace → Thal's Fury" }, desc: "穆穆埃珀把幾個人鎖在原地，接著讀長條的大範圍 AOE。", solve: "沒被鎖的人去 AOE 範圍內找「来生神之杖」（Thal's Scepter）點掉解鎖，被解開的人跑出範圍。", phase: "退位主教 穆穆埃珀，那羅希摩", danger: 3 },
+        { name: { cn: "尾部碎击", en: "Tail Smash" }, desc: "那罗希摩的後方尾掃。", solve: "近戰站側面。", phase: "退位主教 穆穆埃珀，那羅希摩", danger: 1 },
+        { name: { cn: "火球", en: "Fireball" }, desc: "那罗希摩點名遠程放圓 AOE。", solve: "走出圈。", phase: "退位主教 穆穆埃珀，那羅希摩", danger: 1 },
       ],
-    },
-    {
-      name: { cn: "退位主教 穆穆埃珀 & 那罗希摩", en: "Mumuepo the Beholden & Narasimha" },
-      summary: "先殺穆穆埃珀；被鎖鏈鎖住的人要靠沒被鎖的人點杖解救，否則吃来生神之怒。",
-      mechanics: [
-        { name: { cn: "女神的束缚 → 来生神之怒", en: "Divine Embrace → Thal's Fury" }, desc: "穆穆埃珀把幾個人鎖在原地，接著讀長條的大範圍 AOE。", solve: "沒被鎖的人去 AOE 範圍內找「来生神之杖」（Thal's Scepter）點掉解鎖，被解開的人跑出範圍。", danger: 3 },
-        { name: { cn: "尾部碎击", en: "Tail Smash" }, desc: "那罗希摩的後方尾掃。", solve: "近戰站側面。", danger: 1 },
-        { name: { cn: "火球", en: "Fireball" }, desc: "那罗希摩點名遠程放圓 AOE。", solve: "走出圈。", danger: 1 },
-      ],
-      tips: ["T 兩隻都抓，隊伍集火穆穆埃珀，剩那罗希摩就很輕鬆。"],
+      tips: ["第二波 T 兩隻都抓，隊伍集火穆穆埃珀，剩那罗希摩就很輕鬆。"],
     },
   ],
 },
@@ -255,16 +264,17 @@ window.FF14_DATA.push(
   ilvl: 55,
   name: { cn: "纷争要地布雷福洛克斯野营地", en: "Brayflox's Longstop (Hard)", tw: "紛爭要地布雷福洛克斯野營地" },
   aliases: ["布雷困难", "布雷困難", "布雷福困难", "野营地困难", "野營地困難", "哥布林困难"],
-  overview: "三隻哥布林機械：一王攔狙擊手連線、二王把王拉出青磷液、三王中場把炸彈打離中央。",
+  overview: "三隻哥布林機械：一王清狙擊手並躲炸彈十字、二王把王拉出青磷液、三王中場把炸彈打離中央。",
   route: "1. 道中任務要解放 3 個被抓的哥布林（點籠子）、開 2 道閘門。\n2. 道中的 Gremlin 上的「憂鬱」debuff 可以用 /comfort 表情解掉。",
   bosses: [
     {
       name: { cn: "青蓝之手指挥官", en: "Illuminati Commander" },
-      summary: "狙擊手連線人持續傷害，可以擋線；尖刺炸彈是十字直線。",
+      summary: "躲腳下投弹與炸彈十字；狙擊手出現就清，T 留減傷接三連哥布林冲锋。",
       mechanics: [
-        { name: { cn: "青蓝之手狙击手", en: "Illuminati Sniper" }, desc: "定期出狙擊手，連線一人持續射擊。", solve: "殺掉狙擊手；有人快死可以走進連線把線攔過來。", danger: 2 },
-        { name: { cn: "尖刺炸弹", en: "Spiked Bomb" }, desc: "王丟炸彈到場上，爆炸時朝四個方向放直線。", solve: "站在炸彈的斜角方向。", danger: 2 },
-        { name: { cn: "投弹", en: "Bomb Toss" }, desc: "點名一人放圓 AOE。", solve: "走出圈。", danger: 1 },
+        { name: { cn: "哥布林冲锋", en: "Goblin Rush" }, desc: "對當前仇恨目標連續三次單體攻擊。", solve: "T 開減傷，H 注意三連後的血量。", role: "T", danger: 2 },
+        { name: { cn: "投弹", en: "Bomb Toss" }, desc: "讀條 3 秒，在隨機玩家腳下生成圓形 AOE。", solve: "走出腳下圈。", danger: 2 },
+        { name: { cn: "爆炸", en: "Spiked Bomb" }, desc: "王丟出特殊炸彈，依血量再陸續落下 2～8 顆；落地後讀條 2.5 秒炸十字。", solve: "站到炸彈斜角，並避開其他炸彈交錯的十字預兆。", danger: 2 },
+        { name: { cn: "狙击", en: "Illuminati Sniper" }, desc: "王低於 90% 血量後定期出狙擊手，以連線鎖定仇恨並對目標射擊。", solve: "優先殺掉狙擊手，H 補被連線的人。", danger: 2 },
       ],
     },
     {
@@ -301,16 +311,17 @@ window.FF14_DATA.push(
   name: { cn: "财宝传说破舰岛", en: "Hullbreaker Isle", tw: "財寶傳說破艦島" },
   aliases: ["破舰", "破艦", "香蕉岛", "香蕉島", "香蕉本", "克拉肯"],
   overview: "一王餵香蕉、二王大漩渦時進泡泡、三王跳平台殺腕足，綠隕石帶去別的平台放。",
-  route: "1. 道中怪普通，可兩包拉。\n2. 一王場邊有 6 棵香蕉樹，二王場上會有泡泡，三王要用水柱跳平台。",
+  route: "1. 道中避開捕兽夹：踩中暈 4 秒，1 秒後再受最大 HP 25% 傷害與 15 秒切伤。\n2. 洞內寶箱可能變怪宝箱，擊殺並取得神秘的石板，放到神秘的台子開門。\n3. 一王場邊有 6 棵香蕉樹，二王場上有泡泡，三王用水柱跳平台。",
   bosses: [
     {
       name: { cn: "大脚巨猿", en: "Sasquatch" },
-      summary: "捶胸時點香蕉樹讓它去吃，別讓猴子先搶到。",
+      summary: "捶胸時先清搶香蕉的小猴子，再點一棵香蕉樹讓王吃，停止全場傷害與易傷疊層。",
       mechanics: [
-        { name: { cn: "捶胸", en: "Chest Thump" }, desc: "王連續捶胸讀條，全場持續 AOE。", solve: "一人點場邊的「野生香蕉树」掉出香蕉，王會停下來去吃。一次只點一棵（每吃一次王會疊一層攻擊上升）。", danger: 2 },
-        { name: { cn: "小脚冕狐猴", en: "Smallfoot Sifaka" }, desc: "捶胸時出現的小猴子，會跑去吃香蕉。", solve: "先殺猴子，T 把猴子拉離香蕉。", danger: 2 },
-        { name: { cn: "扔岩石", en: "Stool Pelt" }, desc: "點名一人的大圓 AOE。", solve: "走出圈。", danger: 1 },
-        { name: { cn: "殴打", en: "Browbeat" }, desc: "對 T 的中傷。", solve: "H 補。", role: "T", danger: 1 },
+        { name: { cn: "吃香蕉" }, desc: "場邊六棵野生香蕉树各能點一次；王或小猴子吃香蕉會回血並疊傷害提高。", solve: "只在王捶胸時點一棵，先清猴子避免香蕉被搶走。", danger: 2 },
+        { name: { cn: "殴打", en: "Browbeat" }, desc: "對當前仇恨目標的單體高傷害。", solve: "T 開減傷，H 補好坦克。", role: "T", danger: 2 },
+        { name: { cn: "扔岩石", en: "Stool Pelt" }, desc: "讀條 2.5 秒，在隨機玩家腳下生成圓形 AOE。", solve: "走出圈。", danger: 2 },
+        { name: { cn: "打飞" }, desc: "鎖定隨機玩家後衝向該玩家，造成傷害並擊退。", solve: "被點者背後留出場內空間，H 留意其血量。", danger: 2 },
+        { name: { cn: "捶胸", en: "Chest Thump" }, desc: "召喚 2～3 隻小猴子後王取得受伤减轻並連續全場 AOE，每次疊 8 秒受伤加重，吃香蕉後停止。", solve: "清掉搶香蕉的猴子，一人點樹餵王；H 在停止前持續群補。", danger: 2 },
       ],
     },
     {
@@ -354,10 +365,14 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "证婚人 莉亚维娜", en: "Liavinne" },
-      summary: "殭屍群自己打會給全隊受傷 debuff，要讓王的 AOE 炸掉：紅箭頭的人跑進殭屍堆。",
+      summary: "不要攻擊伴郎伴娘；三紅球被追者與腐化箭紅圈者配合，用王的圓圈秒殺小怪。",
       mechanics: [
-        { name: { cn: "殭屍群", en: "Zombie Horde" }, desc: "召喚一群殭屍追非 T 的某人。自己打死殭屍會給全隊 1 分鐘的受傷 debuff，最多疊 8 層。", solve: "不要打殭屍，被追的人拉著走。", danger: 3 },
-        { name: { cn: "荒芜新星", en: "Desolation" }, desc: "某個非 T 的人頭上出現紅色箭頭標記，之後以他為中心放 AOE，會殺死殭屍。", solve: "紅箭頭的人跑到被殭屍追的人旁邊（全隊站中間就不用跑）。前兩次沒炸掉，殘餘殭屍會在下次攻擊後給 debuff。", danger: 3 },
+        { name: { cn: "连珠箭" }, desc: "朝當前仇恨方向放 90° 扇形。", solve: "T 把王背對隊伍，其餘人站側後方。", danger: 2 },
+        { name: { cn: "非人暴行", en: "Inhumanity" }, desc: "隨機點名三顆紅球並造成傷害，召喚四隻伴郎追該玩家；血量降低後增加伴娘與爬行小怪。", solve: "被追者把小怪帶到一起，等腐化箭處理；其他人停用會掃到小怪的 AOE。", danger: 2 },
+        { name: { cn: "自暴自弃" }, desc: "伴郎伴娘受到非秒殺傷害後立即變得不可選中並自爆，全隊疊 60 秒受伤加重。", solve: "不要自己打小怪，讓腐化箭一次秒殺；別用範圍攻擊擦到它們。", danger: 3 },
+        { name: { cn: "死亡引领" }, desc: "爬行伴郎伴娘碰到被追者會將其束縛，直到該小怪死亡才解除。", solve: "被追者保持距離；若被抓住，腐化箭點名者把紅圈帶去炸掉小怪。", danger: 3 },
+        { name: { cn: "腐化箭", en: "Desolation" }, desc: "隨機一人紅色標記與圓形 AOE，秒殺圈內伴郎伴娘；多人時不會點非人暴行的被追者。", solve: "紅圈者靠近被追者，把小怪包進圓圈；其餘人避開紅圈，T 維持王背對隊伍。", danger: 3 },
+        { name: { cn: "怒火中烧" }, desc: "讀條 2.5 秒，全場除王以外的角色都受傷，包含小怪；無法秒殺小怪，因此會引發其自爆。", solve: "在讀條結束前用腐化箭清掉小怪；全隊減傷，H 預備群補。", danger: 3 },
       ],
       tips: ["T 只要抓好王。殭屍空檔全力輸出。"],
     },
@@ -395,12 +410,12 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "格里尼奇恶龙", en: "Gorynich" },
-      summary: "正面扇形繞背，小怪死時的 AOE 別讓王吃到（會強化）。",
+      summary: "跟著王去場邊並繞背躲大扇形；小怪死後會強化範圍內的王，要拉開距離再殺。",
       mechanics: [
-        { name: { cn: "重击", en: "Swinge" }, desc: "超大正面扇形。", solve: "開衝刺繞到王背後。", danger: 2 },
-        { name: { cn: "利爪", en: "Rake" }, desc: "順劈死刑，很痛。", solve: "T 開減傷，其他人別站正面。", role: "T", danger: 2 },
-        { name: { cn: "火焰吐息", en: "the Lion's Breath" }, desc: "正面扇形。", solve: "站側後方。", danger: 1 },
-        { name: { cn: "小怪", en: "Adds" }, desc: "小怪出現會直接打 H；死亡時放 AOE（一種正面扇形、一種大圓），王吃到會得加速＋攻擊上升。", solve: "T 不要拉小怪，把王拉角落遠離；D 快殺，H 站遠離王的位置。", danger: 2 },
+        { name: { cn: "利爪", en: "Rake" }, desc: "對最高仇恨目標的單體傷害。", solve: "T 維持血量，H 注意單補。", role: "T", danger: 2 },
+        { name: { cn: "重击", en: "Swinge" }, desc: "王走到場邊角落，朝正面放超大 90° 扇形，沒有範圍提示。", solve: "王往角落走時就跟上，繞到背後避開扇形。", danger: 2 },
+        { name: { cn: "火焰吐息", en: "the Lion's Breath" }, desc: "正面無地板提示的 180° 扇形。", solve: "站到王背後，別留在正面半場。", danger: 2 },
+        { name: { cn: "守塔幼龙", en: "Adds" }, desc: "先出兩隻、第二波三隻；死後讀條長扇形增益，最後一隻改圓形，覆蓋王會給 30 秒加速與增傷。", solve: "D 優先清小怪；T 拉開王與小怪的距離，避免王站進死亡增益區。", danger: 2 },
       ],
     },
     {
@@ -438,16 +453,19 @@ window.FF14_DATA.push(
   ilvl: 80,
   name: { cn: "凛冽洞天披雪大冰壁", en: "Snowcloak", tw: "凜冽洞天披雪大冰壁" },
   aliases: ["大冰壁", "雪山本", "芬里尔", "芬里爾", "冰壁"],
-  overview: "一王殺冰炸彈控層數、二王躲雪球、三王月下咆哮躲在保持藍色的冰柱後面。",
+  overview: "一王移動接风雪並清冰炸彈、二王躲雪球、三王月下咆哮躲在保持藍色的冰柱後面。",
   route: "1. 道中要撿「小鑰匙」開門、後面撿「背教者的手指」。\n2. 道中怪普通，可兩包拉。",
   bosses: [
     {
       name: { cn: "冰锥万迪尔", en: "Wandil" },
-      summary: "攻擊會疊「冰冻」，4 層被凍住；冰炸彈快殺。",
+      summary: "保持移動躲风雪的凝冻；4 層會凍住 10 秒，冰炸彈優先清，40% 後避開外圈。",
       mechanics: [
-        { name: { cn: "寒潮", en: "Cold Wave" }, desc: "每人腳下圓 AOE，吃到 +1 層冰冻。", solve: "走出圈。", danger: 1 },
-        { name: { cn: "风雪", en: "Snow Drift" }, desc: "無法迴避的全體傷害，+1 層冰冻。", solve: "H 群補；H 自己注意層數，凍住前先補滿。", danger: 2 },
-        { name: { cn: "寒霜爆弹", en: "Frost Bomb" }, desc: "定期出冰炸彈，一段時間或低血時放冰碎：全場 AOE +1 層冰冻。", solve: "出現就集火殺掉。", danger: 2 },
+        { name: { cn: "断头冰台" }, desc: "朝 T 方向的扇形高傷害。", solve: "T 開減傷，其他人避開正面。", role: "T", danger: 2 },
+        { name: { cn: "风雪", en: "Snow Drift" }, desc: "讀條全場 AOE 並疊凝冻；判定時保持移動可免受凝冻。", solve: "全員在結算時保持移動，H 減傷並群補。", danger: 2 },
+        { name: { cn: "寒潮", en: "Cold Wave" }, desc: "地面圓形預兆，命中疊凝冻。", solve: "走出圈，避免累積凝冻。", danger: 2 },
+        { name: { cn: "冻结" }, desc: "凝冻達 4 層後，10 秒無法行動且 HP 持續下降。", solve: "以躲圈、移動接风雪控制層數；有人凍住時 H 優先維持其血量。", danger: 3 },
+        { name: { cn: "冻原" }, desc: "約 40% 血量後場地外圈變藍，久站其中會疊凝冻。", solve: "移到內圈乾淨地面，躲招時也別長時間停在藍色區域。", phase: "40% 以下", danger: 2 },
+        { name: { cn: "冰碎", en: "Frost Bomb" }, desc: "寒霜爆弹出現一段時間後讀條自爆，命中玩家會疊凝冻。", solve: "冰炸彈出現就集火，在自爆前打死。", danger: 2 },
       ],
     },
     {
@@ -484,17 +502,17 @@ window.FF14_DATA.push(
   ilvl: 80,
   name: { cn: "逆转要害沙斯塔夏溶洞", en: "Sastasha (Hard)", tw: "逆轉要害沙斯塔夏溶洞" },
   aliases: ["沙斯塔夏困难", "沙斯塔夏困難", "海盗洞困难", "海盜洞困難", "水虎鱼困难", "克拉肯"],
-  overview: "一王 H 要在螺旋尾前把黏液全驅散、二王被射的時候全力輸出、三王打腕足別打觸手。",
+  overview: "一王 H 要在螺旋尾前把粘液全驅散、二王被射的時候全力輸出、三王打腕足別打觸手。",
   route: "1. 道中被淹死的水手群可以一起拉。\n2. 二王後的走廊有小王「荷尔修缇姆大副」。\n3. 寶箱在 X7.5 Y16.3 的側房。",
   bosses: [
     {
       name: { cn: "真红龙虾", en: "Karlabos" },
-      summary: "螺旋尾會把非 T 打到剩 1%，身上有黏液就直接死；H 的順序是驅散 > 補 T > 補其他人。",
+      summary: "分散避免粘液重疊；H 優先驅散。T 把猎物傳給隊友後，留著下踢暈斷螺旋尾。",
       mechanics: [
-        { name: { cn: "水球", en: "Aqua Ball" }, desc: "對人丟水球，上「黏液」DoT；圈重疊會讓旁邊的人也中，一人可以疊多個。", solve: "全員分散站；H 立刻驅散。", role: "H", danger: 2 },
-        { name: { cn: "野性本能（Prey）", en: "Wild Instinct" }, desc: "對仇恨最高的人上 Prey 標記，幾秒後那個人會被暈。標記可以透過碰撞傳給別人。", solve: "T 可以撞給旁邊的 D，讓 D 暈完後還能暈王的螺旋尾。", danger: 2 },
-        { name: { cn: "螺旋尾", en: "Tail Screw" }, desc: "對非 T 的人放，HP 直接剩 1%（不會死），但如果身上有黏液就會死。", solve: "可以暈。H 確保螺旋尾前所有人的黏液都清掉，中招的人馬上補。", danger: 3 },
-        { name: { cn: "穿刺", en: "Impale" }, desc: "對 T 的中傷。", solve: "H 補。", role: "T", danger: 1 },
+        { name: { cn: "穿刺", en: "Impale" }, desc: "三次普通攻擊後對 T 造成高額傷害。", solve: "T 開減傷，H 預留單補。", role: "T", danger: 2 },
+        { name: { cn: "螺旋尾", en: "Tail Screw" }, desc: "隨機點非 T 玩家，削去約 99% 當前血量；身上的粘液持續傷害可能補刀。", solve: "T 用下踢暈斷；H 在結算前驅散粘液，中招後立即補血。", danger: 3 },
+        { name: { cn: "猎物／捕猎爪", en: "Wild Instinct" }, desc: "T 被標猎物，可碰觸轉移且原持有者獲抗性；數秒後王朝標記者放扇形吸引並眩暈。", solve: "T 將標記傳給一名隊友後離開扇形，保留下踢處理螺旋尾；接標者固定位置，其他人遠離。", danger: 2 },
+        { name: { cn: "粘液", en: "Aqua Ball" }, desc: "無讀條點非 T 玩家，附可驅散的疊層持續傷害與減速；重疊站位會吃多段並增加層數。", solve: "平時分散站；H 立即驅散，優先處理螺旋尾的目標。", role: "H", danger: 3 },
       ],
     },
     {
@@ -531,11 +549,11 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "受损的审判化身", en: "Damaged Adjudicator" },
-      summary: "本體打不動，找有紅色核心的部位打，打壞會分裂出小怪，清完再找核心重複。",
+      summary: "打發紅光的部位讓王解體；點名球帶去角落，流沙出現立即離開。",
       mechanics: [
-        { name: { cn: "核心", en: "Core" }, desc: "頭／手／尾其中一個部位會發紅光（核心）。", solve: "只打紅色核心的部位，打壞後清小怪，再打下一個核心。", danger: 2 },
-        { name: { cn: "流沙（场地机制）", en: "Shifting Sands (environmental)" }, desc: "隨機玩家附近出現沙漩渦，站在裡面會被減速並逐漸下沉；沒在倒數結束前離開就會死。", solve: "沙地一出現就持續往外走，不要等角色明顯下沉才動。", danger: 3 },
-        { name: { cn: "沙柱", en: "Sand Pillar" }, desc: "點名一人放沙球，會炸圓 AOE。", solve: "被點的人往場邊走再閃開。", danger: 1 },
+        { name: { cn: "核心", en: "Core" }, desc: "頭、手臂或尾巴隨機亮紅光；破壞後解體、出盲头蟹，扣最多 30% 血量，本體已受傷害會抵扣。", solve: "集火紅光部位，解體後清小怪；重複三次後打掉剩餘血量。", danger: 2 },
+        { name: { cn: "点名放球", en: "Sand Pillar" }, desc: "隨機點名玩家放球，球周圍會產生無範圍提示的大型圓形傷害。", solve: "被點者把球帶到角落，放下後遠離球。", danger: 2 },
+        { name: { cn: "流沙", en: "Shifting Sands (environmental)" }, desc: "第一次解體後定期出現流沙，停留超過 10 秒會被秒殺；最後 10% 血量仍會出現。", solve: "沙地一出現就持續往外走，別為了搶尾刀留在裡面。", phase: "第一次解體後", danger: 3 },
       ],
     },
     {
@@ -568,18 +586,16 @@ window.FF14_DATA.push(
   ilvl: 90,
   name: { cn: "邪念妖地无限城古堡", en: "Amdapor Keep (Hard)", tw: "邪念妖地無限城古堡" },
   aliases: ["古堡困难", "古堡困難", "无限城古堡困难", "無限城古堡困難", "古堡HM"],
-  overview: "一王紅標躲雕像後、二王拿光球 buff 去找隱形的王、三王殺連線小怪並救被黏住的人。",
+  overview: "一王連線躲雕像後、二王拿光球 buff 去找隱形的王、三王殺連線小怪並救被黏住的人。",
   route: "1. 道中可以把怪拉到會抽打的藤蔓旁邊，藤蔓會打怪並上易傷。\n2. 一王場上四尊雕像是保命用的，開打前記位置。",
   bosses: [
     {
       name: { cn: "安可哈格", en: "Anchag" },
-      summary: "紅標點名立刻躲到雕像後面擋連線；別讓 AOE 打壞雕像。",
+      summary: "連線後立刻躲雕像後擋線；衝鋒點名靠近王，別讓攻擊打到雕像。",
       mechanics: [
-        { name: { cn: "咒怨的连锁", en: "Chains of Malison" }, desc: "頭上紅色標記的人會被連線，吃到超高 DoT 和 debuff，T 也幾乎必死。雕像可以擋住連線。", solve: "被點的人立刻跑到最近的雕像後面，讓雕像擋在你和王中間。", danger: 3 },
-        { name: { cn: "雕像", en: "Statues" }, desc: "四尊雕像會被王的 AOE 打壞。", solve: "T 把王拉場中央遠離雕像；遠程和 H 站在兩尊雕像中間、別太靠近雕像。", danger: 2 },
-        { name: { cn: "暗黑冲击", en: "Ripples of Gloom" }, desc: "隨機點名放圓 AOE。", solve: "走出圈，別把圈放到雕像上。", danger: 1 },
-        { name: { cn: "残杀", en: "Valfodr" }, desc: "長方形直線點名衝撞並擊退，會直接打壞路徑上的雕像。", solve: "被點的人遠離雕像、靠近王（越近傷害越低）；其他人離開直線。", danger: 2 },
-        { name: { cn: "黑暗一击", en: "Smite of Gloom" }, desc: "對 T 的重擊。", solve: "H 補。", role: "T", danger: 1 },
+        { name: { cn: "雕像", en: "Statues" }, desc: "場邊四尊石像鬼雕像用來擋王的技能，玩家不能攻擊，應避免被王打壞。", solve: "T 把王拉離雕像；其他人平時站在雕像之間，別把攻擊引到雕像上。", danger: 2 },
+        { name: { cn: "连线", en: "Chains of Malison" }, desc: "隨機點名連線，附加虚弱與受伤害增加，並連續造成大量傷害。", solve: "立刻躲到雕像後面，讓雕像位於自己與王之間切斷連線。", danger: 3 },
+        { name: { cn: "冲锋", en: "Valfodr" }, desc: "隨機點名衝鋒，路線上的玩家都受傷並被擊退。", solve: "被點者遠離雕像並貼近王，縮短路線；其他人離開王與目標之間。", danger: 2 },
       ],
     },
     {
@@ -619,11 +635,13 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "折角骑士 寇黑加", en: "Frumious Koheel Ja" },
-      summary: "火投枪插在地上不殺會給全隊疊 debuff，出現就殺。",
+      summary: "烈火投枪插地後立刻清，避免全隊疊火伤；T 遠離隊友，隨機衝撞留意擊退。",
       mechanics: [
-        { name: { cn: "火投枪", en: "Fire Angon" }, desc: "把燃燒的槍（光鳞战斗团的投枪）丟到地上，留著會對全隊疊 debuff。", solve: "槍一插地就集火打掉。", danger: 2 },
-        { name: { cn: "烈火投枪", en: "Blazing Angon" }, desc: "直線 AOE。", solve: "側移。", danger: 1 },
-        { name: { cn: "打垮", en: "Clobber" }, desc: "對 T 的重擊。", solve: "H 補。", role: "T", danger: 1 },
+        { name: { cn: "甩角冲撞" }, desc: "朝第一仇恨目標的無讀條扇形。", solve: "T 把王背對隊友，其餘人站側後方。", danger: 2 },
+        { name: { cn: "烈火投枪", en: "Blazing Angon" }, desc: "王向場地四角隨機位置投槍，最多四把；槍定期全場 AOE 並疊 6 秒火伤。", solve: "槍一插地就集火打掉，H 補全隊持續掉血。", danger: 2 },
+        { name: { cn: "火投枪", en: "Fire Angon" }, desc: "對第一仇恨目標的無讀條圓形攻擊，場上有投槍時施放更頻繁。", solve: "T 與隊友拉開距離，H 留意連續傷害；其他人優先清投槍。", role: "T", danger: 2 },
+        { name: { cn: "全力撞击／打垮", en: "Clobber" }, desc: "王取得冲刺後衝向隨機玩家，單體傷害並擊退；打垮只在投槍存在時使用，之後移除冲刺。", solve: "被衝者背後留場內空間，H 補被撞的人；盡快清光投槍。", danger: 2 },
+        { name: { cn: "燃烧的记忆" }, desc: "讀條後對可見的圓形預兆區域造成傷害。", solve: "走出圓圈。", danger: 2 },
       ],
     },
     {
@@ -663,12 +681,13 @@ window.FF14_DATA.push(
   bosses: [
     {
       name: { cn: "独爪妖禽", en: "Einhander" },
-      summary: "分身丟青磷桶，發紅光的桶周圍會炸，遠離。",
+      summary: "第一輪躲連鎖爆炸的紅桶；第二輪先遠離場中央，再站到缺桶的一角躲五桶齊炸。",
       mechanics: [
-        { name: { cn: "疾风爆发", en: "Aero Blast" }, desc: "無法迴避的全體傷害。", solve: "H 群補。", role: "H", danger: 1 },
-        { name: { cn: "呼唤之声", en: "Resounding Screech" }, desc: "出現無法選中的分身，把青磷桶丟到場上；發紅光的桶周圍會有大圓爆炸，第一批炸完可能又有新的桶開始發光。", solve: "遠離所有發紅光的桶。", danger: 2 },
-        { name: { cn: "41式联炮", en: "Mark XLI Quick-firing Cannon" }, desc: "同時射出直線 AOE，會引爆路徑上至少兩個桶。", solve: "離開直線並遠離被引爆的桶。", danger: 2 },
-        { name: { cn: "加重击", en: "Heavy Swing" }, desc: "T 死刑。", solve: "T 開減傷。", role: "T", danger: 2 },
+        { name: { cn: "疾风爆发", en: "Aero Blast" }, desc: "全場 AOE。", solve: "全隊減傷，H 群補。", danger: 2 },
+        { name: { cn: "呼唤之声", en: "Resounding Screech" }, desc: "第一輪召喚小怪丟下六個青磷水罐，呈正六邊形分布。", solve: "先確認六個水罐位置，準備隨紅光與連鎖爆炸換位。", danger: 2 },
+        { name: { cn: "41式联炮", en: "Mark XLI Quick-firing Cannon" }, desc: "王飛到場邊放直線，先引爆相距最遠的兩個水罐，再連鎖引爆鄰罐；將爆炸的罐會發紅光。", solve: "離開直線並遠離紅罐；每輪爆炸後重新看紅光，移到下一輪安全處。", danger: 2 },
+        { name: { cn: "加重击", en: "Heavy Swing" }, desc: "對 MT 的單體死刑。", solve: "T 開減傷，H 補好坦克。", role: "T", danger: 2 },
+        { name: { cn: "呼唤之声", en: "Resounding Screech" }, desc: "第二輪只落五個水罐；王接著放場中央衰減 AOE，之後五罐同時爆炸。", solve: "先跑到缺桶的一角，遠離中央減少衰減傷害，再留在缺口躲五罐齊炸。", phase: "第二次呼喚之聲", danger: 3 },
       ],
     },
     {

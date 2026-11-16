@@ -152,9 +152,9 @@ function home(i, t) {
     if (i === 2 || i === 3) return polar(d + (i === 2 ? -10 : 10), 4.5);
     return polar(d + [-9, 9, 0, 0, -3, 3][i], wait ? 6 : 8.2);
   }
-  if (t < 78) return center();
+  if (t < 78) return polar(...CENTER_HOME[i === 0 ? 1 : i === 1 ? 0 : i]); // 火神跳回來後換 MT 接王：MT 去南側，ST 回人群
   if (t >= 129.5) {
-    // 收尾：換 MT 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
+    // 收尾：MT 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
     const F = finalDir() * 45;
     return i === 0 ? polar(F, 17.5) : polar(F + (i - 3.5) * 5, 6.5 + (i % 2));
   }
@@ -172,8 +172,8 @@ function home(i, t) {
   if (swIdx(i, t) === 1) return polar(t < 100 ? P - 135 : P - 90, 18);    // 第二次灼熱：先到人群對面那一側，第三次點名後移到逆時針 90 度
   if (S.crushMark && S.crushMark.until > t) return polar(P + (i - 3.5) * 1.2, 17.6 + (i % 2) * 0.7); // 分攤：擠在一起
   if ((i === 6 || i === 7) && t >= 79 && t < 92.8) return polar(P + 135 - clamp01((t - 84.7) / 8) * 135 + (i === 7 ? 4 : 0), 18); // 第二輪地火：兩人一起從遠處沿牆跑回角落
-  if (i === 1) return polar(P, 18.8); // 前半接王的是 ST
-  return polar(P + [-7, 0, 5, -5, -3, 3, 7, 8][i], 17.4 + (i % 2) * 0.8);
+  if (i === 0) return polar(P, 18.8); // 後半（火神跳回來之後）都是 MT 接王
+  return polar(P + [0, -7, 5, -5, -3, 3, 7, 8][i], 17.4 + (i % 2) * 0.8);
 }
 
 // ---------- 事件 ----------
@@ -265,7 +265,7 @@ function buildEvents() {
   const furthest2 = () => S.ents.slice().sort((a, b) => dist(b, boss()) - dist(a, boss())).slice(0, 2).map((e) => e.i);
   eruptions(48.9, () => [6, 7], "地火 ×4（點 D3、D4）");
   at(55.1, () => { const miss = S.nailHits.map((h, i) => (h < 2 ? `${DIR_NAME[S.nailDirs[i]]}（${h}/2）` : null)).filter(Boolean); if (miss.length) die(`釘子沒有每根炸滿兩次：${miss.join("、")}。火神不會覺醒，之後會滅團`); else flash("四根釘子都炸滿兩次：火神將覺醒"); });
-  at(66, () => flash("火神跳走，回場中集合"));
+  at(66, () => flash("火神跳走，回場中集合；回來後換 MT 接王"));
   hellfire(73.4);
   eruptions(87.7, () => [6, 7], "地火 ×4（點 D3、D4）");
 
@@ -299,8 +299,8 @@ function buildEvents() {
   DASH_T.forEach((t, n) => S.tl.push({ t, name: `深紅旋風 ${n + 1}/4${n === S.realIdx ? "（本體）" : ""}` }));
   S.tl.push({ t: DASH_T[S.realIdx] + CFG.crossDelay, name: "十字火焰" });
 
-  at(129.5, () => { S.fireRes = false; flash("火神回來：換 MT 接王"); });
-  incinerate(133.9, 1, 0); incinerate(137, 2, 0); incinerate(141.1, 3, 0); // 第二組：MT 接
+  at(129.5, () => { S.fireRes = false; flash("火神回來：MT 繼續接王"); });
+  incinerate(133.9, 1, 0); incinerate(137, 2, 0); incinerate(141.1, 3, 0); // 第二組：MT 接（火神跳回來之後都是 MT）
   at(END_T, () => { S.over = { win: true, reason: "火神被擊殺，階段通過" }; });
   S.tl.sort((a, b) => a.t - b.t);
   return ev;
@@ -380,11 +380,11 @@ function hint() {
     const order = S.killOrder.map((n) => DIR_NAME[S.nailDirs[n]]).join(" → ");
     return `打釘子，順序（逆Z）：${order}。先在第一根釘子靠場中的那側等，前兩圈地火（49、51 秒）炸完再貼上去打，打掉一根就走去下一根。別擋到場邊的灼熱補師和放地火的 D3、D4。${fet}`;
   }
-  if (t < 78) return "火神跳走，全隊回場中吃地獄之火炎。";
+  if (t < 78) return r === 0 ? "火神跳走，全隊回場中吃地獄之火炎。牠回來後換你（MT）接王，之後到打死都是你拉。" : r === 1 ? "火神跳走，全隊回場中吃地獄之火炎。牠回來後換 MT 接王，你回人群。" : "火神跳走，全隊回場中吃地獄之火炎。回來後換 MT 接王。";
   if (t < 97) {
     if (swIdx(r, t) === 1) return `你被點灼熱（第二次，30 秒）：先去人群對面那一側（${dirName(P - 135)}）的場邊，100 秒左右再移到${dirName(P - 90)}角。`;
     if ((r === 6 || r === 7) && t < 94) return `第二輪地火誘導：D3、D4 一起先去${dirName(P + 135)}邊場邊，圈出來後沿場邊跑回${dirName(P)}角的人群，四個圈放在路上。`;
-    return r === 1 ? `把王拉到${dirName(P)}角，自己貼場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有斜角安全。` : `全隊貼${dirName(P)}角場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有四個斜角安全。`;
+    return r === 0 ? `後半換你（MT）接王：把王拉到${dirName(P)}角，自己貼場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有斜角安全。` : `全隊貼${dirName(P)}角場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有四個斜角安全。`;
   }
   if (t < 113.6) {
     if (swIdx(r, t) === 2) return `你是第三個被點灼熱的補師：去${dirName(P + 110)}邊場邊。兩個補師都帶灼熱，不進分攤。`;
@@ -396,7 +396,7 @@ function hint() {
     return `四連深紅旋風，四隻照釘子擊殺順序衝。${opp ? "你還帶著灼熱，在人群的正對面做同樣的事。" : ""}先到${d(1)}場邊（${opp ? "第 4 隻的正對面" : "第 4 隻的正前方"}）。看哪隻身上是藍火（本體）：這把是第 ${S.realIdx + 1} 隻，所以第 1 隻一衝完就順時針走 ${deg} 度到${d(deg === 45 ? 2 : 3)}。規則：藍火是第 1、3 隻走 45 度，第 2、4 隻走 90 度。這段開疾跑（Shift）。十字在藍火那隻衝完 2.1 秒後出現。`;
   }
   const F = dirName(finalDir() * 45);
-  return r === 0 ? `第二組焚燒換你（MT）接王：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。` : `第二組換 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側，打到死為止。`;
+  return r === 0 ? `第二組焚燒你（MT）接：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。` : `第二組由 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側，打到死為止。`;
 }
 
 // ---------- 繪製 ----------
@@ -430,7 +430,7 @@ function draw() {
   for (const n of nails(t)) { g.beginPath(); g.arc(n.pos.x, n.pos.y, 1 + 0.45 * Math.min(n.hits, 2), 0, 7); g.fillStyle = ["#7c2d12", "#c2410c", "#f97316"][Math.min(n.hits, 2)]; g.fill(); if (n.hits >= 2) { g.lineWidth = 0.18; g.strokeStyle = "#fde68a"; g.stroke(); } }
   const b = bossState(t);
   const drawIfrit = (pos, faceTo, real) => { g.beginPath(); g.arc(pos.x, pos.y, real ? 3 : 2.4, 0, 7); g.fillStyle = real ? "#c2410c" : "#9a3412"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fdba74"; g.stroke(); if (faceTo) { const a = Math.atan2(faceTo.y - pos.y, faceTo.x - pos.x); g.beginPath(); g.moveTo(pos.x + Math.cos(a) * 4.2, pos.y + Math.sin(a) * 4.2); g.lineTo(pos.x + Math.cos(a + 0.5) * 2.6, pos.y + Math.sin(a + 0.5) * 2.6); g.lineTo(pos.x + Math.cos(a - 0.5) * 2.6, pos.y + Math.sin(a - 0.5) * 2.6); g.closePath(); g.fillStyle = "#fdba74"; g.fill(); } };
-  if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[t < 129.5 ? 1 : 0], true);
+  if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[t < 66 ? 1 : 0], true);
   if (t >= 91.8 && t < 95.7) for (const d of [180, 90]) drawIfrit(lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), { x: 0, y: 0 }, false);
   const ds = dashers(t);
   for (const c of ds) { drawIfrit(c.pos, { x: 0, y: 0 }, c.real); if (c.real) { g.beginPath(); g.arc(c.pos.x, c.pos.y, 3.7, 0, 7); g.lineWidth = 0.45; g.strokeStyle = "#60a5fa"; g.stroke(); } } // 本體身上是藍火

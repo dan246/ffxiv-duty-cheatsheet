@@ -5,7 +5,7 @@
 
 const View3D = (() => {
   let renderer, scene, camera, ready = false;
-  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, spotRing, fetterLine, flashPool = [];
+  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, spotRing, fetterLine, flashPool = [], propPool = [], guideRings = [], guideLine;
   const aoeMeshes = new Map();
   const spriteCache = new Map();
   const Y = 0.04; // 地面貼花的高度
@@ -102,6 +102,15 @@ const View3D = (() => {
     spotRing = flat(new THREE.RingGeometry(3.2, 3.5, 48), 0x4cc2ff, 0.85); spotRing.visible = false; scene.add(spotRing);
     fetterLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xffb347 })); fetterLine.visible = false; scene.add(fetterLine);
     for (let i = 0; i < 6; i++) { const f = flat(new THREE.CircleGeometry(1, 48), 0xffc878, 0.35); f.visible = false; scene.add(f); flashPool.push(f); }
+    // 場景道具（炸彈岩、石牢）與輔助標示：由各階段的腳本透過 S.props、sceneGuides() 提供
+    for (let i = 0; i < 10; i++) {
+      const g = new THREE.Group();
+      const bomb = new THREE.Mesh(new THREE.SphereGeometry(1.5, 14, 10), new THREE.MeshLambertMaterial({ color: 0x7c2d12, emissive: 0x2a0d03 })); bomb.position.y = 1.3; g.add(bomb);
+      const gaol = new THREE.Mesh(new THREE.BoxGeometry(2.6, 3.4, 2.6), new THREE.MeshLambertMaterial({ color: 0x9ca3af, transparent: true, opacity: 0.6 })); gaol.position.y = 1.7; g.add(gaol);
+      g.userData = { bomb, gaol }; g.visible = false; scene.add(g); propPool.push(g);
+    }
+    for (let i = 0; i < 4; i++) { const r = flat(new THREE.RingGeometry(1.05, 1.3, 32), 0xffffff, 0.9); r.visible = false; scene.add(r); guideRings.push(r); }
+    guideLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x4cc2ff })); guideLine.visible = false; scene.add(guideLine);
     ready = true;
     return true;
   }
@@ -122,6 +131,7 @@ const View3D = (() => {
         if (sh.type === "circle") { const c = flat(new THREE.CircleGeometry(sh.r, 48), 0xff7828, 0.2); c.position.set(sh.c.x, Y, sh.c.y); m.add(c); }
         else if (sh.type === "strip" || sh.type === "cross") for (const deg of sh.type === "cross" ? [sh.deg, sh.deg + 90] : [sh.deg]) { const s = flat(stripGeom(sh.half), sh.type === "cross" ? 0xffa040 : 0xff7828, 0.2); s.rotation.z = -rad(deg); s.position.y = Y + 0.01; m.add(s); }
         else if (sh.type === "cone") { m.add(flat(new THREE.BufferGeometry(), 0xff7828, 0.2)); }
+        else if (sh.type === "rect") { const pl = flat(new THREE.PlaneGeometry(sh.len, sh.half * 2), 0xff7828, 0.2); pl.rotation.z = -sh.ang; pl.position.set(sh.from.x + (Math.cos(sh.ang) * sh.len) / 2, Y + 0.01, sh.from.y + (Math.sin(sh.ang) * sh.len) / 2); m.add(pl); }
         scene.add(m); aoeMeshes.set(a, m);
       }
       if (sh.type === "cone") { // 扇形跟著王與坦克轉，每幀重建
@@ -140,7 +150,7 @@ const View3D = (() => {
     if (renderer.domElement.width !== Math.floor(w * renderer.getPixelRatio()) || renderer.domElement.height !== Math.floor(h * renderer.getPixelRatio())) { renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     // 玩家
     S.ents.forEach((e, i) => {
-      const g = players[i]; g.position.set(e.x, 0, e.y); g.rotation.y = -(e.face || 0) - Math.PI / 2;
+      const g = players[i]; g.position.set(e.x, e.dead ? 0.35 : 0, e.y); g.rotation.y = -(e.face || 0) - Math.PI / 2; g.rotation.z = e.dead ? Math.PI / 2 : 0; // 倒地
       g.userData.ring.visible = i === role;
       setSprite(g.userData.name, i === role ? "你 " + ROLES[i] : ROLES[i], i === role ? "#ffffff" : "#cbd5e1", i === role ? 0.85 : 0.75);
       const marks = [];
@@ -150,16 +160,18 @@ const View3D = (() => {
       setSprite(g.userData.mark, marks.join(" "), marks[0] === "分攤" ? "#ffd166" : "#ff8080", 0.8);
     });
     // 火神本體、分身、四連衝的四隻
-    const list = [];
+    const custom = typeof sceneActors === "function" ? sceneActors(t) : null; // 其他階段自己提供場上的王
+    const list = custom || [];
     const b = bossState(t);
-    if (b.vis) list.push({ pos: b.pos, look: t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.tank === null ? { x: 0, y: 30 } : S.ents[S.tank], real: t >= 66, tag: "" });
-    if (t >= 91.8 && t < 95.7) for (const d of [180, 90]) list.push({ pos: lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), look: { x: 0, y: 0 }, real: false, tag: "" });
-    for (const c of dashers(t)) list.push({ pos: c.pos, look: { x: 0, y: 0 }, real: c.real, tag: S.opts.assist ? String(c.n + 1) + (c.real ? " 藍火" : "") : "" });
+    if (!custom && b.vis) list.push({ pos: b.pos, look: t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.tank === null ? { x: 0, y: 30 } : S.ents[S.tank], real: t >= 66, tag: "" });
+    if (!custom && t >= 91.8 && t < 95.7) for (const d of [180, 90]) list.push({ pos: lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), look: { x: 0, y: 0 }, real: false, tag: "" });
+    if (!custom) for (const c of dashers(t)) list.push({ pos: c.pos, look: { x: 0, y: 0 }, real: c.real, tag: S.opts.assist ? String(c.n + 1) + (c.real ? " 藍火" : "") : "" });
     ifrits.forEach((m, i) => {
       const it = list[i]; m.visible = !!it; if (!it) return;
       m.position.set(it.pos.x, 0, it.pos.y); faceTo(m, it.pos, it.look);
       m.userData.fire.visible = m.userData.aura.visible = it.real; // 覺醒的本體身上是藍火
       m.userData.body.material.emissive.setHex(it.real ? 0x12305e : 0x4a1503);
+      if (it.color !== undefined) { m.userData.body.material.color.setHex(it.color); m.userData.head.material.color.setHex(it.color); }
       setSprite(m.userData.tag, it.tag, it.real ? "#93c5fd" : "#ffffff", 1.5);
     });
     // 釘子：被地火炸到會變大
@@ -180,6 +192,12 @@ const View3D = (() => {
     if (fetterLine.visible) { const a = S.ents[1], c = S.ents[S.fetterDps]; fetterLine.geometry.setFromPoints([v3(a, 1.1), v3(c, 1.1)]); fetterLine.material.color.setHex(dist(a, c) > CFG.fetterMax ? 0xff4d4d : 0xffb347); }
     const fl = S.flashRings.filter((f) => f.until > t);
     flashPool.forEach((m, i) => { const f = fl[i]; m.visible = !!f; if (f) { m.position.set(f.c.x, Y + 0.03, f.c.y); m.scale.set(f.r, f.r, 1); } });
+    const props = S.props || [];
+    propPool.forEach((g, i) => { const p = props[i]; g.visible = !!p; if (!p) return; g.position.set(p.pos.x, 0, p.pos.y); g.userData.bomb.visible = p.type === "bomb"; g.userData.gaol.visible = p.type === "gaol"; });
+    const guides = typeof sceneGuides === "function" ? sceneGuides(t) : [];
+    const rings = guides.filter((x) => x.type === "ring"), ln = guides.find((x) => x.type === "line");
+    guideRings.forEach((r, i) => { const x = rings[i]; r.visible = !!x; if (x) { r.position.set(x.pos.x, Y + 0.03, x.pos.y); r.material.color.set(x.color); } });
+    guideLine.visible = !!ln; if (ln) { guideLine.geometry.setFromPoints([v3(ln.a, 0.3), v3(ln.b, 0.3)]); guideLine.material.color.set(ln.color); }
     syncAoes(t);
     // 鏡頭：跟在角色背後。S.cam = 水平角（0 = 面向北），S.pitch = 俯角，S.dist = 距離
     const yaw = S.cam, pitch = S.pitch, d = S.dist;

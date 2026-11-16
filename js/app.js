@@ -310,7 +310,7 @@
   }
 
   // 有機制模擬器的副本
-  const SIM_PAGES = { "sb-uwu": { href: "sim/uwu-ifrit.html?v=1116-14", note: "火神階段：WASD 實際走位練習，走錯會死" } };
+  const SIM_PAGES = { "sb-uwu": [{ href: "sim/uwu-ifrit.html?v=1116-14", name: "機制模擬器・火神", note: "WASD 實際走位練習，走錯會死" }, { href: "sim/uwu-titan.html?v=1116-15", name: "機制模擬器・泰坦", note: "自殺、隆起擊飛、三連石牢" }] };
 
   function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);
@@ -333,7 +333,7 @@
           h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, icon("star", isFav)),
         ),
       ),
-      SIM_PAGES[d.id] ? h("a", { class: "simcta", href: SIM_PAGES[d.id].href }, h("strong", null, "機制模擬器"), h("span", null, SIM_PAGES[d.id].note)) : null,
+      (SIM_PAGES[d.id] || []).map((sp) => h("a", { class: "simcta", href: sp.href }, h("strong", null, sp.name), h("span", null, sp.note))),
       h("div", { class: "overview", html: fmt(d.overview) }),
       d.route ? h("details", { class: "route", open: "" }, h("summary", null, "道中 / 路線提示"), h("div", { class: "body", html: fmt(d.route) })) : null,
       d.sources && d.sources.length ? h("div", { class: "sources" },

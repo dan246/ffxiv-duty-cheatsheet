@@ -22,7 +22,7 @@ const CFG = {
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 拉遠累計幾秒算失敗
 };
-const BUILD = "1116-9"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
+const BUILD = "1116-10"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -52,7 +52,7 @@ function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t 
 // 到「通過場中、方向為 deg 的直線」的垂直距離
 const perp = (p, deg) => Math.abs(p.x * Math.cos(rad(deg)) + p.y * Math.sin(rad(deg)));
 
-const S = { opts: { role: 6, start: 0, speed: 1, assist: true, hints: true, god: false, full: true } };
+const S = { opts: { role: 6, start: 0, speed: 1, assist: true, hints: true, god: false, full: true, view: "game" }, pitch: 0.42, dist: 15 };
 
 function reset() {
   const o = S.opts;
@@ -183,12 +183,13 @@ function home(i, t) {
 
 // ---------- 事件 ----------
 function addAoe(a) { S.aoes.push({ linger: 0, assistOnly: false, done: false, ...a }); }
-const circleAoe = (c, r) => ({ hit: (p, m = 0) => dist(p, c) <= r + m, draw: (g, k) => { g.beginPath(); g.arc(c.x, c.y, r, 0, 7); fillAoe(g, k); } });
-const stripAoe = (deg, half) => ({ hit: (p, m = 0) => perp(p, deg) <= half + m, draw: (g, k) => { g.save(); g.rotate(rad(deg)); g.beginPath(); g.rect(-half, -CFG.R, half * 2, CFG.R * 2); fillAoe(g, k); g.restore(); } });
-const crossAoe = (deg, half) => { const a = stripAoe(deg, half), b = stripAoe(deg + 90, half); return { hit: (p, m) => a.hit(p, m) || b.hit(p, m), draw: (g, k) => { a.draw(g, k); b.draw(g, k); } }; };
+const circleAoe = (c, r) => ({ shape: { type: "circle", c, r }, hit: (p, m = 0) => dist(p, c) <= r + m, draw: (g, k) => { g.beginPath(); g.arc(c.x, c.y, r, 0, 7); fillAoe(g, k); } });
+const stripAoe = (deg, half) => ({ shape: { type: "strip", deg, half }, hit: (p, m = 0) => perp(p, deg) <= half + m, draw: (g, k) => { g.save(); g.rotate(rad(deg)); g.beginPath(); g.rect(-half, -CFG.R, half * 2, CFG.R * 2); fillAoe(g, k); g.restore(); } });
+const crossAoe = (deg, half) => { const a = stripAoe(deg, half), b = stripAoe(deg + 90, half); return { shape: { type: "cross", deg, half }, hit: (p, m) => a.hit(p, m) || b.hit(p, m), draw: (g, k) => { a.draw(g, k); b.draw(g, k); } }; };
 function coneAoe(from, to, half, len) {
   const ang = () => Math.atan2(to().y - from().y, to().x - from().x);
   return {
+    shape: { type: "cone", from, to, half, len },
     hit: (p, m = 0) => { const f = from(); const d = dist(p, f); if (d > len) return false; if (d < 0.01) return true; let da = Math.atan2(p.y - f.y, p.x - f.x) - ang(); da = Math.atan2(Math.sin(da), Math.cos(da)); return Math.abs(da) <= half + m / Math.max(d, 1); },
     draw: (g, k) => { const f = from(), a = ang(); g.beginPath(); g.moveTo(f.x, f.y); g.arc(f.x, f.y, len, a - half, a + half); g.closePath(); fillAoe(g, k); },
   };
@@ -467,6 +468,25 @@ function draw() {
 }
 function wrapText(text, x, y, maxW, lh) { let line = ""; for (const ch of text) { if (g.measureText(line + ch).width > maxW) { g.fillText(line, x, y); y += lh; line = ch; } else line += ch; } g.fillText(line, x, y); }
 
+function updateHud() {
+  const t = S.t, $ = (id) => document.getElementById(id), r = S.opts.role;
+  const c = S.casts.filter((x) => t >= x.t0 && t < x.t1).pop();
+  $("castbar").hidden = !c;
+  if (c) { $("castfill").style.width = clamp01((t - c.t0) / (c.t1 - c.t0)) * 100 + "%"; $("castname").textContent = c.name; }
+  const st = [];
+  if (hasSw(r, t)) st.push("灼熱");
+  if (fetterOn(t) && (r === 1 || r === S.fetterDps)) st.push("炎獄之鎖");
+  if (S.fireRes && r === (t < 66 ? 1 : 0)) st.push("火耐性下降");
+  if (S.crushMark && S.crushMark.until > t && S.crushMark.who === r) st.push("烈焰碎擊點名");
+  if (S.buff.shield > t) st.push("群盾"); if (S.buff.invuln > t) st.push("無敵"); if (S.buff.sprint > t) st.push("衝刺");
+  $("statusline").textContent = st.join(" · ");
+  const ov = $("overlay"); ov.hidden = !(S.over || S.paused);
+  if (!ov.hidden) {
+    const win = S.over && S.over.win;
+    $("ovTitle").textContent = S.paused && !S.over ? "暫停" : win ? "通過" : "你死了"; $("ovTitle").className = S.paused && !S.over ? "" : win ? "win" : "dead";
+    $("ovReason").textContent = S.over ? S.over.reason : ""; $("ovHint").textContent = S.over ? "按 R 從這一段重來" : "按 P 繼續";
+  }
+}
 function updatePanel() {
   const t = S.t, $ = (id) => document.getElementById(id);
   $("clock").textContent = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
@@ -481,9 +501,20 @@ function updatePanel() {
 
 function init() {
   cv = document.getElementById("arena"); g = cv.getContext("2d");
-  const fit = () => { const box = cv.parentElement.getBoundingClientRect(); W = Math.max(320, Math.floor(Math.min(box.width, window.innerHeight - 24))); cv.style.width = cv.style.height = W + "px"; cv.width = cv.height = W * devicePixelRatio; };
-  fit(); addEventListener("resize", fit);
   const $ = (id) => document.getElementById(id);
+  const cv3 = $("arena3d"), vp = $("viewport");
+  const has3d = typeof View3D !== "undefined" && View3D.init(cv3);
+  if (!has3d) { S.opts.view = "top"; $("view").value = "top"; $("view").disabled = true; } // 3D 函式庫沒載到（離線）時退回俯視
+  let W3 = 800, H3 = 500;
+  const fit = () => {
+    const box = vp.parentElement.getBoundingClientRect(), game = S.opts.view === "game";
+    vp.classList.toggle("game", game);
+    W = Math.max(320, Math.floor(Math.min(box.width, window.innerHeight - 24))); cv.style.width = cv.style.height = W + "px"; cv.width = cv.height = W * devicePixelRatio;
+    W3 = Math.max(320, Math.floor(box.width)); H3 = Math.max(240, Math.floor(Math.min(window.innerHeight - 24, W3 * 0.66))); cv3.style.width = W3 + "px"; cv3.style.height = H3 + "px";
+    vp.style.width = (game ? W3 : W) + "px"; vp.style.height = (game ? H3 : W) + "px";
+  };
+  fit(); addEventListener("resize", fit);
+  $("view").addEventListener("change", (e) => { S.opts.view = e.target.value; fit(); e.target.blur(); });
   $("role").innerHTML = ROLES.map((r, i) => `<option value="${i}">${r}</option>`).join(""); $("role").value = S.opts.role;
   $("start").innerHTML = CHECKPOINTS.map((c) => `<option value="${c.t}">${c.name}</option>`).join("");
   const bind = (id, key, conv, restart) => $(id).addEventListener("change", (e) => { S.opts[key] = conv(e.target); if (restart) reset(); e.target.blur(); });
@@ -505,11 +536,19 @@ function init() {
   addEventListener("keyup", (e) => { S.keys[e.code] = false; });
   addEventListener("blur", () => { S.keys = {}; });
   let drag = null;
-  cv.addEventListener("mousedown", (e) => { drag = e.clientX; e.preventDefault(); });
-  addEventListener("mousemove", (e) => { if (drag !== null) { S.cam += (e.clientX - drag) * 0.008; drag = e.clientX; } });
+  for (const el of [cv, cv3]) {
+    el.addEventListener("mousedown", (e) => { drag = [e.clientX, e.clientY]; e.preventDefault(); });
+    el.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+  addEventListener("mousemove", (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag[0], dy = e.clientY - drag[1]; drag = [e.clientX, e.clientY];
+    if (S.opts.view === "game") { S.cam += dx * 0.006; S.pitch = Math.max(0.08, Math.min(1.4, S.pitch + dy * 0.004)); } // 遊戲視角：左右轉、上下調俯角
+    else S.cam += dx * 0.008;
+  });
   addEventListener("mouseup", () => { drag = null; });
-  cv.addEventListener("contextmenu", (e) => e.preventDefault());
   cv.addEventListener("wheel", (e) => { S.zoom = Math.max(0.7, Math.min(2, S.zoom * (e.deltaY < 0 ? 1.08 : 0.92))); e.preventDefault(); }, { passive: false });
+  cv3.addEventListener("wheel", (e) => { S.dist = Math.max(4, Math.min(26, S.dist * (e.deltaY < 0 ? 0.92 : 1.08))); e.preventDefault(); }, { passive: false });
   const bv = $("build"); if (bv) bv.textContent = "版本 " + BUILD;
   reset();
   let last = performance.now();
@@ -517,7 +556,8 @@ function init() {
     const real = Math.min((now - last) / 1000, 0.05); last = now;
     if (S.keys.KeyQ) S.cam -= real * 1.8; if (S.keys.KeyE) S.cam += real * 1.8;
     let left = real * S.opts.speed; while (left > 0) { const d = Math.min(left, 0.02); step(d); left -= d; }
-    draw(); updatePanel(); requestAnimationFrame(loop);
+    if (S.opts.view === "game" && has3d) { View3D.render(W3, H3); updateHud(); } else draw();
+    updatePanel(); requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
 }

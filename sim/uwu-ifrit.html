@@ -15,6 +15,18 @@ body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "Fira Sans",sys
 .wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;padding:12px;max-width:1280px;margin:0 auto;align-items:start}
 .stage{display:flex;justify-content:center}
 canvas{display:block;border:1px solid var(--line);border-radius:6px;cursor:grab;touch-action:none}
+.viewport{position:relative}
+.viewport #arena3d,.viewport.game #arena{display:none}
+.viewport.game #arena3d{display:block}
+#castbar,#statusline,#overlay{display:none}
+.viewport.game #castbar:not([hidden]){display:block;position:absolute;top:14px;left:25%;width:50%;height:22px;background:rgba(2,6,23,.8);border:1px solid #fdba74;pointer-events:none}
+#castfill{position:absolute;inset:0 auto 0 0;background:#c2410c}
+#castname{position:absolute;inset:0;text-align:center;font-weight:600;font-size:13px;line-height:20px}
+.viewport.game #statusline{display:block;position:absolute;left:12px;bottom:10px;font-size:13px;font-weight:600;color:var(--accent2);text-shadow:0 1px 3px #000;pointer-events:none}
+.viewport.game #overlay:not([hidden]){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:absolute;inset:0;background:rgba(2,6,23,.72);text-align:center;padding:0 10%;pointer-events:none}
+#overlay h2{margin:0;font-size:30px;font-weight:800}
+#overlay h2.dead{color:#ff6b6b}#overlay h2.win{color:#5fd08a}
+#overlay p{margin:0}#ovHint{color:var(--fg2)}
 canvas:active{cursor:grabbing}
 aside{display:flex;flex-direction:column;gap:10px}
 h1{font-size:16px;margin:0;font-weight:800}
@@ -52,12 +64,21 @@ a{color:var(--accent)}
 </head>
 <body>
 <div class="wrap">
-  <div class="stage"><canvas id="arena" aria-label="場地俯視圖"></canvas></div>
+  <div class="stage">
+    <div class="viewport game" id="viewport">
+      <canvas id="arena" aria-label="場地俯視圖"></canvas>
+      <canvas id="arena3d" aria-label="遊戲視角"></canvas>
+      <div id="castbar" hidden><div id="castfill"></div><span id="castname"></span></div>
+      <div id="statusline"></div>
+      <div id="overlay" hidden><h2 id="ovTitle"></h2><p id="ovReason"></p><p id="ovHint"></p></div>
+    </div>
+  </div>
   <aside>
     <h1>絕神兵・火神階段 <small>機制模擬器（試作）· <a href="../index.html#/sb-uwu">回小抄</a> · <span id="build"></span></small></h1>
     <div class="card">
       <div class="row"><span id="clock">0:00</span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
       <div class="row"><label>職能 <select id="role"></select></label><label>速度 <select id="speed"><option value="1">1×</option><option value="0.75">0.75×</option><option value="0.5">0.5×</option></select></label></div>
+      <div class="row"><label style="flex:1">視角 <select id="view"><option value="game">遊戲視角（第三人稱）</option><option value="top">俯視（學走法用）</option></select></label></div>
       <div class="row"><label style="flex:1">從 <select id="start"></select></label></div>
       <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">打滿（含烈焰碎擊、四連火神衝，約 146 秒擊殺）</option><option value="0">97 秒擊殺（壓掉後面機制）</option></select></label></div>
       <div class="row"><label><input type="checkbox" id="assist" checked> 輔助預兆</label><label><input type="checkbox" id="hints" checked> 提示</label><label><input type="checkbox" id="god"> 觀摩（不會死）</label></div>
@@ -73,11 +94,13 @@ a{color:var(--accent)}
     <div class="card"><h2>接下來</h2><ul id="upcoming"></ul></div>
     <div class="card"><h2>紀錄</h2><ul id="log"></ul></div>
     <div class="card keys"><h2>操作</h2>
-      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動（相對鏡頭）· 滑鼠拖曳或 <kbd>Q</kbd><kbd>E</kbd> 轉鏡頭 · 滾輪縮放 · <kbd>P</kbd> 暫停
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 朝鏡頭方向移動 · 滑鼠拖曳轉鏡頭（左右轉向、上下調俯角）· <kbd>Q</kbd><kbd>E</kbd> 也能轉 · 滾輪拉遠近 · <kbd>P</kbd> 暫停
     </div>
     <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。時間、釘子順序、站位、場地標記取自 FFLogs 日本區 13 筆擊殺回放；判定範圍（衝鋒與十字寬度、地火、灼熱、炎柱）是估計值。</p>
   </aside>
 </div>
-<script src="uwu-ifrit.js?v=1116-9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="uwu-ifrit.js?v=1116-10"></script>
+<script src="uwu-view3d.js?v=1116-10"></script>
 </body>
 </html>

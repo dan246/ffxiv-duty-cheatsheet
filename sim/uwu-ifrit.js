@@ -22,6 +22,7 @@ const CFG = {
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 拉遠累計幾秒算失敗
 };
+const BUILD = "1116-9"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -509,6 +510,7 @@ function init() {
   addEventListener("mouseup", () => { drag = null; });
   cv.addEventListener("contextmenu", (e) => e.preventDefault());
   cv.addEventListener("wheel", (e) => { S.zoom = Math.max(0.7, Math.min(2, S.zoom * (e.deltaY < 0 ? 1.08 : 0.92))); e.preventDefault(); }, { passive: false });
+  const bv = $("build"); if (bv) bv.textContent = "版本 " + BUILD;
   reset();
   let last = performance.now();
   const loop = (now) => {

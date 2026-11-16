@@ -3,7 +3,7 @@
 // 判定範圍（大地之重、炸彈、山崩寬度等）為估計值，集中在 CFG。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1116-17";
+const BUILD = "1116-18";
 const CFG = {
   R: 16,            // 地裂後的場地半徑（回放：玩家最遠只到 15.8）
   speed: 6,
@@ -25,8 +25,8 @@ const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西
 const MARKERS = [["A", 0, -6.5, "#ff6b6b"], ["B", 6.5, 0, "#ffd166"], ["C", 0, 6.5, "#6096ff"], ["D", -6.5, 0, "#c084fc"], ["1", 0, 0, "#ff6b6b"]];
 const DIE = [1, 4, 5, 6];   // 自殺：ST＋三名輸出（回放 10/10 是 3 輸出＋1 坦克）
 const GAOL = [3, 2, 7];     // 石牢站位（回放 8/8）：H2（盾補）離泰坦最遠、最先炸開 → H1（純補）在場中 → D4（法系）最靠泰坦、最後炸開
-const CHECKPOINTS = [{ t: -4, name: "開場：地裂、死刑" }, { t: 17.5, name: "大地之重（自殺）" }, { t: 27.5, name: "第二次地裂、隆起擊飛、石牢" }];
-const END_T = 62;
+const CHECKPOINTS = [{ t: -4, name: "開場：地裂、死刑" }, { t: 17.5, name: "大地之重（自殺）" }, { t: 27.5, name: "第二次地裂、隆起擊飛、石牢" }, { t: 62, name: "後半：大地之重、山崩" }, { t: 78, name: "第三次地裂、第四個石牢" }, { t: 99, name: "山崩、換坦死刑" }, { t: 119, name: "四顆炸彈繞場" }];
+const END_T = 157;
 
 const rad = (deg) => (deg * Math.PI) / 180;
 const polar = (deg, r) => ({ x: Math.sin(rad(deg)) * r, y: -Math.cos(rad(deg)) * r });
@@ -53,27 +53,39 @@ function reset() {
   S.keys = S.keys || {}; S.cam = S.cam || 0; S.zoom = S.zoom || 1;
   S.buff = { sprint: -1 }; S.cd = { sprint: 0, provoke: 0 };
   S.g2 = Math.floor(rnd() * 4);
-  S.tank = o.start < 3 ? null : 0; // 泰坦出場時仇恨重置，MT 要挑釁（回放 7/8 筆在落地後 2.5～5.6 秒按）
+  S.g3 = (S.g2 + 1 + Math.floor(rnd() * 3)) % 4;   // 第三次地裂：另外三個正點隨機（回放 8 筆：對面 4、順 90 度 3、逆 90 度 1）
+  S.g4 = 2 + Math.floor(rnd() * 2);                // 第四個石牢：隨機點一個補師
+  S.bomb0 = Math.floor(rnd() * 4);                 // 最後四顆炸彈：第一顆的角落隨機，之後固定順時針
+  S.tank = o.start < 3 ? null : o.start >= 104 && o.start < 119.6 ? 1 : 0; // 泰坦出場時仇恨重置，MT 要挑釁（回放 7/8 筆在落地後 2.5～5.6 秒按）
   S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
-  S.stun = -1; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = [];
+  S.stun = -1; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null;
   S.wotl = [0, 0, 0, 0, 0, 0, 0, 0];
-  S.ents = ROLES.map((_, i) => ({ ...home(i, o.start), i, face: 0, dead: o.start > 27.3 && DIE.includes(i) }));
+  S.ents = ROLES.map((_, i) => ({ ...home(i, o.start), i, face: 0, dead: o.start > 27.3 && o.start < 50.6 && DIE.includes(i) }));
   S.events = buildEvents().filter((e) => e.t >= o.start - 1e-6).sort((a, b) => a.t - b.t);
   S.evIdx = 0;
-  if (o.start > 36) placeBombs();
+  if (o.start > 36 && o.start < 41.5) placeBombs();
 }
 const alive = (i) => !S.ents[i].dead;
 function placeBombs() { S.props = BOMBS.map(([x, y]) => ({ type: "bomb", pos: F(x, y) })); }
 
 // ---------- 泰坦 ----------
+const D3 = () => S.g3 * 90, G3 = () => polar(D3(), 14);
 function bossSpot(t) {
   if (t < 0) return { pos: { x: 0, y: 0 }, vis: false };
   if (t < 27.5) return { pos: { x: 0, y: 0 }, vis: true };                       // 25.3 秒起不可選中，轉身面向要跳過去的那一邊
-  if (t < 30.5) { const k = clamp01((t - 27.5) / 2.8); return { pos: lerp({ x: 0, y: 0 }, TITAN2(), k), vis: true, alt: Math.sin(k * Math.PI) * 14 }; } // 跳起來飛向場邊
-  return { pos: TITAN2(), vis: true };
+  if (t < 30.5) { const k = clamp01((t - 27.5) / 2.8); return { pos: lerp({ x: 0, y: 0 }, TITAN2(), k), vis: true, alt: Math.sin(k * Math.PI) * 14 }; }
+  if (t < 81.5) return { pos: lerp(TITAN2(), F(0, -9), clamp01((t - 66) / 5)), vis: true }; // 後半：坦克把泰坦往場中帶一點
+  if (t < 84.3) { const k = clamp01((t - 81.5) / 2.8); return { pos: lerp(F(0, -9), G3(), k), vis: true, alt: Math.sin(k * Math.PI) * 14 }; } // 第三次地裂
+  if (t < 124) return { pos: lerp(G3(), polar(D3(), 7), clamp01((t - 88) / 4)), vis: true };
+  if (t < 135) { const k = clamp01((t - 124) / 5.5); return { pos: polar(D3() - 108 * k, 7 + 2.5 * k), vis: true }; }      // 四顆炸彈：泰坦跟著 MT 逆時針移動
+  return { pos: lerp(polar(D3() - 108, 9.5), polar(D3() - 135, 8.5), clamp01((t - 135) / 4)), vis: true };
 }
-// 泰坦面向：平常看 MT；準備第二次地裂時看向落點（玩家要往反方向跑）；落地後面向場中再轉回 MT
-function bossLook(t) { if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 }; const h = S.tank === null ? 7 : S.tank; return alive(h) ? S.ents[h] : { x: 0, y: 0 }; } // 沒人接的時候牠看著別人
+function bossLook(t) {
+  if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 };
+  if (t >= 79.3 && t < 84.3) return G3(); if (t >= 84.3 && t < 86.9) return { x: 0, y: 0 };
+  const h = S.tank === null ? 7 : S.tank; return alive(h) ? S.ents[h] : { x: 0, y: 0 };
+}
+const jumping = (t) => (t >= 25.3 && t < 32.9) || (t >= 79.3 && t < 86.9);
 const bossState = bossSpot;
 const tankable = () => false;
 // 畫面層共用介面：泰坦階段沒有這些東西
@@ -97,7 +109,22 @@ function home(i, t) {
   if (t < 33.5) return F((i - 3.5) * 0.4, 15);                                  // 第二次地裂：站到泰坦正對面的場邊
   if (t < 39.2) return stackSpot(); // 隆起：全員疊在同一點（泰坦腳前、對準炸彈缺口）。這裡差 0.3 米，落點就差快 2 米
   if (t < 46.2) { const g = GAOL.indexOf(i); if (g >= 0) return F(...GAOL_SPOT[g]); return t < 43.5 ? F(-8, 5.4) : F(-13.5, 0); } // 石牢三人排成一條鏈；MT 在山崩詠唱開始（43.4 秒）時站在偏西 22 度的位置，讓石牢三人落在兩條線中間，之後再往側邊走
-  return i === 0 ? F(-13.5, -3) : S.ents ? S.ents[i] : F(0, 0);
+  if (t < 62) return i === 0 ? F(-13.5, -3) : S.ents ? S.ents[i] : F(0, 0);
+  const d3 = D3(), o = (i - 3.5);
+  if (t < 65.2) return F(-6 + (i % 3) * 0.3, -13);                 // 激震後：全員貼在泰坦旁邊
+  if (t < 68.2) return F(4.5, -13);                                // 大地之重 1 出圈：整群穿過泰坦走到另一側
+  if (t < 76 && i === 0 && t >= 68.2) return F(3.1, -1.6);         // MT：站在偏離人群 22.5 度的方向，讓人群落在兩條山崩線中間
+  if (t < 76) return F(o * 0.5, 5);                                // 山崩 ×2：人群在泰坦正對面，第二波換位
+  if (t < 81.5) return F(o * 0.3, 2);
+  if (t < 86.9) return polar(d3 + 180 + o * 0.8, 11);              // 第三次地裂：泰坦面向的正對面、離場中 11 米，全員疊在一起
+  const mtSide = () => { const T = polar(d3, 7), a = rad(d3 + 180 + 22.5); return { x: T.x + Math.sin(a) * 12, y: T.y - Math.cos(a) * 12 }; }; // 泰坦對面偏 22.5 度
+  if (t < 99) return i === S.g4 ? { x: 0, y: 0 } : i === 0 ? (t < 93 ? polar(d3, 3.5) : mtSide()) : polar(d3 + 180 + o * 14, 2.2); // 第四個石牢放在場中，其他人圍著打
+  if (t < 104.5) { return i !== 0 ? polar(d3 + 180 + o * 4, 8.5) : mtSide(); } // 山崩 ×2：人群退到泰坦對面；MT 偏 22.5 度，把線帶開
+  if (t < 119.6) return i === 1 ? polar(d3, 10.5) : polar(d3 + 180 + o * 20, 1.2); // ST 接手吃兩個死刑：站泰坦外側；其他人在場中
+  if (t < 123.4) return polar(d3 + o * 0.6, 10.6);                 // 四顆炸彈前：全員疊到泰坦外側的場邊
+  if (t < 135.5) { const k = clamp01((t - 123.4) / 9.6); return i === 0 ? polar(d3 - Math.min(235, 23.75 * Math.max(0, t - 123.4)), 10.8) : polar(d3 + 152 * k + o * 0.5, 10.6); } // MT 要跑在泰坦前面一段，山崩鎖定後繼續沿外圈彎開 // 人群順時針、MT 逆時針沿外圈繞
+  if (t < 147) return i === 0 ? polar(d3 - 135, 11.5) : polar(i * 45, 1.2); // MT 吃最後兩個死刑；其他人在場中
+  return i === 0 ? polar(d3 - 135, 11.5) : polar(i * 45, 3);
 }
 
 // ---------- 判定形狀 ----------
@@ -140,20 +167,23 @@ function buildEvents() {
   at(3.5, () => { if (S.tank === null && S.opts.role !== 0) { S.tank = 0; flash("MT 挑釁接泰坦"); } }, "MT 挑釁接泰坦");
   at(10, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT：泰坦出場會重置仇恨，落地後要按 3 挑釁接王（10 秒前）" : "泰坦要由 MT 接：仇恨不在 MT 身上"); });
   cast("大地之怒", 2.4, 5.4); at(5.4, () => flash("大地之怒：全場傷害"), "大地之怒（全場）");
-  for (const [t, nm] of [[13.6, "岩石破壞"], [16.8, "山崩破壞"]]) {
+  const buster = (t, nm, who) => {
     cast(nm, t - 1.2, t);
-    at(t - 1.5, () => addAoe({ ...coneAoe(boss, () => S.ents[S.tank === null ? 7 : S.tank], CFG.coneHalf, 12), t0: S.t, t1: t, assistOnly: true, skip: [0], onHit() { hitAll((e) => e.i !== 0 && this.hit(e), `站在泰坦正面吃到${nm}（非坦克站泰坦背後）`); } }), `${nm}（MT 死刑）`);
-  }
+    const holder = () => (S.tank === null ? 7 : S.tank);
+    at(t - 1.5, () => addAoe({ ...coneAoe(boss, () => S.ents[holder()], CFG.coneHalf, 12), t0: S.t, t1: t, assistOnly: true, skip: [0, 1], onHit() { const h = holder(); hitAll((e) => e.i !== h && this.hit(e), `站在泰坦正面吃到${nm}（非接王的人站泰坦背後）`); } }), `${nm}（${who} 死刑）`);
+  };
+  buster(13.6, "岩石破壞", "MT"); buster(16.8, "山崩破壞", "MT");
   // 大地之重：每個人腳下一個圈，3 秒後爆。兩發，第二發是自殺用的
-  const wotl = (t, n) => {
+  const wotl = (t, label, suicide, msg) => {
     cast("大地之重", t - 3, t - 0.5);
     at(t - 3, () => {
-      const pts = []; for (const e of S.ents) if (!e.dead && !pts.some((p) => dist(p, e) < 0.25)) pts.push({ x: e.x, y: e.y });
-      for (const c of pts) addAoe({ ...circleAoe(c, CFG.wotlR), t0: S.t, t1: t, wotl: n, onHit() { for (const e of S.ents) { if (e.dead || !this.hit(e)) continue; if (e.i <= 1) { if (++S.wotl[e.i] >= 2) kill(e.i, "坦克連吃兩個大地之重"); } else kill(e.i, n === 1 ? "站在第一發大地之重裡" : "站在第二發大地之重裡"); } } });
-      flash(n === 1 ? "大地之重 1：每個人腳下出圈，全員移開" : "大地之重 2：自殺的四個人留在圈裡，其他人走開");
-    }, `大地之重 ${n}/2${n === 2 ? "（ST、D1、D2、D3 自殺）" : ""}`);
+      const pts = []; for (const e of S.ents) if (!e.dead && !S.jailed[e.i] && !pts.some((p) => dist(p, e) < 0.25)) pts.push({ x: e.x, y: e.y });
+      for (const c of pts) addAoe({ ...circleAoe(c, CFG.wotlR), t0: S.t, t1: t, suicide, onHit() { for (const e of S.ents) { if (e.dead || !this.hit(e)) continue; if (e.i <= 1 && S.t < 30) { if (++S.wotl[e.i] >= 2) kill(e.i, "坦克連吃兩個大地之重"); } else kill(e.i, "站在大地之重裡"); } } });
+      if (msg) flash(msg);
+    }, label);
   };
-  wotl(21.9, 1); wotl(24.9, 2);
+  wotl(21.9, "大地之重 1/2", false, "大地之重 1：每個人腳下出圈，全員移開");
+  wotl(24.9, "大地之重 2/2（ST、D1、D2、D3 自殺）", true, "大地之重 2：自殺的四個人留在圈裡，其他人走開");
   at(25.3, () => flash("泰坦轉身了：牠面向哪邊就會跳到哪邊，往反方向跑"), "泰坦轉向（看面向）");
   at(27.4, () => {
     for (const i of DIE) if (alive(i)) { if (i === S.opts.role) return die("你該自殺卻沒死：石牢會點到你，順序就亂了（第二發大地之重要留在圈裡）"); S.ents[i].dead = true; }
@@ -182,11 +212,17 @@ function buildEvents() {
   at(43.2, () => { const c = F(...GAP); addAoe({ ...circleAoe(c, CFG.bombLandR), t0: S.t, t1: 44, onHit() { hitAll((e) => this.hit(e), "被第六顆炸彈岩砸到（落地後要離開缺口）"); } }); }, "第六顆炸彈岩落在缺口");
   at(44, () => S.props.push({ type: "bomb", pos: F(...GAP), sixth: true }));
   // 山崩：五條線，中間那條對準 MT，另外四條偏 ±45、±135 度；詠唱開始時鎖定方向
-  const slide = (t) => {
+  // 山崩：五條線（中間那條對準接王的坦克，其餘偏 ±45、±135 度），詠唱開始時鎖定。
+  // 每次都是兩波：第二波是同一組線轉 22.5 度，剛好補在第一波的空隙（log：兩波的面向差 0.38～0.42 弧度）
+  const slide = (t, second) => {
     cast("山崩", t - 2.2, t);
-    at(t - 2.2, () => { const T = TITAN2(), tk = S.ents[0], a0 = Math.atan2(tk.y - T.y, tk.x - T.x); for (const off of [0, 45, -45, 135, -135]) addAoe({ ...rectAoe(T, a0 + rad(off), CFG.slideHalf, 40), t0: S.t, t1: t, onHit() { hitAll((e) => this.hit(e), "被山崩打到"); } }); }, "山崩（五條線，中間對準 MT）");
+    at(t - 2.2, () => {
+      if (!second) { const T = { ...bossSpot(S.t).pos }, tk = S.ents[S.tank === null ? 0 : S.tank]; S.slideRef = { T, a0: Math.atan2(tk.y - T.y, tk.x - T.x) }; }
+      const { T, a0 } = S.slideRef, base = a0 + (second ? rad(22.5) : 0);
+      for (const off of [0, 45, -45, 135, -135]) addAoe({ ...rectAoe(T, base + rad(off), CFG.slideHalf, 40), t0: S.t, t1: t, onHit() { hitAll((e) => this.hit(e), "被山崩打到"); } });
+    }, second ? "山崩第二波（轉 22.5 度補空隙）" : "山崩（五條線，中間對準接王的坦克）");
   };
-  slide(45.6); slide(50);
+  slide(45.6); slide(50, true);
   at(46.1, () => {
     for (const i of GAOL) if (alive(i)) { S.jailed[i] = true; S.gaols.push({ who: i, pos: { x: S.ents[i].x, y: S.ents[i].y }, broken: false }); }
     S.props.push(...S.gaols.map((g) => ({ type: "gaol", pos: g.pos, gaol: g })));
@@ -199,19 +235,57 @@ function buildEvents() {
   at(52, () => { const stuck = S.gaols.filter((g) => !g.broken); if (stuck.length) { S.over = S.opts.god ? null : { win: false, reason: `石牢沒有全部炸開（${stuck.map((g) => ROLES[g.who]).join("、")} 還關著）：三個人要排成一條鏈，第一個貼近第六顆炸彈，每個相隔 ${CFG.chain} 米內`, t: S.t }; if (S.opts.god) flash("（觀摩模式）石牢沒有全部炸開"); } });
   at(50.6, () => { for (const i of DIE) { S.ents[i].dead = false; } flash("自殺的四個人接受復活"); }, "自殺的人接受復活");
   for (let n = 0; n < 8; n++) at(52.2 + n * 1.12, () => { if (n === 0) flash("激震 ×8：全場連續傷害"); }, n === 0 ? "激震 ×8（全場）" : null);
-  at(END_T, () => { S.over = { win: true, reason: "泰坦前半（自殺、擊飛、石牢）通過。後半還沒做" }; });
+  // ===== 後半（62 秒起）=====
+  wotl(68.1, "大地之重", false, "大地之重：腳下出圈，整群一起移開"); wotl(71.1, "大地之重", false);
+  slide(73); slide(75, true);
+  at(79.3, () => flash("泰坦又轉身了：往牠面向的反方向跑，疊在正對面離場中 11 米"), "泰坦轉向（第三次地裂）");
+  cast("地裂", 81.5, 84.3);
+  at(81.5, () => { const T = G3(); addAoe({ ...circleAoe(T, CFG.crush2R), t0: S.t, t1: 84.3, onHit() { hitAll((e) => this.hit(e), "離第三次地裂的落點太近（要到泰坦面向的正對面）"); } }); }, "地裂（第三次）");
+  at(86.5, () => flash(`石牢點名：${ROLES[S.g4]}，走到場中讓大家打`), "第四個石牢（點一個補師）");
+  at(91.4, () => {
+    const e = S.ents[S.g4]; if (e.dead) return;
+    if (Math.hypot(e.x, e.y) > 4) return die(`${ROLES[S.g4]} 的石牢沒有放在場中（回放 8 筆都在場中）：被點名要走到場中`);
+    S.jailed[S.g4] = true; S.gaol4 = { who: S.g4, pos: { x: e.x, y: e.y } }; S.props.push({ type: "gaol", pos: S.gaol4.pos, gaol: S.gaol4 }); flash("石牢成形：全員打石牢");
+  }, "石牢成形");
+  at(98, () => {
+    if (!S.gaol4) return;
+    const near = S.ents.filter((e) => !e.dead && e.i !== S.g4 && dist(e, S.gaol4.pos) <= 9).length;
+    if (near < 4) return die(`石牢沒打破（只有 ${near} 人在石牢旁邊）：${ROLES[S.g4]} 還關著就要放山崩了`);
+    delete S.jailed[S.g4]; S.freed[S.g4] = S.t + 0.4; S.props = S.props.filter((p) => p.gaol !== S.gaol4); flash("石牢打破");
+  }, "石牢打破");
+  slide(101.3); slide(103.3, true);
+  at(104, () => { if (S.opts.role !== 1 && S.tank !== 1) { S.tank = 1; flash("ST 挑釁換坦"); } }, "ST 挑釁換坦");
+  for (let n = 0; n < 6; n++) at(106.5 + n * 1.12, () => { if (n === 0) flash("激震 ×6：全場連續傷害"); }, n === 0 ? "激震 ×6（全場）" : null);
+  at(113, () => { if (S.tank !== 1) die(S.opts.role === 1 ? "你是 ST：山崩之後（104 秒左右）要按 3 挑釁換坦，114、118 秒的兩個死刑由你吃" : "114、118 秒的死刑要換 ST 吃：仇恨還在 MT 身上"); });
+  buster(114.2, "岩石破壞", "ST"); buster(118.3, "山崩破壞", "ST");
+  at(119.6, () => { if (S.opts.role !== 0 && S.tank !== 0) { S.tank = 0; flash("MT 挑釁接回"); } }, "MT 挑釁接回");
+  at(123.4, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT：第二個死刑打完（118 秒）要按 3 挑釁接回來，四顆炸彈時由你帶泰坦繞" : "四顆炸彈時要由 MT 帶泰坦：仇恨還在 ST 身上"); });
+  // 四顆炸彈：場中四角依序落下（順時針），各自 5.5 秒後爆。同時三發大地之重、兩波山崩
+  const corner = (n) => polar(45 + ((S.bomb0 + n) % 4) * 90, 4.24);
+  for (let n = 0; n < 4; n++) {
+    const tb = 123.5 + n * 2;
+    at(tb - 0.8, () => { const c = corner(n); addAoe({ ...circleAoe(c, CFG.bombLandR), t0: S.t, t1: tb, onHit() { hitAll((e) => this.hit(e), "被落下的炸彈岩砸到"); } }); }, n === 0 ? "炸彈岩 ×4（場中四角，順時針）" : null);
+    at(tb, () => { const c = corner(n); S.props.push({ type: "bomb", pos: c, late: n }); addAoe({ ...circleAoe(c, CFG.bombR + 1), t0: S.t + 2.5, t1: tb + 5.5, onHit() { S.props = S.props.filter((p) => p.late !== n); hitAll((e) => this.hit(e), "被炸彈岩炸到（要待在外圈）"); } }); });
+  }
+  wotl(125.5, "大地之重 ×3（邊繞邊躲）", false, "大地之重：圈會一直出在腳下，不要停"); wotl(128.6, null, false); wotl(131.6, null, false);
+  slide(131); slide(133, true);
+  buster(139.1, "岩石破壞", "MT"); buster(143.3, "山崩破壞", "MT");
+  wotl(148.4, "大地之重 ×3", false, "大地之重連三發：每次出圈就離開"); wotl(151.4, null, false); wotl(154.4, null, false);
+  at(END_T, () => { S.over = { win: true, reason: "泰坦被擊殺，階段通過" }; });
   S.tl.sort((a, b) => a.t - b.t);
   return ev;
 }
 
 // ---------- 更新 ----------
 function dangerAt(p, i, isHome) {
-  for (const a of S.aoes) if (!a.done && a.t0 <= S.t && a.t1 - S.t < 2.6 && !(a.skip && a.skip.includes(i)) && !(a.wotl === 2 && DIE.includes(i)) && a.hit(p, 1.2)) return true;
+  for (const a of S.aoes) if (!a.done && a.t0 <= S.t && a.t1 - S.t < 2.6 && !(a.skip && a.skip.includes(i)) && !(a.suicide && DIE.includes(i)) && a.hit(p, 1.2)) return true;
   return false;
 }
 function npcTarget(e) {
   const h = home(e.i, S.t);
   if (S.t >= 33.5 && S.t < 46.2 && !(e.i === 0 && S.t > 41.2)) return h; // 擊飛與石牢站位是固定的，不做臨時閃避
+  if (S.t >= 81.5 && S.t < 86.9) return h;
+  if (S.t >= 119.6 && S.t < 133.4) return h; // 四顆炸彈繞場：照固定路線一直走，大地之重的圈自然會被甩在後面
   if (!dangerAt(h, e.i, true)) return h;
   if (!dangerAt(e, e.i)) return e;
   let best = null, bd = 1e9;
@@ -237,7 +311,7 @@ function step(dt) {
   S.aoes = S.aoes.filter((a) => S.t < a.t1 + 0.4);
 }
 function useSkill(k) { if (S.over) return; const t = S.t, role = S.opts.role;
-  if (k === "provoke" && role <= 1 && S.cd.provoke <= t && !S.ents[role].dead) { if (!bossSpot(t).vis || (t >= 25.3 && t < 32.9)) return flash("現在沒有目標可以挑釁"); S.cd.provoke = t + 30; S.tank = role; flash(`${ROLES[role]} 挑釁：仇恨到你身上`); } if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); } }
+  if (k === "provoke" && role <= 1 && S.cd.provoke <= t && !S.ents[role].dead) { if (!bossSpot(t).vis || jumping(t)) return flash("現在沒有目標可以挑釁"); S.cd.provoke = t + 30; S.tank = role; flash(`${ROLES[role]} 挑釁：仇恨到你身上`); } if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); } }
 
 // ---------- 提示 ----------
 function hint() {
@@ -261,7 +335,24 @@ function hint() {
     return `你拉泰坦，這裡你決定隊友的生死。山崩有五條線（對準你的那條，加上兩側各偏 45、135 度），43.4 秒詠唱開始時鎖定方向。石牢三人排在「泰坦 → 場中」這條直線上，所以你要站在偏離這條線約 22 度的位置（從落點往泰坦方向走到一半、離場中約 10 米${S.opts.assist ? "，有藍圈" : ""}），讓他們剛好落在兩條線中間。鎖定後你再往側邊走開。`;
   }
   if (r === 0) return "只剩你能動：山崩的五條線在詠唱開始時鎖定，中間那條對準你。看到讀條就往兩條線之間走。";
-  return "等復活的人起來，接著是八下全場傷害的激震。";
+  if (t < 62) return "等復活的人起來，接著是八下全場傷害的激震。";
+  const d3 = DIR_NAME[S.g3 * 2];
+  if (t < 70.8) return "大地之重兩發：圈出在每個人腳下，3 秒後爆。全員疊在一起、一起移動，圈就只有一個：第一發整群穿過泰坦到另一側，第二發出圈就直接往泰坦正對面走（離泰坦約 14 米），準備躲山崩。";
+  if (t < 76) return r === S.tank ? "山崩兩波，五條線在詠唱開始時鎖定，中間那條對準你：把線帶到一側，別對著人群。" : "山崩兩波：五條線從泰坦射出，中間那條對準坦克，其餘各偏 45、135 度。先站在兩條線之間；第二波是同一組線轉 22.5 度，剛好打在你站的空隙，所以第一波一炸完就踏進剛炸過的線上。";
+  if (t < 86.9) return t < 84.3 ? "再看一次泰坦的面向：牠轉向哪邊就跳到哪邊（第三次地裂）。全員到牠面向的正對面、離場中 11 米疊在一起。" : `泰坦落在${d3}邊。`;
+  if (t < 99) {
+    if (r === S.g4) return S.jailed[r] ? "你被關在場中的石牢裡，等隊友打破。" : "你被第四個石牢點名：91 秒前走到場中（1 號標記），讓大家圍著打。";
+    return `第四個石牢點 ${ROLES[S.g4]}，他會站到場中：91 秒成形後全員靠過去打，98 秒前要打破（旁邊至少要有 4 個人）。`;
+  }
+  if (t < 104.5) return r === 1 ? "山崩兩波，躲線。打完後你（ST）要按 3 挑釁換坦，接下來兩個死刑是你的。" : `山崩兩波：泰坦在${d3}側，退到對面散開，站在線與線之間。`;
+  if (t < 119.6) {
+    if (r === 1) return S.tank === 1 ? `王在你身上：站到泰坦的外側（${d3}邊場邊），讓牠背對場中的人群，吃 114、118 秒兩個死刑。` : "你是 ST：現在按 3 挑釁換坦（113 秒前），然後站到泰坦外側吃兩個死刑。";
+    return r === 0 ? "ST 挑釁換坦吃 114、118 秒的死刑。你回場中；118 秒第二個死刑打完後按 3 挑釁接回來。" : "激震六下後 ST 吃兩個死刑：待在場中、泰坦背後。";
+  }
+  if (t < 123.4) return r === 0 ? (S.tank === 0 ? `接回來了。全員疊到泰坦外側的${d3}邊場邊，準備繞場。` : "現在按 3 挑釁接回泰坦（123 秒前）。") : `全員疊到泰坦外側的${d3}邊場邊（離場中 10～11 米），準備繞場。`;
+  if (t < 135.5) return r === 0 ? "四顆炸彈在場中四角依序落下並爆炸，同時腳下一直出大地之重。你帶著泰坦沿外圈「逆時針」繞半圈，不要停、不要進場中。" : "四顆炸彈在場中四角依序落下並爆炸，同時腳下一直出大地之重、泰坦還會放兩波山崩。全員疊在一起沿外圈「順時針」繞（MT 走反方向），保持離場中 10 米以上、不要停，繞大約 150 度到對面跟 MT 會合。";
+  if (t < 147) return r === 0 ? "把泰坦帶到場邊、背對場中，吃 139、143 秒兩個死刑。" : "回場中，MT 吃最後兩個死刑。";
+  return "大地之重連三發：圈出在腳下就走開，別踩到別人的圈。打到泰坦死。";
 }
 
 // ---------- 俯視繪製 ----------
@@ -354,4 +445,4 @@ function init() {
   requestAnimationFrame(loop);
 }
 if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);
-if (typeof module !== "undefined") module.exports = { S, CFG, ROLES, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot };
+if (typeof module !== "undefined") module.exports = { S, CFG, ROLES, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3 };

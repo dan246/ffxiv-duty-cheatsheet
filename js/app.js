@@ -310,7 +310,7 @@
   }
 
   // 有機制模擬器的副本
-  const SIM_PAGES = { "sb-uwu": [{ href: "sim/uwu-ifrit.html?v=1116-14", name: "機制模擬器・火神", note: "WASD 實際走位練習，走錯會死" }, { href: "sim/uwu-titan.html?v=1116-17", name: "機制模擬器・泰坦", note: "自殺、隆起擊飛、三連石牢" }] };
+  const SIM_PAGES = { "sb-uwu": [{ href: "sim/uwu-ifrit.html?v=1116-14", name: "機制模擬器・火神", note: "WASD 實際走位練習，走錯會死" }, { href: "sim/uwu-titan.html?v=1116-18", name: "機制模擬器・泰坦", note: "自殺、隆起擊飛、三連石牢" }] };
 
   function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);

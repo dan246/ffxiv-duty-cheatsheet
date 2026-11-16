@@ -3,7 +3,7 @@
 // 判定範圍（大地之重、炸彈、山崩寬度等）為估計值，集中在 CFG。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1116-15";
+const BUILD = "1116-16";
 const CFG = {
   R: 16,            // 地裂後的場地半徑（回放：玩家最遠只到 15.8）
   speed: 6,
@@ -24,7 +24,7 @@ const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
 const MARKERS = [["A", 0, -6.5, "#ff6b6b"], ["B", 6.5, 0, "#ffd166"], ["C", 0, 6.5, "#6096ff"], ["D", -6.5, 0, "#c084fc"], ["1", 0, 0, "#ff6b6b"]];
 const DIE = [1, 4, 5, 6];   // 自殺：ST＋三名輸出（回放 10/10 是 3 輸出＋1 坦克）
-const GAOL = [2, 3, 7];     // 石牢：兩個補師＋有復活的法系（依序站 遠離泰坦／場中／靠泰坦）
+const GAOL = [3, 2, 7];     // 石牢站位（回放 8/8）：H2（盾補）離泰坦最遠、最先炸開 → H1（純補）在場中 → D4（法系）最靠泰坦、最後炸開
 const CHECKPOINTS = [{ t: -4, name: "開場：地裂、死刑" }, { t: 17.5, name: "大地之重（自殺）" }, { t: 27.5, name: "第二次地裂、隆起擊飛、石牢" }];
 const END_T = 62;
 
@@ -66,17 +66,18 @@ function placeBombs() { S.props = BOMBS.map(([x, y]) => ({ type: "bomb", pos: F(
 
 // ---------- 泰坦 ----------
 function bossSpot(t) {
-  if (t < -3) return { pos: { x: 0, y: 0 }, vis: false };
   if (t < 0) return { pos: { x: 0, y: 0 }, vis: false };
-  if (t < 25.3) return { pos: { x: 0, y: 0 }, vis: true };
-  if (t < 30.5) return { pos: TITAN2(), vis: false };
+  if (t < 27.5) return { pos: { x: 0, y: 0 }, vis: true };                       // 25.3 秒起不可選中，轉身面向要跳過去的那一邊
+  if (t < 30.5) { const k = clamp01((t - 27.5) / 2.8); return { pos: lerp({ x: 0, y: 0 }, TITAN2(), k), vis: true, alt: Math.sin(k * Math.PI) * 14 }; } // 跳起來飛向場邊
   return { pos: TITAN2(), vis: true };
 }
+// 泰坦面向：平常看 MT；準備第二次地裂時看向落點（玩家要往反方向跑）；落地後面向場中再轉回 MT
+function bossLook(t) { if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 }; return alive(0) ? S.ents[0] : { x: 0, y: 0 }; }
 const bossState = bossSpot;
 const tankable = () => false;
 // 畫面層共用介面：泰坦階段沒有這些東西
 const dashers = () => [], nails = () => [], swActive = () => [], hasSw = () => false, fetterOn = () => false;
-function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ pos: b.pos, look: alive(0) ? S.ents[0] : { x: 0, y: 0 }, real: false, tag: "", color: 0xa16207 }] : []; }
+function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ pos: b.pos, alt: b.alt || 0, look: bossLook(t), real: false, tag: "", color: 0xa16207 }] : []; }
 function sceneGuides(t) { // 輔助預兆：擊飛落點線、石牢站位、MT 山崩站位
   if (!S.opts.assist) return [];
   const out = [], kp = kbPreview();
@@ -150,13 +151,14 @@ function buildEvents() {
     }, `大地之重 ${n}/2${n === 2 ? "（ST、D1、D2、D3 自殺）" : ""}`);
   };
   wotl(21.9, 1); wotl(24.9, 2);
+  at(25.3, () => flash("泰坦轉身了：牠面向哪邊就會跳到哪邊，往反方向跑"), "泰坦轉向（看面向）");
   at(27.4, () => {
     for (const i of DIE) if (alive(i)) { if (i === S.opts.role) return die("你該自殺卻沒死：石牢會點到你，順序就亂了（第二發大地之重要留在圈裡）"); S.ents[i].dead = true; }
     for (const i of [0, 2, 3, 7]) if (!alive(i) && i !== S.opts.role) S.ents[i].dead = false;
-    flash("四人已自殺：石牢只會點 H1、H2、D4。復活先讀好，死的人晚點再接");
+    flash("四人已自殺：石牢只會點 H2、H1、D4。復活先讀好，死的人晚點再接");
   });
   cast("地裂", 27.5, 30.5);
-  at(27.5, () => { const T = TITAN2(); addAoe({ ...circleAoe(T, CFG.crush2R), t0: S.t, t1: 30.5, onHit() { hitAll((e) => this.hit(e), "離第二次地裂的落點太近（要站到正對面的場邊）"); } }); flash(`泰坦跳向${DIR_NAME[S.g2 * 2]}邊`); }, "地裂（泰坦跳到場邊）");
+  at(27.5, () => { const T = TITAN2(); addAoe({ ...circleAoe(T, CFG.crush2R), t0: S.t, t1: 30.5, onHit() { hitAll((e) => this.hit(e), "離第二次地裂的落點太近（要站到正對面的場邊）"); } }); }, "地裂（泰坦跳到場邊）");
   // 炸彈岩 ×5：缺一格
   at(35.2, () => { for (const [x, y] of BOMBS) { const c = F(x, y); addAoe({ ...circleAoe(c, CFG.bombLandR), t0: S.t, t1: 36, onHit() { hitAll((e) => this.hit(e), "被落下的炸彈岩砸到"); } }); } }, "炸彈岩 ×5 落下");
   at(36, () => placeBombs());
@@ -173,7 +175,7 @@ function buildEvents() {
     }
     S.stun = S.t + 2; flash("隆起：擊飛 24 米，暈眩 2 秒");
   }, "隆起（擊飛 24 米）");
-  at(41.2, () => flash("石牢點名：H1、H2、D4"), "石牢點名 ×3");
+  at(41.2, () => flash("石牢點名：H2、H1、D4"), "石牢點名 ×3");
   at(43.2, () => { const c = F(...GAP); addAoe({ ...circleAoe(c, CFG.bombLandR), t0: S.t, t1: 44, onHit() { hitAll((e) => this.hit(e), "被第六顆炸彈岩砸到（落地後要離開缺口）"); } }); }, "第六顆炸彈岩落在缺口");
   at(44, () => S.props.push({ type: "bomb", pos: F(...GAP), sixth: true }));
   // 山崩：五條線，中間那條對準 MT，另外四條偏 ±45、±135 度；詠唱開始時鎖定方向
@@ -242,15 +244,15 @@ function hint() {
   if (t < 18.9) return r === 0 ? "你拉泰坦：站牠的南側，吃岩石破壞和山崩破壞兩個死刑，讓牠背對北邊的人群。" : "站泰坦的北側。兩個死刑是打 MT 的正面扇形，別跑到南邊。";
   if (t < 21.95) return r === 0 ? "大地之重 1：腳下出圈，往西走開 6 米。" : "大地之重 1：每個人腳下出圈，全員一起往東走 6 米離開。";
   if (t < 27.4) {
-    if (DIE.includes(r)) return "大地之重 2：你是自殺組（ST、D1、D2、D3）。留在東邊的圈裡不要動，被炸死才對。這樣石牢只會點活著的 H1、H2、D4。";
+    if (DIE.includes(r)) return "大地之重 2：你是自殺組（ST、D1、D2、D3）。留在東邊的圈裡不要動，被炸死才對。這樣石牢只會點活著的 H2、H1、D4。";
     return r === 0 ? "大地之重 2：走開。自殺組會留在東邊被炸死，這是故意的。" : "大地之重 2：你要活著。離開腳下的圈，走回泰坦北側。可以先讀復活，但自殺的人 50 秒才會接。";
   }
-  if (t < 33.5) return `泰坦跳到${dn}邊。第二次地裂離落點越近越痛：全員站到正對面的${op}邊場邊。`;
+  if (t < 33.5) return t < 30.5 ? "看泰坦的面向：牠轉向哪一邊，就會跳到那一邊的場邊砸下來（第二次地裂）。離落點越近越痛，全員往牠面向的反方向跑，貼到正對面的場邊。" : `泰坦落在${dn}邊。`;
   if (t < 39.2) return `隆起會把你從泰坦身上往外推 24 米。對面半場有 5 顆炸彈岩，只缺一格。走到泰坦腳前 4～5 米、站在「泰坦 → 缺口」那條線上疊在一起，被推過去才會剛好落在缺口。${S.opts.assist ? "藍線是你現在的位置會被推到哪。" : ""}被推出場外或落在炸彈旁邊都會死。`;
   if (t < 41.2) return "被擊飛中，暈眩 2 秒。";
   if (t < 46.2) {
     const g = GAOL.indexOf(r);
-    if (g >= 0) return `你被石牢點名。缺口這格馬上會落下第六顆炸彈，快離開。三個人要排成一條鏈：H1 離第六顆炸彈最近（${CFG.chainFirst} 米內）、H2 在場中、D4 往泰坦方向再 7 米。你是第 ${g + 1} 個，站到${["最靠近炸彈缺口的那一點", "場中", "場中往泰坦方向 7 米"][g]}（開輔助預兆有黃圈），46 秒被關住前要站好。`;
+    if (g >= 0) return `你被石牢點名。缺口這格馬上會落下第六顆炸彈，快離開。三個人要排成一條鏈：H2 離第六顆炸彈最近（${CFG.chainFirst} 米內，離泰坦最遠，最先炸開）、H1 在場中、D4 往泰坦方向再 7 米（最後炸開）。你是第 ${g + 1} 個，站到${["最靠近炸彈缺口的那一點", "場中", "場中往泰坦方向 7 米"][g]}（開輔助預兆有黃圈），46 秒被關住前要站好。`;
     return `你拉泰坦，這裡你決定隊友的生死。山崩有五條線（對準你的那條，加上兩側各偏 45、135 度），43.4 秒詠唱開始時鎖定方向。石牢三人排在「泰坦 → 場中」這條直線上，所以你要站在偏離這條線約 22 度的位置（從落點往泰坦方向走到一半、離場中約 10 米${S.opts.assist ? "，有藍圈" : ""}），讓他們剛好落在兩條線中間。鎖定後你再往側邊走開。`;
   }
   if (r === 0) return "只剩你能動：山崩的五條線在詠唱開始時鎖定，中間那條對準你。看到讀條就往兩條線之間走。";
@@ -282,7 +284,7 @@ function draw() {
   if (S.opts.assist && S.opts.role === 0 && t >= 39.1 && t < 43.5) { const c = F(-8, 5.4); g.beginPath(); g.arc(c.x, c.y, 1.3, 0, 7); g.lineWidth = 0.18; g.strokeStyle = "#4cc2ff"; g.stroke(); }
   if (S.opts.assist && t >= 41.1 && t < 46.2) GAOL_SPOT.forEach(([x, y]) => { const c = F(x, y); g.beginPath(); g.arc(c.x, c.y, 1.2, 0, 7); g.lineWidth = 0.15; g.strokeStyle = "#ffd166"; g.stroke(); });
   const kp = kbPreview(); if (kp) { g.beginPath(); g.moveTo(kp.from.x, kp.from.y); g.lineTo(kp.to.x, kp.to.y); g.lineWidth = 0.2; g.strokeStyle = kp.bad ? "#ff4d4d" : "#4cc2ff"; g.stroke(); g.beginPath(); g.arc(kp.to.x, kp.to.y, 0.9, 0, 7); g.stroke(); }
-  const b = bossSpot(t); if (b.vis) { g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke(); }
+  const b = bossSpot(t); if (b.vis) { g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = b.alt ? "rgba(161,98,7,.45)" : "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke(); const lk = bossLook(t), a = Math.atan2(lk.y - b.pos.y, lk.x - b.pos.x); if (!b.alt) { g.beginPath(); g.moveTo(b.pos.x + Math.cos(a) * 4.4, b.pos.y + Math.sin(a) * 4.4); g.lineTo(b.pos.x + Math.cos(a + 0.5) * 2.7, b.pos.y + Math.sin(a + 0.5) * 2.7); g.lineTo(b.pos.x + Math.cos(a - 0.5) * 2.7, b.pos.y + Math.sin(a - 0.5) * 2.7); g.closePath(); g.fillStyle = "#fde68a"; g.fill(); } }
   for (const e of S.ents) { g.beginPath(); g.arc(e.x, e.y, 0.75, 0, 7); g.fillStyle = e.dead ? "#475569" : ROLE_COLOR[e.i]; g.fill(); if (e.i === role) { g.lineWidth = 0.22; g.strokeStyle = "#fff"; g.stroke(); } }
   g.restore();
   DIR_NAME.forEach((m, d) => label(polar(d * 45, CFG.R + 2), m, d === 0 ? "#f8fafc" : "#8a96ad", d % 2 ? 11 : 13));

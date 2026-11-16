@@ -168,7 +168,7 @@ const View3D = (() => {
     if (!custom) for (const c of dashers(t)) list.push({ pos: c.pos, look: { x: 0, y: 0 }, real: c.real, tag: S.opts.assist ? String(c.n + 1) + (c.real ? " 藍火" : "") : "" });
     ifrits.forEach((m, i) => {
       const it = list[i]; m.visible = !!it; if (!it) return;
-      m.position.set(it.pos.x, 0, it.pos.y); faceTo(m, it.pos, it.look);
+      m.position.set(it.pos.x, it.alt || 0, it.pos.y); faceTo(m, it.pos, it.look);
       m.userData.fire.visible = m.userData.aura.visible = it.real; // 覺醒的本體身上是藍火
       m.userData.body.material.emissive.setHex(it.real ? 0x12305e : 0x4a1503);
       if (it.color !== undefined) { m.userData.body.material.color.setHex(it.color); m.userData.head.material.color.setHex(it.color); }

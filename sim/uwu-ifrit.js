@@ -34,7 +34,7 @@ const CHECKPOINTS = [
   { t: 68, name: "拉角落、第二輪地火、分身衝鋒" },
   { t: 97, name: "第三次灼熱、烈焰碎擊" },
   { t: 112, name: "四連深紅旋風" },
-  { t: 129, name: "收尾：ST 三連焚燒" },
+  { t: 129, name: "收尾：MT 三連焚燒" },
 ];
 const KILL_T = 97;   // 輸出很高的隊伍在這時就擊殺（壓掉後面的機制）
 const END_T = 146;   // 一般隊伍的擊殺時間
@@ -83,7 +83,7 @@ function reset() {
   S.closeDeg = S.k * 45 + 22.5;              // 相鄰兩根釘子的中間方位：王往這邊拉
   S.realIdx = ri(4);                         // 四連衝鋒裡第幾隻是本體（覺醒，會留十字）
   S.cornerDeg = (S.k % 2 ? S.k : S.k + 1) * 45; // 第二輪全隊去的角落：相鄰兩根釘子裡在斜點的那一根方位
-  S.fetterDps = 4 + ri(2);                   // 炎獄之鎖：MT＋一名輸出（回放是隨機輸出；這裡固定成近戰，兩人本來就一起打釘子）
+  S.fetterDps = 4 + ri(2);                   // 炎獄之鎖：接王的坦克（前半是 ST）＋一名輸出（回放是隨機輸出；這裡固定成近戰，兩人本來就一起打釘子）
   const h1 = 2 + ri(2), h2 = 2 + ri(2);
   S.sw = [
     { who: h1, t0: 43.8, first: 45.7, last: 60.7 },
@@ -110,7 +110,7 @@ function bossState(t) {
   if (t < 78) return { pos: { x: 0, y: 0 }, vis: t >= 70.3 };
   if (t < 113.6) return { pos: lerp({ x: 0, y: 0 }, cornerBossSpot(), clamp01((t - 78) / 6)), vis: true };
   if (t < 129.5) return { pos: { x: 0, y: 0 }, vis: false };
-  return { pos: lerp({ x: 0, y: 0 }, polar(finalDir() * 45, 12), clamp01((t - 129.7) / 2.8)), vis: true }; // 收尾：ST 在人群停下的方位接王
+  return { pos: lerp({ x: 0, y: 0 }, polar(finalDir() * 45, 12), clamp01((t - 129.7) / 2.8)), vis: true }; // 收尾：MT 在人群停下的方位接王
 }
 function dashers(t) { // 四連衝鋒的四隻，其中一隻是本體
   if (t < 115 || t > 127) return [];
@@ -130,7 +130,7 @@ const swIdx = (i, t) => S.sw.findIndex((s) => s.who === i && t >= s.t0 - 2.6 && 
 const fetterOn = (t) => t >= 40.8 && t < 66;
 
 // ---------- NPC 站位（依回放） ----------
-const CENTER_HOME = [[180, 5], [270, 3.5], [-15, 5.5], [15, 5.5], [-28, 4], [28, 4], [-8, 7], [8, 7]];
+const CENTER_HOME = [[270, 3.5], [180, 5], [-15, 5.5], [15, 5.5], [-28, 4], [28, 4], [-8, 7], [8, 7]];
 function home(i, t) {
   // 開場：火神在東西就去北，在南北就去西，貼場邊
   if (t < 9) return polar((S.bossCard % 2 ? 0 : 270) + (i - 3.5) * 3, 17.5);
@@ -154,9 +154,9 @@ function home(i, t) {
   }
   if (t < 78) return center();
   if (t >= 129.5) {
-    // 收尾：ST 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
+    // 收尾：換 MT 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
     const F = finalDir() * 45;
-    return i === 1 ? polar(F, 17.5) : polar(F + (i - 3.5) * 5, 6.5 + (i % 2));
+    return i === 0 ? polar(F, 17.5) : polar(F + (i - 3.5) * 5, 6.5 + (i % 2));
   }
   if (t >= 113.6) {
     // 四連深紅旋風（13 筆回放一致）：全隊先到第 4 隻的正前方，第 1 隻衝完後順時針連續走：本體是第 1、3 隻走 45 度，第 2、4 隻走 90 度。
@@ -172,8 +172,8 @@ function home(i, t) {
   if (swIdx(i, t) === 1) return polar(t < 100 ? P - 135 : P - 90, 18);    // 第二次灼熱：先到人群對面那一側，第三次點名後移到逆時針 90 度
   if (S.crushMark && S.crushMark.until > t) return polar(P + (i - 3.5) * 1.2, 17.6 + (i % 2) * 0.7); // 分攤：擠在一起
   if ((i === 6 || i === 7) && t >= 79 && t < 92.8) return polar(P + 135 - clamp01((t - 84.7) / 8) * 135 + (i === 7 ? 4 : 0), 18); // 第二輪地火：兩人一起從遠處沿牆跑回角落
-  if (i === 0) return polar(P, 18.8);
-  return polar(P + [0, -7, 5, -5, -3, 3, 7, 8][i], 17.4 + (i % 2) * 0.8);
+  if (i === 1) return polar(P, 18.8); // 前半接王的是 ST
+  return polar(P + [-7, 0, 5, -5, -3, 3, 7, 8][i], 17.4 + (i % 2) * 0.8);
 }
 
 // ---------- 事件 ----------
@@ -235,11 +235,11 @@ function buildEvents() {
       },
     }), `烈焰焚燒 ${n}/3（${ROLES[tank]} 順劈）`);
   };
-  incinerate(21.3, 1); incinerate(24.4, 2); incinerate(28.5, 3);
+  incinerate(21.3, 1, 1); incinerate(24.4, 2, 1); incinerate(28.5, 3, 1); // 第一組：ST 接
   at(31, () => { S.fireRes = false; });
 
   at(31.6, () => flash("炎獄之楔出現：數字是擊殺順序（逆Z），每根要被地火炸兩次"), "炎獄之楔 ×4");
-  at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：MT 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
+  at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：ST 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
   NAIL_DEATH.forEach((t, n) => at(t, () => flash(`第 ${n + 1} 根釘子爆炸：全場傷害`), `釘子 ${n + 1} 爆炸`));
 
   // 灼熱：每 3 秒以帶原者為中心爆炸
@@ -299,8 +299,8 @@ function buildEvents() {
   DASH_T.forEach((t, n) => S.tl.push({ t, name: `深紅旋風 ${n + 1}/4${n === S.realIdx ? "（本體）" : ""}` }));
   S.tl.push({ t: DASH_T[S.realIdx] + CFG.crossDelay, name: "十字火焰" });
 
-  at(129.5, () => { S.fireRes = false; flash("火神回場中：換 ST 接王"); });
-  incinerate(133.9, 1, 1); incinerate(137, 2, 1); incinerate(141.1, 3, 1);
+  at(129.5, () => { S.fireRes = false; flash("火神回來：換 MT 接王"); });
+  incinerate(133.9, 1, 0); incinerate(137, 2, 0); incinerate(141.1, 3, 0); // 第二組：MT 接
   at(END_T, () => { S.over = { win: true, reason: "火神被擊殺，階段通過" }; });
   S.tl.sort((a, b) => a.t - b.t);
   return ev;
@@ -352,8 +352,8 @@ function step(dt) {
     else if (a.done && a.linger && S.t < a.t1 + a.linger) { a.onHit.call(a); if (S.over) return; }
   }
   S.aoes = S.aoes.filter((a) => S.t < a.t1 + a.linger + 0.4);
-  if (fetterOn(S.t) && (role === 0 || role === S.fetterDps)) {
-    const other = S.ents[role === 0 ? S.fetterDps : 0];
+  if (fetterOn(S.t) && (role === 1 || role === S.fetterDps)) {
+    const other = S.ents[role === 1 ? S.fetterDps : 1];
     if (dist(p, other) > CFG.fetterMax) { S.fetterApart += dt; if (S.fetterApart > CFG.fetterGrace) die(`炎獄之鎖拉太遠太久（和 ${ROLES[other.i]} 保持 ${CFG.fetterMax} 米內）`); }
   }
 }
@@ -370,10 +370,10 @@ function hint() {
   const t = S.t, r = S.opts.role, c = S.bossCard * 2, cd = S.closeDeg, P = S.cornerDeg;
   const near = `${DIR_NAME[S.nailDirs[0]]}、${DIR_NAME[S.nailDirs[1]]}`;
   if (t < 5) return `火神在${DIR_NAME[c]}邊，會直線衝過場中，同時場上有炎柱。全隊去${S.bossCard % 2 ? "北" : "西"}邊貼場邊。`;
-  if (t < 19) return r === 3 ? "回場中，站王的北側 4～5 米。你是 H2：火神爆裂（18.5 秒）前按 1 上群盾，有盾全隊就不會被擊退；沒上會全隊撞牆。" : r === 0 ? "回場中。MT 站王的南側 5 米（A B C D 標記那一圈內）。火神爆裂的擊退由 H2 上盾擋掉。" : "回場中，站王的北側 4～5 米。火神爆裂的擊退由 H2 上盾擋掉，不用自己防擊退。";
-  if (t < 38) return r === 0 ? "你是 MT：留在王的南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "三連烈焰焚燒是朝南的坦克正面扇形：留在王的北側。";
+  if (t < 19) return r === 3 ? "回場中，站王的北側 4～5 米。你是 H2：火神爆裂（18.5 秒）前按 1 上群盾，有盾全隊就不會被擊退；沒上會全隊撞牆。" : r === 1 ? "回場中。前半由你（ST）接王：站王的南側 5 米（A B C D 標記那一圈內）。火神爆裂的擊退由 H2 上盾擋掉。" : "回場中，站王的北側 4～5 米。火神爆裂的擊退由 H2 上盾擋掉，不用自己防擊退。";
+  if (t < 38) return r === 1 ? "你是 ST，第一組焚燒你接：留在王的南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "第一組三連烈焰焚燒由 ST 在南側接，是朝南的正面扇形：留在王的北側。";
   if (t < 66) {
-    const fet = r === 0 || r === S.fetterDps ? `你和 ${ROLES[r === 0 ? S.fetterDps : 0]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
+    const fet = r === 1 || r === S.fetterDps ? `你和 ${ROLES[r === 1 ? S.fetterDps : 1]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
     if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 3 秒炸一次。`;
     if (r === 6 && t < 56) return `你是地火誘導，每根釘子要炸兩次。42 秒前站到${DIR_NAME[S.nailDirs[3]]}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，順時針沿外圈到${DIR_NAME[S.nailDirs[0]]}釘子外側放第 3 圈（50 秒），再往${DIR_NAME[S.nailDirs[1]]}釘子方向切進去放第 4 圈（52 秒），放完回人群。${fet}`;
     if (r === 7 && t < 56) return `你是地火誘導，每根釘子要炸兩次。42 秒前站到${DIR_NAME[S.nailDirs[2]]}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，逆時針往內切，第 3 圈（50 秒）放在${DIR_NAME[S.nailDirs[1]]}釘子內側，第 4 圈（52 秒）再往場中放，放完離開。${fet}`;
@@ -384,7 +384,7 @@ function hint() {
   if (t < 97) {
     if (swIdx(r, t) === 1) return `你被點灼熱（第二次，30 秒）：先去人群對面那一側（${dirName(P - 135)}）的場邊，100 秒左右再移到${dirName(P - 90)}角。`;
     if ((r === 6 || r === 7) && t < 94) return `第二輪地火誘導：D3、D4 一起先去${dirName(P + 135)}邊場邊，圈出來後沿場邊跑回${dirName(P)}角的人群，四個圈放在路上。`;
-    return r === 0 ? `把王拉到${dirName(P)}角，自己貼場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有斜角安全。` : `全隊貼${dirName(P)}角場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有四個斜角安全。`;
+    return r === 1 ? `把王拉到${dirName(P)}角，自己貼場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有斜角安全。` : `全隊貼${dirName(P)}角場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有四個斜角安全。`;
   }
   if (t < 113.6) {
     if (swIdx(r, t) === 2) return `你是第三個被點灼熱的補師：去${dirName(P + 110)}邊場邊。兩個補師都帶灼熱，不進分攤。`;
@@ -396,7 +396,7 @@ function hint() {
     return `四連深紅旋風，四隻照釘子擊殺順序衝。${opp ? "你還帶著灼熱，在人群的正對面做同樣的事。" : ""}先到${d(1)}場邊（${opp ? "第 4 隻的正對面" : "第 4 隻的正前方"}）。看哪隻身上是藍火（本體）：這把是第 ${S.realIdx + 1} 隻，所以第 1 隻一衝完就順時針走 ${deg} 度到${d(deg === 45 ? 2 : 3)}。規則：藍火是第 1、3 隻走 45 度，第 2、4 隻走 90 度。這段開疾跑（Shift）。十字在藍火那隻衝完 2.1 秒後出現。`;
   }
   const F = dirName(finalDir() * 45);
-  return r === 1 ? `換你接王：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。` : `ST 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側，打到死為止。`;
+  return r === 0 ? `第二組焚燒換你（MT）接王：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。` : `第二組換 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側，打到死為止。`;
 }
 
 // ---------- 繪製 ----------
@@ -426,11 +426,11 @@ function draw() {
   for (const s of swActive(t)) { const c = S.ents[s.who]; g.beginPath(); g.arc(c.x, c.y, CFG.swR, 0, 7); g.setLineDash([0.6, 0.6]); g.lineWidth = 0.15; g.strokeStyle = "rgba(255,90,90,.8)"; g.stroke(); g.setLineDash([]); }
   S.flashRings = S.flashRings.filter((f) => f.until > t);
   for (const f of S.flashRings) { g.beginPath(); g.arc(f.c.x, f.c.y, f.r, 0, 7); g.fillStyle = "rgba(255,200,120,.35)"; g.fill(); }
-  if (fetterOn(t)) { const a = S.ents[0], b = S.ents[S.fetterDps]; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 0.25; g.strokeStyle = dist(a, b) > CFG.fetterMax ? "#ff4d4d" : "#ffb347"; g.stroke(); }
+  if (fetterOn(t)) { const a = S.ents[1], b = S.ents[S.fetterDps]; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 0.25; g.strokeStyle = dist(a, b) > CFG.fetterMax ? "#ff4d4d" : "#ffb347"; g.stroke(); }
   for (const n of nails(t)) { g.beginPath(); g.arc(n.pos.x, n.pos.y, 1 + 0.45 * Math.min(n.hits, 2), 0, 7); g.fillStyle = ["#7c2d12", "#c2410c", "#f97316"][Math.min(n.hits, 2)]; g.fill(); if (n.hits >= 2) { g.lineWidth = 0.18; g.strokeStyle = "#fde68a"; g.stroke(); } }
   const b = bossState(t);
   const drawIfrit = (pos, faceTo, real) => { g.beginPath(); g.arc(pos.x, pos.y, real ? 3 : 2.4, 0, 7); g.fillStyle = real ? "#c2410c" : "#9a3412"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fdba74"; g.stroke(); if (faceTo) { const a = Math.atan2(faceTo.y - pos.y, faceTo.x - pos.x); g.beginPath(); g.moveTo(pos.x + Math.cos(a) * 4.2, pos.y + Math.sin(a) * 4.2); g.lineTo(pos.x + Math.cos(a + 0.5) * 2.6, pos.y + Math.sin(a + 0.5) * 2.6); g.lineTo(pos.x + Math.cos(a - 0.5) * 2.6, pos.y + Math.sin(a - 0.5) * 2.6); g.closePath(); g.fillStyle = "#fdba74"; g.fill(); } };
-  if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[0], true);
+  if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[t < 129.5 ? 1 : 0], true);
   if (t >= 91.8 && t < 95.7) for (const d of [180, 90]) drawIfrit(lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), { x: 0, y: 0 }, false);
   const ds = dashers(t);
   for (const c of ds) { drawIfrit(c.pos, { x: 0, y: 0 }, c.real); if (c.real) { g.beginPath(); g.arc(c.pos.x, c.pos.y, 3.7, 0, 7); g.lineWidth = 0.45; g.strokeStyle = "#60a5fa"; g.stroke(); } } // 本體身上是藍火

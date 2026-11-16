@@ -3,7 +3,7 @@
 // 判定範圍（大地之重、炸彈、山崩寬度等）為估計值，集中在 CFG。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1116-16";
+const BUILD = "1116-17";
 const CFG = {
   R: 16,            // 地裂後的場地半徑（回放：玩家最遠只到 15.8）
   speed: 6,
@@ -51,9 +51,10 @@ function reset() {
   S.rnd = rnd; S.t = o.start; S.over = null; S.paused = false;
   S.aoes = []; S.casts = []; S.tl = []; S.log = []; S.flashRings = []; S.props = []; S.crushMark = null;
   S.keys = S.keys || {}; S.cam = S.cam || 0; S.zoom = S.zoom || 1;
-  S.buff = { sprint: -1 }; S.cd = { sprint: 0 };
+  S.buff = { sprint: -1 }; S.cd = { sprint: 0, provoke: 0 };
   S.g2 = Math.floor(rnd() * 4);
-  S.tank = 0; S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
+  S.tank = o.start < 3 ? null : 0; // 泰坦出場時仇恨重置，MT 要挑釁（回放 7/8 筆在落地後 2.5～5.6 秒按）
+  S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
   S.stun = -1; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = [];
   S.wotl = [0, 0, 0, 0, 0, 0, 0, 0];
   S.ents = ROLES.map((_, i) => ({ ...home(i, o.start), i, face: 0, dead: o.start > 27.3 && DIE.includes(i) }));
@@ -72,7 +73,7 @@ function bossSpot(t) {
   return { pos: TITAN2(), vis: true };
 }
 // 泰坦面向：平常看 MT；準備第二次地裂時看向落點（玩家要往反方向跑）；落地後面向場中再轉回 MT
-function bossLook(t) { if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 }; return alive(0) ? S.ents[0] : { x: 0, y: 0 }; }
+function bossLook(t) { if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 }; const h = S.tank === null ? 7 : S.tank; return alive(h) ? S.ents[h] : { x: 0, y: 0 }; } // 沒人接的時候牠看著別人
 const bossState = bossSpot;
 const tankable = () => false;
 // 畫面層共用介面：泰坦階段沒有這些東西
@@ -136,10 +137,12 @@ function buildEvents() {
 
   cast("地裂", -3, 0);
   at(-3, () => addAoe({ ...circleAoe({ x: 0, y: 0 }, CFG.crushR), t0: S.t, t1: 0, onHit() { hitAll((e) => this.hit(e), "離第一次地裂的落點太近（要貼場邊）"); } }), "地裂（泰坦落在場中）");
+  at(3.5, () => { if (S.tank === null && S.opts.role !== 0) { S.tank = 0; flash("MT 挑釁接泰坦"); } }, "MT 挑釁接泰坦");
+  at(10, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT：泰坦出場會重置仇恨，落地後要按 3 挑釁接王（10 秒前）" : "泰坦要由 MT 接：仇恨不在 MT 身上"); });
   cast("大地之怒", 2.4, 5.4); at(5.4, () => flash("大地之怒：全場傷害"), "大地之怒（全場）");
   for (const [t, nm] of [[13.6, "岩石破壞"], [16.8, "山崩破壞"]]) {
     cast(nm, t - 1.2, t);
-    at(t - 1.5, () => addAoe({ ...coneAoe(boss, () => S.ents[0], CFG.coneHalf, 12), t0: S.t, t1: t, assistOnly: true, skip: [0], onHit() { hitAll((e) => e.i !== 0 && this.hit(e), `站在泰坦正面吃到${nm}（非坦克站泰坦背後）`); } }), `${nm}（MT 死刑）`);
+    at(t - 1.5, () => addAoe({ ...coneAoe(boss, () => S.ents[S.tank === null ? 7 : S.tank], CFG.coneHalf, 12), t0: S.t, t1: t, assistOnly: true, skip: [0], onHit() { hitAll((e) => e.i !== 0 && this.hit(e), `站在泰坦正面吃到${nm}（非坦克站泰坦背後）`); } }), `${nm}（MT 死刑）`);
   }
   // 大地之重：每個人腳下一個圈，3 秒後爆。兩發，第二發是自殺用的
   const wotl = (t, n) => {
@@ -233,14 +236,16 @@ function step(dt) {
   for (const a of S.aoes) if (!a.done && S.t >= a.t1) { a.done = true; a.onHit.call(a); if (S.over) return; }
   S.aoes = S.aoes.filter((a) => S.t < a.t1 + 0.4);
 }
-function useSkill(k) { if (S.over) return; const t = S.t; if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); } }
+function useSkill(k) { if (S.over) return; const t = S.t, role = S.opts.role;
+  if (k === "provoke" && role <= 1 && S.cd.provoke <= t && !S.ents[role].dead) { if (!bossSpot(t).vis || (t >= 25.3 && t < 32.9)) return flash("現在沒有目標可以挑釁"); S.cd.provoke = t + 30; S.tank = role; flash(`${ROLES[role]} 挑釁：仇恨到你身上`); } if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); } }
 
 // ---------- 提示 ----------
 function hint() {
   const t = S.t, r = S.opts.role, me = S.ents[r], dn = DIR_NAME[S.g2 * 2], op = DIR_NAME[(S.g2 * 2 + 4) % 8];
   if (me.dead) return t < 27.4 ? "你已自殺（正確）。隊友會先把復活讀好，你等石牢成形後再接。" : "你躺著等復活：50 秒左右才接，不要太早起來，不然石牢會點到你。";
   if (S.jailed[r]) return "你被關在石牢裡，不能動也不會被打。等第六顆炸彈引爆石牢的連鎖。";
-  if (t < 0.4) return "泰坦會砸在場中（地裂）：貼著場邊站。之後場地會縮小。";
+  if (t < 0.4) return "泰坦會砸在場中（地裂）：貼著場邊站。之後場地會縮小。" + (r === 0 ? "你是 MT：泰坦出場會重置仇恨，牠一落地你就要按 3 挑釁。" : "");
+  if (r === 0 && S.tank !== 0 && t < 10) return "泰坦的仇恨重置了，牠現在沒在看你：馬上按 3 挑釁接王（10 秒前沒接到算失敗），然後站到牠的南側。";
   if (t < 18.9) return r === 0 ? "你拉泰坦：站牠的南側，吃岩石破壞和山崩破壞兩個死刑，讓牠背對北邊的人群。" : "站泰坦的北側。兩個死刑是打 MT 的正面扇形，別跑到南邊。";
   if (t < 21.95) return r === 0 ? "大地之重 1：腳下出圈，往西走開 6 米。" : "大地之重 1：每個人腳下出圈，全員一起往東走 6 米離開。";
   if (t < 27.4) {
@@ -302,6 +307,7 @@ function updateHud() {
   const c = S.casts.filter((x) => t >= x.t0 && t < x.t1).pop(); $("castbar").hidden = !c;
   if (c) { $("castfill").style.width = clamp01((t - c.t0) / (c.t1 - c.t0)) * 100 + "%"; $("castname").textContent = c.name; }
   const st = []; if (S.ents[r].dead) st.push("倒地"); if (S.jailed[r]) st.push("石牢"); if (t < S.stun && !S.ents[r].dead) st.push("暈眩"); if (S.buff.sprint > t) st.push("衝刺");
+  if (r <= 1 && !S.ents[r].dead) st.push(S.tank === r ? "仇恨在你身上" : "仇恨不在你身上");
   const kp = kbPreview(); if (kp) st.push(kp.bad ? "擊飛落點：危險" : "擊飛落點：安全");
   $("statusline").textContent = st.join(" · ");
   const ov = $("overlay"); ov.hidden = !(S.over || S.paused);
@@ -314,6 +320,7 @@ function updatePanel() {
   $("upcoming").innerHTML = S.tl.filter((e) => e.t > t).slice(0, 6).map((e) => `<li><span>${(e.t - t).toFixed(1)}s</span>${e.name}</li>`).join("");
   $("log").innerHTML = S.log.map((l) => `<li>${l.msg}</li>`).join("");
   const el = $("skSprint"); el.disabled = S.cd.sprint > t; el.classList.toggle("on", S.buff.sprint > t); el.querySelector("i").textContent = S.buff.sprint > t ? `生效 ${(S.buff.sprint - t).toFixed(0)}s` : S.cd.sprint > t ? `冷卻 ${(S.cd.sprint - t).toFixed(0)}s` : "可用";
+  const pv = $("skProvoke"); if (pv) { const ok = S.opts.role <= 1; pv.disabled = !ok || S.cd.provoke > t; pv.querySelector("i").textContent = !ok ? "—" : S.cd.provoke > t ? `冷卻 ${(S.cd.provoke - t).toFixed(0)}s` : "可用"; }
   void tt;
 }
 
@@ -331,8 +338,8 @@ function init() {
   const bind = (id, key, conv, restart) => $(id).addEventListener("change", (e) => { S.opts[key] = conv(e.target); if (restart) reset(); e.target.blur(); });
   bind("role", "role", (el) => +el.value, true); bind("start", "start", (el) => +el.value, true); bind("speed", "speed", (el) => +el.value, false);
   bind("assist", "assist", (el) => el.checked, false); bind("hints", "hints", (el) => el.checked, false); bind("god", "god", (el) => el.checked, false);
-  $("restart").addEventListener("click", (e) => { reset(); e.target.blur(); }); $("skSprint").addEventListener("click", () => useSkill("sprint"));
-  addEventListener("keydown", (e) => { if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return; S.keys[e.code] = true; if (e.code === "KeyR") reset(); if (e.code === "KeyP" || e.code === "Escape") S.paused = !S.paused; if (e.code === "ShiftLeft" || e.code === "ShiftRight") useSkill("sprint"); if (["KeyW", "KeyA", "KeyS", "KeyD", "Space"].includes(e.code)) e.preventDefault(); });
+  $("restart").addEventListener("click", (e) => { reset(); e.target.blur(); }); $("skSprint").addEventListener("click", () => useSkill("sprint")); if ($("skProvoke")) $("skProvoke").addEventListener("click", () => useSkill("provoke"));
+  addEventListener("keydown", (e) => { if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return; S.keys[e.code] = true; if (e.code === "KeyR") reset(); if (e.code === "KeyP" || e.code === "Escape") S.paused = !S.paused; if (e.code === "ShiftLeft" || e.code === "ShiftRight") useSkill("sprint"); if (e.code === "Digit3") useSkill("provoke"); if (["KeyW", "KeyA", "KeyS", "KeyD", "Space"].includes(e.code)) e.preventDefault(); });
   addEventListener("keyup", (e) => { S.keys[e.code] = false; }); addEventListener("blur", () => { S.keys = {}; });
   let drag = null;
   for (const el of [cv, cv3]) { el.addEventListener("mousedown", (e) => { drag = [e.clientX, e.clientY]; e.preventDefault(); }); el.addEventListener("contextmenu", (e) => e.preventDefault()); }

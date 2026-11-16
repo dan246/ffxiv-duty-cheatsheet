@@ -22,7 +22,7 @@ const CFG = {
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 拉遠累計幾秒算失敗
 };
-const BUILD = "1116-13"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
+const BUILD = "1116-14"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -69,6 +69,7 @@ function reset() {
   S.fetterApart = 0;
   S.tank = o.start < 7.6 ? null : o.start < 30.5 ? 1 : 0; // 目前仇恨在誰身上（null＝還沒人接）。回放：ST 開場接、吃完第一組焚燒後 30.5 秒換 MT，之後都是 MT
   S.shirked = o.start >= 33;  // ST 換坦後有沒有對 MT 用退避
+  S.mtRetakeAt = 0; S.npcProvokeCd = 60.5; // NPC 的 MT 在 30.5 秒用過挑釁，冷卻好了才能再搶回來
   S.bossDyn = null;  // 玩家拉王時，王的實際位置
   S.posErr = 0; S.faceErr = 0;
   S.crushMark = null;
@@ -266,7 +267,12 @@ function buildEvents() {
   at(30.5, () => { if (S.opts.role !== 0 && S.tank !== 0) { S.tank = 0; S.bossDyn = null; flash("MT 挑釁換坦"); } });
   at(33, () => { if (S.opts.role !== 1 && !S.shirked) { S.shirked = true; flash("ST 對 MT 用退避"); } });
   at(34.5, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT，第一組焚燒打完（28.5 秒）後沒有按 3 挑釁換坦，釘子階段王還在 ST 身上" : "第一組焚燒後要換 MT 拉王：仇恨還在你身上"); });
-  at(36, () => { if (!S.shirked) { S.tank = 1; S.bossDyn = null; die(S.opts.role === 1 ? "換坦後你沒有按 4 對 MT 用退避，仇恨又回到你身上，王轉回來了" : "ST 沒有退避，仇恨回到 ST 身上"); } });
+  // 不退避不會立刻出事，但有風險：ST 繼續輸出，仇恨隨時可能追過 MT（回放 8 筆裡有 2 筆沒退避也沒事）
+  at(36, () => { if (!S.shirked && S.opts.role === 1) flash("你沒有退避：仇恨隨時可能追過 MT，王會轉回來找你"); });
+  for (let tt = 38; tt < END_T; tt += 5) at(tt, () => {
+    if (S.shirked || S.tank !== 0 || !tankable(S.t) || !bossSpot(S.t).vis) return;
+    if (S.rnd() < (S.t < 66 ? 0.08 : 0.03)) { S.tank = 1; S.bossDyn = null; S.posErr = 0; S.faceErr = 0; S.mtRetakeAt = Math.max(S.t + 2, S.npcProvokeCd); flash("仇恨追過 MT 了：王轉向 ST！（ST 現在退避，或等 MT 挑釁搶回）"); }
+  });
   S.tl.push({ t: 7.2, name: "火神可選中：ST 挑釁接王" }, { t: 30.5, name: "MT 挑釁換坦" }, { t: 33, name: "ST 對 MT 退避" });
   incinerate(21.3, 1, 1); incinerate(24.4, 2, 1); incinerate(28.5, 3, 1); // 第一組：ST 接
 
@@ -387,6 +393,7 @@ function step(dt) {
     else if (a.done && a.linger && S.t < a.t1 + a.linger) { a.onHit.call(a); if (S.over) return; }
   }
   S.aoes = S.aoes.filter((a) => S.t < a.t1 + a.linger + 0.4);
+  if (S.tank === 1 && S.mtRetakeAt && S.t >= S.mtRetakeAt && S.opts.role !== 0 && tankable(S.t)) { S.tank = 0; S.bossDyn = null; S.mtRetakeAt = 0; S.npcProvokeCd = S.t + 30; flash("MT 挑釁把王搶回去"); } // NPC 的 MT 等挑釁冷卻好了再搶回
   if (playerHolds(S.t)) {
     const spot = bossSpot(S.t).pos;
     if (!S.bossDyn) S.bossDyn = { x: spot.x, y: spot.y };
@@ -418,7 +425,7 @@ function useSkill(k) {
   }
   if (k === "shirk" && role <= 1 && S.cd.shirk <= t) { // 退避：把自己 25% 的仇恨轉給另一個坦克
     S.cd.shirk = t + 120;
-    if (S.tank === role) { S.tank = 1 - role; S.bossDyn = null; flash(`退避：仇恨轉給 ${ROLES[1 - role]}，王跑去他那邊`); }
+    if (S.tank === role) { S.tank = 1 - role; S.bossDyn = null; S.mtRetakeAt = 0; if (role === 1) S.shirked = true; flash(`退避：仇恨轉給 ${ROLES[1 - role]}，王跑去他那邊`); }
     else { if (role === 1) S.shirked = true; flash(`退避：仇恨丟給 ${ROLES[1 - role]}，不會再把王搶回來`); }
   }
   if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); }
@@ -433,7 +440,7 @@ function hint() {
     if (r === 1) {
       if (S.tank !== 1 && t < 30) return "你是 ST：現在按 3 挑釁接王（12 秒前沒接到算失敗），把王留在場中、自己站南側。";
       if (t < 28.6) return "王在你身上，會跟著你走：把牠留在場中，自己貼在王的南側，讓王面朝南、背對北邊的人群。21 秒起三連烈焰焚燒，20 秒左右按 2 開無敵。火神爆裂的擊退由 H2 上盾擋掉。";
-      return S.shirked ? "已退避。跟近戰一起去打釘子；炎獄之鎖會連你和一名輸出。" : "第三下焚燒打完，MT 會在 30.5 秒挑釁換坦。他一接走你就按 4 退避（36 秒前），不然仇恨會回到你身上。";
+      return S.shirked ? "已退避。跟近戰一起去打釘子；炎獄之鎖會連你和一名輸出。" : "第三下焚燒打完，MT 會在 30.5 秒挑釁換坦。他一接走你就按 4 退避。不退避不會馬上出事，但你繼續輸出，仇恨隨時可能追過 MT，王就會轉回來找你。";
     }
     if (r === 0) {
       if (t < 28.6) return "王在 ST 身上，你先跟人群站王的北側。第三下焚燒（28.5 秒）一打完，你要馬上按 3 挑釁換坦。";
@@ -449,6 +456,7 @@ function hint() {
       const far = DIR_NAME[S.nailDirs[r === 6 ? 3 : 2]], own = DIR_NAME[S.nailDirs[r === 6 ? 0 : 1]], mate = DIR_NAME[S.nailDirs[r === 6 ? 1 : 0]], way = r === 6 ? "順時針" : "逆時針";
       return `你是地火誘導，你負責${far}和${own}兩根，各炸兩次（另外兩根是 ${r === 6 ? "D4" : "D3"} 的，別炸到）。42 秒前站到${far}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，${way}沿外圈跑向${own}釘子，第 3 圈（50 秒）放在快到的地方，第 4 圈（52 秒）貼著${own}釘子外側放。後兩圈都要留在${own}釘子「遠離${mate}」的那一側，放完往第一根釘子那邊回人群。${fet}`;
     }
+    if (r === 1 && S.tank === 1) return "仇恨回到你身上了，王正往你這邊來，會面向打釘子的人：馬上按 4 退避把仇恨丟回給 MT；退避在冷卻的話就離開人群，把王帶回場中，等 MT 挑釁搶回。";
     const order = S.killOrder.map((n) => DIR_NAME[S.nailDirs[n]]).join(" → ");
     if (r === 0) return `你拉著王：把王留在場中（開輔助預兆會有藍圈），自己貼在王的另一側，讓王的正面背對打釘子的人。王離你超過 3 米就會跟過來，要挪牠的位置就往反方向走把牠拖過去。現在打${DIR_NAME[curNailDir(t)]}釘子，所以你要站在王的${dirName(curNailDir(t) * 45 + 180)}側（貼著王 3 米內牠就不會再跟著動）；釘子打掉換下一根（順序 ${order}），你就跟著繞到新的對面。王正面對著人群超過 3 秒算失敗。${fet}`;
     return `打釘子，順序（逆Z）：${order}。先在第一根釘子靠場中的那側等，前兩圈地火（49、51 秒）炸完再貼上去打，打掉一根就走去下一根。王由 MT 留在場中、背對你們。別擋到場邊的灼熱補師和放地火的 D3、D4。${fet}`;

@@ -1,0 +1,524 @@
+// 絕神兵・火神階段 機制模擬器（試作）
+// 俯視、可操作：WASD 移動、滑鼠拖曳／Q E 轉視角。走錯會死。
+// 時間與站位依 FFLogs 擊殺回放整理（以火神登場為 0 秒）；判定範圍為估計值，集中在 CFG，方便照實戰校正。
+"use strict";
+
+const CFG = {
+  R: 20,            // 場地半徑
+  speed: 6,         // 角色移動速度（米／秒）
+  plumeR: 9,        // 光輝炎柱半徑（估）
+  dashHalf: 9,      // 深紅旋風半寬（估：全寬 18）
+  crossHalf: 5,     // 覺醒十字半寬（估）
+  crossDelay: 0.8,  // 本體衝完到十字出現（估）
+  crossLinger: 2.2, // 十字持續（估）
+  eruptR: 5,        // 地火半徑（估）
+  eruptDelay: 3,    // 地火出圈到爆炸（回放實測）
+  swR: 14,          // 灼熱半徑（估）
+  swEvery: 3,       // 灼熱爆炸間隔（回放實測）
+  stackR: 4.5,      // 烈焰碎擊分攤半徑（估）
+  kb: 15,           // 火神爆裂擊退距離（估）
+  coneHalf: Math.PI / 3, // 烈焰焚燒扇形半角（估：120 度）
+  fetterMax: 10,    // 炎獄之鎖安全距離（估）
+  fetterGrace: 4,   // 拉遠累計幾秒算失敗
+};
+const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
+const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
+const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
+const dirName = (deg) => DIR_NAME[Math.round((((deg % 360) + 360) % 360) / 45) % 8];
+// 時間與站位依 FFLogs 日本區五筆擊殺回放整理（0 秒＝火神登場開始詠唱深紅旋風）。
+// 97 秒之後（烈焰碎擊、四連深紅旋風、收尾）在現行輸出下通常打不到，那一段沿用時間軸資料，站位非回放實測。
+const CHECKPOINTS = [
+  { t: 0, name: "開場：登場衝鋒＋炎柱" },
+  { t: 36, name: "釘子、灼熱、第一輪地火" },
+  { t: 68, name: "拉角落、第二輪地火、分身衝鋒" },
+  { t: 97, name: "延長段：烈焰碎擊" },
+  { t: 112, name: "延長段：四連深紅旋風" },
+  { t: 129, name: "延長段：收尾" },
+];
+const KILL_T = 97;   // 現行輸出下火神大約在這時被擊殺
+const END_T = 158;
+const NAIL_DEATH = [54, 57, 60, 62.5];
+const DASH_T = [121.1, 122.5, 124.0, 125.4];
+
+const rad = (deg) => (deg * Math.PI) / 180;
+const polar = (deg, r) => ({ x: Math.sin(rad(deg)) * r, y: -Math.cos(rad(deg)) * r });
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const lerp = (a, b, k) => ({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k });
+const clamp01 = (v) => Math.max(0, Math.min(1, v));
+function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// 到「通過場中、方向為 deg 的直線」的垂直距離
+const perp = (p, deg) => Math.abs(p.x * Math.cos(rad(deg)) + p.y * Math.sin(rad(deg)));
+
+const S = { opts: { role: 6, start: 0, speed: 1, assist: true, hints: true, god: false, full: true } };
+
+function reset() {
+  const o = S.opts;
+  const rnd = mulberry32((Date.now() ^ (Math.random() * 1e9)) | 0);
+  const ri = (n) => Math.floor(rnd() * n);
+  S.rnd = rnd;
+  S.t = o.start;
+  S.over = null;
+  S.paused = false;
+  S.aoes = [];
+  S.casts = [];
+  S.tl = [];
+  S.log = [];
+  S.fetterApart = 0;
+  S.crushMark = null;
+  S.flashRings = [];
+  S.keys = S.keys || {};
+  S.cam = S.cam || 0;
+  S.zoom = S.zoom || 1;
+  S.buff = { antiKb: -1, invuln: -1, sprint: -1 };
+  S.cd = { antiKb: 0, invuln: 0, sprint: 0 };
+  S.fireRes = false;
+  // 這一把的隨機內容
+  S.bossCard = ri(4);                        // 開場火神出現的正點（0北 1東 2南 3西）
+  S.k = ri(8);                               // 釘子基準方位
+  S.nailDirs = [S.k, S.k + 1, S.k + 3, S.k + 6].map((d) => d % 8); // [近A, 近B, 遠, 遠]：相鄰兩根＋分開兩根
+  S.killOrder = [2, 3, 1, 0];                // 逆Z：先打分開的兩根（k+3 → k+6），再打相鄰的兩根（k+1 → k）
+  S.closeDeg = S.k * 45 + 22.5;              // 相鄰兩根釘子的中間方位：王往這邊拉
+  S.realIdx = ri(4);                         // 四連衝鋒裡第幾隻是本體（覺醒，會留十字）
+  S.cornerDeg = ri(2) ? 45 : 135;            // 第二輪全隊去的角落：東北或東南
+  S.fetterDps = 4 + ri(2);                   // 炎獄之鎖：MT＋一名近戰（回放裡是隨機輸出，這裡簡化成近戰）
+  const h1 = 2 + ri(2), h2 = 2 + ri(2);
+  S.sw = [
+    { who: h1, t0: 43.8, first: 45.7, last: 60.7 },
+    { who: h2, t0: 82.6, first: 84.5, last: 111.5 },
+    { who: h2 === 2 ? 3 : 2, t0: 100.6, first: 102.5, last: 114.5 },
+  ];
+  S.crush1 = 4 + ri(4);
+  S.crush2 = 4 + ri(4);
+  S.ents = ROLES.map((_, i) => ({ ...home(i, o.start), i, face: 0 }));
+  S.events = buildEvents().filter((e) => e.t >= o.start - 1e-6).sort((a, b) => a.t - b.t);
+  S.evIdx = 0;
+}
+
+// ---------- 王、分身、釘子 ----------
+const nailBossSpot = () => polar(S.closeDeg, 5);
+const cornerBossSpot = () => polar(S.cornerDeg, 13);
+function bossState(t) {
+  const c = S.bossCard * 90;
+  if (t < 3) return { pos: polar(c, 19.5), vis: true };
+  if (t < 5) return { pos: lerp(polar(c, 19.5), polar(c + 180, 19.5), clamp01((t - 3) / 0.5)), vis: true };
+  if (t < 7.2) return { pos: lerp(polar(c + 180, 19.5), { x: 0, y: 0 }, clamp01((t - 5) / 2)), vis: true };
+  if (t < 39) return { pos: { x: 0, y: 0 }, vis: true };
+  if (t < 66) return { pos: lerp({ x: 0, y: 0 }, nailBossSpot(), clamp01((t - 39) / 3)), vis: true };
+  if (t < 78) return { pos: { x: 0, y: 0 }, vis: t >= 70.3 };
+  if (t < 113.6) return { pos: lerp({ x: 0, y: 0 }, cornerBossSpot(), clamp01((t - 78) / 6)), vis: true };
+  if (t < 129.5) return { pos: { x: 0, y: 0 }, vis: false };
+  return { pos: { x: 0, y: 0 }, vis: true };
+}
+function dashers(t) { // 四連衝鋒的四隻，其中一隻是本體
+  if (t < 115 || t > 127) return [];
+  return S.killOrder.map((nail, n) => {
+    const d = S.nailDirs[nail] * 45;
+    const k = clamp01((t - DASH_T[n]) / 0.35);
+    return { pos: lerp(polar(d, 19.5), polar(d + 180, 19.5), k), n, real: n === S.realIdx, gone: t > DASH_T[n] + 1.2 };
+  }).filter((c) => !c.gone);
+}
+function nails(t) {
+  if (t < 31.6) return [];
+  return S.nailDirs.map((d, i) => ({ pos: polar(d * 45, 10), i, order: S.killOrder.indexOf(i), dead: t >= NAIL_DEATH[S.killOrder.indexOf(i)] })).filter((n) => !n.dead);
+}
+const swActive = (t) => S.sw.filter((s) => t >= s.t0 && t <= s.last + 0.2);
+const hasSw = (i, t) => swActive(t).some((s) => s.who === i);
+const swIdx = (i, t) => S.sw.findIndex((s) => s.who === i && t >= s.t0 - 1 && t <= s.last + 0.2);
+const fetterOn = (t) => t >= 40.8 && t < 66;
+
+// ---------- NPC 站位（依回放） ----------
+const CENTER_HOME = [[180, 5], [270, 3.5], [-15, 5.5], [15, 5.5], [-28, 4], [28, 4], [-8, 7], [8, 7]];
+function home(i, t) {
+  // 開場：火神在東西就去北，在南北就去西，貼場邊
+  if (t < 9) return polar((S.bossCard % 2 ? 0 : 270) + (i - 3.5) * 3, 17.5);
+  // 四連衝鋒前先靠到第一隻的垂直方向，之後交給路徑規劃
+  if (t >= 113 && t < 129.5) return polar(S.nailDirs[S.killOrder[0]] * 45 + 90 + (i - 3.5) * 2, 17);
+  const center = () => polar(CENTER_HOME[i][0], CENTER_HOME[i][1]);
+  if (t < 38) return center();
+  if (t < 66) {
+    // 釘子期：王往相鄰兩根釘子拉；灼熱補師去正對面場邊；D3、D4 從分開的釘子跑到相鄰的釘子放地火
+    const cd = S.closeDeg;
+    if (swIdx(i, t) === 0 && t < 62) return polar(cd + 180, 18);
+    if (i === 6 && t < 52.2) return polar((S.k + 6) * 45 + clamp01((t - 46.2) / 4.875) * 112.5, 14.5); // 遠釘 → 近A → 兩根相鄰釘子中間
+    if (i === 7 && t < 52.2) return polar((S.k + 3) * 45 - clamp01((t - 46.2) / 4.875) * 112.5, 14.5); // 遠釘 → 近B → 兩根相鄰釘子中間
+    if (i === 0) return polar(cd, 7.5);
+    return [null, polar(cd + 180, 2), polar(cd + 160, 4), polar(cd + 200, 4), polar(cd - 70, 3), polar(cd + 70, 3), polar(cd + 150, 2.5), polar(cd + 210, 2.5)][i];
+  }
+  if (t < 78) return center();
+  if (t >= 129.5) {
+    if (S.crushMark && S.crushMark.until > t || t >= 153.5) return polar((i - 3.5) * 3, 4.5); // 最後分攤：王背後（北）
+    if ((i === 6 || i === 7) && t >= 141.5 && t < 151) return polar(i === 6 ? -30 - Math.max(0, t - 144) * 14 : 30 + Math.max(0, t - 144) * 14, 17);
+    return center();
+  }
+  // 78 ≤ t < 113：全隊貼角落場邊
+  const P = S.cornerDeg;
+  if (swIdx(i, t) === 1 && t >= 81.7) return polar(P - 90, 18);
+  if (swIdx(i, t) === 2 && t >= 99.7) return polar(P + 180, 18);
+  if (S.crushMark && S.crushMark.until > t) return polar(P + (i - 3.5) * 1.2, 17.6 + (i % 2) * 0.7); // 分攤：擠在一起
+  if ((i === 6 || i === 7) && t >= 79 && t < 93) return polar(P + 135 - clamp01((t - 84.9) / 8) * 135 + (i === 7 ? 4 : 0), 18); // 第二輪地火：從遠處沿牆跑回角落
+  if (i === 0) return polar(P, 18.8);
+  return polar(P + [0, -7, 5, -5, -3, 3, 7, 8][i], 17.4 + (i % 2) * 0.8);
+}
+
+// ---------- 事件 ----------
+function addAoe(a) { S.aoes.push({ linger: 0, assistOnly: false, done: false, ...a }); }
+const circleAoe = (c, r) => ({ hit: (p, m = 0) => dist(p, c) <= r + m, draw: (g, k) => { g.beginPath(); g.arc(c.x, c.y, r, 0, 7); fillAoe(g, k); } });
+const stripAoe = (deg, half) => ({ hit: (p, m = 0) => perp(p, deg) <= half + m, draw: (g, k) => { g.save(); g.rotate(rad(deg)); g.beginPath(); g.rect(-half, -CFG.R, half * 2, CFG.R * 2); fillAoe(g, k); g.restore(); } });
+const crossAoe = (deg, half) => { const a = stripAoe(deg, half), b = stripAoe(deg + 90, half); return { hit: (p, m) => a.hit(p, m) || b.hit(p, m), draw: (g, k) => { a.draw(g, k); b.draw(g, k); } }; };
+function coneAoe(from, to, half, len) {
+  const ang = () => Math.atan2(to().y - from().y, to().x - from().x);
+  return {
+    hit: (p, m = 0) => { const f = from(); const d = dist(p, f); if (d > len) return false; if (d < 0.01) return true; let da = Math.atan2(p.y - f.y, p.x - f.x) - ang(); da = Math.atan2(Math.sin(da), Math.cos(da)); return Math.abs(da) <= half + m / Math.max(d, 1); },
+    draw: (g, k) => { const f = from(), a = ang(); g.beginPath(); g.moveTo(f.x, f.y); g.arc(f.x, f.y, len, a - half, a + half); g.closePath(); fillAoe(g, k); },
+  };
+}
+function fillAoe(g, k) { g.fillStyle = `rgba(255,120,40,${0.14 + 0.3 * k})`; g.fill(); g.lineWidth = 0.12; g.strokeStyle = `rgba(255,170,90,${0.5 + 0.4 * k})`; g.stroke(); }
+
+function buildEvents() {
+  const ev = [];
+  const full = S.opts.full;
+  const at = (t, run, name) => { if (!full && t > KILL_T) return; ev.push({ t, run }); if (name) S.tl.push({ t, name }); };
+  const cast = (name, t0, t1) => { if (full || t1 <= KILL_T) S.casts.push({ name, t0, t1 }); };
+  const me = () => S.ents[S.opts.role];
+  const boss = () => bossState(S.t).pos;
+  const lethal = (label) => function () { if (this.hit(me())) die(label); };
+
+  // 開場：登場衝鋒＋光輝炎柱
+  cast("深紅旋風", 0, 3);
+  at(0, () => {
+    addAoe({ ...stripAoe(S.bossCard * 90, CFG.dashHalf), t0: 0, t1: 3, assistOnly: true, onHit: lethal("被登場的深紅旋風撞到") });
+    for (const c of [polar(45, 13), polar(135, 13), polar(225, 13), polar(315, 13), { x: 0, y: 0 }]) addAoe({ ...circleAoe(c, CFG.plumeR), t0: 0.3, t1: 4, onHit: lethal("站在光輝炎柱裡") });
+  }, "深紅旋風＋光輝炎柱");
+  S.tl.push({ t: 3, name: "深紅旋風結算" }, { t: 4, name: "光輝炎柱結算" });
+
+  const hellfire = (t) => { cast("地獄之火炎", t - 3, t); at(t, () => flash("地獄之火炎：全場大傷"), "地獄之火炎（全場）"); };
+  hellfire(10.3);
+
+  cast("火神爆裂", 15.5, 18.5);
+  at(18.5, () => {
+    if (S.buff.antiKb > S.t) return flash("火神爆裂：已防擊退");
+    const b = boss(), p = me(), d = Math.max(dist(p, b), 0.01);
+    const nx = p.x + ((p.x - b.x) / d) * CFG.kb, ny = p.y + ((p.y - b.y) / d) * CFG.kb;
+    if (Math.hypot(nx, ny) >= CFG.R - 0.3) return die("火神爆裂：被擊退撞上場邊（先按 1 防擊退）");
+    p.x = nx; p.y = ny; flash("火神爆裂：被擊退");
+  }, "火神爆裂（擊退）");
+
+  const incinerate = (t, n) => {
+    cast("烈焰焚燒", t - 1.2, t);
+    at(t - 1.5, () => addAoe({
+      ...coneAoe(boss, () => S.ents[0], CFG.coneHalf, 22), t0: S.t, t1: t, assistOnly: true, skip: [0],
+      onHit() {
+        const role = S.opts.role;
+        if (role === 0) {
+          const cleaved = S.ents.filter((e) => e.i !== 0 && this.hit(e));
+          if (cleaved.length) return die(`烈焰焚燒順劈到隊友（${cleaved.map((e) => ROLES[e.i]).join("、")}）：MT 站王的南側，讓王背對人群`);
+          if (S.fireRes && S.buff.invuln <= S.t) return die("烈焰焚燒：帶著火耐性下降硬吃第二下（先按 2 開無敵）");
+          S.fireRes = true; flash(`烈焰焚燒 ${n}/3`);
+        } else if (this.hit(me())) die("站在王正面吃到烈焰焚燒（非坦克站王的北側）");
+      },
+    }), `烈焰焚燒 ${n}/3（MT 順劈）`);
+  };
+  incinerate(21.3, 1); incinerate(24.4, 2); incinerate(28.5, 3);
+  at(31, () => { S.fireRes = false; });
+
+  at(31.6, () => flash("炎獄之楔出現：數字是擊殺順序（逆Z）"), "炎獄之楔 ×4");
+  at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：MT 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
+  NAIL_DEATH.forEach((t, n) => at(t, () => flash(`第 ${n + 1} 根釘子爆炸：全場傷害`), `釘子 ${n + 1} 爆炸`));
+
+  // 灼熱：每 3 秒以帶原者為中心爆炸
+  S.sw.forEach((s, n) => {
+    cast("灼熱咆哮", s.t0 - 2.8, s.t0 - 0.9);
+    at(s.t0, () => flash(`灼熱：${ROLES[s.who]}`), `灼熱咆哮 → ${ROLES[s.who]}`);
+    for (let t = s.first; t <= s.last + 1e-6; t += CFG.swEvery) at(t, () => {
+      const c = S.ents[s.who], role = S.opts.role;
+      S.flashRings.push({ c: { x: c.x, y: c.y }, r: CFG.swR, until: S.t + 0.4 });
+      if (role === s.who) { const v = S.ents.filter((e) => e.i !== role && dist(e, c) <= CFG.swR); if (v.length) die(`你的灼熱炸到隊友（${v.map((e) => ROLES[e.i]).join("、")}）：帶著灼熱要離所有人 ${CFG.swR} 米以上`); }
+      else if (dist(me(), c) <= CFG.swR) die(`被 ${ROLES[s.who]} 的灼熱炸到（離他 ${CFG.swR} 米以上）`);
+    });
+  });
+
+  // 地火：四連，每 2 秒一輪，出圈 3 秒後爆炸
+  const eruptions = (first, pick, label) => {
+    cast("地火", first - CFG.eruptDelay - 1, first - CFG.eruptDelay);
+    for (let n = 0; n < 4; n++) {
+      const hitT = first + 2 * n;
+      at(hitT - CFG.eruptDelay, () => { const who = pick(); for (const i of who) addAoe({ ...circleAoe({ x: S.ents[i].x, y: S.ents[i].y }, CFG.eruptR), t0: S.t, t1: hitT, skipHome: who, onHit: lethal("站在地火裡") }); }, n === 0 ? label : null);
+    }
+  };
+  const furthest2 = () => S.ents.slice().sort((a, b) => dist(b, boss()) - dist(a, boss())).slice(0, 2).map((e) => e.i);
+  eruptions(49.1, () => [6, 7], "地火 ×4（點 D3、D4）");
+  at(66, () => flash("火神跳走，回場中集合"));
+  hellfire(73.4);
+  eruptions(87.9, () => [6, 7], "地火 ×4（點 D3、D4）");
+
+  // 分身：固定從南、東兩個正點同時衝過場中
+  cast("深紅旋風（分身 ×2）", 91.8, 94.8);
+  at(91.8, () => { for (const d of [180, 90]) addAoe({ ...stripAoe(d, CFG.dashHalf), t0: S.t, t1: 94.8, assistOnly: true, onHit: lethal("被分身的深紅旋風撞到（站四個斜角才安全）") }); }, "分身深紅旋風 ×2（南、東）");
+  if (!full) { ev.push({ t: KILL_T, run: () => { S.over = { win: true, reason: "火神被擊殺（現行輸出大約打到這裡）" }; } }); S.tl.sort((a, b) => a.t - b.t); return ev; }
+  at(KILL_T, () => flash("延長段：假設輸出不夠，火神還活著"));
+
+  const crush = (t, who) => {
+    cast("烈焰碎擊", t - 5, t);
+    at(t - 5, () => { S.crushMark = { who, until: t }; flash(`烈焰碎擊點名 ${ROLES[who]}：分攤`); }, `烈焰碎擊（分攤 ${ROLES[who]}）`);
+    at(t, () => {
+      const c = S.ents[who], role = S.opts.role, p = me();
+      const inside = S.ents.filter((e) => dist(e, c) <= CFG.stackR);
+      S.flashRings.push({ c: { x: c.x, y: c.y }, r: CFG.stackR, until: S.t + 0.5 });
+      if (hasSw(role, S.t)) { if (dist(p, c) <= CFG.swR) die("帶著灼熱靠近分攤人群"); return; }
+      if (role === who && inside.length < 5) return die(`烈焰碎擊分攤人數不足（${inside.length} 人）：被點名要回人群`);
+      if (dist(p, c) > CFG.stackR) die("沒進烈焰碎擊的分攤");
+    });
+  };
+  crush(109.6, S.crush1);
+
+  // 四連深紅旋風＋覺醒十字
+  at(115, () => {
+    flash("四隻火神就位：依釘子擊殺順序衝鋒");
+    S.killOrder.forEach((nail, n) => addAoe({ ...stripAoe(S.nailDirs[nail] * 45, CFG.dashHalf), t0: S.t, t1: DASH_T[n], assistOnly: true, order: n, onHit: lethal(`被第 ${n + 1} 隻的深紅旋風撞到`) }));
+    const realDir = S.nailDirs[S.killOrder[S.realIdx]], ct = DASH_T[S.realIdx];
+    addAoe({ ...crossAoe(realDir % 2 === 0 ? 45 : 0, CFG.crossHalf), t0: ct, t1: ct + CFG.crossDelay, linger: CFG.crossLinger, isCross: true, onHit: lethal("踩到覺醒火神留下的十字火焰") });
+    for (const e of S.ents) e.plan = planPath(e);
+  }, "四連深紅旋風");
+  DASH_T.forEach((t, n) => S.tl.push({ t, name: `深紅旋風 ${n + 1}/4` }));
+
+  incinerate(133.6, 1); incinerate(136.7, 2); incinerate(140.8, 3);
+  at(129.5, () => { S.fireRes = false; });
+  eruptions(147, furthest2, "地火 ×4（點離王最遠兩人）");
+  crush(156, S.crush2);
+  at(END_T, () => { S.over = { win: true, reason: "火神階段（含延長段）通過" }; });
+  S.tl.sort((a, b) => a.t - b.t);
+  return ev;
+}
+
+function flash(msg) { S.log.unshift({ msg, t: S.t }); S.log.length = Math.min(S.log.length, 5); }
+function die(reason) { if (S.opts.god) return flash("（觀摩模式）" + reason); if (!S.over) S.over = { win: false, reason, t: S.t }; }
+
+// ---------- 更新 ----------
+function dangerAt(p, i, isHome) {
+  for (const a of S.aoes) if (!a.done && a.t0 <= S.t && a.t1 - S.t < 2.6 && !(a.skip && a.skip.includes(i)) && !(isHome && a.skipHome && a.skipHome.includes(i)) && a.hit(p, 1.3)) return true;
+  for (const a of S.aoes) if (a.done && a.linger && S.t < a.t1 + a.linger && a.hit(p, 1.3)) return true;
+  for (const s of swActive(S.t)) if (s.who !== i && dist(p, S.ents[s.who]) < CFG.swR + 1.5) return true;
+  return false;
+}
+// 在「每個結算時間點都安全、且相鄰兩點走得到」的條件下，找一串落腳點
+function planPath(e) {
+  const pend = S.aoes.filter((a) => !a.done);
+  const times = [...new Set(pend.flatMap((a) => [a.t1, ...(a.linger ? [0.34, 0.67, 1].map((k) => a.t1 + a.linger * k) : [])]))].sort((x, y) => x - y);
+  const cands = [];
+  for (const r of [17.5, 12, 6]) for (let k = 0; k < 32; k++) cands.push(polar(k * 11.25, r));
+  const safe = (c, tt) => !pend.some((a) => (Math.abs(a.t1 - tt) < 1e-6 || (a.linger && tt > a.t1 && tt <= a.t1 + a.linger + 1e-6)) && a.hit(c, 0.6));
+  let layer = [{ pos: { x: e.x, y: e.y }, prev: null, t: S.t }];
+  for (const tt of times) {
+    const next = [];
+    for (const c of cands) {
+      if (!safe(c, tt)) continue;
+      let best = null, bd = 1e9;
+      for (const n of layer) {
+        const d = dist(n.pos, c);
+        if (d > CFG.speed * (tt - n.t) * 0.9 || d >= bd) continue;
+        // 路上不能穿過還在燒的十字
+        if (pend.some((a) => a.linger && tt > a.t1 && n.t < a.t1 + a.linger && [0.25, 0.5, 0.75].some((k) => a.hit(lerp(n.pos, c, k), 0.6)))) continue;
+        bd = d; best = n;
+      }
+      if (best) next.push({ pos: c, prev: best, t: tt });
+    }
+    if (!next.length) return null;
+    layer = next;
+  }
+  const out = []; for (let n = layer[0]; n && n.prev; n = n.prev) out.unshift({ t: n.t, pos: n.pos });
+  return out;
+}
+function npcTarget(e) {
+  if (e.plan && S.t >= 115 && S.t < 128.5) { const w = e.plan.find((x) => x.t >= S.t); if (w) return w.pos; }
+  const h = home(e.i, S.t);
+  if (!dangerAt(h, e.i, true)) return h;
+  if (!dangerAt(e, e.i)) return e;
+  let best = null, bd = 1e9;
+  for (const r of [2, 4, 6, 9, 12, 15, 18]) for (let k = 0; k < 24; k++) {
+    const q = { x: e.x + Math.sin(k * 0.2618) * r, y: e.y - Math.cos(k * 0.2618) * r };
+    if (Math.hypot(q.x, q.y) > CFG.R - 1 || dangerAt(q, e.i)) continue;
+    if (r < bd) { bd = r; best = q; }
+  }
+  return best || h;
+}
+function step(dt) {
+  if (S.over || S.paused) return;
+  S.t += dt;
+  while (S.evIdx < S.events.length && S.events[S.evIdx].t <= S.t) { S.events[S.evIdx++].run(); if (S.over) return; }
+  const role = S.opts.role, p = S.ents[role];
+  // 玩家移動（相對於鏡頭）
+  const kx = (S.keys.KeyD ? 1 : 0) - (S.keys.KeyA ? 1 : 0), ky = (S.keys.KeyS ? 1 : 0) - (S.keys.KeyW ? 1 : 0);
+  if (kx || ky) {
+    const n = Math.hypot(kx, ky), sx = kx / n, sy = ky / n, c = Math.cos(S.cam), s = Math.sin(S.cam);
+    const wx = sx * c - sy * s, wy = sx * s + sy * c, sp = CFG.speed * (S.buff.sprint > S.t ? 1.3 : 1) * dt;
+    p.x += wx * sp; p.y += wy * sp; p.face = Math.atan2(wy, wx);
+    const d = Math.hypot(p.x, p.y), lim = CFG.R - 0.4; if (d > lim) { p.x *= lim / d; p.y *= lim / d; }
+  }
+  for (const e of S.ents) {
+    if (e.i === role) continue;
+    const tg = npcTarget(e), d = dist(e, tg);
+    if (d > 0.05) { const sp = Math.min(d, CFG.speed * 1.15 * dt); e.face = Math.atan2(tg.y - e.y, tg.x - e.x); e.x += ((tg.x - e.x) / d) * sp; e.y += ((tg.y - e.y) / d) * sp; }
+  }
+  for (const a of S.aoes) {
+    if (!a.done && S.t >= a.t1) { a.done = true; a.onHit.call(a); if (S.over) return; }
+    else if (a.done && a.linger && S.t < a.t1 + a.linger) { a.onHit.call(a); if (S.over) return; }
+  }
+  S.aoes = S.aoes.filter((a) => S.t < a.t1 + a.linger + 0.4);
+  if (fetterOn(S.t) && (role === 0 || role === S.fetterDps)) {
+    const other = S.ents[role === 0 ? S.fetterDps : 0];
+    if (dist(p, other) > CFG.fetterMax) { S.fetterApart += dt; if (S.fetterApart > CFG.fetterGrace) die(`炎獄之鎖拉太遠太久（和 ${ROLES[other.i]} 保持 ${CFG.fetterMax} 米內）`); }
+  }
+}
+function useSkill(k) {
+  if (S.over) return;
+  const role = S.opts.role, t = S.t;
+  if (k === "antiKb" && S.cd.antiKb <= t) { S.buff.antiKb = t + 6; S.cd.antiKb = t + 30; flash("防擊退 6 秒"); }
+  if (k === "invuln" && role <= 1 && S.cd.invuln <= t) { S.buff.invuln = t + 10; S.cd.invuln = t + 90; flash("無敵 10 秒"); }
+  if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); }
+}
+
+// ---------- 提示 ----------
+function hint() {
+  const t = S.t, r = S.opts.role, c = S.bossCard * 2, cd = S.closeDeg, P = S.cornerDeg;
+  const near = `${DIR_NAME[S.nailDirs[0]]}、${DIR_NAME[S.nailDirs[1]]}`;
+  if (t < 5) return `火神在${DIR_NAME[c]}邊，會直線衝過場中，同時場上有炎柱。全隊去${S.bossCard % 2 ? "北" : "西"}邊貼場邊。`;
+  if (t < 19) return r === 0 ? "回場中。MT 站王的南側 5 米。火神爆裂會擊退：先按 1 防擊退。" : "回場中，站王的北側 4～5 米。火神爆裂會擊退：先按 1 防擊退，被推到場邊會死。";
+  if (t < 31) return r === 0 ? "你是 MT：留在王的南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "三連烈焰焚燒是朝南的坦克正面扇形：留在王的北側。";
+  if (t < 66) {
+    if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 3 秒炸一次。`;
+    if (r === 6 && t < 56) return `你是地火誘導：先站在${DIR_NAME[S.nailDirs[3]]}那根釘子外側，第一個圈一出來就順時針繞著跑，第三個圈放在${DIR_NAME[S.nailDirs[0]]}那根釘子外側，再往前一點到兩根相鄰釘子中間放第四個。放完回場中。`;
+    if (r === 7 && t < 56) return `你是地火誘導：先站在${DIR_NAME[S.nailDirs[2]]}那根釘子外側，第一個圈一出來就逆時針繞著跑，第三個圈放在${DIR_NAME[S.nailDirs[1]]}那根釘子外側，再往前一點到兩根相鄰釘子中間放第四個。放完回場中。`;
+    const fet = r === 0 || r === S.fetterDps ? `你和 ${ROLES[r === 0 ? S.fetterDps : 0]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
+    if (r === 0) return `把王往${near}兩根相鄰釘子的方向拉 5 米，自己站更外側。${fet}釘子照數字順序打（逆Z：先分開的兩根，再相鄰的兩根）。`;
+    return `王被拉向${near}兩根相鄰的釘子，待在王靠場中的那一側。別靠近場邊的灼熱補師與跑地火的 D3、D4。${fet}`;
+  }
+  if (t < 78) return "火神跳走，全隊回場中吃地獄之火炎。";
+  if (t < 97) {
+    if (swIdx(r, t) === 1) return `你被點灼熱：去${dirName(P - 90)}角場邊，離人群遠遠的。`;
+    if ((r === 6 || r === 7) && t < 94) return `第二輪地火誘導：先去${dirName(P + 135)}邊場邊，圈出來後沿場邊跑回${dirName(P)}角的人群，四個圈放在路上。`;
+    return r === 0 ? `把王拉到${dirName(P)}角，自己貼場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有斜角安全。` : `全隊貼${dirName(P)}角場邊。兩隻分身會從南、東兩個正點同時衝過場中，只有四個斜角安全。`;
+  }
+  if (t < 113) {
+    if (hasSw(r, t)) return `你有灼熱：留在場邊別回人群（第二個被點的去${dirName(P + 180)}角）。`;
+    return `延長段。烈焰碎擊：沒有灼熱的人在${dirName(P)}角集合分攤，被點名的人也要留在人群。`;
+  }
+  if (t < 129.5) return "四連深紅旋風：四隻站在釘子的方位，依釘子擊殺順序 1→4 衝過場中，每條線都很寬。站在還沒輪到或已經衝過的線之外，一隻衝完就換位。比較大的那隻是本體，牠衝完會留十字火焰：起點在正點留斜十字，在斜點留正十字。";
+  if (t < 143) return r === 0 ? "王回場中：站南側，按 2 開無敵吃三連烈焰焚燒。" : "王回場中：站王的北側。";
+  if (t < 153.5) return "地火點離王最遠的兩個人：不想被點就靠近王；被點就持續走位，別把圈放在人群裡。";
+  return "最後一次烈焰碎擊：全員到王的北側集合分攤。";
+}
+
+// ---------- 繪製 ----------
+let cv, g, W = 600;
+function toScreen(p) { const sc = (W / 2 / (CFG.R + 4)) * S.zoom, c = Math.cos(-S.cam), s = Math.sin(-S.cam); return { x: W / 2 + (p.x * c - p.y * s) * sc, y: W / 2 + (p.x * s + p.y * c) * sc }; }
+function label(p, text, color, size = 12, dy = 0) { const q = toScreen(p); g.font = `600 ${size}px "Fira Sans",system-ui,sans-serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.lineWidth = 3; g.strokeStyle = "rgba(2,6,23,.85)"; g.strokeText(text, q.x, q.y + dy); g.fillStyle = color; g.fillText(text, q.x, q.y + dy); }
+function draw() {
+  const sc = (W / 2 / (CFG.R + 4)) * S.zoom, t = S.t, role = S.opts.role;
+  g.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  g.fillStyle = "#020617"; g.fillRect(0, 0, W, W);
+  g.save(); g.translate(W / 2, W / 2); g.rotate(-S.cam); g.scale(sc, sc);
+  g.beginPath(); g.arc(0, 0, CFG.R, 0, 7); g.fillStyle = "#141a2e"; g.fill(); g.lineWidth = 0.5; g.strokeStyle = "#b4532a"; g.stroke();
+  g.lineWidth = 0.05; g.strokeStyle = "rgba(255,255,255,.07)";
+  for (const r of [5, 10, 15]) { g.beginPath(); g.arc(0, 0, r, 0, 7); g.stroke(); }
+  for (let d = 0; d < 4; d++) { g.save(); g.rotate(rad(d * 45)); g.beginPath(); g.moveTo(0, -CFG.R); g.lineTo(0, CFG.R); g.stroke(); g.restore(); }
+  g.save(); g.beginPath(); g.arc(0, 0, CFG.R, 0, 7); g.clip();
+  for (const a of S.aoes) {
+    if (a.assistOnly && !S.opts.assist) continue;
+    if (t < a.t0) continue;
+    if (a.isCross && t < a.t1 && !S.opts.assist) continue;
+    const k = a.done ? 1 : clamp01((t - a.t0) / Math.max(a.t1 - a.t0, 0.01));
+    if (a.done && !a.linger && t > a.t1 + 0.35) continue;
+    a.draw(g, k);
+  }
+  g.restore();
+  for (const s of swActive(t)) { const c = S.ents[s.who]; g.beginPath(); g.arc(c.x, c.y, CFG.swR, 0, 7); g.setLineDash([0.6, 0.6]); g.lineWidth = 0.15; g.strokeStyle = "rgba(255,90,90,.8)"; g.stroke(); g.setLineDash([]); }
+  S.flashRings = S.flashRings.filter((f) => f.until > t);
+  for (const f of S.flashRings) { g.beginPath(); g.arc(f.c.x, f.c.y, f.r, 0, 7); g.fillStyle = "rgba(255,200,120,.35)"; g.fill(); }
+  if (fetterOn(t)) { const a = S.ents[0], b = S.ents[S.fetterDps]; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 0.25; g.strokeStyle = dist(a, b) > CFG.fetterMax ? "#ff4d4d" : "#ffb347"; g.stroke(); }
+  for (const n of nails(t)) { g.beginPath(); g.arc(n.pos.x, n.pos.y, 1.1, 0, 7); g.fillStyle = "#d9480f"; g.fill(); }
+  const b = bossState(t);
+  const drawIfrit = (pos, faceTo, real) => { g.beginPath(); g.arc(pos.x, pos.y, real ? 3 : 2.4, 0, 7); g.fillStyle = real ? "#c2410c" : "#9a3412"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fdba74"; g.stroke(); if (faceTo) { const a = Math.atan2(faceTo.y - pos.y, faceTo.x - pos.x); g.beginPath(); g.moveTo(pos.x + Math.cos(a) * 4.2, pos.y + Math.sin(a) * 4.2); g.lineTo(pos.x + Math.cos(a + 0.5) * 2.6, pos.y + Math.sin(a + 0.5) * 2.6); g.lineTo(pos.x + Math.cos(a - 0.5) * 2.6, pos.y + Math.sin(a - 0.5) * 2.6); g.closePath(); g.fillStyle = "#fdba74"; g.fill(); } };
+  if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[0], true);
+  if (t >= 91.8 && t < 95.7) for (const d of [180, 90]) drawIfrit(lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), { x: 0, y: 0 }, false);
+  const ds = dashers(t);
+  for (const c of ds) drawIfrit(c.pos, { x: 0, y: 0 }, c.real);
+  for (const e of S.ents) {
+    g.beginPath(); g.arc(e.x, e.y, 0.75, 0, 7); g.fillStyle = ROLE_COLOR[e.i]; g.globalAlpha = e.i === role ? 1 : 0.8; g.fill(); g.globalAlpha = 1;
+    if (e.i === role) { g.lineWidth = 0.22; g.strokeStyle = "#fff"; g.stroke(); g.beginPath(); g.moveTo(e.x + Math.cos(e.face) * 1.5, e.y + Math.sin(e.face) * 1.5); g.lineTo(e.x + Math.cos(e.face + 2.5) * 0.8, e.y + Math.sin(e.face + 2.5) * 0.8); g.lineTo(e.x + Math.cos(e.face - 2.5) * 0.8, e.y + Math.sin(e.face - 2.5) * 0.8); g.closePath(); g.fillStyle = "#fff"; g.fill(); }
+    if (S.crushMark && S.crushMark.until > t && S.crushMark.who === e.i) { g.beginPath(); g.arc(e.x, e.y, CFG.stackR, 0, 7); g.lineWidth = 0.2; g.strokeStyle = "#ffd166"; g.stroke(); }
+  }
+  g.restore();
+  DIR_NAME.forEach((m, d) => label(polar(d * 45, CFG.R + 2), m, d === 0 ? "#f8fafc" : d % 2 ? "rgba(174,185,204,.45)" : "#aeb9cc", d % 2 ? 11 : 13));
+  for (const n of nails(t)) label(n.pos, String(n.order + 1), "#fff", 12);
+  if (S.opts.assist) for (const c of ds) label(c.pos, String(c.n + 1), "#fff", 13);
+  for (const e of S.ents) label(e, e.i === role ? "你 " + ROLES[e.i] : ROLES[e.i], e.i === role ? "#fff" : "#cbd5e1", e.i === role ? 12 : 10, -15);
+  for (const s of swActive(t)) label(S.ents[s.who], "灼熱", "#ff8080", 10, 14);
+  // 詠唱條
+  const c = S.casts.filter((x) => t >= x.t0 && t < x.t1).pop();
+  if (c) { const w = W * 0.5, x = (W - w) / 2, y = 14; g.fillStyle = "rgba(2,6,23,.8)"; g.fillRect(x, y, w, 20); g.fillStyle = "#c2410c"; g.fillRect(x, y, w * clamp01((t - c.t0) / (c.t1 - c.t0)), 20); g.strokeStyle = "#fdba74"; g.lineWidth = 1; g.strokeRect(x, y, w, 20); g.font = '600 13px "Fira Sans",system-ui,sans-serif'; g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(c.name, W / 2, y + 11); }
+  if (S.over || S.paused) {
+    g.fillStyle = "rgba(2,6,23,.72)"; g.fillRect(0, 0, W, W); g.textAlign = "center"; g.textBaseline = "middle";
+    g.font = '800 30px "Fira Sans",system-ui,sans-serif'; g.fillStyle = S.paused && !S.over ? "#f8fafc" : S.over.win ? "#5fd08a" : "#ff6b6b";
+    g.fillText(S.paused && !S.over ? "暫停" : S.over.win ? "通過" : "你死了", W / 2, W / 2 - 40);
+    g.font = '500 15px "Fira Sans",system-ui,sans-serif'; g.fillStyle = "#f8fafc";
+    if (S.over) wrapText(S.over.reason, W / 2, W / 2, W * 0.8, 22);
+    g.fillStyle = "#aeb9cc"; g.fillText(S.over ? "按 R 從這一段重來" : "按 P 繼續", W / 2, W / 2 + 80);
+  }
+}
+function wrapText(text, x, y, maxW, lh) { let line = ""; for (const ch of text) { if (g.measureText(line + ch).width > maxW) { g.fillText(line, x, y); y += lh; line = ch; } else line += ch; } g.fillText(line, x, y); }
+
+function updatePanel() {
+  const t = S.t, $ = (id) => document.getElementById(id);
+  $("clock").textContent = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+  $("hint").textContent = S.opts.hints ? hint() : "（提示已關閉）";
+  $("upcoming").innerHTML = S.tl.filter((e) => e.t > t).slice(0, 6).map((e) => `<li><span>${(e.t - t).toFixed(1)}s</span>${e.name}</li>`).join("");
+  $("log").innerHTML = S.log.map((l) => `<li>${l.msg}</li>`).join("");
+  const sk = (id, key, cd, buff, ok = true) => { const el = $(id); el.disabled = !ok || cd > t; el.classList.toggle("on", buff > t); el.querySelector("i").textContent = !ok ? "—" : buff > t ? `生效 ${(buff - t).toFixed(0)}s` : cd > t ? `冷卻 ${(cd - t).toFixed(0)}s` : "可用"; };
+  sk("skAntiKb", "antiKb", S.cd.antiKb, S.buff.antiKb);
+  sk("skInvuln", "invuln", S.cd.invuln, S.buff.invuln, S.opts.role <= 1);
+  sk("skSprint", "sprint", S.cd.sprint, S.buff.sprint);
+}
+
+function init() {
+  cv = document.getElementById("arena"); g = cv.getContext("2d");
+  const fit = () => { const box = cv.parentElement.getBoundingClientRect(); W = Math.max(320, Math.floor(Math.min(box.width, window.innerHeight - 24))); cv.style.width = cv.style.height = W + "px"; cv.width = cv.height = W * devicePixelRatio; };
+  fit(); addEventListener("resize", fit);
+  const $ = (id) => document.getElementById(id);
+  $("role").innerHTML = ROLES.map((r, i) => `<option value="${i}">${r}</option>`).join(""); $("role").value = S.opts.role;
+  $("start").innerHTML = CHECKPOINTS.map((c) => `<option value="${c.t}">${c.name}</option>`).join("");
+  const bind = (id, key, conv, restart) => $(id).addEventListener("change", (e) => { S.opts[key] = conv(e.target); if (restart) reset(); e.target.blur(); });
+  bind("role", "role", (el) => +el.value, true); bind("start", "start", (el) => +el.value, true); bind("speed", "speed", (el) => +el.value, false);
+  bind("full", "full", (el) => el.value === "1", true);
+  bind("assist", "assist", (el) => el.checked, false); bind("hints", "hints", (el) => el.checked, false); bind("god", "god", (el) => el.checked, false);
+  $("restart").addEventListener("click", (e) => { reset(); e.target.blur(); });
+  $("skAntiKb").addEventListener("click", () => useSkill("antiKb")); $("skInvuln").addEventListener("click", () => useSkill("invuln")); $("skSprint").addEventListener("click", () => useSkill("sprint"));
+  addEventListener("keydown", (e) => {
+    if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
+    S.keys[e.code] = true;
+    if (e.code === "KeyR") reset();
+    if (e.code === "KeyP" || e.code === "Escape") S.paused = !S.paused;
+    if (e.code === "Digit1") useSkill("antiKb");
+    if (e.code === "Digit2") useSkill("invuln");
+    if (e.code === "ShiftLeft" || e.code === "ShiftRight") useSkill("sprint");
+    if (["KeyW", "KeyA", "KeyS", "KeyD", "Space"].includes(e.code)) e.preventDefault();
+  });
+  addEventListener("keyup", (e) => { S.keys[e.code] = false; });
+  addEventListener("blur", () => { S.keys = {}; });
+  let drag = null;
+  cv.addEventListener("mousedown", (e) => { drag = e.clientX; e.preventDefault(); });
+  addEventListener("mousemove", (e) => { if (drag !== null) { S.cam += (e.clientX - drag) * 0.008; drag = e.clientX; } });
+  addEventListener("mouseup", () => { drag = null; });
+  cv.addEventListener("contextmenu", (e) => e.preventDefault());
+  cv.addEventListener("wheel", (e) => { S.zoom = Math.max(0.7, Math.min(2, S.zoom * (e.deltaY < 0 ? 1.08 : 0.92))); e.preventDefault(); }, { passive: false });
+  reset();
+  let last = performance.now();
+  const loop = (now) => {
+    const real = Math.min((now - last) / 1000, 0.05); last = now;
+    if (S.keys.KeyQ) S.cam -= real * 1.8; if (S.keys.KeyE) S.cam += real * 1.8;
+    let left = real * S.opts.speed; while (left > 0) { const d = Math.min(left, 0.02); step(d); left -= d; }
+    draw(); updatePanel(); requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+}
+if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);
+if (typeof module !== "undefined") module.exports = { S, CFG, ROLES, reset, step, home, dangerAt, npcTarget, planPath, useSkill, END_T, KILL_T };

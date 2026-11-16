@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>絕神兵・火神階段 機制模擬器（試作）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#020617;--bg2:#0e1223;--bg3:#1a1e2f;--line:#2a3350;--line2:#3a4569;--fg:#f8fafc;--fg2:#aeb9cc;--fg3:#76829a;--accent:#4cc2ff;--accent2:#ffd166;--fire:#fb923c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "Fira Sans",system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;padding:12px;max-width:1280px;margin:0 auto;align-items:start}
+.stage{display:flex;justify-content:center}
+canvas{display:block;border:1px solid var(--line);border-radius:6px;cursor:grab;touch-action:none}
+canvas:active{cursor:grabbing}
+aside{display:flex;flex-direction:column;gap:10px}
+h1{font-size:16px;margin:0;font-weight:800}
+h1 small{display:block;font-size:12px;font-weight:400;color:var(--fg3)}
+h2{font-size:11px;letter-spacing:.08em;color:var(--fg3);margin:0 0 6px;font-weight:600}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:8px}
+label{color:var(--fg2);font-size:12px;display:flex;gap:6px;align-items:center}
+select,button{font:inherit;color:var(--fg);background:var(--bg3);border:1px solid var(--line2);border-radius:4px;padding:5px 8px}
+select{min-width:0;flex:1}
+button{cursor:pointer}
+button:hover:not(:disabled){border-color:var(--accent)}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+#clock{font:500 22px "Fira Code",monospace;color:var(--accent2)}
+#hint{margin:0;color:var(--fg);min-height:4.5em}
+ul{list-style:none;margin:0;padding:0}
+#upcoming li{display:flex;gap:8px;padding:2px 0;color:var(--fg2)}
+#upcoming li span{font:12px "Fira Code",monospace;color:var(--fire);width:48px;flex:none;text-align:right}
+#log li{color:var(--fg3);font-size:12px;padding:1px 0}
+#log li:first-child{color:var(--fg)}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.skills button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:6px 8px;text-align:left}
+.skills button b{font-size:12px}
+.skills button i{font-style:normal;font-size:11px;color:var(--fg3)}
+.skills button.on{border-color:var(--accent2)}
+.skills button.on i{color:var(--accent2)}
+kbd{font:11px "Fira Code",monospace;background:var(--bg3);border:1px solid var(--line2);border-radius:3px;padding:0 4px;color:var(--fg)}
+.keys{color:var(--fg2);font-size:12px;line-height:1.9}
+.note{color:var(--fg3);font-size:12px;margin:0}
+a{color:var(--accent)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage"><canvas id="arena" aria-label="場地俯視圖"></canvas></div>
+  <aside>
+    <h1>絕神兵・火神階段 <small>機制模擬器（試作）· <a href="../index.html#/sb-uwu">回小抄</a></small></h1>
+    <div class="card">
+      <div class="row"><span id="clock">0:00</span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
+      <div class="row"><label>職能 <select id="role"></select></label><label>速度 <select id="speed"><option value="1">1×</option><option value="0.75">0.75×</option><option value="0.5">0.5×</option></select></label></div>
+      <div class="row"><label style="flex:1">從 <select id="start"></select></label></div>
+      <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">打滿（含烈焰碎擊、四連火神衝）</option><option value="0">97 秒擊殺（現行輸出）</option></select></label></div>
+      <div class="row"><label><input type="checkbox" id="assist" checked> 輔助預兆</label><label><input type="checkbox" id="hints" checked> 提示</label><label><input type="checkbox" id="god"> 觀摩（不會死）</label></div>
+    </div>
+    <div class="card"><h2>現在該做什麼</h2><p id="hint"></p></div>
+    <div class="card"><h2>技能</h2>
+      <div class="skills">
+        <button id="skAntiKb" type="button"><b><kbd>1</kbd> 防擊退</b><i></i></button>
+        <button id="skInvuln" type="button"><b><kbd>2</kbd> 無敵</b><i></i></button>
+        <button id="skSprint" type="button"><b><kbd>Shift</kbd> 衝刺</b><i></i></button>
+      </div>
+    </div>
+    <div class="card"><h2>接下來</h2><ul id="upcoming"></ul></div>
+    <div class="card"><h2>紀錄</h2><ul id="log"></ul></div>
+    <div class="card keys"><h2>操作</h2>
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動（相對鏡頭）· 滑鼠拖曳或 <kbd>Q</kbd><kbd>E</kbd> 轉鏡頭 · 滾輪縮放 · <kbd>P</kbd> 暫停
+    </div>
+    <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。0～97 秒的時間、釘子位置與站位取自 FFLogs 日本區擊殺回放；97 秒之後現行輸出通常打不到，站位非實測。判定範圍是估計值。</p>
+  </aside>
+</div>
+<script src="uwu-ifrit.js"></script>
+</body>
+</html>

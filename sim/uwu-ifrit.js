@@ -22,7 +22,7 @@ const CFG = {
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 拉遠累計幾秒算失敗
 };
-const BUILD = "1116-12"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
+const BUILD = "1116-13"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -67,7 +67,8 @@ function reset() {
   S.tl = [];
   S.log = [];
   S.fetterApart = 0;
-  S.tank = o.start < 7.6 ? null : o.start < 71 ? 1 : 0; // 目前仇恨在誰身上（null＝還沒人接；前半 ST、後半 MT）
+  S.tank = o.start < 7.6 ? null : o.start < 30.5 ? 1 : 0; // 目前仇恨在誰身上（null＝還沒人接）。回放：ST 開場接、吃完第一組焚燒後 30.5 秒換 MT，之後都是 MT
+  S.shirked = o.start >= 33;  // ST 換坦後有沒有對 MT 用退避
   S.bossDyn = null;  // 玩家拉王時，王的實際位置
   S.posErr = 0; S.faceErr = 0;
   S.crushMark = null;
@@ -76,8 +77,8 @@ function reset() {
   S.cam = S.cam || 0;
   S.zoom = S.zoom || 1;
   S.buff = { shield: -1, invuln: -1, sprint: -1 };
-  S.cd = { shield: 0, invuln: 0, sprint: 0, provoke: 0 };
-  S.fireRes = false;
+  S.cd = { shield: 0, invuln: 0, sprint: 0, provoke: 0, shirk: 0 };
+  S.fireRes = [false, false]; // 兩個坦克各自有沒有火耐性下降
   S.nailHits = o.start > 56 ? [2, 2, 2, 2] : [0, 0, 0, 0]; // 每根釘子被地火炸到幾次（兩次才會強化）
   // 這一把的隨機內容
   S.bossCard = ri(4);                        // 開場火神出現的正點（0北 1東 2南 3西）
@@ -149,7 +150,7 @@ function home(i, t) {
   // 開場：火神在東西就去北，在南北就去西，貼場邊
   if (t < 9) return polar((S.bossCard % 2 ? 0 : 270) + (i - 3.5) * 3, 17.5);
   const center = () => polar(CENTER_HOME[i][0], CENTER_HOME[i][1]);
-  if (t < 38) return i === 1 ? tankAt(t, 180) : center(); // ST 接王：王在場中、面朝南
+  if (t < 38) { const h = t < 30.5 ? 1 : 0; return i === h ? tankAt(t, 180) : i <= 1 ? polar(...CENTER_HOME[0]) : center(); } // 接王的坦克把王留在場中、面朝南：30.5 秒前是 ST，之後換 MT
   if (t < 66) {
     const far6 = (S.k + 6) * 45, far3 = (S.k + 3) * 45;
     // 灼熱補師：相鄰兩根釘子的正對面場邊
@@ -165,14 +166,13 @@ function home(i, t) {
     }
     // 近戰、坦克、沒被點的補師：照擊殺順序一根一根去打釘子（這條路線就是逆Z）。前兩圈地火炸完前先站在第一根釘子的內側
     const d = curNailDir(t) * 45, wait = t < 51.2;
-    if (i === 1) return tankAt(t, d + 180); // 接王的坦克：王留在場中，自己站在目前那根釘子的反方向，王的正面就不會對到打釘子的人
-    if (i === S.fetterDps) return polar(d + (i === 4 ? -2 : 1), wait ? 5.5 : 6.8); // 帶鎖的近戰站內側一點，跟 ST 保持 10 米內
+    if (i === 0) return tankAt(t, d + 180); // MT 拉王：王留在場中，自己站在目前那根釘子的反方向，王的正面就不會對到打釘子的人
     // 站位都收在釘子方位的 -8～+3 度內：再偏順時針會進到 D3 第 4 圈，再偏逆時針會進到灼熱補師的範圍
     if (i === 6 || i === 7) return polar(d + (i === 6 ? -8 : -3), 5.5);
     if (i === 2 || i === 3) return polar(d + (i === 2 ? -6 : 2), 4.5);
-    return polar(d + [-6, 3, 0, 0, -2, 1][i], wait ? 5.5 : 8.2);
+    return polar(d + [0, -6, 0, 0, -2, 1][i], wait ? 5.5 : 8.2); // ST 換坦後跟近戰一起打釘子（炎獄之鎖連的就是 ST 和一名輸出）
   }
-  if (t < 78) return i === 0 ? tankAt(t, 180) : polar(...CENTER_HOME[i === 1 ? 0 : i]); // 火神跳回來後換 MT 接王：MT 去南側，ST 回人群
+  if (t < 78) return i === 0 ? tankAt(t, 180) : polar(...CENTER_HOME[i === 1 ? 0 : i]); // MT 接王在南側，ST 在人群
   if (t >= 129.5) {
     // 收尾：MT 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
     const F = finalDir() * 45;
@@ -253,21 +253,22 @@ function buildEvents() {
         if (role === tank) {
           const cleaved = S.ents.filter((e) => e.i !== tank && this.hit(e));
           if (cleaved.length) return die(`烈焰焚燒順劈到隊友（${cleaved.map((e) => ROLES[e.i]).join("、")}）：接王的坦克要讓王背對人群`);
-          if (S.fireRes && S.buff.invuln <= S.t) return die("烈焰焚燒：帶著火耐性下降硬吃第二下（先按 2 開無敵）");
-          S.fireRes = true; flash(`烈焰焚燒 ${n}/3`);
+          if (S.fireRes[tank] && S.buff.invuln <= S.t) return die("烈焰焚燒：帶著火耐性下降硬吃下一發（先按 2 開無敵）");
+          S.fireRes[tank] = true; flash(`烈焰焚燒 ${n}/3`);
         } else if (this.hit(me())) die("站在王正面吃到烈焰焚燒（非接王的人站王的背後）");
       },
     }));
     S.tl.push({ t, name: `烈焰焚燒 ${n}/3（${ROLES[expect]} 順劈）` });
   };
-  // 接王：火神不繼承上一隻的仇恨，ST 要自己挑釁；火神跳回來後換 MT 挑釁
-  at(7.7, () => { if (S.tank === null && S.opts.role !== 1) { S.tank = 1; flash("ST 挑釁接王"); } });
-  at(12, () => { if (S.tank !== 1) die(S.opts.role === 1 ? "你是 ST，火神出現後沒有按 3 挑釁接王，王跑去打別人" : "前半要讓 ST 接王：你把王嘲走了"); });
-  at(71.2, () => { if (S.opts.role !== 0 && S.tank !== 0) { S.tank = 0; S.bossDyn = null; flash("MT 挑釁接王"); } });
-  at(80, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT，火神跳回來後沒有按 3 挑釁接王" : "後半要讓 MT 接王：你把王嘲回來了"); });
-  S.tl.push({ t: 7.2, name: "火神可選中：ST 挑釁接王" }, { t: 70.3, name: "火神回來：MT 挑釁接王" });
+  // 坦克技能時間（回放 8 筆）：ST 約 8 秒挑釁接王、20～22 秒開無敵；MT 30.5 秒挑釁換坦；ST 32～34 秒對 MT 用退避；MT 131～137 秒開無敵
+  at(8.3, () => { if (S.tank === null && S.opts.role !== 1) { S.tank = 1; flash("ST 挑釁接王"); } });
+  at(12, () => { if (S.tank !== 1) die(S.opts.role === 1 ? "你是 ST，火神出現後沒有按 3 挑釁接王，王跑去打別人" : "開場要讓 ST 接王：你把王嘲走了"); });
+  at(30.5, () => { if (S.opts.role !== 0 && S.tank !== 0) { S.tank = 0; S.bossDyn = null; flash("MT 挑釁換坦"); } });
+  at(33, () => { if (S.opts.role !== 1 && !S.shirked) { S.shirked = true; flash("ST 對 MT 用退避"); } });
+  at(34.5, () => { if (S.tank !== 0) die(S.opts.role === 0 ? "你是 MT，第一組焚燒打完（28.5 秒）後沒有按 3 挑釁換坦，釘子階段王還在 ST 身上" : "第一組焚燒後要換 MT 拉王：仇恨還在你身上"); });
+  at(36, () => { if (!S.shirked) { S.tank = 1; S.bossDyn = null; die(S.opts.role === 1 ? "換坦後你沒有按 4 對 MT 用退避，仇恨又回到你身上，王轉回來了" : "ST 沒有退避，仇恨回到 ST 身上"); } });
+  S.tl.push({ t: 7.2, name: "火神可選中：ST 挑釁接王" }, { t: 30.5, name: "MT 挑釁換坦" }, { t: 33, name: "ST 對 MT 退避" });
   incinerate(21.3, 1, 1); incinerate(24.4, 2, 1); incinerate(28.5, 3, 1); // 第一組：ST 接
-  at(31, () => { S.fireRes = false; });
 
   at(31.6, () => flash("炎獄之楔出現：數字是擊殺順序（逆Z），每根要被地火炸兩次"), "炎獄之楔 ×4");
   at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：ST 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
@@ -296,7 +297,7 @@ function buildEvents() {
   const furthest2 = () => S.ents.slice().sort((a, b) => dist(b, boss()) - dist(a, boss())).slice(0, 2).map((e) => e.i);
   eruptions(48.9, () => [6, 7], "地火 ×4（點 D3、D4）");
   at(55.1, () => { const miss = S.nailHits.map((h, i) => (h < 2 ? `${DIR_NAME[S.nailDirs[i]]}（${h}/2）` : null)).filter(Boolean); if (miss.length) die(`釘子沒有每根炸滿兩次：${miss.join("、")}。火神不會覺醒，之後會滅團`); else flash("四根釘子都炸滿兩次：火神將覺醒"); });
-  at(66, () => { S.bossDyn = null; flash("火神跳走，回場中集合；回來後換 MT 接王"); });
+  at(66, () => { S.bossDyn = null; flash("火神跳走，回場中集合"); });
   hellfire(73.4);
   eruptions(87.7, () => [6, 7], "地火 ×4（點 D3、D4）");
 
@@ -330,7 +331,8 @@ function buildEvents() {
   DASH_T.forEach((t, n) => S.tl.push({ t, name: `深紅旋風 ${n + 1}/4${n === S.realIdx ? "（本體）" : ""}` }));
   S.tl.push({ t: DASH_T[S.realIdx] + CFG.crossDelay, name: "十字火焰" });
 
-  at(129.5, () => { S.fireRes = false; flash("火神回來：MT 繼續接王"); });
+  at(60, () => { S.fireRes = [false, false]; });
+  at(129.5, () => { flash("火神回來：仇恨還在 MT 身上"); });
   incinerate(133.9, 1, 0); incinerate(137, 2, 0); incinerate(141.1, 3, 0); // 第二組：MT 接（火神跳回來之後都是 MT）
   at(129.5, () => { S.bossDyn = null; });
   eruptions(150.2, () => [6, 7], "第三輪地火 ×4（點離王最遠的 D3、D4）");
@@ -414,6 +416,11 @@ function useSkill(k) {
     if (!tankable(t) || !bossSpot(t).vis) return flash("現在沒有目標可以挑釁");
     S.cd.provoke = t + 30; S.bossDyn = { ...bossState(t).pos }; S.tank = role; S.posErr = 0; S.faceErr = 0; flash(`${ROLES[role]} 挑釁：仇恨到你身上，王會跟著你`);
   }
+  if (k === "shirk" && role <= 1 && S.cd.shirk <= t) { // 退避：把自己 25% 的仇恨轉給另一個坦克
+    S.cd.shirk = t + 120;
+    if (S.tank === role) { S.tank = 1 - role; S.bossDyn = null; flash(`退避：仇恨轉給 ${ROLES[1 - role]}，王跑去他那邊`); }
+    else { if (role === 1) S.shirked = true; flash(`退避：仇恨丟給 ${ROLES[1 - role]}，不會再把王搶回來`); }
+  }
   if (k === "sprint" && S.cd.sprint <= t) { S.buff.sprint = t + 10; S.cd.sprint = t + 45; flash("衝刺 10 秒"); }
 }
 
@@ -422,8 +429,19 @@ function hint() {
   const t = S.t, r = S.opts.role, c = S.bossCard * 2, cd = S.closeDeg, P = S.cornerDeg;
   const near = `${DIR_NAME[S.nailDirs[0]]}、${DIR_NAME[S.nailDirs[1]]}`;
   if (t < 5) return `火神在${DIR_NAME[c]}邊，會直線衝過場中，同時場上有炎柱。全隊去${S.bossCard % 2 ? "北" : "西"}邊貼場邊。${r === 1 ? "你是 ST：火神 7 秒變成可選中後要按 3 挑釁接王。" : ""}`;
-  if (t < 19) return r === 3 ? "回場中，站王的北側 4～5 米。你是 H2：火神爆裂（18.5 秒）前按 1 上群盾，有盾全隊就不會被擊退；沒上會全隊撞牆。" : r === 1 ? (S.tank === 1 ? "王在你身上，會跟著你走：把牠留在場中，自己站南側（C 標記附近），讓王面朝南、背對北邊的人群。火神爆裂的擊退由 H2 上盾擋掉。" : "你是 ST：現在按 3 挑釁接王（12 秒前沒接到算失敗），然後把王留在場中、自己站南側。") : "回場中，站王的北側 4～5 米。火神爆裂的擊退由 H2 上盾擋掉，不用自己防擊退。";
-  if (t < 38) return r === 1 ? "你是 ST，第一組焚燒你接：王留在場中、你站南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "第一組三連烈焰焚燒由 ST 在南側接，是朝南的正面扇形：留在王的北側。";
+  if (t < 38) {
+    if (r === 1) {
+      if (S.tank !== 1 && t < 30) return "你是 ST：現在按 3 挑釁接王（12 秒前沒接到算失敗），把王留在場中、自己站南側。";
+      if (t < 28.6) return "王在你身上，會跟著你走：把牠留在場中，自己貼在王的南側，讓王面朝南、背對北邊的人群。21 秒起三連烈焰焚燒，20 秒左右按 2 開無敵。火神爆裂的擊退由 H2 上盾擋掉。";
+      return S.shirked ? "已退避。跟近戰一起去打釘子；炎獄之鎖會連你和一名輸出。" : "第三下焚燒打完，MT 會在 30.5 秒挑釁換坦。他一接走你就按 4 退避（36 秒前），不然仇恨會回到你身上。";
+    }
+    if (r === 0) {
+      if (t < 28.6) return "王在 ST 身上，你先跟人群站王的北側。第三下焚燒（28.5 秒）一打完，你要馬上按 3 挑釁換坦。";
+      return S.tank === 0 ? "王在你身上了：把牠留在場中，接下來是釘子階段。" : "現在按 3 挑釁換坦（34.5 秒前沒接到算失敗）。之後到火神死都是你拉。";
+    }
+    if (t < 19) return r === 3 ? "回場中，站王的北側 4～5 米。你是 H2：火神爆裂（18.5 秒）前按 1 上群盾，有盾全隊就不會被擊退；沒上會全隊撞牆。" : "回場中，站王的北側 4～5 米。火神爆裂的擊退由 H2 上盾擋掉，不用自己防擊退。";
+    return "三連烈焰焚燒由 ST 在南側開無敵接，是朝南的正面扇形：留在王的北側。打完後換 MT 拉王。";
+  }
   if (t < 66) {
     const fet = r === 1 || r === S.fetterDps ? `你和 ${ROLES[r === 1 ? S.fetterDps : 1]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
     if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 6 秒炸一次。`;
@@ -432,10 +450,10 @@ function hint() {
       return `你是地火誘導，你負責${far}和${own}兩根，各炸兩次（另外兩根是 ${r === 6 ? "D4" : "D3"} 的，別炸到）。42 秒前站到${far}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，${way}沿外圈跑向${own}釘子，第 3 圈（50 秒）放在快到的地方，第 4 圈（52 秒）貼著${own}釘子外側放。後兩圈都要留在${own}釘子「遠離${mate}」的那一側，放完往第一根釘子那邊回人群。${fet}`;
     }
     const order = S.killOrder.map((n) => DIR_NAME[S.nailDirs[n]]).join(" → ");
-    if (r === 1) return `你拉著王：把王留在場中（開輔助預兆會有藍圈），自己貼在王的另一側，讓王的正面背對打釘子的人。王離你超過 3 米就會跟過來，要挪牠的位置就往反方向走把牠拖過去。現在打${DIR_NAME[curNailDir(t)]}釘子，所以你要站在王的${dirName(curNailDir(t) * 45 + 180)}側（貼著王 3 米內牠就不會再跟著動）；釘子打掉換下一根（順序 ${order}），你就跟著繞到新的對面。王正面對著人群超過 3 秒算失敗。${fet}`;
-    return `打釘子，順序（逆Z）：${order}。先在第一根釘子靠場中的那側等，前兩圈地火（49、51 秒）炸完再貼上去打，打掉一根就走去下一根。王由 ST 留在場中、背對你們。別擋到場邊的灼熱補師和放地火的 D3、D4。${fet}`;
+    if (r === 0) return `你拉著王：把王留在場中（開輔助預兆會有藍圈），自己貼在王的另一側，讓王的正面背對打釘子的人。王離你超過 3 米就會跟過來，要挪牠的位置就往反方向走把牠拖過去。現在打${DIR_NAME[curNailDir(t)]}釘子，所以你要站在王的${dirName(curNailDir(t) * 45 + 180)}側（貼著王 3 米內牠就不會再跟著動）；釘子打掉換下一根（順序 ${order}），你就跟著繞到新的對面。王正面對著人群超過 3 秒算失敗。${fet}`;
+    return `打釘子，順序（逆Z）：${order}。先在第一根釘子靠場中的那側等，前兩圈地火（49、51 秒）炸完再貼上去打，打掉一根就走去下一根。王由 MT 留在場中、背對你們。別擋到場邊的灼熱補師和放地火的 D3、D4。${fet}`;
   }
-  if (t < 78) return r === 0 ? (S.tank === 0 ? "王在你身上了：留在場中吃完地獄之火炎，接著把王往角落帶。" : "火神跳走，全隊回場中吃地獄之火炎。牠 70 秒回來後你（MT）要按 3 挑釁接王（80 秒前沒接到算失敗），之後到打死都是你拉。") : r === 1 ? "火神跳走，全隊回場中吃地獄之火炎。牠回來後換 MT 接王，你回人群。" : "火神跳走，全隊回場中吃地獄之火炎。回來後換 MT 接王。";
+  if (t < 78) return r === 0 ? "火神跳走，全隊回場中吃地獄之火炎。牠回來後仇恨還在你身上，不用再挑釁；吃完就把王往角落帶。" : "火神跳走，全隊回場中吃地獄之火炎。回來後還是 MT 拉王。";
   if (t < 97) {
     if (swIdx(r, t) === 1) return `你被點灼熱（第二次，30 秒）：先去人群對面那一側（${dirName(P - 135)}）的場邊，100 秒左右再移到${dirName(P - 90)}角。`;
     if ((r === 6 || r === 7) && t < 94) return `第二輪地火誘導：D3、D4 一起先去${dirName(P + 135)}邊場邊，圈出來後沿場邊跑回${dirName(P)}角的人群，四個圈放在路上。`;
@@ -452,7 +470,7 @@ function hint() {
   }
   const F = dirName(finalDir() * 45), FO = dirName(finalDir() * 45 + 180);
   if (r === 6 || r === 7) return t < 147 ? `MT 在${F}邊場邊接王吃三連烈焰焚燒。你是地火誘導：焚燒期間就先走到${FO}邊場邊（離王最遠的地方），等 147 秒第三輪地火。` : `第三輪地火點你和 ${r === 6 ? "D4" : "D3"}：圈出來後${r === 6 ? "順時針" : "逆時針"}沿場邊一直跑，每 2 秒一個圈，別往人群帶，跑到火神死。`;
-  if (r === 0) return `火神回來後仇恨還在你身上，王會跟著你：走到${F}邊貼場邊，讓王停在離場中約 12 米、面向場外，按 2 開無敵吃第二組三連烈焰焚燒。之後地火由 D3、D4 在對面場邊誘導。`;
+  if (r === 0) return `火神回來後仇恨還在你身上，王會跟著你：走到${F}邊貼場邊，讓王停在離場中約 12 米、面向場外，132 秒左右按 2 開無敵吃第二組三連烈焰焚燒（134、137、141 秒）。之後地火由 D3、D4 在對面場邊誘導。`;
   return `第二組由 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側。147 秒起第三輪地火由 D3、D4 在${FO}邊場邊誘導，別靠過去，打到死為止。`;
 }
 
@@ -526,7 +544,7 @@ function updateHud() {
   const st = [];
   if (hasSw(r, t)) st.push("灼熱");
   if (fetterOn(t) && (r === 1 || r === S.fetterDps)) st.push("炎獄之鎖");
-  if (S.fireRes && r === S.tank) st.push("火耐性下降");
+  if (r <= 1 && S.fireRes[r]) st.push("火耐性下降");
   if (r <= 1) st.push(S.tank === r ? "仇恨在你身上" : "仇恨不在你身上");
   if (S.crushMark && S.crushMark.until > t && S.crushMark.who === r) st.push("烈焰碎擊點名");
   if (S.buff.shield > t) st.push("群盾"); if (S.buff.invuln > t) st.push("無敵"); if (S.buff.sprint > t) st.push("衝刺");
@@ -548,6 +566,7 @@ function updatePanel() {
   sk("skShield", "shield", S.cd.shield, S.buff.shield, S.opts.role === 3);
   sk("skInvuln", "invuln", S.cd.invuln, S.buff.invuln, S.opts.role <= 1);
   sk("skProvoke", "provoke", S.cd.provoke, -1, S.opts.role <= 1);
+  sk("skShirk", "shirk", S.cd.shirk, -1, S.opts.role <= 1);
   sk("skSprint", "sprint", S.cd.sprint, S.buff.sprint);
 }
 
@@ -574,7 +593,7 @@ function init() {
   bind("full", "full", (el) => el.value === "1", true);
   bind("assist", "assist", (el) => el.checked, false); bind("hints", "hints", (el) => el.checked, false); bind("god", "god", (el) => el.checked, false);
   $("restart").addEventListener("click", (e) => { reset(); e.target.blur(); });
-  $("skShield").addEventListener("click", () => useSkill("shield")); $("skInvuln").addEventListener("click", () => useSkill("invuln")); $("skProvoke").addEventListener("click", () => useSkill("provoke")); $("skSprint").addEventListener("click", () => useSkill("sprint"));
+  $("skShield").addEventListener("click", () => useSkill("shield")); $("skInvuln").addEventListener("click", () => useSkill("invuln")); $("skProvoke").addEventListener("click", () => useSkill("provoke")); $("skShirk").addEventListener("click", () => useSkill("shirk")); $("skSprint").addEventListener("click", () => useSkill("sprint"));
   addEventListener("keydown", (e) => {
     if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
     S.keys[e.code] = true;
@@ -583,6 +602,7 @@ function init() {
     if (e.code === "Digit1") useSkill("shield");
     if (e.code === "Digit2") useSkill("invuln");
     if (e.code === "Digit3") useSkill("provoke");
+    if (e.code === "Digit4") useSkill("shirk");
     if (e.code === "ShiftLeft" || e.code === "ShiftRight") useSkill("sprint");
     if (["KeyW", "KeyA", "KeyS", "KeyD", "Space"].includes(e.code)) e.preventDefault();
   });

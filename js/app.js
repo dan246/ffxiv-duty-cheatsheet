@@ -310,7 +310,7 @@
   }
 
   // 有機制模擬器的副本
-  const SIM_PAGES = { "sb-uwu": { href: "sim/uwu-ifrit.html?v=1116-11", note: "火神階段：WASD 實際走位練習，走錯會死" } };
+  const SIM_PAGES = { "sb-uwu": { href: "sim/uwu-ifrit.html?v=1116-12", note: "火神階段：WASD 實際走位練習，走錯會死" } };
 
   function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);

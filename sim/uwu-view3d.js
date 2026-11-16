@@ -5,7 +5,7 @@
 
 const View3D = (() => {
   let renderer, scene, camera, ready = false;
-  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, fetterLine, flashPool = [];
+  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, spotRing, fetterLine, flashPool = [];
   const aoeMeshes = new Map();
   const spriteCache = new Map();
   const Y = 0.04; // 地面貼花的高度
@@ -99,6 +99,7 @@ const View3D = (() => {
     }
     for (let i = 0; i < 3; i++) { const r = flat(new THREE.RingGeometry(CFG.swR - 0.18, CFG.swR, 72), 0xff5a5a, 0.75); r.visible = false; scene.add(r); swRings.push(r); }
     crushRing = flat(new THREE.RingGeometry(CFG.stackR - 0.2, CFG.stackR, 48), 0xffd166, 0.95); crushRing.visible = false; scene.add(crushRing);
+    spotRing = flat(new THREE.RingGeometry(3.2, 3.5, 48), 0x4cc2ff, 0.85); spotRing.visible = false; scene.add(spotRing);
     fetterLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xffb347 })); fetterLine.visible = false; scene.add(fetterLine);
     for (let i = 0; i < 6; i++) { const f = flat(new THREE.CircleGeometry(1, 48), 0xffc878, 0.35); f.visible = false; scene.add(f); flashPool.push(f); }
     ready = true;
@@ -151,7 +152,7 @@ const View3D = (() => {
     // 火神本體、分身、四連衝的四隻
     const list = [];
     const b = bossState(t);
-    if (b.vis) list.push({ pos: b.pos, look: t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[t < 66 ? 1 : 0], real: t >= 66, tag: "" });
+    if (b.vis) list.push({ pos: b.pos, look: t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.tank === null ? { x: 0, y: 30 } : S.ents[S.tank], real: t >= 66, tag: "" });
     if (t >= 91.8 && t < 95.7) for (const d of [180, 90]) list.push({ pos: lerp(polar(d, 19.5), polar(d + 180, 19.5), clamp01((t - 94.8) / 0.35)), look: { x: 0, y: 0 }, real: false, tag: "" });
     for (const c of dashers(t)) list.push({ pos: c.pos, look: { x: 0, y: 0 }, real: c.real, tag: S.opts.assist ? String(c.n + 1) + (c.real ? " 藍火" : "") : "" });
     ifrits.forEach((m, i) => {
@@ -174,6 +175,7 @@ const View3D = (() => {
     swRings.forEach((r, i) => { const s = sws[i]; r.visible = !!s; if (s) r.position.set(S.ents[s.who].x, Y, S.ents[s.who].y); });
     const cm = S.crushMark && S.crushMark.until > t ? S.ents[S.crushMark.who] : null;
     crushRing.visible = !!cm; if (cm) crushRing.position.set(cm.x, Y + 0.02, cm.y);
+    const spotOn = S.opts.assist && S.opts.role <= 1 && tankable(t) && b.vis; spotRing.visible = spotOn; if (spotOn) { const sp = bossSpot(t).pos; spotRing.position.set(sp.x, Y + 0.02, sp.y); } // 坦克輔助：王該在的位置
     fetterLine.visible = fetterOn(t);
     if (fetterLine.visible) { const a = S.ents[1], c = S.ents[S.fetterDps]; fetterLine.geometry.setFromPoints([v3(a, 1.1), v3(c, 1.1)]); fetterLine.material.color.setHex(dist(a, c) > CFG.fetterMax ? 0xff4d4d : 0xffb347); }
     const fl = S.flashRings.filter((f) => f.until > t);

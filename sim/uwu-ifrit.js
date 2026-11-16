@@ -140,17 +140,21 @@ function home(i, t) {
     const far6 = (S.k + 6) * 45, far3 = (S.k + 3) * 45;
     // 灼熱補師：相鄰兩根釘子的正對面場邊
     if (swIdx(i, t) === 0 && t < 62) return polar(S.closeDeg + 180, 18);
-    // D3：站在分開的釘子（k+6）外側吃第 1、2 圈，順時針沿外圈跑到相鄰的釘子（k）放第 3 圈，稍微往內切放第 4 圈，再回第一根釘子找人群
-    if (i === 6 && t < 51.95) { const a = Math.min(95, Math.max(0, (t - 46.6) * 20)); return polar(far6 + a, a < 80 ? 15 : 15 - ((a - 80) / 15) * 4); }
-    if (i === 6 && t < 53.6) return lerp(polar(far6 + 95, 11), polar(far6, 5), clamp01((t - 51.95) / 1.6));
-    // D4：站在分開的釘子（k+3）外側吃第 1、2 圈，逆時針往內切，第 3、4 圈放在相鄰釘子（k+1）內側，放完往第一根釘子那側離開
-    if (i === 7 && t < 51.95) { const A = polar(far3, 15), Q3 = polar(far3 - 60, 10), Q4 = polar(far3 - 120, 7); return t < 49.3 ? lerp(A, Q3, clamp01((t - 46.8) / 2.5)) : lerp(Q3, Q4, clamp01((t - 49.95) / 1.95)); }
-    if (i === 7 && t < 54.2) return lerp(polar(far3 - 120, 7), polar(far3 + 100, 6), clamp01((t - 51.95) / 2.2));
+    // 地火誘導（D3 順時針、D4 逆時針，路線互為鏡像）：
+    // 站在自己那根分開的釘子外側吃第 1、2 圈 → 沿外圈跑向自己那根相鄰的釘子，第 3 圈放在快到的地方、第 4 圈放在它的外側內緣 → 回第一根釘子找人群。
+    // 後兩圈都偏在「自己那根」的外側，不會蓋到隊友負責的釘子：每根釘子剛好被炸兩次。
+    if ((i === 6 || i === 7) && t < 54.2) {
+      const far = i === 6 ? far6 : far3, sgn = i === 6 ? 1 : -1, at = (a, r) => polar(far + sgn * a, r);
+      if (t < 49.85) { const q = clamp01((t - 46.8) / 3.05); return at(65 * q, 15 - q); }
+      if (t < 51.95) return lerp(at(65, 14), at(68, 9.5), clamp01((t - 49.95) / 1.9));
+      return lerp(at(68, 9.5), polar(far6 + (i === 6 ? -8 : -20), 5), clamp01((t - 51.95) / 2.2)); // 兩人都往第一根釘子、遠離相鄰釘子的那一側收
+    }
     // 近戰、坦克、沒被點的補師：照擊殺順序一根一根去打釘子（這條路線就是逆Z）。前兩圈地火炸完前先站在第一根釘子的內側
     const d = curNailDir(t) * 45, wait = t < 51.2;
-    if (i === 6 || i === 7) return polar(d + (i === 6 ? -14 : 14), 5.5);
-    if (i === 2 || i === 3) return polar(d + (i === 2 ? -10 : 10), 4.5);
-    return polar(d + [-9, 9, 0, 0, -3, 3][i], wait ? 6 : 8.2);
+    // 站位都收在釘子方位的 -8～+3 度內：再偏順時針會進到 D3 第 4 圈，再偏逆時針會進到灼熱補師的範圍
+    if (i === 6 || i === 7) return polar(d + (i === 6 ? -8 : -3), 5.5);
+    if (i === 2 || i === 3) return polar(d + (i === 2 ? -6 : 2), 4.5);
+    return polar(d + [-6, 3, 0, 0, -2, 1][i], wait ? 6 : 8.2);
   }
   if (t < 78) return polar(...CENTER_HOME[i === 0 ? 1 : i === 1 ? 0 : i]); // 火神跳回來後換 MT 接王：MT 去南側，ST 回人群
   if (t >= 129.5) {
@@ -259,7 +263,7 @@ function buildEvents() {
     cast("地火", first - CFG.eruptDelay - 1, first - CFG.eruptDelay);
     for (let n = 0; n < 4; n++) {
       const hitT = first + 2 * n;
-      at(hitT - CFG.eruptDelay, () => { const who = pick(); for (const i of who) addAoe({ ...circleAoe({ x: S.ents[i].x, y: S.ents[i].y }, CFG.eruptR), t0: S.t, t1: hitT, skipHome: who, onHit() { for (const n of nails(S.t)) if (this.hit(n.pos, CFG.nailBox)) { S.nailHits[n.i]++; flash(`地火炸到${DIR_NAME[S.nailDirs[n.i]]}釘子（${S.nailHits[n.i]}/2）`); } if (this.hit(me())) die("站在地火裡"); } }); }, n === 0 ? label : null);
+      at(hitT - CFG.eruptDelay, () => { const who = pick(); for (const i of who) addAoe({ ...circleAoe({ x: S.ents[i].x, y: S.ents[i].y }, CFG.eruptR), t0: S.t, t1: hitT, skipHome: who, onHit() { for (const n of nails(S.t)) if (this.hit(n.pos, CFG.nailBox)) { S.nailHits[n.i]++; flash(S.nailHits[n.i] > 2 ? `${DIR_NAME[S.nailDirs[n.i]]}釘子被多炸了一次（第 ${S.nailHits[n.i]} 次）：有圈放到別人負責的釘子` : `地火炸到${DIR_NAME[S.nailDirs[n.i]]}釘子（${S.nailHits[n.i]}/2）`); } if (this.hit(me())) die("站在地火裡"); } }); }, n === 0 ? label : null);
     }
   };
   const furthest2 = () => S.ents.slice().sort((a, b) => dist(b, boss()) - dist(a, boss())).slice(0, 2).map((e) => e.i);
@@ -375,8 +379,10 @@ function hint() {
   if (t < 66) {
     const fet = r === 1 || r === S.fetterDps ? `你和 ${ROLES[r === 1 ? S.fetterDps : 1]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
     if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 3 秒炸一次。`;
-    if (r === 6 && t < 56) return `你是地火誘導，每根釘子要炸兩次。42 秒前站到${DIR_NAME[S.nailDirs[3]]}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，順時針沿外圈到${DIR_NAME[S.nailDirs[0]]}釘子外側放第 3 圈（50 秒），再往${DIR_NAME[S.nailDirs[1]]}釘子方向切進去放第 4 圈（52 秒），放完回人群。${fet}`;
-    if (r === 7 && t < 56) return `你是地火誘導，每根釘子要炸兩次。42 秒前站到${DIR_NAME[S.nailDirs[2]]}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，逆時針往內切，第 3 圈（50 秒）放在${DIR_NAME[S.nailDirs[1]]}釘子內側，第 4 圈（52 秒）再往場中放，放完離開。${fet}`;
+    if ((r === 6 || r === 7) && t < 56) {
+      const far = DIR_NAME[S.nailDirs[r === 6 ? 3 : 2]], own = DIR_NAME[S.nailDirs[r === 6 ? 0 : 1]], mate = DIR_NAME[S.nailDirs[r === 6 ? 1 : 0]], way = r === 6 ? "順時針" : "逆時針";
+      return `你是地火誘導，你負責${far}和${own}兩根，各炸兩次（另外兩根是 ${r === 6 ? "D4" : "D3"} 的，別炸到）。42 秒前站到${far}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，${way}沿外圈跑向${own}釘子，第 3 圈（50 秒）放在快到的地方，第 4 圈（52 秒）貼著${own}釘子外側放。後兩圈都要留在${own}釘子「遠離${mate}」的那一側，放完往第一根釘子那邊回人群。${fet}`;
+    }
     const order = S.killOrder.map((n) => DIR_NAME[S.nailDirs[n]]).join(" → ");
     return `打釘子，順序（逆Z）：${order}。先在第一根釘子靠場中的那側等，前兩圈地火（49、51 秒）炸完再貼上去打，打掉一根就走去下一根。別擋到場邊的灼熱補師和放地火的 D3、D4。${fet}`;
   }

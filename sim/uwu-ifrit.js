@@ -11,7 +11,8 @@ const CFG = {
   crossHalf: 5,     // 覺醒十字半寬（估）
   crossDelay: 0.8,  // 本體衝完到十字出現（估）
   crossLinger: 2.2, // 十字持續（估）
-  eruptR: 5,        // 地火半徑（估）
+  eruptR: 7,        // 地火半徑（由回放站位反推：離釘子 6～7 米仍炸得到，1 秒多跑得出去）
+  nailBox: 1,       // 釘子本身的判定半徑（估）
   eruptDelay: 3,    // 地火出圈到爆炸（回放實測）
   swR: 14,          // 灼熱半徑（估）
   swEvery: 3,       // 灼熱爆炸間隔（回放實測）
@@ -72,6 +73,7 @@ function reset() {
   S.buff = { antiKb: -1, invuln: -1, sprint: -1 };
   S.cd = { antiKb: 0, invuln: 0, sprint: 0 };
   S.fireRes = false;
+  S.nailHits = o.start > 56 ? [2, 2, 2, 2] : [0, 0, 0, 0]; // 每根釘子被地火炸到幾次（兩次才會強化）
   // 這一把的隨機內容
   S.bossCard = ri(4);                        // 開場火神出現的正點（0北 1東 2南 3西）
   S.k = ri(8);                               // 釘子基準方位
@@ -119,7 +121,7 @@ function dashers(t) { // 四連衝鋒的四隻，其中一隻是本體
 }
 function nails(t) {
   if (t < 31.6) return [];
-  return S.nailDirs.map((d, i) => ({ pos: polar(d * 45, 10), i, order: S.killOrder.indexOf(i), dead: t >= NAIL_DEATH[S.killOrder.indexOf(i)] })).filter((n) => !n.dead);
+  return S.nailDirs.map((d, i) => ({ pos: polar(d * 45, 10), i, hits: S.nailHits[i], order: S.killOrder.indexOf(i), dead: t >= NAIL_DEATH[S.killOrder.indexOf(i)] })).filter((n) => !n.dead);
 }
 const swActive = (t) => S.sw.filter((s) => t >= s.t0 && t <= s.last + 0.2);
 const hasSw = (i, t) => swActive(t).some((s) => s.who === i);
@@ -139,9 +141,10 @@ function home(i, t) {
     // 釘子期：王往相鄰兩根釘子拉；灼熱補師去正對面場邊；D3、D4 從分開的釘子跑到相鄰的釘子放地火
     const cd = S.closeDeg;
     if (swIdx(i, t) === 0 && t < 62) return polar(cd + 180, 18);
-    if (i === 6 && t < 52.2) return polar((S.k + 6) * 45 + clamp01((t - 46.2) / 4.875) * 112.5, 14.5); // 遠釘 → 近A → 兩根相鄰釘子中間
-    if (i === 7 && t < 52.2) return polar((S.k + 3) * 45 - clamp01((t - 46.2) / 4.875) * 112.5, 14.5); // 遠釘 → 近B → 兩根相鄰釘子中間
-    if (i === 0) return polar(cd, 7.5);
+    // 回放：誘導者站在分開的釘子外側吃前兩個圈（第二圈出來前才起跑），沿外圈跑 90 度，第三圈放在快到時、第四圈放在相鄰釘子外側
+    if (i === 6 && t < 52.15) return polar((S.k + 6) * 45 + clamp01((t - 47.3) / 3.8) * 90, 14.5);
+    if (i === 7 && t < 52.15) return polar((S.k + 3) * 45 - clamp01((t - 47.3) / 3.8) * 90, 14.5);
+    if (i === 0) return polar(cd, 6.5);
     return [null, polar(cd + 180, 2), polar(cd + 160, 4), polar(cd + 200, 4), polar(cd - 70, 3), polar(cd + 70, 3), polar(cd + 150, 2.5), polar(cd + 210, 2.5)][i];
   }
   if (t < 78) return center();
@@ -221,7 +224,7 @@ function buildEvents() {
   incinerate(21.3, 1); incinerate(24.4, 2); incinerate(28.5, 3);
   at(31, () => { S.fireRes = false; });
 
-  at(31.6, () => flash("炎獄之楔出現：數字是擊殺順序（逆Z）"), "炎獄之楔 ×4");
+  at(31.6, () => flash("炎獄之楔出現：數字是擊殺順序（逆Z），每根要被地火炸兩次"), "炎獄之楔 ×4");
   at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：MT 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
   NAIL_DEATH.forEach((t, n) => at(t, () => flash(`第 ${n + 1} 根釘子爆炸：全場傷害`), `釘子 ${n + 1} 爆炸`));
 
@@ -242,11 +245,12 @@ function buildEvents() {
     cast("地火", first - CFG.eruptDelay - 1, first - CFG.eruptDelay);
     for (let n = 0; n < 4; n++) {
       const hitT = first + 2 * n;
-      at(hitT - CFG.eruptDelay, () => { const who = pick(); for (const i of who) addAoe({ ...circleAoe({ x: S.ents[i].x, y: S.ents[i].y }, CFG.eruptR), t0: S.t, t1: hitT, skipHome: who, onHit: lethal("站在地火裡") }); }, n === 0 ? label : null);
+      at(hitT - CFG.eruptDelay, () => { const who = pick(); for (const i of who) addAoe({ ...circleAoe({ x: S.ents[i].x, y: S.ents[i].y }, CFG.eruptR), t0: S.t, t1: hitT, skipHome: who, onHit() { for (const n of nails(S.t)) if (this.hit(n.pos, CFG.nailBox)) { S.nailHits[n.i]++; flash(`地火炸到${DIR_NAME[S.nailDirs[n.i]]}釘子（${S.nailHits[n.i]}/2）`); } if (this.hit(me())) die("站在地火裡"); } }); }, n === 0 ? label : null);
     }
   };
   const furthest2 = () => S.ents.slice().sort((a, b) => dist(b, boss()) - dist(a, boss())).slice(0, 2).map((e) => e.i);
   eruptions(49.1, () => [6, 7], "地火 ×4（點 D3、D4）");
+  at(55.3, () => { const miss = S.nailHits.map((h, i) => (h < 2 ? `${DIR_NAME[S.nailDirs[i]]}（${h}/2）` : null)).filter(Boolean); if (miss.length) die(`釘子沒有每根炸滿兩次：${miss.join("、")}。火神不會覺醒，之後會滅團`); else flash("四根釘子都炸滿兩次：火神將覺醒"); });
   at(66, () => flash("火神跳走，回場中集合"));
   hellfire(73.4);
   eruptions(87.9, () => [6, 7], "地火 ×4（點 D3、D4）");
@@ -386,11 +390,13 @@ function hint() {
   if (t < 31) return r === 0 ? "你是 MT：留在王的南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "三連烈焰焚燒是朝南的坦克正面扇形：留在王的北側。";
   if (t < 66) {
     if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 3 秒炸一次。`;
-    if (r === 6 && t < 56) return `你是地火誘導：先站在${DIR_NAME[S.nailDirs[3]]}那根釘子外側，第一個圈一出來就順時針繞著跑，第三個圈放在${DIR_NAME[S.nailDirs[0]]}那根釘子外側，再往前一點到兩根相鄰釘子中間放第四個。放完回場中。`;
-    if (r === 7 && t < 56) return `你是地火誘導：先站在${DIR_NAME[S.nailDirs[2]]}那根釘子外側，第一個圈一出來就逆時針繞著跑，第三個圈放在${DIR_NAME[S.nailDirs[1]]}那根釘子外側，再往前一點到兩根相鄰釘子中間放第四個。放完回場中。`;
+    if ((r === 6 || r === 7) && t < 56) {
+      const far = DIR_NAME[S.nailDirs[r === 6 ? 3 : 2]], near = DIR_NAME[S.nailDirs[r === 6 ? 0 : 1]], way = r === 6 ? "順時針" : "逆時針";
+      return `你是地火誘導，每根釘子要炸到兩次才會變大。站在${far}釘子外側不要動，吃第一、第二個圈（46、48 秒出圈）；第二個圈一出來就${way}沿外圈跑向${near}釘子，第三個圈（50 秒）放在快到的地方，第四個圈（52 秒）放在${near}釘子外側，放完往場中走。`;
+    }
     const fet = r === 0 || r === S.fetterDps ? `你和 ${ROLES[r === 0 ? S.fetterDps : 0]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
     if (r === 0) return `把王往${near}兩根相鄰釘子的方向拉 5 米，自己站更外側。${fet}釘子照數字順序打（逆Z：先分開的兩根，再相鄰的兩根）。`;
-    return `王被拉向${near}兩根相鄰的釘子，待在王靠場中的那一側。別靠近場邊的灼熱補師與跑地火的 D3、D4。${fet}`;
+    return `王被拉向${near}兩根相鄰的釘子，待在王靠場中的那一側。別靠近場邊的灼熱補師與跑地火的 D3、D4（他們要讓每根釘子被炸兩次）。${fet}`;
   }
   if (t < 78) return "火神跳走，全隊回場中吃地獄之火炎。";
   if (t < 97) {
@@ -435,7 +441,7 @@ function draw() {
   S.flashRings = S.flashRings.filter((f) => f.until > t);
   for (const f of S.flashRings) { g.beginPath(); g.arc(f.c.x, f.c.y, f.r, 0, 7); g.fillStyle = "rgba(255,200,120,.35)"; g.fill(); }
   if (fetterOn(t)) { const a = S.ents[0], b = S.ents[S.fetterDps]; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 0.25; g.strokeStyle = dist(a, b) > CFG.fetterMax ? "#ff4d4d" : "#ffb347"; g.stroke(); }
-  for (const n of nails(t)) { g.beginPath(); g.arc(n.pos.x, n.pos.y, 1.1, 0, 7); g.fillStyle = "#d9480f"; g.fill(); }
+  for (const n of nails(t)) { g.beginPath(); g.arc(n.pos.x, n.pos.y, 1 + 0.45 * Math.min(n.hits, 2), 0, 7); g.fillStyle = ["#7c2d12", "#c2410c", "#f97316"][Math.min(n.hits, 2)]; g.fill(); if (n.hits >= 2) { g.lineWidth = 0.18; g.strokeStyle = "#fde68a"; g.stroke(); } }
   const b = bossState(t);
   const drawIfrit = (pos, faceTo, real) => { g.beginPath(); g.arc(pos.x, pos.y, real ? 3 : 2.4, 0, 7); g.fillStyle = real ? "#c2410c" : "#9a3412"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fdba74"; g.stroke(); if (faceTo) { const a = Math.atan2(faceTo.y - pos.y, faceTo.x - pos.x); g.beginPath(); g.moveTo(pos.x + Math.cos(a) * 4.2, pos.y + Math.sin(a) * 4.2); g.lineTo(pos.x + Math.cos(a + 0.5) * 2.6, pos.y + Math.sin(a + 0.5) * 2.6); g.lineTo(pos.x + Math.cos(a - 0.5) * 2.6, pos.y + Math.sin(a - 0.5) * 2.6); g.closePath(); g.fillStyle = "#fdba74"; g.fill(); } };
   if (b.vis) drawIfrit(b.pos, t < 7.2 ? polar(S.bossCard * 90 + 180, 19.5) : S.ents[0], true);
@@ -449,7 +455,7 @@ function draw() {
   }
   g.restore();
   DIR_NAME.forEach((m, d) => label(polar(d * 45, CFG.R + 2), m, d === 0 ? "#f8fafc" : d % 2 ? "rgba(174,185,204,.45)" : "#aeb9cc", d % 2 ? 11 : 13));
-  for (const n of nails(t)) label(n.pos, String(n.order + 1), "#fff", 12);
+  for (const n of nails(t)) { label(n.pos, String(n.order + 1), "#fff", 12); if (t < 56) label(n.pos, `${Math.min(n.hits, 2)}/2`, n.hits >= 2 ? "#fde68a" : "#aeb9cc", 10, 15); }
   if (S.opts.assist) for (const c of ds) label(c.pos, String(c.n + 1), "#fff", 13);
   for (const e of S.ents) label(e, e.i === role ? "你 " + ROLES[e.i] : ROLES[e.i], e.i === role ? "#fff" : "#cbd5e1", e.i === role ? 12 : 10, -15);
   for (const s of swActive(t)) label(S.ents[s.who], "灼熱", "#ff8080", 10, 14);

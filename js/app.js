@@ -309,6 +309,9 @@
     document.title = "FF14 副本小抄";
   }
 
+  // 有機制模擬器的副本
+  const SIM_PAGES = { "sb-uwu": { href: "sim/uwu-ifrit.html", note: "火神階段：WASD 實際走位練習，走錯會死" } };
+
   function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);
     const filterChip = (list, cur, key) => list.map(([k, l]) =>
@@ -330,6 +333,7 @@
           h("button", { class: "iconbtn favbtn" + (isFav ? " on" : ""), title: "收藏", onclick: () => toggleFav(d.id) }, icon("star", isFav)),
         ),
       ),
+      SIM_PAGES[d.id] ? h("a", { class: "simcta", href: SIM_PAGES[d.id].href }, h("strong", null, "機制模擬器"), h("span", null, SIM_PAGES[d.id].note)) : null,
       h("div", { class: "overview", html: fmt(d.overview) }),
       d.route ? h("details", { class: "route", open: "" }, h("summary", null, "道中 / 路線提示"), h("div", { class: "body", html: fmt(d.route) })) : null,
       d.sources && d.sources.length ? h("div", { class: "sources" },

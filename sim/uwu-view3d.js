@@ -5,7 +5,7 @@
 
 const View3D = (() => {
   let renderer, scene, camera, ready = false;
-  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, spotRing, fetterLine, flashPool = [], propPool = [], guideRings = [], guideLine;
+  let players = [], ifrits = [], nailMeshes = [], swRings = [], crushRing, spotRing, fetterLine, flashPool = [], propPool = [], guideRings = [], guideLine, bossRingG;
   const aoeMeshes = new Map();
   const spriteCache = new Map();
   const Y = 0.04; // 地面貼花的高度
@@ -111,6 +111,12 @@ const View3D = (() => {
     }
     for (let i = 0; i < 4; i++) { const r = flat(new THREE.RingGeometry(1.05, 1.3, 32), 0xffffff, 0.9); r.visible = false; scene.add(r); guideRings.push(r); }
     guideLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x4cc2ff })); guideLine.visible = false; scene.add(guideLine);
+    // 王腳下的目標圈與面向箭頭（有的階段拿它當站位參考）
+    bossRingG = new THREE.Group();
+    bossRingG.add(flat(new THREE.RingGeometry(1, 1.03, 64), 0xffffff, 0.85));
+    const tri = new THREE.Shape(); tri.moveTo(0, 1); tri.lineTo(-1, 0); tri.lineTo(1, 0); tri.closePath();
+    bossRingG.add(flat(new THREE.ShapeGeometry(tri), 0xffffff, 0.95));
+    bossRingG.visible = false; scene.add(bossRingG);
     ready = true;
     return true;
   }
@@ -197,6 +203,8 @@ const View3D = (() => {
     const guides = typeof sceneGuides === "function" ? sceneGuides(t) : [];
     const rings = guides.filter((x) => x.type === "ring"), ln = guides.find((x) => x.type === "line");
     guideRings.forEach((r, i) => { const x = rings[i]; r.visible = !!x; if (x) { r.position.set(x.pos.x, Y + 0.03, x.pos.y); r.material.color.set(x.color); } });
+    const br = typeof bossRing === "function" ? bossRing(t) : null; bossRingG.visible = !!br;
+    if (br) { bossRingG.position.set(br.pos.x, Y + 0.04, br.pos.y); faceTo(bossRingG, br.pos, br.look); const ring = bossRingG.children[0], ar = bossRingG.children[1]; ring.scale.set(br.r, br.r, 1); ar.scale.set(br.half, br.tip - br.r, 1); ar.position.set(0, 0, -br.r); }
     guideLine.visible = !!ln; if (ln) { guideLine.geometry.setFromPoints([v3(ln.a, 0.3), v3(ln.b, 0.3)]); guideLine.material.color.set(ln.color); }
     syncAoes(t);
     // 鏡頭：跟在角色背後。S.cam = 水平角（0 = 面向北），S.pitch = 俯角，S.dist = 距離

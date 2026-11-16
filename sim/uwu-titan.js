@@ -3,7 +3,7 @@
 // 判定範圍（大地之重、炸彈、山崩寬度等）為估計值，集中在 CFG。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1116-19";
+const BUILD = "1116-20";
 const CFG = {
   R: 16,            // 地裂後的場地半徑（回放：玩家最遠只到 15.8）
   speed: 6,
@@ -39,7 +39,7 @@ const S = { opts: { role: 7, start: -4, speed: 1, assist: true, hints: true, god
 // 第二次地裂的方位決定整個座標框：以下站位都用「泰坦在北 (0,-14)」來寫，再用 F() 轉成實際方位。
 // 回放裡四個方位各自的炸彈缺口：北 (-5,12)、南 (-5,-12)、西 (12,-5)、東 (-12,5)。
 const FRAME = [(x, y) => ({ x, y }), (x, y) => ({ x: -y, y: -x }), (x, y) => ({ x, y: -y }), (x, y) => ({ x: y, y: x })];
-const F = (x, y) => FRAME[S.g2](x, y);
+const F = (x, y) => FRAME[S.g2](x * S.mir, y); // S.mir：炸彈有兩種排法（左右鏡像），跟泰坦跳到哪一邊無關
 const TITAN2 = () => F(0, -14);
 const BOMBS = [[5, 5], [-5, 5], [5, 12], [11, 11], [-11, 11]], GAP = [-5, 12];
 const LAND = [-4.5, 14.2];
@@ -53,6 +53,7 @@ function reset() {
   S.keys = S.keys || {}; S.cam = S.cam || 0; S.zoom = S.zoom || 1;
   S.buff = { sprint: -1 }; S.cd = { sprint: 0, provoke: 0 };
   S.g2 = Math.floor(rnd() * 4);
+  S.mir = rnd() < 0.5 ? 1 : -1;
   S.g3 = (S.g2 + 1 + Math.floor(rnd() * 3)) % 4;   // 第三次地裂：另外三個正點隨機（回放 8 筆：對面 4、順 90 度 3、逆 90 度 1）
   S.g4 = 2 + Math.floor(rnd() * 2);                // 第四個石牢：隨機點一個補師
   S.bomb0 = Math.floor(rnd() * 4);                 // 最後四顆炸彈：第一顆的角落隨機，之後固定順時針
@@ -81,13 +82,15 @@ function bossSpot(t) {
   return { pos: lerp(polar(D3() - 108, 9.5), polar(D3() - 135, 8.5), clamp01((t - 135) / 4)), vis: true };
 }
 function bossLook(t) {
-  if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 32.9) return { x: 0, y: 0 };
+  if (t >= 25.3 && t < 30.5) return TITAN2(); if (t >= 30.5 && t < 39.2) return { x: 0, y: 0 }; // 落地後面向場中：腳下目標圈的箭頭是擊飛站位的參考點
   if (t >= 79.3 && t < 84.3) return G3(); if (t >= 84.3 && t < 86.9) return { x: 0, y: 0 };
   const h = S.tank === null ? 7 : S.tank; return alive(h) ? S.ents[h] : { x: 0, y: 0 };
 }
 const jumping = (t) => (t >= 25.3 && t < 32.9) || (t >= 79.3 && t < 86.9);
 const bossState = bossSpot;
 const tankable = () => false;
+const RING = { r: 4.2, tip: 5.1, half: 0.9 }; // 泰坦腳下的目標圈與面向箭頭（估）
+function bossRing(t) { const b = bossSpot(t); return b.vis && !b.alt ? { pos: b.pos, look: bossLook(t), ...RING } : null; }
 // 畫面層共用介面：泰坦階段沒有這些東西
 const dashers = () => [], nails = () => [], swActive = () => [], hasSw = () => false, fetterOn = () => false;
 function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ pos: b.pos, alt: b.alt || 0, look: bossLook(t), real: false, tag: "", color: 0xa16207 }] : []; }
@@ -356,7 +359,7 @@ function hint() {
     return r === 0 ? "大地之重 2：走開。自殺組會留在東邊被炸死，這是故意的。" : "大地之重 2：你要活著。離開腳下的圈，走回泰坦北側。可以先讀復活，但自殺的人 50 秒才會接。";
   }
   if (t < 33.5) return t < 30.5 ? "看泰坦的面向：牠轉向哪一邊，就會跳到那一邊的場邊砸下來（第二次地裂）。離落點越近越痛，全員往牠面向的反方向跑，貼到正對面的場邊。" : `泰坦落在${dn}邊。`;
-  if (t < 39.2) return `隆起會把你從泰坦身上往外推 24 米。對面半場有 5 顆炸彈岩，只缺一格。走到泰坦腳前 4～5 米、站在「泰坦 → 缺口」那條線上疊在一起，被推過去才會剛好落在缺口。${S.opts.assist ? "藍線是你現在的位置會被推到哪。" : ""}被推出場外或落在炸彈旁邊都會死。`;
+  if (t < 39.2) return `隆起會把你從泰坦身上往外推 24 米，暈 2 秒，不能防擊退。炸彈岩出現在你們背後，先回頭看：5 顆炸彈有兩種排法（左右鏡像），只缺一格。站位看泰坦腳下目標圈的箭頭：全員疊在箭頭尖端「靠缺口那一側」的角上（缺口在箭頭左邊就站左角，在右邊就站右角），被推過去才會剛好落在缺口。${S.opts.assist ? "藍線是你現在的位置會被推到哪。" : ""}偏一點就會落在炸彈旁邊或被推出場外。`;
   if (t < 41.2) return "被擊飛中，暈眩 2 秒。";
   if (t < 46.2) {
     const g = GAOL.indexOf(r);
@@ -409,7 +412,14 @@ function draw() {
   if (S.opts.assist && S.opts.role === 0 && t >= 39.1 && t < 43.5) { const c = F(-8, 5.4); g.beginPath(); g.arc(c.x, c.y, 1.3, 0, 7); g.lineWidth = 0.18; g.strokeStyle = "#4cc2ff"; g.stroke(); }
   if (S.opts.assist && t >= 41.1 && t < 46.2) GAOL_SPOT.forEach(([x, y]) => { const c = F(x, y); g.beginPath(); g.arc(c.x, c.y, 1.2, 0, 7); g.lineWidth = 0.15; g.strokeStyle = "#ffd166"; g.stroke(); });
   const kp = kbPreview(); if (kp) { g.beginPath(); g.moveTo(kp.from.x, kp.from.y); g.lineTo(kp.to.x, kp.to.y); g.lineWidth = 0.2; g.strokeStyle = kp.bad ? "#ff4d4d" : "#4cc2ff"; g.stroke(); g.beginPath(); g.arc(kp.to.x, kp.to.y, 0.9, 0, 7); g.stroke(); }
-  const b = bossSpot(t); if (b.vis) { g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = b.alt ? "rgba(161,98,7,.45)" : "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke(); const lk = bossLook(t), a = Math.atan2(lk.y - b.pos.y, lk.x - b.pos.x); if (!b.alt) { g.beginPath(); g.moveTo(b.pos.x + Math.cos(a) * 4.4, b.pos.y + Math.sin(a) * 4.4); g.lineTo(b.pos.x + Math.cos(a + 0.5) * 2.7, b.pos.y + Math.sin(a + 0.5) * 2.7); g.lineTo(b.pos.x + Math.cos(a - 0.5) * 2.7, b.pos.y + Math.sin(a - 0.5) * 2.7); g.closePath(); g.fillStyle = "#fde68a"; g.fill(); } }
+  const b = bossSpot(t);
+  if (b.vis) {
+    g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = b.alt ? "rgba(161,98,7,.45)" : "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke();
+    const br = bossRing(t);
+    if (br) { const a = Math.atan2(br.look.y - b.pos.y, br.look.x - b.pos.x), px = -Math.sin(a), py = Math.cos(a), cx = b.pos.x + Math.cos(a) * br.r, cy = b.pos.y + Math.sin(a) * br.r;
+      g.beginPath(); g.arc(b.pos.x, b.pos.y, br.r, 0, 7); g.lineWidth = 0.12; g.strokeStyle = "rgba(255,255,255,.8)"; g.stroke();
+      g.beginPath(); g.moveTo(b.pos.x + Math.cos(a) * br.tip, b.pos.y + Math.sin(a) * br.tip); g.lineTo(cx + px * br.half, cy + py * br.half); g.lineTo(cx - px * br.half, cy - py * br.half); g.closePath(); g.fillStyle = "rgba(255,255,255,.9)"; g.fill(); }
+  }
   for (const e of S.ents) { g.beginPath(); g.arc(e.x, e.y, 0.75, 0, 7); g.fillStyle = e.dead ? "#475569" : ROLE_COLOR[e.i]; g.fill(); if (e.i === role) { g.lineWidth = 0.22; g.strokeStyle = "#fff"; g.stroke(); } }
   g.restore();
   DIR_NAME.forEach((m, d) => label(polar(d * 45, CFG.R + 2), m, d === 0 ? "#f8fafc" : "#8a96ad", d % 2 ? 11 : 13));

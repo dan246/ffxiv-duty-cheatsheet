@@ -15,14 +15,14 @@ const CFG = {
   nailBox: 0.5,     // 釘子本身的判定半徑（估）
   eruptDelay: 3,    // 地火出圈到爆炸（回放實測）
   swR: 14,          // 灼熱半徑（估）
-  swEvery: 3,       // 灼熱爆炸間隔（回放實測）
+  swEvery: 6,       // 灼熱爆炸間隔（回放：範圍爆炸每 6 秒一次；帶原者自己另外每 3 秒吃一次持續傷害）
   stackR: 4.5,      // 烈焰碎擊分攤半徑（估）
   kb: 15,           // 火神爆裂擊退距離（估）
   coneHalf: Math.PI / 3, // 烈焰焚燒扇形半角（估：120 度）
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 拉遠累計幾秒算失敗
 };
-const BUILD = "1116-10"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
+const BUILD = "1116-11"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -35,10 +35,10 @@ const CHECKPOINTS = [
   { t: 68, name: "拉角落、第二輪地火、分身衝鋒" },
   { t: 97, name: "第三次灼熱、烈焰碎擊" },
   { t: 112, name: "四連深紅旋風" },
-  { t: 129, name: "收尾：MT 三連焚燒" },
+  { t: 129, name: "收尾：MT 三連焚燒＋第三輪地火" },
 ];
 const KILL_T = 97;   // 輸出很高的隊伍在這時就擊殺（壓掉後面的機制）
-const END_T = 146;   // 一般隊伍的擊殺時間
+const END_T = 155;   // 一般隊伍的擊殺時間（回放 8 筆裡 5 筆打到第三輪地火，152～155 秒擊殺）
 const NAIL_DEATH = [55.2, 57.7, 60.2, 62.7];
 const DASH_T = [121.3, 122.8, 124.2, 125.6];
 const MARKERS = [["A", 0, -6.5, "#ff6b6b"], ["B", 6.5, 0, "#ffd166"], ["C", 0, 6.5, "#6096ff"], ["D", -6.5, 0, "#c084fc"], ["1", 0, 0, "#ff6b6b"], ["2", 0, -18, "#ffd166"], ["3", 12.7, -12.7, "#6096ff"]];
@@ -87,9 +87,9 @@ function reset() {
   S.fetterDps = 4 + ri(2);                   // 炎獄之鎖：接王的坦克（前半是 ST）＋一名輸出（回放是隨機輸出；這裡固定成近戰，兩人本來就一起打釘子）
   const h1 = 2 + ri(2), h2 = 2 + ri(2);
   S.sw = [
-    { who: h1, t0: 43.8, first: 45.7, last: 60.7 },
-    { who: h2, t0: 82.6, first: 84.5, last: 111.5 },
-    { who: h2 === 2 ? 3 : 2, t0: 100.6, first: 102.5, last: 129.5 },
+    { who: h1, t0: 43.6, first: 48.7, last: 60.7 },                    // 第一次：炸 3 下
+    { who: h2, t0: 82.4, first: 87.5, last: 111.6 },                   // 覺醒後 30 秒：炸 5 下
+    { who: h2 === 2 ? 3 : 2, t0: 100.5, first: 105.6, last: 129.6 },    // 第三次：一路炸到四連衝結束
   ];
   S.crush1 = 4 + ri(4);
   S.ents = ROLES.map((_, i) => ({ ...home(i, o.start), i, face: 0 }));
@@ -161,6 +161,8 @@ function home(i, t) {
   if (t >= 129.5) {
     // 收尾：MT 在人群停下的方位把王接在場邊，其他人站王靠場中的那一側
     const F = finalDir() * 45;
+    // 第三輪地火（147 秒起）：D3、D4 在焚燒期間就先到離王最遠的場邊，出圈後各自沿牆跑（D3 順時針、D4 逆時針）
+    if ((i === 6 || i === 7) && t >= 137.5) { const sgn = i === 6 ? 1 : -1; return polar(F + 180 + sgn * (6 + Math.max(0, t - 147.2) * 13), 18); }
     return i === 0 ? polar(F, 17.5) : polar(F + (i - 3.5) * 5, 6.5 + (i % 2));
   }
   if (t >= 113.6) {
@@ -239,7 +241,8 @@ function buildEvents() {
           S.fireRes = true; flash(`烈焰焚燒 ${n}/3`);
         } else if (this.hit(me())) die("站在王正面吃到烈焰焚燒（非坦克站王的背後）");
       },
-    }), `烈焰焚燒 ${n}/3（${ROLES[tank]} 順劈）`);
+    }));
+    S.tl.push({ t, name: `烈焰焚燒 ${n}/3（${ROLES[tank]} 順劈）` });
   };
   incinerate(21.3, 1, 1); incinerate(24.4, 2, 1); incinerate(28.5, 3, 1); // 第一組：ST 接
   at(31, () => { S.fireRes = false; });
@@ -248,7 +251,7 @@ function buildEvents() {
   at(40.8, () => { S.fetterApart = 0; flash(`炎獄之鎖：ST 與 ${ROLES[S.fetterDps]} 連線`); }, "炎獄之鎖");
   NAIL_DEATH.forEach((t, n) => at(t, () => flash(`第 ${n + 1} 根釘子爆炸：全場傷害`), `釘子 ${n + 1} 爆炸`));
 
-  // 灼熱：每 3 秒以帶原者為中心爆炸
+  // 灼熱：每 6 秒以帶原者為中心爆炸
   S.sw.forEach((s, n) => {
     cast("灼熱咆哮", s.t0 - 2.8, s.t0 - 0.9);
     at(s.t0, () => flash(`灼熱：${ROLES[s.who]}`), `灼熱咆哮 → ${ROLES[s.who]}`);
@@ -307,7 +310,8 @@ function buildEvents() {
 
   at(129.5, () => { S.fireRes = false; flash("火神回來：MT 繼續接王"); });
   incinerate(133.9, 1, 0); incinerate(137, 2, 0); incinerate(141.1, 3, 0); // 第二組：MT 接（火神跳回來之後都是 MT）
-  at(END_T, () => { S.over = { win: true, reason: "火神被擊殺，階段通過" }; });
+  eruptions(150.2, () => [6, 7], "第三輪地火 ×4（點離王最遠的 D3、D4）");
+  at(END_T, () => { S.over = { win: true, reason: "火神被擊殺，階段通過（打得慢的話這裡之後還有一次烈焰碎擊）" }; });
   S.tl.sort((a, b) => a.t - b.t);
   return ev;
 }
@@ -380,7 +384,7 @@ function hint() {
   if (t < 38) return r === 1 ? "你是 ST，第一組焚燒你接：留在王的南側讓王背對人群，按 2 開無敵吃三連烈焰焚燒。" : "第一組三連烈焰焚燒由 ST 在南側接，是朝南的正面扇形：留在王的北側。";
   if (t < 66) {
     const fet = r === 1 || r === S.fetterDps ? `你和 ${ROLES[r === 1 ? S.fetterDps : 1]} 有炎獄之鎖，保持 ${CFG.fetterMax} 米內。` : "";
-    if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 3 秒炸一次。`;
+    if (swIdx(r, t) === 0 && t < 62) return `你被點灼熱：去${dirName(cd + 180)}邊場邊（相鄰兩根釘子的正對面），離所有人 ${CFG.swR} 米以上，每 6 秒炸一次。`;
     if ((r === 6 || r === 7) && t < 56) {
       const far = DIR_NAME[S.nailDirs[r === 6 ? 3 : 2]], own = DIR_NAME[S.nailDirs[r === 6 ? 0 : 1]], mate = DIR_NAME[S.nailDirs[r === 6 ? 1 : 0]], way = r === 6 ? "順時針" : "逆時針";
       return `你是地火誘導，你負責${far}和${own}兩根，各炸兩次（另外兩根是 ${r === 6 ? "D4" : "D3"} 的，別炸到）。42 秒前站到${far}釘子外側不動，吃第 1、2 圈（46、48 秒出圈）；第 2 圈快出來時起跑，${way}沿外圈跑向${own}釘子，第 3 圈（50 秒）放在快到的地方，第 4 圈（52 秒）貼著${own}釘子外側放。後兩圈都要留在${own}釘子「遠離${mate}」的那一側，放完往第一根釘子那邊回人群。${fet}`;
@@ -403,8 +407,10 @@ function hint() {
     const opp = swIdx(r, t) === 2 ? 4 : 0, d = (n) => DIR_NAME[(S.k + n + opp) % 8], deg = S.realIdx % 2 === 0 ? 45 : 90;
     return `四連深紅旋風，四隻照釘子擊殺順序衝。${opp ? "你還帶著灼熱，在人群的正對面做同樣的事。" : ""}先到${d(1)}場邊（${opp ? "第 4 隻的正對面" : "第 4 隻的正前方"}）。看哪隻身上是藍火（本體）：這把是第 ${S.realIdx + 1} 隻，所以第 1 隻一衝完就順時針走 ${deg} 度到${d(deg === 45 ? 2 : 3)}。規則：藍火是第 1、3 隻走 45 度，第 2、4 隻走 90 度。這段開疾跑（Shift）。十字在藍火那隻衝完 2.1 秒後出現。`;
   }
-  const F = dirName(finalDir() * 45);
-  return r === 0 ? `第二組焚燒你（MT）接：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。` : `第二組由 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側，打到死為止。`;
+  const F = dirName(finalDir() * 45), FO = dirName(finalDir() * 45 + 180);
+  if (r === 6 || r === 7) return t < 147 ? `MT 在${F}邊場邊接王吃三連烈焰焚燒。你是地火誘導：焚燒期間就先走到${FO}邊場邊（離王最遠的地方），等 147 秒第三輪地火。` : `第三輪地火點你和 ${r === 6 ? "D4" : "D3"}：圈出來後${r === 6 ? "順時針" : "逆時針"}沿場邊一直跑，每 2 秒一個圈，別往人群帶，跑到火神死。`;
+  if (r === 0) return `第二組焚燒你（MT）接：在${F}邊場邊把王面向場外，按 2 開無敵吃三連烈焰焚燒。之後地火由 D3、D4 在對面場邊誘導。`;
+  return `第二組由 MT 在${F}邊場邊接王吃三連烈焰焚燒：其他人站王靠場中的那一側。147 秒起第三輪地火由 D3、D4 在${FO}邊場邊誘導，別靠過去，打到死為止。`;
 }
 
 // ---------- 繪製 ----------

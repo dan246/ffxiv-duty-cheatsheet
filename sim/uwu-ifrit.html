@@ -58,14 +58,14 @@ a{color:var(--accent)}
       <div class="row"><span id="clock">0:00</span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
       <div class="row"><label>職能 <select id="role"></select></label><label>速度 <select id="speed"><option value="1">1×</option><option value="0.75">0.75×</option><option value="0.5">0.5×</option></select></label></div>
       <div class="row"><label style="flex:1">從 <select id="start"></select></label></div>
-      <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">打滿（含烈焰碎擊、四連火神衝）</option><option value="0">97 秒擊殺（現行輸出）</option></select></label></div>
+      <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">打滿（含烈焰碎擊、四連火神衝，約 146 秒擊殺）</option><option value="0">97 秒擊殺（壓掉後面機制）</option></select></label></div>
       <div class="row"><label><input type="checkbox" id="assist" checked> 輔助預兆</label><label><input type="checkbox" id="hints" checked> 提示</label><label><input type="checkbox" id="god"> 觀摩（不會死）</label></div>
     </div>
     <div class="card"><h2>現在該做什麼</h2><p id="hint"></p></div>
     <div class="card"><h2>技能</h2>
       <div class="skills">
-        <button id="skAntiKb" type="button"><b><kbd>1</kbd> 防擊退</b><i></i></button>
-        <button id="skInvuln" type="button"><b><kbd>2</kbd> 無敵</b><i></i></button>
+        <button id="skShield" type="button"><b><kbd>1</kbd> 群盾（H2）</b><i></i></button>
+        <button id="skInvuln" type="button"><b><kbd>2</kbd> 無敵（坦克）</b><i></i></button>
         <button id="skSprint" type="button"><b><kbd>Shift</kbd> 衝刺</b><i></i></button>
       </div>
     </div>
@@ -74,7 +74,7 @@ a{color:var(--accent)}
     <div class="card keys"><h2>操作</h2>
       <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動（相對鏡頭）· 滑鼠拖曳或 <kbd>Q</kbd><kbd>E</kbd> 轉鏡頭 · 滾輪縮放 · <kbd>P</kbd> 暫停
     </div>
-    <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。0～97 秒的時間、釘子位置與站位取自 FFLogs 日本區擊殺回放；97 秒之後現行輸出通常打不到，站位非實測。判定範圍是估計值。</p>
+    <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。時間、釘子順序、站位、場地標記取自 FFLogs 日本區 13 筆擊殺回放；判定範圍（衝鋒與十字寬度、地火、灼熱、炎柱）是估計值。</p>
   </aside>
 </div>
 <script src="uwu-ifrit.js"></script>

@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1118-11";
+  const BUILD = "1118-15";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
@@ -71,7 +71,7 @@
   const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 
   function setFight(i) {
-    S.fi = i; F = D.fights[i]; if (!F.marks) { F.actors = F.actors.filter((a) => a[1] === "H"); buildMarks(F); buildWings(F); }
+    S.fi = i; F = D.fights[i]; if (!F.marks) { F.actors = F.actors.filter((a) => a[1] === "H"); addKnockbacks(F); buildMarks(F); buildWings(F); }
     $("tab0").classList.toggle("on", i === 0); $("tab1").classList.toggle("on", i === 1);
     const box = $("clips"); box.textContent = "";
     CLIPS[i].forEach((c, k) => {
@@ -123,20 +123,44 @@
     });
   }
 
+  // 各招的真實半徑（米），取自遊戲資料表 Action.EffectRange；[單人, 多人分攤]
+  const RAD = {
+    "Flagrant Fire": [5, 6], "Fire III": [5, 6], "Meteor": [5, 6], "Hyperdrive": [5, 5], "Inexorable Will": [6, 6], "Indomitable Will": [6, 6],
+    "Gravitas": [5, 5], "Vitrophyre": [5, 5], "The Path of Light": [4, 4], "Wings of Destruction": [7, 7], "Futures Numbered": [5, 5],
+    "Pasts Forgotten": [5, 5], "Ultimate Embrace": [5, 5], "Trine": [6, 6], "Timely Teleport": [6, 6], "Explosion": [5, 5],
+  };
+  // 資料表裡範圍是全場（100 米）的招，一律當全體傷害，不畫圈
+  const WIDE = new Set(["Ultima", "Ultima Upsurge", "Forsaken", "Light of Judgment", "Heartless Angel", "Heartless Archangel", "Ave Maria", "Indolent Will", "Holy Ascent", "Aero Assault", "The River of Light", "Shockwave"]);
+  // 擊退：紀錄上的命中時間是讀條結束，人實際被推開大約在 1～2.5 秒後。
+  // 在命中後 4.5 秒內找「短時間位移超過 7 米」的那一跳，當作擊退瞬間，並讓它在 0.6 秒內完成。
+  function addKnockbacks(F) {
+    for (const h of F.hits) {
+      if (!/^(Pulse Wave|Shockwave|Aero Assault)$/.test(h[2])) continue;
+      const tr = F.tracks[h[1]]; h.k = null;
+      h.imm = (F.immune || []).some((m) => m[1] === h[1] && h[0] - m[0] >= 0 && h[0] - m[0] <= 70);
+      for (let i = 3; i < tr.length; i += 3) {
+        if (tr[i] <= h[0]) continue;
+        if (tr[i - 3] > h[0] + 45) break;
+        const dt = tr[i] - tr[i - 3], d = Math.hypot(tr[i + 1] - tr[i - 2], tr[i + 2] - tr[i - 1]) / 10;
+        if (d > 7 && dt <= 25) { h.k = tr[i]; if (dt > 7) tr.splice(i, 0, tr[i] - 6, tr[i - 2], tr[i - 1]); break; }
+      }
+    }
+  }
+
   // 機制落點：把同一時間吃到同一招的人，依位置分群畫圈（由紀錄反推，不是遊戲內的範圍）
   function buildMarks(F) {
     const groups = new Map();
-    const OWN = new Set(F.actors.map((a) => a[4]).concat(["Future's End", "Past's End"]));
+    const OWN = new Set(F.actors.map((a) => a[4]).concat(["Future's End", "Past's End", "Pulse Wave"]));
     for (const h of F.hits) { if (OWN.has(h[2])) continue; const k = Math.round(h[0] / 5) + "|" + h[2]; if (!groups.has(k)) groups.set(k, { t: h[0], n: h[2], who: [] }); const gr = groups.get(k); if (!gr.who.includes(h[1])) gr.who.push(h[1]); }
     const marks = [], wides = [];
     for (const gr of groups.values()) {
       const P = gr.who.map((i) => [i, at(F.tracks[i], gr.t)]).filter((x) => x[1]);
       const cl = [];
       for (const [i, p] of P) { const c = cl.find((c) => c.m.some((q) => Math.hypot(q[1][0] - p[0], q[1][1] - p[1]) < 4.5)); c ? c.m.push([i, p]) : cl.push({ m: [[i, p]] }); }
-      if (gr.who.length >= 7 && cl.length > 1) { wides.push([gr.t, gr.n]); continue; }
+      if (WIDE.has(gr.n) || (!RAD[gr.n] && gr.who.length >= 7 && cl.length > 1)) { wides.push([gr.t, gr.n]); continue; }
       for (const c of cl) {
         const x = c.m.reduce((a, q) => a + q[1][0], 0) / c.m.length, y = c.m.reduce((a, q) => a + q[1][1], 0) / c.m.length;
-        const r = Math.max(2.2, ...c.m.map((q) => Math.hypot(q[1][0] - x, q[1][1] - y) + 1.4));
+        const known = RAD[gr.n], r = known ? known[c.m.length > 1 ? 1 : 0] : Math.max(2.2, ...c.m.map((q) => Math.hypot(q[1][0] - x, q[1][1] - y) + 1.4));
         marks.push({ t: gr.t, n: gr.n, x, y, r, k: c.m.length });
       }
     }
@@ -171,6 +195,7 @@
 
   function draw() {
     const t = S.t, t10 = t * 10;
+    const pts = F.tracks.map((tr) => { const p = at(tr, t10); return p && px(p); });
     g.clearRect(0, 0, W, W);
     // 場地
     g.fillStyle = "#101a33"; g.beginPath(); g.arc(C, C, R * SC, 0, 6.2832); g.fill();
@@ -193,7 +218,7 @@
     if ($("mech").checked) for (const c of F.casts) {
       if (c[2] !== "Celestriad" || c[3] !== "B") continue;
       const dt = (t10 - c[0]) / 10; if (dt < 0 || dt > 8.7) continue;
-      const bp0 = at(F.bossTrack, c[0]) || [0, 0], [x, y] = px(bp0), r = 9.5 * SC, hw = 4.5 * SC, far = 45 * SC;
+      const bp0 = at(F.bossTrack, c[0]) || [0, 0], [x, y] = px(bp0), r = 10 * SC, hw = 5 * SC, far = 45 * SC;
       g.save(); g.beginPath(); g.arc(C, C, R * SC, 0, 6.2832); g.clip();
       g.font = "600 24px 'Fira Sans',sans-serif";
       if (dt <= 5.6) { const hit = dt >= 5; g.fillStyle = hit ? "rgba(251,146,60,.6)" : "rgba(251,146,60,.28)"; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); g.fillStyle = "#fed7aa"; g.fillText("圓形冰封 " + (hit ? "炸" : (5 - dt).toFixed(0)), x, y + r - 22); }
@@ -212,14 +237,38 @@
       g.restore();
     }
 
-    // 機制落點：命中前 4 秒開始出現，命中後留 0.6 秒
+    // 神像連線：之後會中混亂的人拉黃線、會中睡眠的人拉紫線，從北邊神像拉過來，讀條期間顯示
+    if ($("mech").checked) {
+      const seenT = new Set();
+      for (const d of F.debuffs) {
+        if (d[3] !== "Confused" && d[3] !== "Sleep") continue;
+        const k = d[2] + d[3] + Math.round(d[0] / 20); if (seenT.has(k)) continue; seenT.add(k);
+        if (t10 > d[0] + 3 || t10 < d[0] - 62 || !pts[d[2]]) continue;
+        const conf = d[3] === "Confused", p = pts[d[2]];
+        g.strokeStyle = conf ? "#facc15" : "#c084fc"; g.lineWidth = 5; g.globalAlpha = 0.85;
+        g.beginPath(); g.moveTo(C, C - R * SC - 30); g.lineTo(p[0], p[1]); g.stroke(); g.globalAlpha = 1;
+      }
+    }
+
+    // 波動彈：神像連線到四個人，讀條完把他們往南擊退（要被推進塔裡）
+    if ($("mech").checked) for (const h of F.hits) {
+      if (h[2] !== "Pulse Wave" || t10 > h[0] + 6 || t10 < h[0] - 50 || !pts[h[1]]) continue;
+      const p = pts[h[1]], hit = t10 >= h[0];
+      g.strokeStyle = "#7dd3fc"; g.lineWidth = hit ? 8 : 4; g.globalAlpha = 0.9;
+      g.beginPath(); g.moveTo(C, C - R * SC - 30); g.lineTo(p[0], p[1]); g.stroke(); g.globalAlpha = 1;
+      const txt = !hit ? "連線・擊退 " + ((h[0] - t10) / 10).toFixed(0) : h.k ? (t10 < h.k ? "要被推了" : "被推到這") : h.imm ? "開了防擊退，沒被推" : "沒被推";
+      g.fillStyle = "#bae6fd"; g.font = "600 22px 'Fira Sans',sans-serif"; g.fillText(txt, p[0], p[1] - 40);
+    }
+
+    // 機制落點：命中前 4 秒開始出現（塔提早到 8 秒），命中後留 0.6 秒
     if ($("mech").checked) {
       for (const m of F.marks) {
-        const dt = (m.t - t10) / 10; if (dt > 4 || dt < -0.6) continue;
-        const [x, y] = px([m.x, m.y]), hit = dt <= 0, tower = m.n === "The Path of Light";
+        const tower = m.n === "The Path of Light", lead = tower ? 8 : 4;
+        const dt = (m.t - t10) / 10; if (dt > lead || dt < -0.6) continue;
+        const [x, y] = px([m.x, m.y]), hit = dt <= 0;
         g.fillStyle = tower ? (hit ? "rgba(250,204,21,.45)" : "rgba(250,204,21,.14)") : hit ? "rgba(251,146,60,.45)" : "rgba(251,146,60,.14)"; g.strokeStyle = tower ? "#facc15" : "#fb923c"; g.lineWidth = hit ? 6 : 3;
         g.setLineDash(hit ? [] : [14, 10]); g.beginPath(); g.arc(x, y, m.r * SC, 0, 6.2832); g.fill(); g.stroke(); g.setLineDash([]);
-        if (!hit) { g.strokeStyle = tower ? "#fde68a" : "#fdba74"; g.lineWidth = 5; g.beginPath(); g.arc(x, y, m.r * SC, -1.5708, -1.5708 + 6.2832 * (1 - dt / 4)); g.stroke(); }
+        if (!hit) { g.strokeStyle = tower ? "#fde68a" : "#fdba74"; g.lineWidth = 5; g.beginPath(); g.arc(x, y, m.r * SC, -1.5708, -1.5708 + 6.2832 * (1 - dt / lead)); g.stroke(); }
         g.fillStyle = "#fed7aa"; g.font = "600 24px 'Fira Sans',sans-serif"; g.fillText((tower ? "踩塔" : zh(m.n)) + (m.k > 1 ? " " + m.k + "人" : ""), x, y - m.r * SC - 16);
       }
       // 飛頭：紀錄裡有它們自己的位置
@@ -234,6 +283,7 @@
           g.fillStyle = hit ? "rgba(250,204,21,.4)" : "rgba(250,204,21,.12)"; g.strokeStyle = "#facc15"; g.lineWidth = 5; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); g.stroke();
           g.fillStyle = "#fde68a"; g.font = "600 24px 'Fira Sans',sans-serif"; g.fillText("塔", x, y - r - 16);
         } else {
+          g.strokeStyle = "#f87171"; g.lineWidth = 3; g.setLineDash(hit ? [] : [12, 10]); g.fillStyle = hit ? "rgba(248,113,113,.4)" : "rgba(248,113,113,.1)"; g.beginPath(); g.arc(x, y, 5 * SC, 0, 6.2832); g.fill(); g.stroke(); g.setLineDash([]);
           g.fillStyle = a[1] === "C" ? "#e879f9" : "#f87171"; g.strokeStyle = "#020617"; g.lineWidth = 3; g.beginPath();
           g.moveTo(x, y - 24); g.lineTo(x + 24, y); g.lineTo(x, y + 24); g.lineTo(x - 24, y); g.closePath(); g.fill(); g.stroke();
           g.fillStyle = "#020617"; g.font = "800 20px 'Fira Sans',sans-serif"; g.fillText(a[1] === "C" ? "分" : "頭", x, y + 1);
@@ -244,7 +294,6 @@
       if (wd.length) { g.fillStyle = "#fca5a5"; g.font = "800 34px 'Fira Sans',sans-serif"; g.fillText("全體傷害：" + [...new Set(wd.map((w) => zh(w[1])))].join("、"), C, W - 84); }
     }
 
-    const pts = F.tracks.map((tr) => { const p = at(tr, t10); return p && px(p); });
     // 本尊＋三隻分身衝鋒：衝之前畫在王旁邊（出發位置紀錄裡沒有，是示意），最後 0.8 秒衝到各自目標身上
     const dash = F.hits.filter((h) => /End$/.test(h[2]) && h[0] - t10 <= 50 && t10 - h[0] <= 30);
     const kef = (x, y, name, a) => {
@@ -263,6 +312,7 @@
         const k = Math.max(0, Math.min(1, 1 - (h[0] - t10) / 8));
         if (k < 1) { g.strokeStyle = "#c084fc"; g.lineWidth = 3; g.setLineDash([12, 10]); g.beginPath(); g.moveTo(sx, sy); g.lineTo(tx, ty); g.stroke(); g.setLineDash([]); }
         kef(sx + (tx - sx) * k, sy + (ty - sy) * k, main ? "凱夫卡" : "分身", k < 1 ? 0.75 : 1);
+        g.strokeStyle = "#e879f9"; g.lineWidth = 3; g.setLineDash(k < 1 ? [12, 10] : []); g.beginPath(); g.arc(tx, ty, 5 * SC, 0, 6.2832); g.stroke(); g.setLineDash([]);
       });
     } else if (bp) {
       const [x, y] = px(bp);
@@ -348,7 +398,7 @@
     for (const [gp, v] of TRI) {
       if (dt < LAND[gp]) continue;
       const boom = dt - BOOM[gp];
-      if (boom >= 0 && boom < 2.2) for (const q of v) { const [x, y] = P(q); tg.fillStyle = "rgba(251,146,60," + (boom < 0.5 ? 0.6 : 0.22) + ")"; tg.strokeStyle = "#fb923c"; tg.lineWidth = 2; tg.beginPath(); tg.arc(x, y, 6.3 * k, 0, 6.2832); tg.fill(); tg.stroke(); }
+      if (boom >= 0 && boom < 2.2) for (const q of v) { const [x, y] = P(q); tg.fillStyle = "rgba(251,146,60," + (boom < 0.5 ? 0.6 : 0.22) + ")"; tg.strokeStyle = "#fb923c"; tg.lineWidth = 2; tg.beginPath(); tg.arc(x, y, 6 * k, 0, 6.2832); tg.fill(); tg.stroke(); }
       if (boom >= 0) continue;
       tg.fillStyle = "rgba(250,204,21,.4)"; tg.strokeStyle = "#facc15"; tg.lineWidth = 3; tg.beginPath();
       v.forEach((q, i) => { const [x, y] = P(q); i ? tg.lineTo(x, y) : tg.moveTo(x, y); }); tg.closePath(); tg.fill(); tg.stroke();

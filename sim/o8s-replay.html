@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>O8S 凱夫卡 走位回放</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#020617;--bg2:#0e1223;--bg3:#1a1e2f;--line:#2a3350;--line2:#3a4569;--fg:#f8fafc;--fg2:#aeb9cc;--fg3:#76829a;--accent:#4cc2ff;--accent2:#ffd166}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "Fira Sans",system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;padding:12px;max-width:1320px;margin:0 auto;align-items:start}
+.stage{display:flex;flex-direction:column;gap:8px;min-width:0}
+canvas{display:block;width:100%;max-width:min(760px,calc(100vh - 76px));aspect-ratio:1;margin:0 auto;border:1px solid var(--line);border-radius:6px;background:#070b1a}
+.bar{display:flex;gap:8px;align-items:center;max-width:760px;width:100%;margin:0 auto}
+.bar input[type=range]{flex:1;min-width:0;accent-color:var(--accent)}
+#clock{font:500 15px "Fira Code",monospace;color:var(--accent2);min-width:92px;text-align:right}
+aside{display:flex;flex-direction:column;gap:10px;min-width:0}
+h1{font-size:16px;margin:0;font-weight:800}
+h1 small{display:block;font-size:12px;font-weight:400;color:var(--fg3)}
+h2{font-size:11px;letter-spacing:.08em;color:var(--fg3);margin:0 0 6px;font-weight:600}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:8px}
+label{color:var(--fg2);font-size:12px;display:flex;gap:6px;align-items:center}
+select,button{font:inherit;color:var(--fg);background:var(--bg3);border:1px solid var(--line2);border-radius:4px;padding:5px 8px}
+button{cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.tabs{display:flex;gap:6px}
+.tabs button{flex:1;font-weight:600}
+.tabs button.on{border-color:var(--accent2);color:var(--accent2)}
+#trine{max-width:300px;border:0;background:none}
+#clips{display:flex;flex-direction:column;gap:4px;max-height:300px;overflow:auto}
+#clips button{display:flex;gap:8px;text-align:left;align-items:baseline;padding:6px 8px}
+#clips button span{font:12px "Fira Code",monospace;color:var(--fg3);flex:none;width:40px}
+#clips button.on{border-color:var(--accent2);background:#2a2412}
+ul{list-style:none;margin:0;padding:0}
+#casts li{display:flex;gap:8px;padding:2px 0;color:var(--fg2);cursor:pointer}
+#casts li:hover{color:var(--fg)}
+#casts li.now{color:var(--accent2);font-weight:600}
+#casts li span{font:12px "Fira Code",monospace;color:var(--fg3);width:40px;flex:none}
+#casts{max-height:190px;overflow:auto}
+#hits li{font-size:12px;color:var(--fg2);padding:1px 0}
+#hits li b{color:var(--fg);font-weight:600}
+#hits{min-height:7.5em}
+.note{color:var(--fg3);font-size:12px;margin:0}
+a{color:var(--accent)}
+kbd{font:11px "Fira Code",monospace;background:var(--bg3);border:1px solid var(--line2);border-radius:3px;padding:0 4px;color:var(--fg)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <canvas id="arena" width="1520" height="1520" aria-label="場地俯視回放"></canvas>
+    <div class="bar">
+      <button id="play" type="button">▶ 播放</button>
+      <input id="seek" type="range" min="0" max="1000" value="0" aria-label="時間軸">
+      <span id="clock">0:00</span>
+    </div>
+  </div>
+  <aside>
+    <h1>O8S 凱夫卡 走位回放 <small>真實擊殺紀錄，俯視重播 · <a href="../index.html#/sb-omega-o8-savage">回小抄</a> · <span id="build"></span></small></h1>
+    <div class="card">
+      <div class="tabs"><button id="tab0" type="button">門神</button><button id="tab1" type="button">本體</button></div>
+      <div class="row"><label style="flex:1">我是 <select id="me" style="flex:1"></select></label><label>速度 <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label></div>
+      <div class="row"><label><input type="checkbox" id="loop" checked> 這段重複播</label><label><input type="checkbox" id="trail" checked> 顯示走過的路</label><label><input type="checkbox" id="spread" checked> 疊在一起時排開</label></div>
+      <div class="row"><label><input type="checkbox" id="marks" checked> 場標</label><label><input type="checkbox" id="mech" checked> 機制落點（誰要吃、站哪）</label></div>
+    </div>
+    <div class="card" id="trineCard" hidden><h2>異三角示意（萌神神攻略的例子，不是這場實際落點）</h2><canvas id="trine" width="600" height="600" aria-label="異三角示意圖"></canvas><p class="note" id="trineTxt"></p></div>
+    <div class="card"><h2>選一段機制</h2><div id="clips"></div></div>
+    <div class="card"><h2>這段的讀條（點了跳過去）</h2><ul id="casts"></ul></div>
+    <div class="card"><h2>剛剛誰吃到什麼</h2><ul id="hits"></ul></div>
+    <div class="card note"><kbd>空白鍵</kbd> 播放／暫停 · <kbd>←</kbd><kbd>→</kbd> 前後 2 秒</div>
+    <p class="note">資料來自 FFLogs 日本區一筆 4.2 版擊殺（<a id="src" target="_blank" rel="noopener">原始報告</a>）。位置只在角色出招或被打到時有紀錄，中間是直線補出來的，所以轉彎會被拉直。MT／ST／H1…是依職業推的（MT＝開場拉王的戰士、ST 暗騎，H1 白魔、H2 學者，D1 龍騎、D2 忍者、D3 詩人、D4 召喚），不是他們隊內自己的叫法。橘色圈是「這招實際打到人的位置」，命中前 4 秒先畫出來，用來看誰要吃、站哪裡；它是從紀錄反推的，大小不是遊戲裡的真實範圍，躲掉的地面範圍也不會出現。黃圈是「踩塔的人實際站的地方」，同樣是反推的（紀錄裡塔本身的座標不準）；紅菱形是飛頭，位置是紀錄裡有的；未來／過去終結時凱夫卡會畫成四隻（本尊＋三隻分身），各衝到一個人身上；衝之前分身站在王旁邊是示意，出發位置沒有紀錄，哪一隻是本尊是照「本尊衝 MT」畫的。連線和頭上的點名圖示 FFLogs 沒有記錄，畫不出來。場標是萌神神攻略的擺法，不是這隊自己放的。這筆是從 150 筆擊殺裡挑的：妖星亂舞時坦克踩東塔、補師踩西塔（和萌神神圖解同邊），分身由坦補沿南側排開各接一隻（補師在西南、坦克在東南，和子言影片同一種站法），DPS 踩北側四人塔。本體另外對過子言影片的遺棄末世①踩塔（補師中間、DPS 兩側）和雙翼破壞之翼（MT 貼王、ST 最遠），都一致。門神這隊的站法和子言不同（兩兩分攤的位置、重力彈、睡眠／混亂那段），門神請當作參考。門神沒死人，本體 1:18 死了一次 D3。</p>
+  </aside>
+</div>
+<script src="o8s-replay-data.js?v=1118-09"></script>
+<script src="o8s-replay.js?v=1118-09"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1119-04";
+  const BUILD = "1119-05";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
@@ -80,7 +80,7 @@
     $("src").href = "https://www.fflogs.com/reports/" + F.code + "#fight=" + F.id;
     const sel = $("me"); sel.textContent = "";
     const none = document.createElement("option"); none.value = -1; none.textContent = "不標"; sel.append(none);
-    D.roles.forEach((r, k) => { const o = document.createElement("option"); o.value = k; o.textContent = r + "（這隊是" + F.jobs[k] + "）"; sel.append(o); });
+    D.roles.forEach((r, k) => { const o = document.createElement("option"); o.value = k; o.textContent = r; sel.append(o); });
     sel.value = S.me;
     const box = $("clips"); box.textContent = "";
     CLIPS.forEach((c, k) => {

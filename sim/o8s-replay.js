@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1119-02";
+  const BUILD = "1119-04";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
@@ -14,7 +14,7 @@
     "Heartless Angel": "無心天使", "Heartless Archangel": "無心大天使", "Holy Ascent": "升天", "Hyperdrive": "超驅動",
     "Idyllic Will": "睡魔的神氣", "Indolent Will": "懶惰的神氣", "Indomitable Will": "強腕的神氣", "Indulgent Will": "聖母的神氣",
     "Inexorable Will": "無情的神氣", "Intemperate Will": "撲殺的神氣", "Light of Judgment": "制裁之光", "Mana Charge": "魔法儲存",
-    "Mana Release": "魔法放出", "Meteor": "隕石", "Pulse Wave": "波動彈", "Shockwave": "衝擊波", "Starstrafe": "妖星亂舞",
+    "Mana Release": "魔法放出", "Meteor": "隕石", "Meteor (puddle)": "隕石（腳下圈）", "Meteor (prey)": "隕石（獵物）", "Meteor (stack)": "隕石（分攤）", "Meteor (proximity)": "隕石（遠離）", "Pulse Wave": "波動彈", "Shockwave": "衝擊波", "Starstrafe": "妖星亂舞",
     "The Path of Light": "光之波動", "The River of Light": "光之大波動", "Thrumming Thunder": "劈啪啪暴雷", "Thunder III": "暴雷",
     "Timely Teleport": "跳蹦蹦傳送", "Trine": "異三角", "Ultima": "究極", "Ultima Upsurge": "撲騰騰究極",
     "Ultimate Embrace": "終末雙腕", "Vitrophyre": "岩石彈", "Wave Cannon": "波動炮", "Wings of Destruction": "破壞之翼",
@@ -134,12 +134,12 @@
 
   // 各招的真實半徑（米），取自遊戲資料表 Action.EffectRange；[單人, 多人分攤]
   const RAD = {
-    "Flagrant Fire": [5, 6], "Fire III": [5, 6], "Meteor": [5, 6], "Hyperdrive": [5, 5], "Inexorable Will": [6, 6], "Indomitable Will": [6, 6],
+    "Flagrant Fire": [5, 6], "Fire III": [5, 6], "Meteor (puddle)": [6, 6], "Meteor (prey)": [5, 5], "Meteor (stack)": [6, 6], "Hyperdrive": [5, 5], "Inexorable Will": [6, 6], "Indomitable Will": [6, 6],
     "Gravitas": [5, 5], "Vitrophyre": [5, 5], "The Path of Light": [4, 4], "Wings of Destruction": [7, 7], "Futures Numbered": [5, 5],
     "Pasts Forgotten": [5, 5], "Ultimate Embrace": [5, 5], "Trine": [6, 6], "Timely Teleport": [6, 6], "Explosion": [5, 5],
   };
   // 資料表裡範圍是全場（100 米）的招，一律當全體傷害，不畫圈
-  const WIDE = new Set(["Ultima", "Ultima Upsurge", "Forsaken", "Light of Judgment", "Heartless Angel", "Heartless Archangel", "Ave Maria", "Indolent Will", "Holy Ascent", "Aero Assault", "The River of Light", "Shockwave"]);
+  const WIDE = new Set(["Ultima", "Ultima Upsurge", "Forsaken", "Light of Judgment", "Heartless Angel", "Heartless Archangel", "Ave Maria", "Indolent Will", "Holy Ascent", "Aero Assault", "The River of Light", "Shockwave", "Meteor (proximity)"]);
   // 擊退：紀錄上的命中時間是讀條結束，人實際被推開大約在 1～2.5 秒後。
   // 在命中後 4.5 秒內找「短時間位移超過 7 米」的那一跳，當作擊退瞬間，並讓它在 0.6 秒內完成。
   function addKnockbacks(F) {
@@ -175,10 +175,12 @@
     }
     // 塔：同一座塔的結算來自同一個塔物件，用它分組（不用距離猜），圈心取踩塔者的中心、半徑 4 米
     const tw = new Map();
-    for (const a of F.towerHits || []) { const k = Math.round(a[0] / 5) + "|" + a[6]; if (!tw.has(k)) tw.set(k, { t: a[0], who: [] }); if (a[5] >= 0 && !tw.get(k).who.includes(a[5])) tw.get(k).who.push(a[5]); }
+    for (const a of F.towerHits || []) { const k = Math.round(a[0] / 5) + "|" + a[6]; if (!tw.has(k)) tw.set(k, { t: a[0], who: [], sx: a[2] / 10, sy: a[3] / 10 }); if (a[5] >= 0 && !tw.get(k).who.includes(a[5])) tw.get(k).who.push(a[5]); }
     for (const g2 of tw.values()) {
       const P = g2.who.map((i) => at(F.tracks[i], g2.t)).filter(Boolean); if (!P.length) continue;
-      marks.push({ t: g2.t, n: "The Path of Light", x: P.reduce((a, q) => a + q[0], 0) / P.length, y: P.reduce((a, q) => a + q[1], 0) / P.length, r: 4, k: P.length });
+      let x = P.reduce((a, q) => a + q[0], 0) / P.length, y = P.reduce((a, q) => a + q[1], 0) / P.length, real = false;
+      if (g2.sx != null && P.every((q) => Math.hypot(q[0] - g2.sx, q[1] - g2.sy) <= 4.6)) { x = g2.sx; y = g2.sy; real = true; }
+      marks.push({ t: g2.t, n: "The Path of Light", x, y, r: 4, k: P.length, real });
     }
     F.marks = marks; F.wides = wides;
   }

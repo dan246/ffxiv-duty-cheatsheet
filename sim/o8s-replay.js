@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1119-05";
+  const BUILD = "1119-06";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;

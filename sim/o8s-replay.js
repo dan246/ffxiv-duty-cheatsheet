@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1118-09";
+  const BUILD = "1118-11";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
@@ -71,7 +71,7 @@
   const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 
   function setFight(i) {
-    S.fi = i; F = D.fights[i]; if (!F.marks) { F.actors = F.actors.filter((a) => a[1] === "H"); buildMarks(F); }
+    S.fi = i; F = D.fights[i]; if (!F.marks) { F.actors = F.actors.filter((a) => a[1] === "H"); buildMarks(F); buildWings(F); }
     $("tab0").classList.toggle("on", i === 0); $("tab1").classList.toggle("on", i === 1);
     const box = $("clips"); box.textContent = "";
     CLIPS[i].forEach((c, k) => {
@@ -143,6 +143,27 @@
     F.marks = marks; F.wides = wides;
   }
 
+  // 單翼破壞之翼：紀錄沒有哪邊翅膀亮，用「炸的那一刻大家站在王的哪一側」反推危險半場
+  function buildWings(F) {
+    F.wings = [];
+    for (const c of F.casts) {
+      if (c[2] !== "Wings of Destruction" || c[3] !== "B") continue;
+      const hitT = c[0] + c[1];
+      if (F.hits.some((h) => h[2] === c[2] && Math.abs(h[0] - hitT) < 20)) continue; // 有人吃到的是雙翼（最近最遠各一發）
+      const b = at(F.bossTrack, hitT), m = at(F.tracks[0], c[0]); if (!b || !m) continue;
+      // 分界線＝王的前後軸：先假設王面向 MT，再在 ±60° 內找讓最多人落在同一側的角度
+      const base = Math.atan2(m[1] - b[1], m[0] - b[0]), P = F.tracks.map((tr) => at(tr, hitT));
+      let best = null;
+      for (let d = -60; d <= 60; d += 5) for (const sg of [1, -1]) {
+        const a = base + d * 0.01745, fx = Math.cos(a), fy = Math.sin(a), off = P.map((p) => (fx * (p[1] - b[1]) - fy * (p[0] - b[0])) * sg);
+        const ok = off.filter((v) => v > 0.3).length, score = ok * 100 + Math.min(...off) - Math.abs(d) / 30;
+        if (!best || score > best.score) best = { score, ok, fx, fy, sg };
+      }
+      const { fx, fy, sg, ok } = best;
+      F.wings.push({ t0: c[0], t1: hitT, b, f: [fx, fy], n: [fy * sg, -fx * sg], ok }); // n 指向危險側
+    }
+  }
+
   const WAYMARKS = [
     [["A", 0, -5.5, "#f87171"], ["B", 9.7, 0, "#facc15"], ["C", 0, 5.6, "#60a5fa"], ["D", -9.7, 0, "#c084fc"], ["1", 0, -18.8, "#f87171"], ["2", 0, 18.9, "#facc15"]],
     [["A", 0, -18.8, "#f87171"], ["B", 18.8, 0, "#facc15"], ["C", 0, 18.8, "#60a5fa"], ["D", -18.8, 0, "#c084fc"], ["1", -13.5, 12.7, "#f87171"], ["2", 13.6, 12.7, "#facc15"]],
@@ -166,6 +187,29 @@
       g.globalAlpha = 0.85; g.strokeStyle = m[3]; g.lineWidth = 4; g.fillStyle = "rgba(2,6,23,.6)"; g.beginPath();
       sq ? g.rect(x - 24, y - 24, 48, 48) : g.arc(x, y, 26, 0, 6.2832); g.fill(); g.stroke();
       g.fillStyle = m[3]; g.font = "800 30px 'Fira Sans',sans-serif"; g.fillText(m[0], x, y + 2); g.globalAlpha = 1;
+    }
+
+    // 三星的預兆：形狀固定以王為中心，照讀條時間畫（大小取自萌神神圖解）
+    if ($("mech").checked) for (const c of F.casts) {
+      if (c[2] !== "Celestriad" || c[3] !== "B") continue;
+      const dt = (t10 - c[0]) / 10; if (dt < 0 || dt > 8.7) continue;
+      const bp0 = at(F.bossTrack, c[0]) || [0, 0], [x, y] = px(bp0), r = 9.5 * SC, hw = 4.5 * SC, far = 45 * SC;
+      g.save(); g.beginPath(); g.arc(C, C, R * SC, 0, 6.2832); g.clip();
+      g.font = "600 24px 'Fira Sans',sans-serif";
+      if (dt <= 5.6) { const hit = dt >= 5; g.fillStyle = hit ? "rgba(251,146,60,.6)" : "rgba(251,146,60,.28)"; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); g.fillStyle = "#fed7aa"; g.fillText("圓形冰封 " + (hit ? "炸" : (5 - dt).toFixed(0)), x, y + r - 22); }
+      if (dt <= 7.6) { const hit = dt >= 7; g.fillStyle = hit ? "rgba(250,204,21,.6)" : "rgba(250,204,21,.22)"; g.fillRect(x - far, y - hw, far * 2, hw * 2); g.fillRect(x - hw, y - far, hw * 2, far * 2); g.fillStyle = "#fde68a"; g.fillText("十字暴雷 " + (hit ? "炸" : (7 - dt).toFixed(0)), x - r - 3.5 * SC, y); }
+      if (dt >= 2) { const hit = dt >= 8; g.fillStyle = hit ? "rgba(244,114,182,.6)" : "rgba(244,114,182,.2)"; g.beginPath(); g.arc(x, y, far, 0, 6.2832); g.arc(x, y, r, 0, 6.2832, true); g.fill(); g.fillStyle = "#fbcfe8"; g.fillText("環形冰封 " + (hit ? "炸" : (8 - dt).toFixed(0)), x + r * 0.95, y - r * 0.95); }
+      g.restore();
+    }
+
+    if ($("mech").checked) for (const w of F.wings) {
+      if (t10 < w.t0 || t10 > w.t1 + 6) continue;
+      const hit = t10 >= w.t1, L = 60 * SC, [x, y] = px(w.b), [fx, fy] = w.f, [nx, ny] = w.n;
+      g.save(); g.beginPath(); g.arc(C, C, R * SC, 0, 6.2832); g.clip();
+      g.fillStyle = hit ? "rgba(248,113,113,.55)" : "rgba(248,113,113,.2)"; g.beginPath();
+      g.moveTo(x - fx * L, y - fy * L); g.lineTo(x + fx * L, y + fy * L); g.lineTo(x + fx * L + nx * L, y + fy * L + ny * L); g.lineTo(x - fx * L + nx * L, y - fy * L + ny * L); g.closePath(); g.fill();
+      g.fillStyle = "#fecaca"; g.font = "600 26px 'Fira Sans',sans-serif"; g.fillText("破壞之翼 " + (hit ? "炸" : ((w.t1 - t10) / 10).toFixed(0)), x + nx * 7 * SC, y + ny * 7 * SC);
+      g.restore();
     }
 
     // 機制落點：命中前 4 秒開始出現，命中後留 0.6 秒

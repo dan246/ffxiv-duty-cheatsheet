@@ -1,7 +1,7 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1119-06";
+  const BUILD = "1119-07";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
@@ -412,6 +412,32 @@
     [3, [[8.8, -5.9], [17.6, -10.9], [17.6, -0.6]]], [3, [[-6.6, -0.5], [2.1, -5.5], [2.1, 5.3]]], [3, [[-9.3, 14.9], [-0.5, 10], [-0.5, 20.2]]],
   ];
   const LAND = [0, 6, 8, 10], BOOM = [0, 13, 15, 17];
+  // 第 2、4 次異三角：一個大三角（每角 12 米）＋三個小三角（每角 6 米），同時爆炸。照萌神神圖解的兩種情形重畫。
+  const BIG = [[-10.1, -10.2], [14.2, -3.8], [-3.7, 14.1]];
+  const SMALL_A = [[[-0.2, -20.6], [8.9, -15.6], [-0.2, -10.4]], [[-17.9, 0.3], [-8.9, 5.3], [-17.9, 10.6]], [[8.9, 5.1], [18, 10.2], [8.9, 15.5]]];
+  const SMALL_B = [[[0, -20.6], [9, -15.6], [0, -10.4]], [[-17.8, 0.3], [-8.8, 5.3], [-17.8, 10.6]], [[-5.8, 0], [3.4, -5], [3.2, 5.4]]];
+  const SAFE_B = [12.3, 12.5];
+  function drawBigTrine(cast, dt, w, c, k) {
+    // 這場實際是哪一種：爆炸當下全隊疊在場中＝中央安全；否則＝沒有小三角的那一側安全
+    const hitT = cast[0] + 132, P = F.tracks.map((tr) => at(tr, hitT)).filter(Boolean);
+    const cx = P.reduce((a, q) => a + q[0], 0) / P.length, cy = P.reduce((a, q) => a + q[1], 0) / P.length, mid = Math.hypot(cx, cy) < 4;
+    const rot = mid ? 0 : Math.atan2(cy, cx) - Math.atan2(SAFE_B[1], SAFE_B[0]), co = Math.cos(rot), si = Math.sin(rot);
+    const Q = (p) => [c + (p[0] * co - p[1] * si) * k, c + (p[0] * si + p[1] * co) * k];
+    const tris = [[BIG, 12]].concat((mid ? SMALL_A : SMALL_B).map((t) => [t, 6]));
+    const boom = dt - 13.2;
+    for (const [v, r] of tris) {
+      if (dt < 3) continue;
+      if (boom >= 0 && boom < 2.5) for (const q of v) { const [x, y] = Q(q); tg.fillStyle = "rgba(251,146,60," + (boom < 0.5 ? 0.6 : 0.22) + ")"; tg.strokeStyle = "#fb923c"; tg.lineWidth = 2; tg.beginPath(); tg.arc(x, y, r * k, 0, 6.2832); tg.fill(); tg.stroke(); }
+      if (boom >= 0) continue;
+      tg.fillStyle = r === 12 ? "rgba(250,204,21,.25)" : "rgba(250,204,21,.45)"; tg.strokeStyle = "#facc15"; tg.lineWidth = 3; tg.beginPath();
+      v.forEach((q, i) => { const [x, y] = Q(q); i ? tg.lineTo(x, y) : tg.moveTo(x, y); }); tg.closePath(); tg.fill(); tg.stroke();
+      if (dt > 6) for (const q of v) { const [x, y] = Q(q); tg.strokeStyle = "rgba(251,146,60,.5)"; tg.lineWidth = 1.5; tg.setLineDash([6, 6]); tg.beginPath(); tg.arc(x, y, r * k, 0, 6.2832); tg.stroke(); tg.setLineDash([]); }
+    }
+    const sp = mid ? [c, c] : Q(SAFE_B);
+    if (dt >= 3 && boom < 2.5) { tg.strokeStyle = "#86efac"; tg.lineWidth = 4; tg.beginPath(); tg.arc(sp[0], sp[1], 16, 0, 6.2832); tg.stroke(); tg.fillStyle = "#86efac"; tg.font = "800 22px 'Fira Sans',sans-serif"; tg.fillText("安全", sp[0], sp[1] - 28); }
+    $("trineTitle").textContent = "異三角示意・大三角（萌神神圖解的畫法，" + (mid ? "中央安全那種" : "側邊安全那種，方向照這隊實際站位轉過") + "；不是這場實際落點）";
+    $("trineTxt").textContent = dt < 3 ? "讀條中：這次是一個大三角加三個小三角，全部同時炸。" : boom < 0 ? (mid ? "大三角裡面沒有小三角：中央安全，全員疊在場地正中央。" : "大三角裡面有小三角：中央不安全，去沒有小三角的那一側。") + "（虛線是每個角會炸的範圍：大三角 12 米、小三角 6 米）" : "同時爆炸，結束。";
+  }
   const tc = $("trine"), tg = tc.getContext("2d");
   function drawTrine(t) {
     const cast = F.casts.filter((c) => c[2] === "Trine" && c[3] === "B" && t * 10 >= c[0] && t * 10 - c[0] < 200).pop();
@@ -419,8 +445,12 @@
     if (!cast) return;
     const dt = t - cast[0] / 10, w = tc.width, c = w / 2, k = (w / 2 - 14) / 21, P = (p) => [c + p[0] * k, c + p[1] * k];
     tg.clearRect(0, 0, w, w);
-    tg.fillStyle = "#101a33"; tg.strokeStyle = "#3a4569"; tg.lineWidth = 3; tg.beginPath(); tg.arc(c, c, 20 * k, 0, 6.2832); tg.fill(); tg.stroke();
+    tg.save(); tg.beginPath(); tg.arc(c, c, 20 * k, 0, 6.2832); tg.clip();
+    tg.fillStyle = "#101a33"; tg.fillRect(0, 0, w, w);
     tg.textAlign = "center"; tg.textBaseline = "middle";
+    const nth = F.casts.filter((x) => x[2] === "Trine" && x[3] === "B").indexOf(cast);
+    if (nth % 2 === 1) { drawBigTrine(cast, dt, w, c, k); tg.restore(); tg.strokeStyle = "#3a4569"; tg.lineWidth = 3; tg.beginPath(); tg.arc(c, c, 20 * k, 0, 6.2832); tg.stroke(); return; }
+    $("trineTitle").textContent = "異三角示意・小三角 3 穿 1（萌神神攻略的例子，不是這場實際落點）";
     for (const [gp, v] of TRI) {
       if (dt < LAND[gp]) continue;
       const boom = dt - BOOM[gp];
@@ -432,6 +462,7 @@
       tg.fillStyle = "#020617"; tg.beginPath(); tg.arc(mx, my, 20, 0, 6.2832); tg.fill(); tg.fillStyle = "#fde68a"; tg.font = "800 26px 'Fira Sans',sans-serif"; tg.fillText(gp, mx, my + 1);
     }
     $("trineTxt").textContent = dt < LAND[1] ? "讀條中：等三角落下，記住落下的順序。" : dt < LAND[3] ? "第 " + (dt < LAND[2] ? 1 : 2) + " 組落下。三角的三個角各會炸一個大圓。" : dt < BOOM[1] ? "三組都落下了：先站到第 3 組（最後落下）的三角位置，那裡最晚炸。" : dt < BOOM[2] ? "第 1 組炸了：立刻走進第 1 組剛炸過的地方。" : dt < BOOM[3] ? "第 2 組炸：留在第 1 組炸過的地方別動。" : "第 3 組炸完，結束。";
+    tg.restore(); tg.strokeStyle = "#3a4569"; tg.lineWidth = 3; tg.beginPath(); tg.arc(c, c, 20 * k, 0, 6.2832); tg.stroke();
   }
 
   let prev = 0;

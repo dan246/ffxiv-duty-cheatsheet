@@ -1,11 +1,10 @@
 // O8S 走位回放：把 FFLogs 擊殺紀錄的位置資料畫成俯視動畫。
 (function () {
   "use strict";
-  const BUILD = "1118-15";
+  const BUILD = "1119-01";
   const D = window.O8S_REPLAY;
   const $ = (id) => document.getElementById(id);
   $("build").textContent = "版本 " + BUILD;
-  $("src").href = "https://www.fflogs.com/reports/" + D.code;
 
   const ZH = {
     "Aero Assault": "疼颼颼暴風", "All Things Ending": "消滅之腳", "Ave Maria": "聖母頌", "Blizzard Blitz": "滴溜溜冰封",
@@ -25,30 +24,34 @@
   const zh = (n) => ZH[n] || n;
   const WHO = { B: "", S: "神像：", C: "分身：" };
 
-  // 每段機制的起訖秒數（依這筆紀錄的讀條時間切）
-  const CLIPS = [
-    [
-      ["開場：魔法儲存、呼啦啦爆炎、超驅動、魔法放出", 0, 37],
-      ["劈啪啪暴雷＋撲騰騰究極", 37, 64],
-      ["眾神之像①：神氣連發、傳送、制裁之光", 64, 104],
-      ["暴雷／冰封＋眾神之像②衝擊波擊退", 103, 158],
-      ["超驅動＋眾神之像③撲殺、暴風、制裁之光", 157, 212],
-      ["爆炎＋眾神之像④重力波、暴雷、超驅動", 212, 280],
-      ["眾神之像⑤聖母頌、睡魔／聖母神氣、制裁之光", 280, 331],
-      ["暴雷／冰封＋眾神之像⑥懶惰的神氣（到擊殺）", 331, 393],
-    ],
-    [
-      ["開場：無心天使、究極、超驅動、三星", 0, 48],
-      ["遺棄末世①：踩塔、無心大天使、破壞之翼", 48, 104],
-      ["制裁之光、異三角、破壞之翼", 104, 157],
-      ["未來破滅、終末雙腕、超驅動", 156, 205],
-      ["遺棄末世②＋妖星亂舞（踩塔、隕石、分身衝鋒）", 205, 250],
-      ["三星、破壞之翼、異三角、過去破滅、終末雙腕", 254, 346],
-      ["遺棄末世③：波動彈、睡魔／聖母、大天使、重力波", 346, 423],
-      ["制裁之光、異三角×2、未來破滅、超驅動", 421, 533],
-      ["遺棄末世④（到擊殺）", 533, 607],
-    ],
-  ];
+  // 每段機制的起訖秒數：用讀條時間當錨點算，換紀錄也不用重調
+  function makeClips(F, fi) {
+    const A = (name, n, off) => { const c = F.casts.filter((c) => c[3] === "B" && name.test(c[2]))[n]; return c ? c[0] / 10 + off : null; };
+    const end = F.len / 10;
+    const raw = fi === 0 ? [
+      ["開場：魔法儲存、呼啦啦爆炎、超驅動、魔法放出", 0],
+      ["劈啪啪暴雷＋撲騰騰究極", 37],
+      ["眾神之像①：神氣連發、連線擊退、傳送、制裁之光", A(/^Graven Image$/, 0, -2)],
+      ["暴雷／冰封＋眾神之像②衝擊波擊退", A(/^Graven Image$/, 1, -22)],
+      ["超驅動＋眾神之像③重力彈、暴風、制裁之光", A(/^Graven Image$/, 2, -16)],
+      ["爆炎＋眾神之像④重力波、暴雷、超驅動", A(/^Graven Image$/, 3, -23)],
+      ["眾神之像⑤聖母頌、睡眠／混亂連線、制裁之光", A(/^Graven Image$/, 4, -3)],
+      ["暴雷／冰封＋眾神之像⑥懶惰的神氣（到擊殺）", A(/^Graven Image$/, 5, -22)],
+    ] : [
+      ["開場：無心天使、究極、超驅動、三星", 0],
+      ["遺棄末世①：撞頭踩塔、無心大天使、破壞之翼", A(/^Forsaken$/, 0, -1)],
+      ["制裁之光、異三角、破壞之翼", A(/^Light of Judgment$/, 0, -1)],
+      ["未來／過去破滅、終末雙腕、超驅動", A(/^(Futures Numbered|Pasts Forgotten)$/, 0, -8)],
+      ["遺棄末世②＋妖星亂舞（踩塔、隕石、分身衝鋒）", A(/^Forsaken$/, 1, -1)],
+      ["三星、破壞之翼、異三角、未來／過去破滅、終末雙腕", A(/^Celestriad$/, 1, -3)],
+      ["遺棄末世③：連線擊退踩塔、睡眠／混亂、撞頭、重力波", A(/^Forsaken$/, 2, -3)],
+      ["制裁之光、異三角×2、未來／過去破滅、超驅動", A(/^Light of Judgment$/, 2, -2)],
+      ["遺棄末世④（到擊殺）", A(/^Forsaken$/, 3, -2)],
+    ];
+    const ok = raw.filter((c) => c[1] != null && c[1] < end);
+    return ok.map((c, k) => [c[0], Math.max(0, c[1]), k + 1 < ok.length ? ok[k + 1][1] + 1 : end]);
+  }
+  let CLIPS = [];
 
   const COLORS = { MT: "#5b9dff", ST: "#5b9dff", H1: "#5fd08a", H2: "#5fd08a", D1: "#ff7a7a", D2: "#ff7a7a", D3: "#ff7a7a", D4: "#ff7a7a" };
   const cv = $("arena"), g = cv.getContext("2d");
@@ -71,10 +74,16 @@
   const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 
   function setFight(i) {
-    S.fi = i; F = D.fights[i]; if (!F.marks) { F.actors = F.actors.filter((a) => a[1] === "H"); addKnockbacks(F); buildMarks(F); buildWings(F); }
+    S.fi = i; F = D.fights[i]; if (!F.marks) { F.towerHits = F.actors.filter((a) => a[1] === "T" && a[4] === "The Path of Light"); F.actors = F.actors.filter((a) => a[1] === "H"); addKnockbacks(F); buildMarks(F); buildWings(F); }
     $("tab0").classList.toggle("on", i === 0); $("tab1").classList.toggle("on", i === 1);
+    CLIPS = makeClips(F, i);
+    $("src").href = "https://www.fflogs.com/reports/" + F.code + "#fight=" + F.id;
+    const sel = $("me"); sel.textContent = "";
+    const none = document.createElement("option"); none.value = -1; none.textContent = "不標"; sel.append(none);
+    D.roles.forEach((r, k) => { const o = document.createElement("option"); o.value = k; o.textContent = r + "（這隊是" + F.jobs[k] + "）"; sel.append(o); });
+    sel.value = S.me;
     const box = $("clips"); box.textContent = "";
-    CLIPS[i].forEach((c, k) => {
+    CLIPS.forEach((c, k) => {
       const b = document.createElement("button"); b.type = "button";
       const sp = document.createElement("span"); sp.textContent = fmt(c[1]);
       b.append(sp, document.createTextNode(c[0]));
@@ -91,9 +100,9 @@
 
   function setClip(k) {
     S.clip = k;
-    if (k < 0) { clipA = 0; clipB = F.len / 10; } else { clipA = CLIPS[S.fi][k][1]; clipB = Math.min(CLIPS[S.fi][k][2], F.len / 10); }
+    if (k < 0) { clipA = 0; clipB = F.len / 10; } else { clipA = CLIPS[k][1]; clipB = Math.min(CLIPS[k][2], F.len / 10); }
     S.t = clipA;
-    [...$("clips").children].forEach((b, i) => b.classList.toggle("on", k < 0 ? i === CLIPS[S.fi].length : i === k));
+    [...$("clips").children].forEach((b, i) => b.classList.toggle("on", k < 0 ? i === CLIPS.length : i === k));
     const ul = $("casts"); ul.textContent = "";
     for (const c of F.casts) {
       const t = c[0] / 10;
@@ -150,7 +159,7 @@
   // 機制落點：把同一時間吃到同一招的人，依位置分群畫圈（由紀錄反推，不是遊戲內的範圍）
   function buildMarks(F) {
     const groups = new Map();
-    const OWN = new Set(F.actors.map((a) => a[4]).concat(["Future's End", "Past's End", "Pulse Wave"]));
+    const OWN = new Set(F.actors.map((a) => a[4]).concat(["Future's End", "Past's End", "Pulse Wave", "The Path of Light"]));
     for (const h of F.hits) { if (OWN.has(h[2])) continue; const k = Math.round(h[0] / 5) + "|" + h[2]; if (!groups.has(k)) groups.set(k, { t: h[0], n: h[2], who: [] }); const gr = groups.get(k); if (!gr.who.includes(h[1])) gr.who.push(h[1]); }
     const marks = [], wides = [];
     for (const gr of groups.values()) {
@@ -164,6 +173,13 @@
         marks.push({ t: gr.t, n: gr.n, x, y, r, k: c.m.length });
       }
     }
+    // 塔：同一座塔的結算來自同一個塔物件，用它分組（不用距離猜），圈心取踩塔者的中心、半徑 4 米
+    const tw = new Map();
+    for (const a of F.towerHits || []) { const k = Math.round(a[0] / 5) + "|" + a[6]; if (!tw.has(k)) tw.set(k, { t: a[0], who: [] }); if (a[5] >= 0 && !tw.get(k).who.includes(a[5])) tw.get(k).who.push(a[5]); }
+    for (const g2 of tw.values()) {
+      const P = g2.who.map((i) => at(F.tracks[i], g2.t)).filter(Boolean); if (!P.length) continue;
+      marks.push({ t: g2.t, n: "The Path of Light", x: P.reduce((a, q) => a + q[0], 0) / P.length, y: P.reduce((a, q) => a + q[1], 0) / P.length, r: 4, k: P.length });
+    }
     F.marks = marks; F.wides = wides;
   }
 
@@ -176,9 +192,10 @@
       if (F.hits.some((h) => h[2] === c[2] && Math.abs(h[0] - hitT) < 20)) continue; // 有人吃到的是雙翼（最近最遠各一發）
       const b = at(F.bossTrack, hitT), m = at(F.tracks[0], c[0]); if (!b || !m) continue;
       // 分界線＝王的前後軸：先假設王面向 MT，再在 ±60° 內找讓最多人落在同一側的角度
-      const base = Math.atan2(m[1] - b[1], m[0] - b[0]), P = F.tracks.map((tr) => at(tr, hitT));
+      let fa = null; const bf = F.bossFace || []; for (let k = 0; k < bf.length; k += 2) if (bf[k] <= hitT) fa = bf[k + 1] / 100;
+      const real = fa != null, base = real ? fa : Math.atan2(m[1] - b[1], m[0] - b[0]), P = F.tracks.map((tr) => at(tr, hitT));
       let best = null;
-      for (let d = -60; d <= 60; d += 5) for (const sg of [1, -1]) {
+      for (let d = real ? 0 : -60; d <= (real ? 0 : 60); d += 5) for (const sg of [1, -1]) {
         const a = base + d * 0.01745, fx = Math.cos(a), fy = Math.sin(a), off = P.map((p) => (fx * (p[1] - b[1]) - fy * (p[0] - b[0])) * sg);
         const ok = off.filter((v) => v > 0.3).length, score = ok * 100 + Math.min(...off) - Math.abs(d) / 30;
         if (!best || score > best.score) best = { score, ok, fx, fy, sg };
@@ -237,27 +254,30 @@
       g.restore();
     }
 
-    // 神像連線：之後會中混亂的人拉黃線、會中睡眠的人拉紫線，從北邊神像拉過來，讀條期間顯示
+    // 連線（紀錄裡的真實連線事件）：K 擊退＝藍、C 之後中混亂＝黃、S 之後中睡眠＝紫、G 其他神像連線＝白、H 飛頭＝紅
     if ($("mech").checked) {
-      const seenT = new Set();
-      for (const d of F.debuffs) {
-        if (d[3] !== "Confused" && d[3] !== "Sleep") continue;
-        const k = d[2] + d[3] + Math.round(d[0] / 20); if (seenT.has(k)) continue; seenT.add(k);
-        if (t10 > d[0] + 3 || t10 < d[0] - 62 || !pts[d[2]]) continue;
-        const conf = d[3] === "Confused", p = pts[d[2]];
-        g.strokeStyle = conf ? "#facc15" : "#c084fc"; g.lineWidth = 5; g.globalAlpha = 0.85;
-        g.beginPath(); g.moveTo(C, C - R * SC - 30); g.lineTo(p[0], p[1]); g.stroke(); g.globalAlpha = 1;
+      const TC = { K: "#7dd3fc", C: "#facc15", S: "#c084fc", G: "#e2e8f0", H: "#f87171" };
+      for (const te of F.tethers || []) {
+        if (t10 < te[0] || t10 > te[1] + 3 || !pts[te[3]]) continue;
+        const p = pts[te[3]]; let sx = C, sy = C - R * SC - 30;
+        if (te[2] === "H") { if (te[4] == null) continue; [sx, sy] = px([te[4] / 10, te[5] / 10]); }
+        g.strokeStyle = TC[te[2]]; g.lineWidth = 5; g.globalAlpha = 0.85; g.beginPath(); g.moveTo(sx, sy); g.lineTo(p[0], p[1]); g.stroke(); g.globalAlpha = 1;
       }
-    }
-
-    // 波動彈：神像連線到四個人，讀條完把他們往南擊退（要被推進塔裡）
-    if ($("mech").checked) for (const h of F.hits) {
-      if (h[2] !== "Pulse Wave" || t10 > h[0] + 6 || t10 < h[0] - 50 || !pts[h[1]]) continue;
-      const p = pts[h[1]], hit = t10 >= h[0];
-      g.strokeStyle = "#7dd3fc"; g.lineWidth = hit ? 8 : 4; g.globalAlpha = 0.9;
-      g.beginPath(); g.moveTo(C, C - R * SC - 30); g.lineTo(p[0], p[1]); g.stroke(); g.globalAlpha = 1;
-      const txt = !hit ? "連線・擊退 " + ((h[0] - t10) / 10).toFixed(0) : h.k ? (t10 < h.k ? "要被推了" : "被推到這") : h.imm ? "開了防擊退，沒被推" : "沒被推";
-      g.fillStyle = "#bae6fd"; g.font = "600 22px 'Fira Sans',sans-serif"; g.fillText(txt, p[0], p[1] - 40);
+      // 擊退結果：誰被推、誰開了防擊退
+      for (const h of F.hits) {
+        if (h[2] !== "Pulse Wave" || t10 > h[0] + 40 || t10 < h[0] - 50 || !pts[h[1]]) continue;
+        const p = pts[h[1]], hit = t10 >= h[0];
+        const txt = !hit ? "連線・擊退 " + ((h[0] - t10) / 10).toFixed(0) : h.k ? (t10 < h.k ? "要被推了" : "被推到這") : h.imm ? "開了防擊退，沒被推" : "沒被推";
+        g.fillStyle = "#bae6fd"; g.font = "600 22px 'Fira Sans',sans-serif"; g.fillText(txt, p[0], p[1] - 40);
+      }
+      // 頭上點名（紀錄裡的真實點名事件），顯示 5 秒
+      const HM = { 62: "分攤點名", 128: "分攤點名", 30: "獵物點名" };
+      for (const m of F.headmarks || []) {
+        if (t10 < m[0] || t10 > m[0] + 50 || !pts[m[1]]) continue;
+        const p = pts[m[1]];
+        g.fillStyle = "#fb7185"; g.beginPath(); g.moveTo(p[0], p[1] - 34); g.lineTo(p[0] - 14, p[1] - 60); g.lineTo(p[0] + 14, p[1] - 60); g.closePath(); g.fill();
+        g.fillStyle = "#fecdd3"; g.font = "600 22px 'Fira Sans',sans-serif"; g.fillText(HM[m[2]] || "點名", p[0], p[1] - 74);
+      }
     }
 
     // 機制落點：命中前 4 秒開始出現（塔提早到 8 秒），命中後留 0.6 秒
@@ -419,8 +439,6 @@
     requestAnimationFrame(frame);
   }
 
-  D.roles.forEach((r, i) => { const o = document.createElement("option"); o.value = i; o.textContent = r + "（這隊是" + D.jobs[i] + "）"; $("me").append(o); });
-  const none = document.createElement("option"); none.value = -1; none.textContent = "不標"; $("me").prepend(none); $("me").value = -1;
   $("me").onchange = (e) => { S.me = +e.target.value; };
   $("speed").onchange = (e) => { S.speed = +e.target.value; };
   $("play").onclick = () => { if (S.t >= clipB) S.t = clipA; S.playing = !S.playing; sync(); };

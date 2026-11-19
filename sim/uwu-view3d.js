@@ -150,8 +150,12 @@ const View3D = (() => {
     for (const [a, m] of aoeMeshes) if (!seen.has(a)) { for (const c of m.children) { c.geometry.dispose(); c.material.dispose(); } scene.remove(m); aoeMeshes.delete(a); }
   }
 
+  // 畫面跟不上時自動降解析度：連續約 1.5 秒平均低於每秒 40 格，就把像素比降到 1
+  let qLast = 0, qAvg = 16, qSlow = 0;
   function render(w, h) {
     if (!ready) return;
+    const qNow = performance.now(); if (qLast) { qAvg += (Math.min(200, qNow - qLast) - qAvg) * 0.08; qSlow = qAvg > 25 ? qSlow + (qNow - qLast) : 0; } qLast = qNow;
+    if (qSlow > 1500 && renderer.getPixelRatio() > 1) { renderer.setPixelRatio(1); qSlow = 0; }
     const t = S.t, role = S.opts.role, me = S.ents[role];
     if (renderer.domElement.width !== Math.floor(w * renderer.getPixelRatio()) || renderer.domElement.height !== Math.floor(h * renderer.getPixelRatio())) { renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     // 玩家

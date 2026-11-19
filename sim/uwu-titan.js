@@ -3,7 +3,7 @@
 // 判定範圍（大地之重、炸彈、山崩寬度等）為估計值，集中在 CFG。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1116-20";
+const BUILD = "1119-09";
 const CFG = {
   R: 16,            // 地裂後的場地半徑（回放：玩家最遠只到 15.8）
   speed: 6,
@@ -479,8 +479,8 @@ function init() {
   cv3.addEventListener("wheel", (e) => { S.dist = Math.max(4, Math.min(26, S.dist * (e.deltaY < 0 ? 0.92 : 1.08))); e.preventDefault(); }, { passive: false });
   const bv = $("build"); if (bv) bv.textContent = "版本 " + BUILD;
   reset();
-  let last = performance.now();
-  const loop = (now) => { const real = Math.min((now - last) / 1000, 0.05); last = now; if (S.keys.KeyQ) S.cam -= real * 1.8; if (S.keys.KeyE) S.cam += real * 1.8; let left = real * S.opts.speed; while (left > 0) { const d = Math.min(left, 0.02); step(d); left -= d; } if (S.opts.view === "game" && has3d) { View3D.render(W3, H3); updateHud(); } else draw(); updatePanel(); requestAnimationFrame(loop); };
+  let last = performance.now(); let panelAt = 0, fpsAt = last, fpsN = 0;
+  const loop = (now) => { const real = Math.min((now - last) / 1000, 0.5); last = now; if (S.keys.KeyQ) S.cam -= real * 1.8; if (S.keys.KeyE) S.cam += real * 1.8; let left = real * S.opts.speed; while (left > 0) { const d = Math.min(left, 0.02); step(d); left -= d; } if (S.opts.view === "game" && has3d) { View3D.render(W3, H3); updateHud(); } else draw(); fpsN++; if (now - panelAt >= 100) { panelAt = now; updatePanel(); } if (now - fpsAt >= 1000) { const bv = document.getElementById("build"); if (bv) bv.textContent = "版本 " + BUILD + " · 每秒 " + Math.round((fpsN * 1000) / (now - fpsAt)) + " 格"; fpsN = 0; fpsAt = now; } requestAnimationFrame(loop); };
   requestAnimationFrame(loop);
 }
 if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);

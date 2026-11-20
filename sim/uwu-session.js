@@ -50,7 +50,7 @@ const UwuSession = (() => {
     for (const k of ["assist", "hints", "god"]) if (["true", "false"].includes(query.get(k))) incoming[k] = query.get(k) === "true";
     Object.assign(S.opts, restoreOptions(S.opts, saved, incoming));
     if (!Number.isInteger(S.opts.seed)) S.opts.seed = crypto.getRandomValues(new Uint32Array(1))[0];
-    const current = phaseFor(location.pathname, query), at = phases.findIndex(p => p.id === current);
+    const current = (typeof S!=="undefined"&&S.assetPhase&&phases.some(p=>p.id===S.assetPhase)?S.assetPhase:phaseFor(location.pathname, query)), at = phases.findIndex(p => p.id === current);
     const save = () => { try { localStorage.setItem(key, JSON.stringify(persistOptions(S.opts))); } catch {} };
     addEventListener("DOMContentLoaded", () => {
       const sidebar = document.querySelector("aside");

@@ -809,6 +809,62 @@ const View3D = (() => {
     for (const [a, m] of aoeMeshes) if (!seen.has(a)) { for (const c of m.children) { c.geometry.dispose(); c.material.dispose(); } scene.remove(m); aoeMeshes.delete(a); }
   }
 
+  // Pooled practice orb geometry: the simulation owns contact positions,
+  // outcomes and lifetime. Rendering never decides whether a soak succeeded.
+  const orbBodyPool = [], orbBurstPool = [];
+  function orbMaterial(color, opacity=1) {
+    return new THREE.MeshBasicMaterial({color, transparent:true, opacity, depthWrite:false});
+  }
+  function makeOrbBody() {
+    const g=new THREE.Group();
+    const core=new THREE.Mesh(new THREE.SphereGeometry(.78,24,16),orbMaterial(0xffdc78));
+    const shell=new THREE.Mesh(new THREE.SphereGeometry(1,24,16),orbMaterial(0xffdc78,.3));
+    const band=new THREE.Mesh(new THREE.TorusGeometry(.91,.045,8,48),orbMaterial(0xfff2cc,.9));
+    band.rotation.x=.75;g.add(core,shell,band);scene.add(g);return g;
+  }
+  function syncOrbs() {
+    const data=typeof sceneOrbs==='function'?sceneOrbs():{bodies:[],effects:[]};
+    let count=0;
+    function body(b,scale=1,opacity=1,color=b.color) {
+      const g=orbBodyPool[count]||(orbBodyPool[count]=makeOrbBody());count++;
+      g.visible=true;g.position.set(b.pos.x,b.radius+.2,b.pos.y);g.scale.setScalar(Math.max(.001,b.radius*scale));
+      g.children.forEach((m,i)=>{m.material.color.set(color);m.material.opacity=opacity*(i===1?.3:i===2?.9:1);});
+      g.children[2].rotation.z=(S.orbEffectTime||0)*1.2;
+    }
+    data.bodies.forEach(b=>body(b));
+    data.effects.forEach((fx,index)=>{
+      const k=fx.progress,color=fx.outcome==='soak'?'#ffe19a':fx.outcome==='fusion'?'#bf85ff':'#ff6655';
+      // Contact consumes both members of the pair; shrinking shells make the
+      // despawn visible instead of deleting them in the collision frame.
+      fx.bodies.forEach(b=>body(b,Math.max(0,1-k*3),Math.max(0,1-k*3),color));
+      let g=orbBurstPool[index];
+      if(!g){
+        g=new THREE.Group();
+        const flash=new THREE.Mesh(new THREE.SphereGeometry(1,24,16),orbMaterial(color,.65));
+        const wave=flat(new THREE.RingGeometry(.94,1,64),color,.9);wave.position.y=.12;
+        g.add(flash,wave);
+        for(let i=0;i<16;i++)g.add(new THREE.Mesh(new THREE.SphereGeometry(.1,6,4),orbMaterial(color)));
+        for(let i=0;i<8;i++)g.add(new THREE.Mesh(new THREE.SphereGeometry(1,12,8),orbMaterial(color,.4)));
+        scene.add(g);orbBurstPool[index]=g;
+      }
+      g.visible=true;g.position.set(fx.pos.x,0,fx.pos.y);
+      const flash=g.children[0],wave=g.children[1];
+      flash.position.y=1.4;flash.scale.setScalar(.3+Math.min(k*5,1)*2.2);flash.material.color.set(color);flash.material.opacity=Math.max(0,.7-k*1.8);
+      wave.scale.setScalar(fx.radius*Math.min(1,.05+k*2));wave.material.color.set(color);wave.material.opacity=(1-k)*.85;
+      for(let i=0;i<16;i++){
+        const m=g.children[i+2],angle=i*Math.PI/8,r=(.2+k)*3.8;
+        m.position.set(Math.cos(angle)*r,1.4+Math.sin(k*Math.PI)*((i%3)+1),Math.sin(angle)*r);
+        m.material.color.set(color);m.material.opacity=1-k;m.scale.setScalar(1-k*.6);
+      }
+      for(let i=0;i<8;i++){
+        const m=g.children[i+18],p=fx.targets[i];m.visible=!!p;
+        if(p){m.position.set(p.x-fx.pos.x,1,p.y-fx.pos.y);m.scale.set(.55+k*.7,1.1+k*.4,.55+k*.7);m.material.color.set(color);m.material.opacity=(1-k)*.45;}
+      }
+    });
+    for(let i=count;i<orbBodyPool.length;i++)orbBodyPool[i].visible=false;
+    for(let i=data.effects.length;i<orbBurstPool.length;i++)orbBurstPool[i].visible=false;
+  }
+
   function syncGuides(t) {
     const guides = typeof sceneGuides === "function" ? sceneGuides(t) : [];
     let rings = 0, lines = 0;
@@ -931,6 +987,7 @@ const View3D = (() => {
       parts.gaol.visible = gaol && !loaded;
     });
     syncGuides(t);
+    syncOrbs();
     const br = typeof bossRing === "function" ? bossRing(t) : null; bossRingG.visible = !!br;
     if (br) { bossRingG.position.set(br.pos.x, Y + 0.04, br.pos.y); faceTo(bossRingG, br.pos, br.look); const ring = bossRingG.children[0], ar = bossRingG.children[1]; ring.scale.set(br.r, br.r, 1); ar.scale.set(br.half, br.tip - br.r, 1); ar.position.set(0, 0, -br.r); }
     syncAoes(t);
@@ -956,14 +1013,19 @@ const View3D = (() => {
         instance.occlusionMaterials=[];
         instance.root.traverse(object=>{
           if(!object.isMesh||!object.material)return;
-          const clone=material=>{const copy=material.clone();instance.occlusionMaterials.push({material:copy,opacity:material.opacity,transparent:material.transparent,depthWrite:material.depthWrite});return copy;};
+          const clone=material=>{const copy=material.clone();instance.occlusionMaterials.push({material:copy,opacity:material.opacity,alphaTest:material.alphaTest,transparent:material.transparent,depthWrite:material.depthWrite});return copy;};
           object.material=Array.isArray(object.material)?object.material.map(clone):clone(object.material);
         });
       }
       for(const item of instance.occlusionMaterials||[]){
         const transparent=blocked||item.transparent;
         if(item.material.transparent!==transparent){item.material.transparent=transparent;item.material.needsUpdate=true;}
-        item.material.opacity=item.opacity*(blocked?.22:1);item.material.depthWrite=blocked?false:item.depthWrite;
+        const fade=blocked?.22:1;
+        item.material.opacity=item.opacity*fade;
+        // GLB MASK materials compare texture alpha * opacity to alphaTest.
+        // Scale both so fading cannot discard the whole primal silhouette.
+        item.material.alphaTest=item.alphaTest*fade;
+        item.material.depthWrite=blocked?false:item.depthWrite;
       }
     }
     renderer.render(scene, camera);

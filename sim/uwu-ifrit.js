@@ -24,7 +24,7 @@ const CFG = {
   fetterMax: 10,    // 炎獄之鎖安全距離（估）
   fetterGrace: 4,   // 持續拉遠幾秒算失敗；恢復安全距離會清除
 };
-const BUILD = "1120-ranges2"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
+const BUILD = "1120-npc-orbs"; // 每次改版要跟 uwu-ifrit.html 裡 script 的 ?v= 一起改，避免瀏覽器跑到快取的舊版
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
 const ROLE_COLOR = ["#6096ff", "#6096ff", "#5fd08a", "#5fd08a", "#ff7b7b", "#ff7b7b", "#ff7b7b", "#ff7b7b"];
 const DIR_NAME = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -125,7 +125,7 @@ function reset() {
   S.aoes = [];
   S.casts = [];
   S.tl = [];
-  S.log = [];
+  S.log = []; S.npcFaults = [];
   S.fetterApart = 0;
   S.tank = o.start < 7.6 ? null : o.start < 30.5 ? 1 : 0; // 目前仇恨在誰身上（null＝還沒人接）。回放：ST 開場接、吃完第一組焚燒後 30.5 秒換 MT，之後都是 MT
   S.shirked = o.start >= 33;  // ST 換坦後有沒有對 MT 用退避
@@ -420,9 +420,13 @@ function buildEvents() {
       const c = S.ents[s.who], role = S.opts.role;
       S.flashRings.push({ c: { x: c.x, y: c.y }, r: CFG.swR, until: S.t + 0.4 });
       const victims=S.ents.filter(e=>e.i!==s.who&&!e.dead&&dist(e,c)<=CFG.swR);
-      if(victims.length)die(role===s.who
-        ? `你的灼熱炸到隊友（${victims.map(e=>ROLES[e.i]).join("、")}）：帶著灼熱要離所有人 ${CFG.swR} 米以上`
-        : `${victims.map(e=>ROLES[e.i]).join("、")} 被 ${ROLES[s.who]} 的灼熱炸到（離他 ${CFG.swR} 米以上）`);
+      if(victims.length){
+        const reason=role===s.who
+          ? `你的灼熱炸到隊友（${victims.map(e=>ROLES[e.i]).join("、")}）：帶著灼熱要離所有人 ${CFG.swR} 米以上`
+          : `${victims.map(e=>ROLES[e.i]).join("、")} 被 ${ROLES[s.who]} 的灼熱炸到（離他 ${CFG.swR} 米以上）`;
+        if(role===s.who||victims.some(e=>e.i===role))die(reason);
+        else for(const victim of victims)S.npcFaults.push({role:victim.i,time:S.t,reason});
+      }
     });
   });
 
@@ -464,12 +468,18 @@ function buildEvents() {
       const c = S.ents[who], role = S.opts.role, p = me();
       const inside = S.ents.filter(e=>!e.dead&&!hasSw(e.i,S.t)&&dist(e,c)<=CFG.stackR);
       S.flashRings.push({ c: { x: c.x, y: c.y }, r: CFG.stackR, until: S.t + 0.5 });
-      const wind=swActive(S.t).find(s=>dist(S.ents[s.who],c)<=CFG.swR);
-      if(wind)return die(`${ROLES[wind.who]} 帶著灼熱靠近分攤人群`);
-      // The awakened stack needs six living participants. Its result belongs
-      // to the whole party, even when the player controls an isolated healer.
-      if(inside.length<6)return die(`烈焰碎擊分攤人數不足（${inside.length}/6 人）：沒有灼熱的六人都要回人群`);
-      if(!hasSw(role,S.t)&&dist(p,c)>CFG.stackR)die("沒進烈焰碎擊的分攤");
+      for(const wind of swActive(S.t).filter(s=>dist(S.ents[s.who],c)<=CFG.swR)){
+        const reason=`${ROLES[wind.who]} 帶著灼熱靠近分攤人群`;
+        if(role===wind.who||dist(p,S.ents[wind.who])<=CFG.swR)return die(reason);
+        S.npcFaults.push({role:wind.who,time:S.t,reason});
+      }
+      // Judge the player's own participation; absent autonomous teammates
+      // remain observable faults without ending a correctly performed attempt.
+      if(!hasSw(role,S.t)&&dist(p,c)>CFG.stackR)return die("沒進烈焰碎擊的分攤");
+      if(inside.length<6){
+        const reason=`烈焰碎擊分攤人數不足（${inside.length}/6 人）：沒有灼熱的六人都要回人群`;
+        for(const e of S.ents)if(e.i!==role&&!hasSw(e.i,S.t)&&!inside.includes(e))S.npcFaults.push({role:e.i,time:S.t,reason});
+      }
     });
   };
   crush(ref?.crush ?? 109.9, S.crush1);
@@ -500,7 +510,7 @@ function resolvePartyHit(hit,reason){
   const player=S.ents[S.opts.role];
   if(!player.dead&&hit(player))return die(reason);
   const victim=S.ents.find(e=>!e.dead&&e.i!==S.opts.role&&hit(e));
-  if(victim)die(`${ROLES[victim.i]} ${reason}`);
+  if(victim)S.npcFaults.push({role:victim.i,time:S.t,reason});
 }
 function die(reason) { if (S.opts.god) return flash("（觀摩模式）" + reason); if (!S.over) S.over = { win: false, reason, t: S.t }; }
 
@@ -685,8 +695,12 @@ function step(dt) {
   if(fetterOn(S.t)){
     const tank=S.ents[1],dps=S.ents[S.fetterDps];
     if(dist(tank,dps)>CFG.fetterMax){
-      S.fetterApart+=dt;
-      if(S.fetterApart>CFG.fetterGrace)die(`炎獄之鎖拉太遠太久（ST 與 ${ROLES[S.fetterDps]} 保持 ${CFG.fetterMax} 米內）`);
+      const previous=S.fetterApart;S.fetterApart+=dt;
+      if(S.fetterApart>CFG.fetterGrace){
+        const reason=`炎獄之鎖拉太遠太久（ST 與 ${ROLES[S.fetterDps]} 保持 ${CFG.fetterMax} 米內）`;
+        if(role===1||role===S.fetterDps)die(reason);
+        else if(previous<=CFG.fetterGrace)S.npcFaults.push({role:1,partner:S.fetterDps,time:S.t,reason});
+      }
     }else S.fetterApart=0;
   }else S.fetterApart=0;
 }

@@ -26,7 +26,7 @@ test('Ultima NPCs dodge actual bait snapshots at normal movement speed for every
 test('Suppression prison cannot release itself when rescuers are out of range',()=>{
  const role=timeline.assignments(0).gaol;start('ultima',764.49,role);S.events=S.events.filter(e=>e.kind==='rescue');
  S.gaol={x:3,y:5};Object.assign(S.ents[role],S.gaol);for(const p of S.ents)if(p.i!==role)Object.assign(p,{x:-15,y:-9});
- advance(764.51);assert(S.dead,'missing rescue must fail the prisoner too');assert(S.gaol,'deadline cannot delete prison');
+ advance(764.51);assert(!S.dead,'NPC rescue failure must not blame the prisoner');assert(S.npcFaults.length);assert(S.gaol,'deadline cannot delete prison');
 });
 test('Suppression NPC rescue needs a nearby free actor and leaves the prisoner free to move',()=>{
  const role=timeline.assignments(0).gaol;start('ultima',763,role);S.events=S.events.filter(e=>e.kind==='rescue');
@@ -56,12 +56,12 @@ test('full Ultima NPC route avoids each snapshot across assignments when player 
  assert.deepEqual(failures,[],'NPC impact audit (controlled bait held away from party; this is not a player clear)');
 });
 
-test('a baited Ultima hazard hitting a free NPC fails practice even if the player dodges',()=>{
+test('an Ultima NPC hazard collision does not blame a player who dodged',()=>{
  start('ultima',751.64,4,0);S.events=S.events.filter(e=>e.kind==='pillar'&&e.t===752.658);
  Object.assign(S.ents[4],{x:0,y:3});advance(751.68);const e=S.events[0];
  Object.assign(S.ents[4],{x:-16,y:-8});advance(752.65);
  Object.assign(S.ents[0],{x:e.hazards[0].c.x,y:e.hazards[0].c.y});advance(752.66);
- assert(S.dead,'free NPCs cannot be immune to player-baited attacks');assert.match(S.reason,/NPC/);
+ assert(!S.dead);assert(S.npcFaults.some(f=>f.role===0));
 });
 test('Ultima Landslide snapshots a seeded live target and its awakened follow-up keeps that aim',()=>{
  const aims=[];
@@ -93,13 +93,13 @@ test('Garuda eight-role NPC traces dodge snapshots and keep cyclone, Friction an
  }
  assert.deepEqual(failures,[],'non-tank controlled actor held outside duties; controlled MT keeps correct facing with WASD; NPC audit, not player clear');
 });
-test('Garuda also fails when a live Feather Rain hits an NPC after the controlled actor dodges',()=>{
+test('Garuda records an NPC Feather Rain fault without blaming a player who dodged',()=>{
  const role=timeline.build('garuda',0).find(e=>e.kind==='bait'&&e.t===71.459).targets.find(i=>i!==0);
  start('garuda',70.4,role);S.events=S.events.filter(e=>e.kind==='bait'&&e.t===71.459);
  const impact=sim.roleSample(0,71.459);Object.assign(S.ents[role],impact);advance(70.8);
  Object.assign(S.ents[role],{x:-16,y:-8});advance(71.45);
  Object.assign(S.ents[0],impact);advance(71.46);
- assert(S.dead);assert.match(S.reason,/NPC/);
+ assert(!S.dead);assert(S.npcFaults.length);
 });
 test('more Annihilation orb soakers separate the later pair farther and delay its fusion',()=>{
  function pair(soakers){
@@ -247,10 +247,10 @@ test('Annihilation orbs spawn at the same southeast leg and assigned NPC tanks r
   }
  }
 });
-test('missing an assigned NPC orb soak fails instead of silently recording zero',()=>{
+test('missing NPC orb soak is diagnosed without blaming a safe player',()=>{
  start('ultima',694.18,4);S.events=S.events.filter(e=>e.kind==='orb'&&e.t===694.187);
  Object.assign(S.ents[4],{x:-16,y:-8});Object.assign(S.ents[0],{x:0,y:-15});advance(694.19);
- assert(S.dead);assert.match(S.reason,/NPC/);
+ assert(!S.dead);assert(S.npcFaults.length);
 });
 test('both Suppression tank intercepts lock on the simultaneous source snapshots',()=>{
  start('ultima',750.748,4,1);S.events=S.events.filter(e=>e.kind==='songside');
@@ -259,12 +259,12 @@ test('both Suppression tank intercepts lock on the simultaneous source snapshots
  step(.002);assert.equal(S.dead,false,S.reason);assert(S.events.every(e=>e.done&&e.interceptAt));
  assert.deepEqual(S.whirlOrigins.suppression,S.events.map(e=>e.interceptAt));
 });
-test('a correctly intercepted song still fails if its live lane clips another NPC',()=>{
+test('a correctly intercepted song records NPC collateral without blaming its target',()=>{
  const song=timeline.build('ultima',0).find(e=>e.kind==='songside');start('ultima',song.t-.01,song.who,0);
  S.events=S.events.filter(e=>e.kind==='songside'&&e.tank===song.tank);
  for(const p of S.ents)Object.assign(p,{x:14,y:-8});
  Object.assign(S.ents[song.who],{x:0,y:3});Object.assign(S.ents[song.tank],{x:-3,y:-1.5});Object.assign(S.ents[S.supp.pillar],{x:-1.5,y:.75});advance(song.t+.001);
- assert(S.dead);assert.match(S.reason,/NPC/);
+ assert(!S.dead);assert(S.npcFaults.length);
 });
 test('rescue guidance starts when the Suppression prison exists, without a dead interval',()=>{
  start('ultima',753.8,0);S.gaol={x:3,y:5};
@@ -272,7 +272,7 @@ test('rescue guidance starts when the Suppression prison exists, without a dead 
 });
 // Isolated hitbox contracts deliberately set fixture positions immediately
 // before impact. These are damage tests, separate from the WASD clear tests.
-test('every Ultima area attack kills on player/NPC contact and spares a safe party with all assists off',()=>{
+test('Ultima area attacks fail player contact and diagnose NPC contact with assists off',()=>{
  let checked=0;
  for(let seed=0;seed<3;seed++)for(const scheduled of timeline.build('ultima',seed)){
   if(!['slide','pred1','pred2','wheel','donut','eye','bait','eruption','pillar','plume','bomb','bombLand','whirl','predTornado','crimsonCross','aetherLaser','suppCone'].includes(scheduled.kind))continue;
@@ -291,8 +291,8 @@ test('every Ultima area attack kills on player/NPC contact and spares a safe par
    for(const p of S.ents)Object.assign(p,safe);
    if(contact==='player')Object.assign(S.ents[4],inside);if(contact==='npc')Object.assign(S.ents[0],inside);
    S.t=event.t-.001;step(.002);
-   assert.equal(S.dead,contact!=='safe',`${seed}/${event.name}@${event.t} shape${shapeIndex} ${contact}: ${S.reason}`);
-   if(contact==='npc')assert.match(S.reason,/NPC/);checked++;
+   assert.equal(S.dead,contact==='player',`${seed}/${event.name}@${event.t} shape${shapeIndex} ${contact}: ${S.reason}`);
+   if(contact==='npc')assert(S.npcFaults.length);checked++;
   }
  }
  assert(checked>=400,`only ${checked} damage cases checked`);
@@ -344,18 +344,18 @@ test('NPC D3 and D4 keep all four pre-Annihilation baits while other roles stay 
   for(const event of S.events.filter(e=>e.kind==='eruption'&&e.t<643))assert.deepEqual(event.hazards.map(h=>h.c.i).sort(),[6,7],`role${role} @${event.t}`);
  }
 });
-test('Aetheric Boom physically knocks all eight actors back, and an unsafe NPC causes failure',()=>{
+test('Aetheric Boom moves all actors and diagnoses unsafe NPCs without blaming the player',()=>{
  for(const badNpc of [false,true]){
   start('ultima',795.79,4);S.events=S.events.filter(e=>e.kind==='boom');
   for(const p of S.ents)Object.assign(p,{x:p.i%2?1:-1,y:1});
   if(badNpc)Object.assign(S.ents[0],{x:14,y:0});
   const before=S.ents.map(p=>Math.hypot(p.x,p.y));step(.02);
-  if(badNpc){assert(S.dead);assert.match(S.reason,/NPC/);}
+  if(badNpc){assert(!S.dead);assert(S.npcFaults.length);}
   else{assert(!S.dead);for(const p of S.ents)assert(Math.hypot(p.x,p.y)>before[p.i]+6.8,`NPC${p.i} must also receive the physical knockback`);}
  }
 });
 
-test('NPC assigned duties fail on actual bad positions even when controlled role is uninvolved',()=>{
+test('NPC assigned duties remain diagnostic when controlled role is uninvolved',()=>{
  for(const kind of ['tether','laser','pulse','gaol','songside'])for(const wrong of [false,true]){
   const event=timeline.build('ultima',0).find(e=>e.kind===kind),role=4;
   start('ultima',event.t-.001,role);S.events=S.events.filter(e=>e.kind===kind&&e.t===event.t&&(kind!=='songside'||e.tank===event.tank));
@@ -370,12 +370,12 @@ test('NPC assigned duties fail on actual bad positions even when controlled role
    for(const p of S.ents)Object.assign(p,{x:0,y:-8});
    Object.assign(S.ents[event.who],{x:0,y:4});Object.assign(S.ents[event.tank],wrong?{x:4,y:4}:{x:(event.source.x)/2,y:(event.source.y+4)/2});
   }
-  step(.002);assert.equal(S.dead,wrong,`${kind} misplaced NPC ${wrong}: ${S.reason}`);
+  step(.002);assert(!S.dead,`${kind} misplaced NPC ${wrong}: ${S.reason}`);if(wrong)assert(S.npcFaults.length);
  }
 });
-test('Ultima NPC to NPC fetters enforce the same distance grace as the controlled pair',()=>{
+test('Ultima NPC fetter diagnostics retain the distance grace without player failure',()=>{
  start('ultima',644,2);S.events=[];Object.assign(S.ents[1],{x:-15,y:0});Object.assign(S.ents[4],{x:15,y:0});
- advance(644.8);assert(S.dead,'NPC pair can remain over ten meters apart for the whole grace');assert.match(S.reason,/炎獄之鎖/);
+ advance(644.8);assert(!S.dead);assert(S.npcFaults.some(f=>/炎獄之鎖/.test(f.reason)));
 });
 test('Aetheroplasm stack follows its marked actor, not an unrelated four-player cluster',()=>{
  for(const time of [593.329,829.863])for(const away of [false,true]){
@@ -409,16 +409,16 @@ test('Garuda Great Whirlwind locks the intercepted tank positions and kills at i
  for(const contact of ['player','npc','outside']){
   start('garuda',16.312,4);S.events=S.events.filter(e=>e.kind==='whirl'&&e.t===16.313);const h=sim.shapes(S.events[0])[0];assert(h);
   for(const p of S.ents)Object.assign(p,{x:-10,y:-10});if(contact!=='outside')Object.assign(S.ents[contact==='player'?4:0],h.c);
-  step(.002);assert.equal(S.dead,contact!=='outside',contact);
+  step(.002);assert.equal(S.dead,contact==='player',contact);if(contact==='npc')assert(S.npcFaults.length);
  }
 });
 test('Garuda NPCs cannot receive assigned mechanics or cleanse Thermal Low from arbitrary positions',()=>{
  for(const kind of ['cyclone','friction','tethers']){
   const event=timeline.build('garuda',0).find(e=>e.kind===kind),npc=kind==='cyclone'?1:kind==='tethers'?0:6;
   start('garuda',event.t-.001,2);S.events=S.events.filter(e=>e.kind===kind&&e.t===event.t&&(kind!=='songside'||e.tank===event.tank));
-  Object.assign(S.ents[npc],{x:18,y:0});step(.002);assert(S.dead,`${kind}: bad NPC position must fail`);
+  Object.assign(S.ents[npc],{x:18,y:0});step(.002);assert(!S.dead,`${kind}: bad NPC position must not fail controlled player`);assert(S.npcFaults.length);
  }
- start('garuda',61.100,2);S.events=[];Object.assign(S.ents[5],{x:15,y:0});step(.002);assert(S.dead,'NPC cannot cleanse two stacks away from bubble');assert.match(S.reason,/低氣壓/);
+ start('garuda',61.100,2);S.events=[];Object.assign(S.ents[5],{x:15,y:0});step(.002);assert(!S.dead);assert(S.npcFaults.some(f=>/低氣壓/.test(f.reason)));
 });
 test('Garuda tank responsibilities are checked when both tanks are NPCs',()=>{
  for(const kind of ['song','sisters','buster']){
@@ -426,7 +426,7 @@ test('Garuda tank responsibilities are checked when both tanks are NPCs',()=>{
   if(kind==='song')Object.assign(S.ents[1],{x:-15,y:-8});
   if(kind==='sisters')Object.assign(S.ents[0],{x:-15,y:-8});
   if(kind==='buster')Object.assign(S.ents[2],S.ents[0],{i:2});
-  step(.002);assert(S.dead,kind+' NPC failure must not be ignored');
+  step(.002);assert(!S.dead,kind+' NPC duty must not blame player');assert(S.npcFaults.length);
  }
 });
 test('MT Aetheroplasm application rejects nearby NPCs and players within the sourced two-meter splash',()=>{
@@ -434,7 +434,7 @@ test('MT Aetheroplasm application rejects nearby NPCs and players within the sou
   start('ultima',582.164,4);S.events=S.events.filter(e=>e.kind==='mark'&&e.t===582.165);
   for(const p of S.ents)Object.assign(p,{x:0,y:4});Object.assign(S.ents[0],{x:0,y:-8});
   if(contact!=='safe')Object.assign(S.ents[contact==='player'?4:2],{x:0,y:-7});step(.002);
-  assert.equal(S.dead,contact!=='safe',contact);
+  assert.equal(S.dead,contact==='player',contact);
  }
 });
 test('live Titan Landslides have five forward six-meter lanes and five interleaved aftershocks',()=>{
@@ -460,9 +460,9 @@ test('Suppression includes both Great Whirlwinds at the raw cast deadline and li
  S.whirlOrigins.suppression=[{x:-10,y:2},{x:10,y:-2}];const hazards=sim.shapes(whirl);assert.equal(hazards.length,2);
  assert.deepEqual(hazards.map(h=>h.c),S.whirlOrigins.suppression);assert(hazards.every(h=>h.r===8));
 });
-test('an NPC entering the Spiny field with three Thermal Low stacks wipes the party',()=>{
+test('NPC three-stack cleanse remains diagnostic instead of wiping solo practice',()=>{
  start('garuda',60,4);S.events=[];S.stacks[6]=3;Object.assign(S.ents[6],{x:-7.88,y:-.23});step(.001);
- assert(S.dead);assert.match(S.reason,/三層/);
+ assert(!S.dead);assert(S.npcFaults.some(f=>/三層/.test(f.reason)));
 });
 test('six Ultima bombs have paired observed landings and delayed radius-five explosions',()=>{
  const events=timeline.build('ultima',0),lands=events.filter(e=>e.kind==='bombLand'),booms=events.filter(e=>e.kind==='bomb');
@@ -520,7 +520,7 @@ test('any NPC touching a Boom orb resolves immediately and cannot bypass the fou
  for(const orbIndex of [0,1]){
   start('ultima',796,4);S.events=S.events.filter(e=>e.kind==='grouporb'&&e.orb===orbIndex);
   for(const p of S.ents)Object.assign(p,{x:orbIndex?-12:12,y:0});const e=S.events[0],ball=sim.sceneGuides().find(g=>g.type==='ring'&&g.color===(orbIndex?'#bd9afb':'#ffc85d'));
-  assert(ball);Object.assign(S.ents[orbIndex?1:0],ball.pos);step(.001);assert(S.dead,'NPC early contact must fail immediately');assert(e.done);assert.match(S.reason,/四名/);
+  assert(ball);Object.assign(S.ents[orbIndex?1:0],ball.pos);step(.001);assert(!S.dead,'NPC early contact must not blame player');assert(e.done);assert(S.npcFaults.some(f=>/四名/.test(f.reason)));assert.equal(S.orbEffects.at(-1).outcome,'failed');
  }
 });
 test('Aetherochemical Laser uses the observed source, dimensions and three recorded variant sequences',()=>{
@@ -565,7 +565,7 @@ test('Searing Wind hits every other actor inside14m and spares actors beyond14m'
  for(const hit of [true,false])for(const controlled of [true,false]){
   start('ultima',701.806,4);S.events=S.events.filter(e=>e.kind==='pulse'&&e.t===701.807);
   for(const p of S.ents)Object.assign(p,{x:-10,y:0});Object.assign(S.ents[3],{x:10,y:0});
-  Object.assign(S.ents[controlled?4:0],{x:10-(hit?13.9:14.1),y:0});step(.002);assert.equal(S.dead,hit);
+  Object.assign(S.ents[controlled?4:0],{x:10-(hit?13.9:14.1),y:0});step(.002);assert.equal(S.dead,hit&&controlled);if(hit&&!controlled)assert(S.npcFaults.length);
  }
 });
 
@@ -594,27 +594,27 @@ test('Downburst uses the current boss-facing cone and only its tank may receive 
   for(const p of S.ents)Object.assign(p,{x:c.x-u.x*2,y:c.y-u.y*2});
   Object.assign(S.ents[0],{x:c.x+u.x,y:c.y+u.y});Object.assign(S.ents[victim],{x:c.x+u.x*(hit?10:-1),y:c.y+u.y*(hit?10:-1)});
   // Isolated area resolution; thermal packet application is separate coverage.
-  S.thermalIndex=timeline.thermalUpdates.length;step(.002);assert.equal(S.dead,hit,`${victim}/${hit}: ${S.reason}`);
+  S.thermalIndex=timeline.thermalUpdates.length;step(.002);assert.equal(S.dead,hit&&victim===4,`${victim}/${hit}: ${S.reason}`);if(hit&&victim!==4)assert(S.npcFaults.length);
  }
 });
 
-test('late rescue into snapshotted Feather Rain is fatal; waiting until the impact releases safely',()=>{
+test('released NPC Feather Rain contact is diagnostic; delayed release remains safe',()=>{
  for(const late of [true,false]){
   start('ultima',755.1,0,0);const prisoner=S.supp.gaol;S.gaol={x:3,y:5};for(const p of S.ents)Object.assign(p,{x:7,y:5});Object.assign(S.ents[prisoner],S.gaol);
   S.events=S.events.filter(e=>e.kind==='bait'&&e.t===755.326);S.events[0].targets=[prisoner];step(.001);
   if(late)useSkill('attack');advance(755.33);
-  assert.equal(S.dead,late,'free actors receive damage even immediately after rescue');
-  if(late)assert.match(S.reason,/NPC/);else{useSkill('attack');assert.equal(S.gaol,null);}
+  assert.equal(S.dead,false,'NPC collision alone is not player responsibility');
+  if(late)assert(S.npcFaults.length);else{useSkill('attack');assert.equal(S.gaol,null);}
  }
 });
 
-test('newly restored outer damage rings are lethal for the player and NPC, with safe points just beyond',()=>{
+test('outer rings fail player contact and record NPC contact, with safe points beyond',()=>{
  for(const [phase,kind,r] of [['ultima','eruption',8],['ultima','bait',6],['ultima','bombLand',4.3],['ultima','bomb',6.3],['garuda','burst',6.5]])for(const victim of ['player','npc','outside']){
   const scheduled=timeline.build(phase,0).find(e=>e.kind===kind&&(kind!=='bait'||e.name==='大地之重'));
   start(phase,scheduled.t-.001,4);S.events=S.events.filter(e=>e.kind===kind&&e.t===scheduled.t);const e=S.events[0],h=sim.shapes(e)[0];assert.equal(h.r,r);e.hazards=[h];
   const candidates=Array.from({length:72},(_,i)=>({x:h.c.x+Math.cos(i*Math.PI/36)*(r+.1),y:h.c.y+Math.sin(i*Math.PI/36)*(r+.1)}));
   const safe=candidates.find(p=>Math.hypot(p.x,p.y)<19.4);assert(safe);const factor=(r-.1)/(r+.1),inside={x:h.c.x+(safe.x-h.c.x)*factor,y:h.c.y+(safe.y-h.c.y)*factor};
   for(const p of S.ents)Object.assign(p,safe);if(victim!=='outside')Object.assign(S.ents[victim==='player'?4:0],inside);
-  S.thermalIndex=timeline.thermalUpdates.length;step(.002);assert.equal(S.dead,victim!=='outside',`${phase}/${kind}/${victim}: ${S.reason}`);if(victim==='npc')assert.match(S.reason,/NPC/);
+  S.thermalIndex=timeline.thermalUpdates.length;step(.002);assert.equal(S.dead,victim==='player',`${phase}/${kind}/${victim}: ${S.reason}`);if(victim==='npc')assert(S.npcFaults.length);
  }
 });

@@ -127,7 +127,7 @@ test('normal loaded entry advances18seconds for all roles without NPC interpolat
     }
     setup({role:7,god:false});
     sim.kill(2,'NPC collision');
-    assert.equal(S.over.win,false); assert.equal(S.ents[2].dead,true);
+    assert.equal(S.over,null); assert.equal(S.ents[2].dead,false); assert.equal(S.npcFaults.length,1);
     setup({role:7,god:false});
     sim.kill(7,'controlled player collision'); assert.equal(S.over.win,false);
   } finally {delete globalThis.UWU_REFERENCE;}
@@ -244,11 +244,11 @@ test('off-edge approximate NPC paths and old corpses fall visually without inven
   } finally {delete globalThis.UWU_REFERENCE;}
 });
 
-test('random practice preserves fatal NPC knockback while reference paths remain observations',()=>{
+test('random practice records NPC knockback defects without failing the player',()=>{
   setup({preset:'random',start:39,role:4,god:false,seed:1});
   Object.assign(S.ents[2],{x:0,y:0}); step(.11);
-  assert(S.ents[2].dead); assert(S.ents[2].fallY<0);
-  assert.equal(S.over.win,false); assert.match(S.over.reason,/H1.*掉出平台/);
+  assert(!S.ents[2].dead); assert.equal(S.ents[2].fallY,0);
+  assert.equal(S.over,null); assert(S.npcFaults.some(f=>f.role===2&&f.mechanic==='outside-platform'));
   assert(!S.ents[2].plannedDeath);
 });
 

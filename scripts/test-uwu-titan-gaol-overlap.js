@@ -11,7 +11,7 @@ for(const [distance,hit] of [[7.7,true],[7.9,false]])test(`gaol blast overlaps n
 });
 for(const [distance,hit] of [[10.4,true],[10.7,false]])test(`sludge overlaps Titan hitbox at ${distance}m: ${hit}`,()=>{
  setup(51.99);const boss=sim.F(0,-14);S.gaols=[3,2,7].map((who,i)=>({who,pos:{x:boss.x+distance+i*10,y:boss.y},broken:true}));
- S.events.find(e=>e.t===52).run();assert.equal(S.over===null,hit);
+ S.events.find(e=>e.t===52).run();assert.equal(S.over,null);assert.equal(S.npcFaults.some(f=>f.mechanic==='gaol-chain-incomplete'),!hit);
 });
 test('live connection preview agrees with first-bomb overlap on both sides of boundary',()=>{
  for(const [distance,ok] of [[7.9,true],[8.2,false]]){

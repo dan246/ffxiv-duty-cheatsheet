@@ -4,7 +4,7 @@ const npcMotion=typeof require==='function'?require('./uwu-npc-motion'):globalTh
 // 可核實範圍採 Action 資料與 BossMod（炸彈含 1.3m hitbox）；剩餘角度、位置與教學路線估計另註。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1120-slide";
+const BUILD = "1120-npc-orbs";
 // Reference casts are rendered FFLogs completed casts, not damage/application packets.
 // Cast starts are inferred from displayed durations; geometry remains a teaching estimate.
 const REFERENCE_ORIGIN = 300.720;
@@ -275,7 +275,7 @@ const lerp = (a, b, k) => ({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
-const S = { opts: { preset: "random", seed: Math.floor(Math.random() * 0x100000000), role: 7, start: -4, speed: 1, assist: true, hints: true, god: false, view: "game" }, pitch: 0.55, dist: 22 };
+const S = { assetPhase: "titan", opts: { preset: "random", seed: Math.floor(Math.random() * 0x100000000), role: 7, start: -4, speed: 1, assist: true, hints: true, god: false, view: "game" }, pitch: 0.55, dist: 22 };
 // 第二次地裂的方位決定整個座標框：以下站位都用「泰坦在北 (0,-14)」來寫，再用 F() 轉成實際方位。
 // 回放裡四個方位各自的炸彈缺口：北 (-5,12)、南 (-5,-12)、西 (12,-5)、東 (-12,5)。
 const FRAME = [(x, y) => ({ x, y }), (x, y) => ({ x: -y, y: -x }), (x, y) => ({ x, y: -y }), (x, y) => ({ x: y, y: x })];
@@ -304,7 +304,7 @@ function reset() {
   const o = S.opts, rnd = mulberry32(o.seed >>> 0);
   S.reference = o.preset === "reference"; S.replay = S.reference ? globalThis.UWU_REFERENCE?.titan : undefined;
   MARKERS = S.reference ? (S.replay?.markers || globalThis.UWU_REFERENCE?.garuda?.markers || [...BASE_MARKERS,["2",0,-18,"#ffd166"],["3",12.7,-12.7,"#6096ff"],["4",12.7,12.7,"#c084fc"]]) : BASE_MARKERS; S.markers = MARKERS;
-  S.rnd = rnd; S.t = o.start; S.arena = arenaAt(S.t); S.over = null; S.paused = false;
+  S.assetPhase = "titan"; S.rnd = rnd; S.t = o.start; S.arena = arenaAt(S.t); S.over = null; S.paused = false;
   S.aoes = []; S.casts = []; S.tl = []; S.log = []; S.flashRings = []; S.props = []; S.crushMark = null;
   S.keys = {}; S.cam = S.cam || 0; S.zoom = S.zoom || 1;
   S.buff = { sprint: -Infinity }; S.cd = { sprint: -Infinity, provoke: -Infinity };
@@ -320,7 +320,7 @@ function reset() {
     .map((j,index)=>({...j,index,cue:j.launch-2.0,target:polar(j.direction*90,14),feint:o.randomJumps!==false&&jumpRnd()<.5,feintSign:jumpRnd()<.5?-1:1}));
   S.tank = o.start < 3 ? null : o.start >= 104 && o.start < 119.6 ? 1 : 0; // 泰坦出場時仇恨重置，MT 要挑釁（回放 7/8 筆在落地後 2.5～5.6 秒按）
   S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
-  S.stun = -Infinity; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null; S.slideWave = null; S.slideRef = null; S.landslideResult = null;
+  S.stun = -Infinity; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null; S.slideWave = null; S.slideRef = null; S.landslideResult = null; S.npcFaults = [];
   S.gaolStage={}; S.wotl = [0, 0, 0, 0, 0, 0, 0, 0]; S.sacrificeDeadline=null;
   S.ents = ROLES.map((_, i) => ({ ...((i===o.role?practicePosition(ROLES[i],o.start):npcReferencePosition(ROLES[i],o.start)) || home(i,o.start)), i, face: 0, fallY: 0, fallTime: 0, plannedDeath: false, dead: !S.reference && o.start > 24.9 && o.start < 50.6 && DIE.includes(i) }));
   if (S.reference) for (const e of referenceLifeEvents().filter(e=>relative(e.time)<o.start)) applyReferenceLife(e);
@@ -376,7 +376,7 @@ const RING = { r: 4.2, tip: 5.1, half: 0.9 }; // 泰坦腳下的目標圈與面�
 function bossRing(t) { const b = bossSpot(t); return b.vis && !b.alt ? { pos: b.pos, look: bossLook(t), ...RING } : null; }
 // 畫面層共用介面：泰坦階段沒有這些東西
 const dashers = () => [], nails = () => [], swActive = () => [], hasSw = () => false, fetterOn = () => false;
-function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ pos: b.pos, alt: b.alt || 0, look: bossLook(t), real: false, tag: "", color: 0xa16207 }] : []; }
+function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ kind: "titan", pos: b.pos, alt: b.alt || 0, look: bossLook(t), real: false, tag: "", color: 0xa16207 }] : []; }
 function gaolLinks(t) {
   const start=S.reference?relative(341.411):41.2,end=S.reference?relative(352.650):52;
   if(t<start||t>end)return [];
@@ -464,14 +464,18 @@ function addLandslideFan(wave,gaps) {
     });
     const result={target:wave.target,lockedAt:wave.lockedAt,lockPosition:wave.lockPosition&&{...wave.lockPosition},resolvedAt:wave.t1,origin:{...wave.T},base:wave.base,victims};
     S.landslideResult=result;
-    if(!victims.length)return;
+    for(const v of victims)if(v.role!==S.opts.role)recordNpcFault(v.role,'landslide',result);
+    // Solo practice only judges the controlled player. NPC routing defects are
+    // retained for acceptance diagnostics, never turned into player failures.
+    if(!victims.some(v=>v.role===S.opts.role))return;
     const label=i=>`${i===S.opts.role?'你 ':''}${ROLES[i]}`;
-    const lines=[...new Set(victims.flatMap(v=>v.lanes))].map(o=>o===0?'主線':`${o>0?'+':''}${o}°線`).join('、');
-    const reason=`地裂命中 ${victims.map(v=>label(v.role)).join('、')}；${wave.target===undefined?'覺醒追加波':`鎖定對象：${label(wave.target)}`}；命中線：${lines}。紅線與紅圈標出命中位置。`;
+    const playerVictims=victims.filter(v=>v.role===S.opts.role);
+    const lines=[...new Set(playerVictims.flatMap(v=>v.lanes))].map(o=>o===0?'主線':`${o>0?'+':''}${o}°線`).join('、');
+    const reason=`地裂命中 ${playerVictims.map(v=>label(v.role)).join('、')}；${wave.target===undefined?'覺醒追加波':`鎖定對象：${label(wave.target)}`}；命中線：${lines}。紅線與紅圈標出命中位置。`;
     if(S.opts.god){flash(`（觀摩判定）${reason}`);return;}
-    for(const v of victims){S.ents[v.role].dead=true;S.ents[v.role].plannedDeath=false;}
+    for(const v of victims)if(v.role===S.opts.role){S.ents[v.role].dead=true;S.ents[v.role].plannedDeath=false;}
     die(reason);
-    if(S.over){S.over.mechanic='landslide';S.over.evidence=result;}
+    if(S.over){S.over.mechanic='landslide';S.over.evidence={...result,victims:playerVictims};}
   };
   for(const lane of lanes)addAoe({...lane,t0:wave.lockedAt,t1:wave.t1,onHit:resolve});
 }
@@ -488,13 +492,58 @@ function landslideGuides() {
 }
 const flash = (msg) => { S.log.unshift({ msg, t: S.t }); S.log.length = Math.min(S.log.length, 6); };
 function die(reason) { if (S.opts.god) return flash("（觀摩模式）" + reason); if (!S.over) S.over = { win: false, reason, t: S.t }; }
+function recordNpcFault(role,mechanic,evidence=null) {
+  S.npcFaults.push({role,mechanic,time:S.t,evidence});
+}
+// Team outcomes remain real. Attribute a failed group check to the player's
+// own placement/participation, and retain NPC defects separately for diagnosis.
+function gaolPlacementFailure(who,position,reason) {
+  if(who===S.opts.role)die(reason);
+  else recordNpcFault(who,'gaol-placement',{position:{...position},reason});
+}
+function canRescueGaol(entry,reason) {
+  if(Math.hypot(entry.pos.x,entry.pos.y)>4){gaolPlacementFailure(entry.who,entry.pos,reason);return false;}
+  const missing=S.ents.filter(p=>p.i!==entry.who&&(p.dead||dist(p,entry.pos)>9));
+  const near=S.ents.length-1-missing.length;
+  if(near>=4)return true;
+  for(const p of missing)if(p.i!==S.opts.role)recordNpcFault(p.i,'gaol-rescue',{holder:entry.who,near,position:{x:p.x,y:p.y}});
+  if(missing.some(p=>p.i===S.opts.role))die(reason);
+  return false;
+}
+function referenceGaolBombCenter(){
+  const bomb=S.replay?.eventCasts?.find(c=>c.actor===30&&c.instance===6&&c.ability===11114);
+  return bomb?practicePoint({x:bomb.x,y:bomb.y},relative(bomb.t)):F(...GAP);
+}
+function reportGaolChainFailure(chain,center,boss,reason) {
+  // Replay connectivity with one carrier's actual placement and intended
+  // anchors for everyone else. Include absent NPC gaols, so a missing NPC
+  // cannot make an otherwise correctly placed player fail this check.
+  const anchors=GAOL.map(who=>({who,pos:chain.find(g=>g.who===who)?.expected||
+    (S.reference?practicePosition(ROLES[who],relative(346.323)):home(who,46.1))}));
+  const breaksChain=who=>{
+    const actor=chain.find(g=>g.who===who);if(!actor)return true;
+    const points=anchors.map(g=>g.who===who?actor.pos:g.pos);
+    const reached=new Set(points.map((p,i)=>dist(p,center)<=CFG.chainFirst?i:-1).filter(i=>i>=0));
+    for(let pass=0;pass<points.length;pass++)for(let i=0;i<points.length;i++)if([...reached].some(j=>dist(points[i],points[j])<=CFG.chain))reached.add(i);
+    return reached.size!==points.length||![...reached].some(i=>dist(points[i],boss)<=CFG.chainBoss);
+  };
+  const playerFault=chain.some(g=>g.who===S.opts.role)&&breaksChain(S.opts.role);
+  const npcFaults=GAOL.filter(who=>who!==S.opts.role&&breaksChain(who));
+  // If each isolated anchor is viable, the actual combination or release
+  // timing still failed: preserve that team-level evidence without a verdict
+  // against a player whose own placement passed the isolated check.
+  const diagnostics=npcFaults.length?npcFaults:playerFault?[]:chain.filter(g=>g.who!==S.opts.role).map(g=>g.who);
+  for(const who of diagnostics){const g=chain.find(g=>g.who===who);recordNpcFault(who,'gaol-chain-incomplete',{position:g&&{...g.pos},broken:g?.broken,reason});}
+  if(playerFault)die(reason);
+}
+
 function kill(i, why, mechanic = null) { // 有人被打死：玩家死在該自殺的時候不算失敗
   const e = S.ents[i]; if (e.dead) return; const me = i === S.opts.role;
 
   if (DIE.includes(i) && mechanic?.plannedWeight && Math.abs(S.t-mechanic.resolveAt)<0.51) { e.dead = true; e.plannedDeath = true; flash(`${ROLES[i]} 自殺（${why}）${me ? "：正確，等復活" : ""}`); return; }
   if (S.opts.god) return flash(`（觀摩判定）${ROLES[i]}：${why}`);
   if (me) { if (!S.opts.god) { e.dead = true; e.plannedDeath = false; } return die(why); }
-  e.dead = true; die(`${ROLES[i]} 被打死：${why}`); // 該活著的隊友死了就算失敗
+  recordNpcFault(i,why); // NPC defects do not judge or kill the player's practice party.
 }
 
 // Recorded life state is separate from collision verdicts and cast timestamps.
@@ -619,7 +668,7 @@ function buildReferenceEvents() {
       if(e.active) {
         S.jailed[i]=true;
         const observed=restoring?practicePosition(e.role,relative(e.time)):null;
-        const entry={who:i,pos:observed||{x:S.ents[i].x,y:S.ents[i].y},broken:false,chain:e.time<360};
+        const entry={who:i,pos:observed||{x:S.ents[i].x,y:S.ents[i].y},expected:practicePosition(e.role,relative(e.time)),broken:false,chain:e.time<360};
         S.gaols.push(entry);S.props.push({type:'gaol',pos:entry.pos,refRole:i,gaol:entry});
       } else {
         const entry=S.gaols.find(g=>g.who===i&&!g.broken);
@@ -631,8 +680,7 @@ function buildReferenceEvents() {
           if(!connected&&!restoring){flash(`${ROLES[i]} 石牢未連上炸彈／前一個石牢`);return;}
           entry.broken=true;
         } else if(entry){
-          const near=S.ents.filter(p=>p.i!==i&&!p.dead&&dist(p,entry.pos)<=9).length;
-          if(!restoring&&(Math.hypot(entry.pos.x,entry.pos.y)>4||near<4)){die('石牢未放在場中或附近救援隊友不足');return;}
+          if(!restoring&&!canRescueGaol(entry,'石牢未放在場中或附近救援隊友不足'))return;
           entry.broken=true;
         }
         delete S.jailed[i];S.freed[i]=S.t+.4;S.props=S.props.filter(p=>p.refRole!==i);
@@ -644,7 +692,7 @@ function buildReferenceEvents() {
   at(relative(352.650),()=>{
     const chain=S.gaols.filter(g=>g.chain);
     if(chain.length&& (chain.some(g=>!g.broken)||!chain.some(g=>g.broken&&dist(g.pos,TITAN2())<=CFG.chainBoss)))
-      die('石牢連鎖失敗：三牢必須接上第六顆炸彈，逐個連到泰坦。');
+      reportGaolChainFailure(chain,referenceGaolBombCenter(),TITAN2(),'石牢連鎖失敗：三牢必須接上第六顆炸彈，逐個連到泰坦。');
   });
   const cutoff=relative(S.replay?.end ?? REFERENCE_END);
   at(cutoff,()=>{S.over={win:false,recordEnd:true,t:S.t,reason:'已完成本隊資料涵蓋的泰坦機制練習。來源紀錄止於 7:29，這不是你的失敗，也不代表泰坦擊殺；可選其他起點重練。'};});
@@ -729,7 +777,7 @@ function buildEvents() {
   };
   slide(45.6); slide(50);
   at(46.1, () => {
-    for (const i of GAOL) if (alive(i)) { S.jailed[i] = true; S.gaols.push({ who: i, pos: { x: S.ents[i].x, y: S.ents[i].y }, broken: false }); }
+    for (const i of GAOL) if (alive(i)) { S.jailed[i] = true; S.gaols.push({ who: i, pos: { x: S.ents[i].x, y: S.ents[i].y }, expected:home(i,S.t), broken: false }); }
     S.props.push(...S.gaols.map((g) => ({ type: "gaol", pos: g.pos, gaol: g })));
     flash("石牢成形：要靠第六顆炸彈引爆第一個，再一個炸一個");
   }, "石牢成形");
@@ -737,7 +785,13 @@ function buildEvents() {
   const breakGaol = (g, why) => { g.broken = true; delete S.jailed[g.who]; S.freed[g.who] = S.t + 1.2; S.props = S.props.filter((p) => p.gaol !== g); S.flashRings.push({ c: g.pos, r: 6, until: S.t + 0.5 }); flash(`${ROLES[g.who]} 的石牢被${why}炸開`); };
   at(49.6, () => { S.props = S.props.filter((p) => !p.sixth); const c = F(...GAP), g = S.gaols.filter((x) => !x.broken).sort((a, b) => dist(a.pos, c) - dist(b.pos, c))[0]; if (g && dist(g.pos, c) <= CFG.chainFirst) breakGaol(g, "炸彈岩"); }, "第六顆炸彈爆炸 → 石牢連鎖");
   for (const t of [50.3, 51.1]) at(t, () => { const done = S.gaols.filter((x) => x.broken); const g = S.gaols.filter((x) => !x.broken).sort((a, b) => Math.min(...done.map((d) => dist(d.pos, a.pos)), 99) - Math.min(...done.map((d) => dist(d.pos, b.pos)), 99))[0]; if (g && done.some((d) => dist(d.pos, g.pos) <= CFG.chain)) breakGaol(g, "隔壁的石牢"); });
-  at(52, () => { if(S.gaols.length===3&&S.gaols.every(g=>g.broken)&&!S.gaols.some(g=>dist(g.pos,TITAN2())<=CFG.chainBoss)){die('石牢連鎖沒有接到泰坦');return;} const stuck = S.gaols.filter((g) => !g.broken); if (stuck.length) { S.over = S.opts.god ? null : { win: false, reason: `石牢沒有全部炸開（${stuck.map((g) => ROLES[g.who]).join("、")} 還關著）：三個人要排成一條鏈，第一個貼近第六顆炸彈，每個相隔 ${CFG.chain} 米內`, t: S.t }; if (S.opts.god) flash("（觀摩模式）石牢沒有全部炸開"); } });
+  at(52, () => {
+    if(S.gaols.length===3&&S.gaols.every(g=>g.broken)&&!S.gaols.some(g=>dist(g.pos,TITAN2())<=CFG.chainBoss)){
+      reportGaolChainFailure(S.gaols,F(...GAP),TITAN2(),'石牢連鎖沒有接到泰坦');return;
+    }
+    const stuck=S.gaols.filter(g=>!g.broken);
+    if(stuck.length)reportGaolChainFailure(S.gaols,F(...GAP),TITAN2(),`石牢沒有全部炸開（${stuck.map(g=>ROLES[g.who]).join('、')} 還關著）：三個人要排成一條鏈，第一個貼近第六顆炸彈，每個相隔 ${CFG.chain} 米內`);
+  });
   at(50.6, () => { for (const i of DIE) { S.ents[i].dead = false; S.ents[i].plannedDeath = false; S.ents[i].fallY=0; S.ents[i].fallTime=0; } flash("自殺的四個人接受復活"); }, "自殺的人接受復活");
   for (let n = 0; n < 8; n++) at(52.2 + n * 1.12, () => { if (n === 0) flash("激震 ×8：全場連續傷害"); }, n === 0 ? "激震 ×8（全場）" : null);
   // ===== 後半（62 秒起）=====
@@ -749,13 +803,16 @@ function buildEvents() {
   at(86.5, () => flash(`石牢點名：${ROLES[S.g4]}，走到場中讓大家打`), "第四個石牢（點一個補師）");
   at(91.4, () => {
     const e = S.ents[S.g4]; if (e.dead) return;
-    if (Math.hypot(e.x, e.y) > 4) return die(`${ROLES[S.g4]} 的石牢沒有放在場中（回放 8 筆都在場中）：被點名要走到場中`);
+    if (Math.hypot(e.x, e.y) > 4) {
+      gaolPlacementFailure(S.g4,e,`${ROLES[S.g4]} 的石牢沒有放在場中（回放 8 筆都在場中）：被點名要走到場中`);
+      if(S.over)return;
+    }
     S.jailed[S.g4] = true; S.gaol4 = { who: S.g4, pos: { x: e.x, y: e.y } }; S.props.push({ type: "gaol", pos: S.gaol4.pos, gaol: S.gaol4 }); flash("石牢成形：全員打石牢");
   }, "石牢成形");
   at(98, () => {
     if (!S.gaol4) return;
     const near = S.ents.filter((e) => !e.dead && e.i !== S.g4 && dist(e, S.gaol4.pos) <= 9).length;
-    if (near < 4) return die(`石牢沒打破（只有 ${near} 人在石牢旁邊）：${ROLES[S.g4]} 還關著就要放山崩了`);
+    if (!canRescueGaol(S.gaol4,`石牢沒打破（只有 ${near} 人在石牢旁邊）：${ROLES[S.g4]} 還關著就要放山崩了`))return;
     delete S.jailed[S.g4]; S.freed[S.g4] = S.t + 0.4; S.props = S.props.filter((p) => p.gaol !== S.gaol4); flash("石牢打破");
   }, "石牢打破");
   slide(101.3); slide(103.3, true);
@@ -793,11 +850,14 @@ function slideDodge(e, h) {
   const offs = w.offs.map((o) => ((o % 360) + 360) % 360).sort((a, b) => a - b), mids = offs.map((o, k) => { const nx = k + 1 < offs.length ? offs[k + 1] : offs[0] + 360; return { a: w.base + rad((o + nx) / 2), width: nx - o }; });
   const dAng = (a) => Math.abs(Math.atan2(Math.sin(a - cur), Math.cos(a - cur)));
   const circles = S.aoes.filter((a) => !a.done && a.shape.type === "circle" && !(a.skip && a.skip.includes(e.i)));
-  let best = null;
+  let best = null, bestDistance = Infinity;
+  const lanes = S.aoes.filter(a=>a.t1===w.t1 && a.shape?.type==="rect");
   for (const m of mids.sort((x, y) => dAng(x.a) - dAng(y.a))) for (const dd of [d, d + 3, d - 3, d + 6]) {
     const q = { x: w.T.x + Math.cos(m.a) * dd, y: w.T.y + Math.sin(m.a) * dd };
     if (dd < 6 || Math.hypot(q.x, q.y) > arenaSupportRadius() - 0.8 || circles.some((c) => c.hit(q, 0.8)) || dist(e, q) > CFG.speed * Math.max(0.3, w.t1 - S.t - 0.15)) continue;
-    best = q; break;
+    if(lanes.some(a=>a.hit(q,.15))) continue;
+    const travel=dist(e,q);
+    if(travel<bestDistance){best=q;bestDistance=travel;}
   }
   e.sw = { id: w.id, pos: best };
   return best || greedy(e, h);
@@ -846,6 +906,48 @@ function moveReferenceNpc(e,dt) {
   if(Math.hypot(dx,dy)>1e-8) e.face=Math.atan2(dy,dx);
   e.x=x; e.y=y; return true;
 }
+// Time-aware route search for overlapping bomb drops, Weight and Landslide.
+// A point may be safe for the first snapshot and unsafe for the next: retain
+// the whole timed route rather than requiring one point to survive every AoE.
+function moveLateNpc(e,intent,dt,hazards) {
+  const active=hazards.filter(a=>a.t1>=S.t-dt&&a.t1-S.t<=3.5);
+  if(!active.length){delete e.timedRoute;return false;}
+  const key=active.map(a=>`${a.t1}:${a.shape?.type||'drop'}:${a.shape?.ang||0}`).join('|');
+  if(!e.timedRoute||e.timedRoute.key!==key){
+    const begin=S.t-dt,end=Math.max(...active.map(a=>a.t1))+.02;
+    // A narrow beam can prune the only branch that escapes a later fan even
+    // though its earlier segments are safe. Retry with more spatial candidates
+    // before falling back; do not confuse search exhaustion with no safe route.
+    let path=[];
+    for(const beamLimit of [48,96,192]) {
+      let beam=[{x:e.x,y:e.y,path:[],cost:0}],time=begin;
+      while(time<end-1e-7&&beam.length){
+        const next=Math.min(end,time+.2),delta=next-time,choices=[],cells=new Set();
+        for(const node of beam)for(let j=0;j<17;j++){
+          const a=j*Math.PI/8,step=j===16?0:CFG.speed*delta;
+          const q={x:node.x+Math.cos(a)*step,y:node.y+Math.sin(a)*step,t:next};
+          if(Math.hypot(q.x,q.y)>arenaSupportRadius()-.35)continue;
+          if(active.some(h=>{if(h.t1<time-1e-7||h.t1>next+1e-7)return false;const f=Math.max(0,Math.min(1,(h.t1-time)/delta));return h.hit({x:node.x+(q.x-node.x)*f,y:node.y+(q.y-node.y)*f},.15);} ))continue;
+          choices.push({...q,path:[...node.path,q],cost:node.cost+step*.03,score:dist(q,intent)+node.cost+step*.03+active.reduce((sum,h)=>sum+(h.t1>=next&&h.hit(q,.15)?8/(.5+h.t1-next):0),0)});
+        }
+        choices.sort((a,b)=>a.score-b.score);beam=[];
+        for(const q of choices){const cell=Math.round(q.x/.7)+','+Math.round(q.y/.7);if(cells.has(cell))continue;cells.add(cell);beam.push(q);if(beam.length===beamLimit)break;}
+        time=next;
+      }
+      path=beam[0]?.path||[];
+      if(path.length)break;
+    }
+    e.timedRoute={key,previous:{x:e.x,y:e.y,t:begin},path};
+  }
+  const route=e.timedRoute,path=route.path;
+  if(!path.length)return false;
+  while(path.length>1&&path[0].t<=S.t)route.previous=path.shift();
+  const from=route.previous,q=path[0],f=Math.max(0,Math.min(1,(S.t-from.t)/(q.t-from.t)));
+  const x=from.x+(q.x-from.x)*f,y=from.y+(q.y-from.y)*f;
+  if(Math.hypot(x-e.x,y-e.y)>.001)e.face=Math.atan2(y-e.y,x-e.x);
+  e.x=x;e.y=y;
+  return true;
+}
 function npcTarget(e) {
   // After Upheaval, hold the safe landing through the actual five-bomb
   // resolution frame. Moving toward gaol anchors at stun expiry walks into
@@ -861,7 +963,7 @@ function npcTarget(e) {
   if (S.t >= 33.5 && S.t < 46.2 && !(e.i === 0 && S.t > 41.2)) return h; // 擊飛與石牢站位是固定的，不做臨時閃避
   if (S.t >= 81.5 && S.t < 86.9) return h;
   if (S.t >= 119.6 && S.t < 128.7) return h;
-  if (S.slideWave && S.t < S.slideWave.t1 + 0.05 && S.t >= 46.2) return S.t < S.slideWave.hold && dist(e, S.slideWave.T) < 11 ? e : slideDodge(e, h); // 離泰坦近的人線很密，要等第一波炸完；遠的人可以先動 // 四顆炸彈繞場：照固定路線一直走，大地之重的圈自然會被甩在後面
+  if (S.slideWave && S.t < S.slideWave.t1 + 0.05 && S.t >= 46.2) return S.t < S.slideWave.hold ? e : slideDodge(e, h); // 離泰坦近的人線很密，要等第一波炸完；遠的人可以先動 // 四顆炸彈繞場：照固定路線一直走，大地之重的圈自然會被甩在後面
   if (S.t >= 133 && S.t < 135.15) { const r = Math.hypot(e.x, e.y) || 1, k = Math.max(r, 10.8) / r; return greedy(e, { x: e.x * k, y: e.y * k }); } // 最後一顆炸彈爆之前留在外圈，不要穿過場中
   return greedy(e, h);
 }
@@ -883,8 +985,9 @@ function updateFall(e,dt) {
     e.dead=true; e.plannedDeath=false;
     die(`掉出平台：目前平台半徑 ${S.arena.radius} 米；第二、三次大地粉碎後分別縮為 16、12 米，掉落不算大地之重自殺。`);
   } else if(!e.dead && e.i!==S.opts.role && !S.opts.god) {
-    e.dead=true; e.plannedDeath=false;
-    die(`${ROLES[e.i]} 掉出平台：擊退起點或移動位置不正確。`);
+    recordNpcFault(e.i,'outside-platform');
+    const r=arenaSupportRadius()-.1,k=r/Math.hypot(e.x,e.y);
+    e.x*=k;e.y*=k;e.fallTime=0;e.fallY=0;
   }
 }
 function step(dt) {
@@ -900,14 +1003,27 @@ function step(dt) {
     p.x += wx * sp; p.y += wy * sp; p.face = Math.atan2(wy, wx);
   }
   for (const e of S.ents) {
-    if (e.i !== role && !(S.replay?.rawCoordinates ? e.dead||S.jailed[e.i] : frozen(e.i)) && !(S.reference && moveReferenceNpc(e,dt))) { const tg = npcTarget(e), d = dist(e, tg); if (d > 0.05) { const sp = Math.min(d, CFG.speed * dt); e.face = Math.atan2(tg.y - e.y, tg.x - e.x); e.x += ((tg.x - e.x) / d) * sp; e.y += ((tg.y - e.y) / d) * sp; } }
+    if (e.i !== role && !(S.replay?.rawCoordinates ? e.dead||S.jailed[e.i] : frozen(e.i)) && !(S.reference && moveReferenceNpc(e,dt))) { const tg = npcTarget(e), d = dist(e, tg);
+      if(!S.reference && S.t>=119.6){
+        const hazards=S.aoes.filter(a=>!a.done&&a.t0<=S.t&&!(a.skip||[]).includes(e.i));
+        // Teaching NPCs plan around the fixed four-bomb drop sequence before
+        // committing to a dodge destination; visible telegraphs remain unchanged.
+        for(let n=0;n<4;n++){
+          const t1=123.5+n*2;
+          if(t1>=S.t&&t1-S.t<=3.5){const c=polar(45+((S.bomb0+n)%4)*90,4.24);hazards.push({t1,hit:(p,pad=0)=>dist(p,c)<=CFG.bombLandR+pad});}
+        }
+        const imminent=hazards.filter(a=>a.t1-S.t<=3.5);
+        const intent=e.avoidGoal&&imminent.length&&!imminent.some(a=>a.hit(e.avoidGoal,.25))?e.avoidGoal:tg;
+        if(!(S.t<135.2&&moveLateNpc(e,tg,dt,hazards)))npcMotion.move(e,intent,dt,{time:S.t,radius:arenaSupportRadius(),speed:CFG.speed,future:()=>intent,hazards:hazards.map(a=>({t1:a.t1,hit:(p,pad)=>a.hit(p,pad)}))});
+      } else if (d > 0.05) { const sp = Math.min(d, CFG.speed * dt); e.face = Math.atan2(tg.y - e.y, tg.x - e.x); e.x += ((tg.x - e.x) / d) * sp; e.y += ((tg.y - e.y) / d) * sp; } }
     updateFall(e,dt);
   }
   for (const a of S.aoes) if (!a.done && S.t >= a.t1) { a.done = true; a.onHit.call(a); if (S.over) return; }
   if(S.sacrificeDeadline!==null&&S.t>=S.sacrificeDeadline){
     S.sacrificeDeadline=null;
     const missed=DIE.filter(i=>!S.ents[i].dead||!S.ents[i].plannedDeath);
-    if(missed.length)die(`自殺分工未完成：${missed.map(i=>ROLES[i]).join('、')} 必須吃第二波大地之重倒地，讓三牢只點到指定存活組。`);
+    for(const i of missed)if(i!==S.opts.role)recordNpcFault(i,'missed-sacrifice');
+    if(missed.includes(S.opts.role))die(`自殺分工未完成：${ROLES[S.opts.role]} 必須吃第二波大地之重倒地，讓三牢只點到指定存活組。`);
   }
   S.aoes = S.aoes.filter((a) => S.t < a.t1 + 0.4);
 }
@@ -1114,4 +1230,4 @@ function init() {
   requestAnimationFrame(loop);
 }
 if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);
-if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3, kill, gaolLinks, landslideGuides, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };
+if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, moveLateNpc, useSkill, END_T, F, stackSpot, polar, D3, kill, gaolLinks, landslideGuides, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };

@@ -146,11 +146,11 @@ function advanceThermals(){
       else eligible=S.tetherHolds[role]!==false;
     }
     if(!eligible){
-      if(!count)fail(t<100?'低氣壓：請進入刺羽罩的範圍清層':'低氣壓：未成功截線');
+      if(!count)actorFailure(role,t<100?'低氣壓：請進入刺羽罩的範圍清層':'低氣壓：未成功截線');
       if(S.dead)return;
       continue;
     }
-    if(!count&&old>=3){fail('清除三層低氣壓引發團滅');if(S.dead)return;}
+    if(!count&&old>=3){actorFailure(role,'清除三層低氣壓引發團滅');if(S.dead)return;}
     if(!count&&old===2)S.charges++;
     S.stacks[role]=count?old+1:count;
     if(marked||(!count&&old===2))log(ROLES[role]+(count?'・低氣壓 '+S.stacks[role]+' 層':'・清除 '+old+' 層'),t);
@@ -163,7 +163,7 @@ function trackBubbleEntry(){
     if(inside&&!S.bubbleInside[role]&&count){
       const next=timeline.thermalUpdates.slice(S.thermalIndex).find(update=>update[1]===role);
       if(!next||next[2]!==0||next[0]-S.t>1.5){
-        if(count>=3)fail('清除三層低氣壓引發團滅');
+        if(count>=3)actorFailure(role,'清除三層低氣壓引發團滅');
         if(count===2)S.charges++;
         S.stacks[role]=0;log(ROLES[role]+'・提早入罩，清除 '+count+' 層');
       }
@@ -244,6 +244,7 @@ function shapes(e) {
 function log(msg,at=S.t){
   const stamp=S.phase==='garuda'?(Math.floor(at/60)+':'+(at%60).toFixed(3).padStart(6,'0')+'　'):'';
   S.log.unshift(stamp+msg);S.log.length=Math.min(S.log.length,12);}
+function actorFailure(actor,reason){if(actor===S.opts.role)fail(reason);else S.npcFaults.push({role:actor,time:S.t,reason});}
 function fail(reason){log((S.opts.god?'觀摩判定・':'失誤・')+reason);S.errors++;if(!S.opts.god){S.dead=true;S.reason=reason;}}
 function home(i){return i===0?pos(0,-15):i===1?pos(-3,-2):pos((i-4)*.7,3);}
 const hasSw=(i,t)=>S.phase==='ultima'&&i===3&&t>=695.835&&t<=725.844;
@@ -346,7 +347,7 @@ function goal(e,i) {
 function reset(phase=S.phase||'garuda',seed=S.opts.seed??1,start=S.phase===phase&&S.start!==undefined?S.start:timeline.phases[phase].start){
   const info=timeline.phases[phase];
   Object.assign(S,{phase,assetPhase:phase==='garuda'?'garuda':'ultima',seed:seed>>>0,supp:timeline.assignments(seed),t:start,start,end:info.end,
-    done:false,dead:false,paused:false,reason:'',errors:0,log:[],aoes:[],props:[],flashRings:[],fetterDps:4,
+    done:false,dead:false,paused:false,reason:'',errors:0,log:[],npcFaults:[],orbEffects:[],orbEffectTime:0,aoes:[],props:[],flashRings:[],fetterDps:4,
     stacks:Array(8).fill(phase==='ultima'?1:0),charges:0,ents:ROLES.map((_,i)=>({...(phase==='garuda'?(i===S.opts.role?roleSample(i,start):npcRoleSample(i,start)):home(i)),i})),sprint:0,sprintCd:0,
     gaol:null,lb:null,whirlOrigins:{},orbRally:[null,null],soloOrbRally:[null,null],fetterApart:0,atWall:false,orbSoaks:[],events:timeline.build(phase,seed>>>0).filter(e=>e.t>=start)});
   if(phase==='ultima'){
@@ -376,6 +377,19 @@ function orbPair(e){
   const c=orbCenter(e),separation=Math.max(0,(orbMergeTime(e)-S.t)*2.5/e.lead);
   return [pos(c.x,c.y-separation),pos(c.x,c.y+separation)];
 }
+// Practice VFX, not a reconstruction of the game's particle assets. Every
+// position/radius comes from the same geometry used by collision resolution.
+function orbBodies(e){
+  return (e.kind==='orb'?[orbCenter(e)]:orbPair(e)).map(p=>({pos:{...p},radius:e.kind==='orb'?3:1.15,color:e.kind==='orb'?'#95ef80':'#ffc85d'}));
+}
+function emitOrbEffect(e,outcome,center,targets=[]){
+  S.orbEffects.push({at:S.orbEffectTime,duration:1.25,outcome,pos:{...center},
+    radius:e.kind==='orb'?6:8,bodies:orbBodies(e),targets:outcome==='soak'?targets.map(p=>({x:p.x,y:p.y})):[]});
+}
+function sceneOrbs(){
+  return {bodies:active().filter(e=>e.kind==='orb'||e.kind==='grouporb').flatMap(orbBodies),
+    effects:(S.orbEffects||[]).map(e=>({...e,progress:clamp01((S.orbEffectTime-e.at)/e.duration)})).filter(e=>e.progress<1)};
+}
 function active(){return S.events.filter(e=>!e.done&&S.t>=e.t-e.lead);}
 function useSkill(skill){
   if(S.paused||S.dead||S.done)return;
@@ -397,24 +411,24 @@ function songLane(t){
 }
 function resolve(e){
   const i=S.opts.role,p=me(),g=goal(e,i);
-  const check=(ok,msg)=>{if(!ok)fail(e.name+'：'+msg);};
+  const check=(ok,msg,actor=i)=>{if(!ok){if(actor===i)fail(e.name+'：'+msg);else S.npcFaults.push({role:actor,time:S.t,reason:e.name+'：'+msg});}};
   const close=(r)=>g&&dist(p,g)<=r;
   if(e.hazards.some(s=>contains(s,p))&&!(e.kind==='buster'&&i===0)&&!(S.gaol&&i===S.supp.gaol))check(false,'被攻擊範圍命中');
   {
     const hit=S.ents.find(a=>a.i!==i&&!(e.kind==='buster'&&a.i===0)&&!(S.gaol&&a.i===S.supp.gaol)&&e.hazards.some(s=>contains(s,a)));
-    if(hit)check(false,'NPC '+ROLES[hit.i]+' 被攻擊範圍命中');
+    if(hit)S.npcFaults.push({role:hit.i,time:S.t,reason:e.name+' 被攻擊範圍命中'});
   }
   switch(e.kind){
     case 'bomb':S.props=S.props.filter(p=>p.type!=='bomb'||p.id!==e.id);break;
     case 'mark':{
-      if(e.splash){const target=S.ents[e.targets[0]];e.appliedTargets=S.ents.filter(a=>dist(a,target)<=e.splash).map(a=>a.i);check(e.appliedTargets.length===1,'主坦分散：吸附式以太炸彈波及隊友');}
+      if(e.splash){const target=S.ents[e.targets[0]];e.appliedTargets=S.ents.filter(a=>dist(a,target)<=e.splash).map(a=>a.i);check(e.appliedTargets.length===1,'主坦分散：吸附式以太炸彈波及隊友',i===e.targets[0]||e.appliedTargets.includes(i)?i:e.targets[0]);}
       log('點名・'+e.targets.map(j=>ROLES[j]).join('、'));break;
     }
     case 'song':{
       S.whirlOrigins[e.t]=[{...S.ents[1]}];
       const lane=songLane(e.t);
-      for(const j of e.targets)check(dist(S.ents[j],goal(e,j))<=4,ROLES[j]+' 寒風之歌分工站位');
-      if(lane){const tank=lane.project(S.ents[1]),depth=Math.min(lane.project(S.ents[2]).along,lane.project(S.ents[3]).along);check(tank.side<=2.5&&tank.along>=0&&tank.along<depth,'ST 在補師前截線');}
+      for(const j of e.targets)check(dist(S.ents[j],goal(e,j))<=4,ROLES[j]+' 寒風之歌分工站位',j);
+      if(lane){const tank=lane.project(S.ents[1]),depth=Math.min(lane.project(S.ents[2]).along,lane.project(S.ents[3]).along);check(tank.side<=2.5&&tank.along>=0&&tank.along<depth,'ST 在補師前截線',1);}
       if(e.targets.includes(i)){
         let ok=close(4);
         if(lane){
@@ -422,7 +436,7 @@ function resolve(e){
           const healerDepth=Math.min(lane.project(S.ents[2]).along,lane.project(S.ents[3]).along);
           const recordedDepth=Math.min(lane.project(roleSample(2,e.t)).along,lane.project(roleSample(3,e.t)).along);
           if(lane.project(roleSample(1,e.t)).along<recordedDepth)
-            ok=ok&&tank.side<=2.5&&tank.along>=0&&tank.along<healerDepth;
+            if(i===1)ok=ok&&tank.side<=2.5&&tank.along>=0&&tank.along<healerDepth;
         }
         check(ok,'依紀錄由 ST 在補師前截線');
       }else if(lane){
@@ -442,48 +456,55 @@ function resolve(e){
         const along=(a.x-source.x)*dx+(a.y-source.y)*dy,lateral=Math.abs((a.x-source.x)*dy-(a.y-source.y)*dx);
         return along>=0&&along<=length&&lateral<=2;
       })());
-      if(clipped)check(false,'NPC '+ROLES[clipped.i]+' 被寒風之歌直線命中');
-      check(length>1&&depth>0&&depth<length&&side<=2,'坦克站在分身與點名隊員之間');
+      if(clipped)S.npcFaults.push({role:clipped.i,time:S.t,reason:'NPC 被寒風之歌直線命中'});
+      check(length>1&&depth>0&&depth<length&&side<=2,'坦克站在分身與點名隊員之間',i===e.who&&dist(p,goal(e,i))>4?i:e.tank);
       if(i!==e.tank&&i!==e.who){const along=(p.x-source.x)*dx+(p.y-source.y)*dy,lateral=Math.abs((p.x-source.x)*dy-(p.y-source.y)*dx);check(along<0||along>length||lateral>2,'離開寒風之歌直線');}
       break;
     }
-    case 'sisters':S.whirlOrigins[e.t]=[0,1].map(j=>({...S.ents[j]}));for(const j of [0,1])check(dist(S.ents[j],goal(e,j))<=4,'雙坦各依參考位置截寒風之歌');break;
+    case 'sisters':S.whirlOrigins[e.t]=[0,1].map(j=>({...S.ents[j]}));for(const j of [0,1])check(dist(S.ents[j],goal(e,j))<=4,'雙坦各依參考位置截寒風之歌',j);break;
     case 'buster':break;
-    case 'cyclone':{const ok=dist(S.ents[1],goal(e,1))<=4;S.receivedThermal['cyclone:1']=ok;check(ok,'副坦接刺羽');break;}
-    case 'friction':for(const actor of S.ents){const ok=dist(actor,goal(e,actor.i))<=5;S.receivedThermal['friction'+e.wave+':'+actor.i]=ok;check(ok,ROLES[actor.i]+' 靠近集合處接烈風刃');}break;
+    case 'cyclone':{const ok=dist(S.ents[1],goal(e,1))<=4;S.receivedThermal['cyclone:1']=ok;check(ok,'副坦接刺羽',1);break;}
+    case 'friction':for(const actor of S.ents){const ok=dist(actor,goal(e,actor.i))<=5;S.receivedThermal['friction'+e.wave+':'+actor.i]=ok;check(ok,ROLES[actor.i]+' 靠近集合處接烈風刃',actor.i);}break;
     case 'tethers':
-      for(const j of e.targets){S.tetherHolds[j]=dist(S.ents[j],goal(e,j))<=4&&S.stacks[j]>0;check(S.tetherHolds[j],ROLES[j]+' 帶低氣壓截線');}
+      for(const j of e.targets){S.tetherHolds[j]=dist(S.ents[j],goal(e,j))<=4&&S.stacks[j]>0;check(S.tetherHolds[j],ROLES[j]+' 帶低氣壓截線',j);}
       break;
-    case 'discharge':if(e.t===125.698)check(S.charges===4,'須累積四次雙層清除才能覺醒');break;
-    case 'tether':check(dist(S.ents[e.who],goal(e,e.who))<=3&&S.stacks[e.who]>0,ROLES[e.who]+' 帶低氣壓接線');S.stacks[e.who]=0;break;
-    case 'laser':check(dist(S.ents[1],goal(e,1))<=4,'副坦在東側單吃');check(S.ents.every(a=>a.i===1||dist(a,S.ents[1])>4),'離開副坦：誘導雷射波及隊友');break;
-    case 'stack':{const target=S.ents[e.who];check(target&&S.ents.filter(a=>dist(a,target)<=CFG.stackR&&!hasSw(a.i,e.t)).length>=4,'點名 '+ROLES[e.who]+' 身邊須至少四人分攤');if(!hasSw(i,e.t))check(dist(p,target)<=CFG.stackR,'回到點名隊員身邊分攤');break;}
-    case 'pulse':check(S.ents.every(a=>a.i===3||dist(a,S.ents[3])>CFG.swR),'灼熱遠離全隊');break;
+    case 'discharge':if(e.t===125.698)check(S.charges===4,'須累積四次雙層清除才能覺醒',S.stacks[i]>0?i:S.npcFaults.find(f=>f.role!==i)?.role??i);break;
+    case 'tether':check(dist(S.ents[e.who],goal(e,e.who))<=3&&S.stacks[e.who]>0,ROLES[e.who]+' 帶低氣壓接線',e.who);S.stacks[e.who]=0;break;
+    case 'laser':check(dist(S.ents[1],goal(e,1))<=4,'副坦在東側單吃',1);for(const a of S.ents)if(a.i!==1)check(dist(a,S.ents[1])>4,'離開副坦：誘導雷射波及隊友',i===1?i:a.i);break;
+    case 'stack':{const target=S.ents[e.who];check(target&&S.ents.filter(a=>dist(a,target)<=CFG.stackR&&!hasSw(a.i,e.t)).length>=4,'點名 '+ROLES[e.who]+' 身邊須至少四人分攤',!hasSw(i,e.t)&&(dist(p,target)>CFG.stackR||(i===e.who&&dist(p,partyStackPoint(i,e.t))>CFG.stackR))?i:S.ents.find(a=>a.i!==i&&dist(a,target)>CFG.stackR&&!hasSw(a.i,e.t))?.i??e.who);if(!hasSw(i,e.t))check(dist(p,target)<=CFG.stackR,'回到點名隊員身邊分攤');break;}
+    case 'pulse':for(const a of S.ents)if(a.i!==3)check(dist(a,S.ents[3])>CFG.swR,'灼熱遠離全隊',i===3?i:a.i);break;
     case 'orb':{
       const c=orbCenter(e),soakers=S.ents.filter(a=>dist(a,c)<=6);
-      check(dist(S.ents[e.who],c)<=3,'指定坦須實際接觸球');
-      check(soakers.some(a=>a.i===e.who),(i===e.who?'':'NPC '+ROLES[e.who]+'・')+'指定坦進球');
+      const valid=dist(S.ents[e.who],c)<=3&&soakers.every(a=>a.i===e.who);
+      emitOrbEffect(e,valid?'soak':'failed',c,soakers);
+      check(dist(S.ents[e.who],c)<=3,'指定坦須實際接觸球',e.who);
+      check(soakers.some(a=>a.i===e.who),(i===e.who?'':'NPC '+ROLES[e.who]+'・')+'指定坦進球',e.who);
       if(i!==e.who)check(dist(p,c)>6,'避開單吃球');
       const extra=soakers.find(a=>a.i!==e.who&&a.i!==i);
-      if(extra)check(false,'NPC '+ROLES[extra.i]+' 誤吃單吃球');
+      if(extra)check(false,'NPC '+ROLES[extra.i]+' 誤吃單吃球',extra.i);
       S.orbSoaks.push(soakers.length);S.soloOrbRally[e.who]=pos(6,-1);break;
     }
     case 'boom':{
       for(const actor of S.ents){
-        const d=dist(actor,O);check(d+10<20,(actor.i===i?'':'NPC '+ROLES[actor.i]+'・')+'從內圈承受擊退');
+        const d=dist(actor,O);check(d+10<20,(actor.i===i?'':'NPC '+ROLES[actor.i]+'・')+'從內圈承受擊退',actor.i);
         if(d>.1){actor.x+=actor.x/d*10;actor.y+=actor.y/d*10;}
       }
       break;
     }
     case 'proximity':check(close(6),'往中央避開四方落點');break;
-    case 'gaol':check(dist(S.ents[e.who],goal(e,e.who))<=3,'將石牢放在指定南側集合點');S.gaol={...S.ents[e.who]};S.props=[{type:'gaol',pos:S.gaol}];break;
-    case 'rescue':check(!S.gaol,'進入石牢六米內按 F 救人');break;
+    case 'gaol':check(dist(S.ents[e.who],goal(e,e.who))<=3,'將石牢放在指定南側集合點',e.who);S.gaol={...S.ents[e.who]};S.props=[{type:'gaol',pos:S.gaol}];break;
+    case 'rescue':check(!S.gaol,'進入石牢六米內按 F 救人',i===S.supp.gaol?(i===0?1:0):i);break;
     case 'lb':if(i===e.who)check(S.lb===e,'讀條期間按 L 施放職能 LB3');break;
     case 'enrage':log('進入狂暴・本練習無輸出檢定');break;
   }
 }
 function step(dt,keys=new Set()){
-  if(S.dead||S.done||S.paused)return;
+  if(S.paused)return;
+  // Finish terminal bursts on the same speed-scaled simulation delta, without
+  // advancing mechanics after a failure. Explicit pause freezes both clocks.
+  S.orbEffectTime+=dt;
+  S.orbEffects=S.orbEffects.filter(e=>S.orbEffectTime-e.at<e.duration);
+  if(S.dead||S.done)return;
   S.t=Math.min(S.end,S.t+dt);
   const upcoming=active();
   for(const e of upcoming)if(!e.hazards){
@@ -531,7 +552,7 @@ function step(dt,keys=new Set()){
     if(dist(S.ents[1],S.ents[4])>CFG.fetterMax){
       const previous=S.fetterApart;
       S.fetterApart+=dt;
-      if(previous<.75&&S.fetterApart>=.75)fail('炎獄之鎖拉得太遠：副坦與 D1 保持十米以內');
+      if(previous<.75&&S.fetterApart>=.75)actorFailure([1,4].includes(S.opts.role)?S.opts.role:1,'炎獄之鎖拉得太遠：副坦與 D1 保持十米以內');
     }else S.fetterApart=0;
     if(S.dead)return;
   }
@@ -546,12 +567,14 @@ function step(dt,keys=new Set()){
       const contacts=S.ents.filter(touching);
       if(contacts.length){
         e.done=true;
-        const touched=orbPair(e).find(c=>contacts.some(p=>dist(p,c)<=1.15)),together=group.every(p=>dist(p,touched)<=8),wrong=S.ents.find(p=>p.i%2!==e.orb%2&&dist(p,touched)<=8);
-        if(wrong)fail(e.name+'：'+ROLES[wrong.i]+' 碰到另一組的球');
+        const touched=orbPair(e).find(c=>contacts.some(p=>dist(p,c)<=1.15)),together=group.every(p=>dist(p,touched)<=8),wrong=[S.ents[S.opts.role],...S.ents.filter(p=>p.i!==S.opts.role)].find(p=>p.i%2!==e.orb%2&&dist(p,touched)<=8);
+        emitOrbEffect(e,!wrong&&together?'soak':'failed',touched,group);
+        if(wrong){actorFailure(wrong.i,e.name+'：'+ROLES[wrong.i]+' 碰到另一組的球');if(!together&&ownGroup&&(contacts.some(p=>p.i===S.opts.role)||(S.t>=orbMergeTime(e)&&dist(S.ents[S.opts.role],touched)>8)))actorFailure(S.opts.role,e.name+'：四名指定隊員尚未集合');}
         else if(together){S.orbRally[e.orb%2]=orbCenter(e);log(e.name+'・四人分攤');}
-        else fail(e.name+'：四名指定隊員尚未集合');
+        else {const missing=group.filter(p=>dist(p,touched)>8);actorFailure(contacts.some(p=>p.i===S.opts.role)||(S.t>=orbMergeTime(e)&&missing.some(p=>p.i===S.opts.role))?S.opts.role:contacts[0].i,e.name+'：四名指定隊員尚未集合');}
       }else if(S.t>=orbMergeTime(e)){
-        e.done=true;fail(e.name+'：球已融合，需由四人小隊在期限內實際碰球');
+        emitOrbEffect(e,'fusion',orbCenter(e));
+        e.done=true;actorFailure(ownGroup?S.opts.role:group[0].i,e.name+'：球已融合，需由四人小隊在期限內實際碰球');
       }
     }else if(S.t>=e.t){
       e.done=true;log(e.name,e.t);resolve(e);
@@ -622,8 +645,7 @@ function sceneGuides(){
         }else guides.push({type:'line',a:e.t>735?pos(-13.7,-13.7):pos(0,16),b:S.ents[i],color:'#79e1e2'});
       });
     }
-    if(e.kind==='orb')guides.push({type:'ring',pos:orbCenter(e),color:'#ffc85d'});
-    if(e.kind==='grouporb'){
+    if(e.kind==='grouporb'&&S.opts.assist){
       const [a,b]=orbPair(e),color=S.opts.role%2===e.orb%2?'#ffc85d':'#bd9afb';
       guides.push({type:'ring',pos:a,color},{type:'ring',pos:b,color},{type:'line',a,b,color});
     }
@@ -641,7 +663,7 @@ function sceneGuides(){
   }
   return guides;
 }
-if(typeof module!=='undefined')module.exports={S,reset,step,contains,goal,sceneGuides,useSkill,shapes,sampleTrack,roleSample,npcRoleSample,garudaNpcIntent,rouletteIntent,annihilationWeightIntent,suppressionIntent,sceneActors,MARKERS};
+if(typeof module!=='undefined')module.exports={S,reset,step,contains,goal,sceneGuides,sceneOrbs,useSkill,shapes,sampleTrack,roleSample,npcRoleSample,garudaNpcIntent,rouletteIntent,annihilationWeightIntent,suppressionIntent,sceneActors,MARKERS};
 function lesson(e){
   if(!e)return '等待下一個機制。';
   const i=S.opts.role;
@@ -749,6 +771,16 @@ function initUwu(){
       else{const p=s.from(),b=s.to(),angle=Math.atan2(b.y-p.y,b.x-p.x);g.beginPath();g.moveTo(p.x,p.y);g.arc(p.x,p.y,s.len,angle-s.half,angle+s.half);g.closePath();g.fillStyle=col;g.fill();}
     }
     for(const guide of sceneGuides()){g.strokeStyle=guide.color;g.lineWidth=.2;g.beginPath();if(guide.type==='ring')g.arc(guide.pos.x,guide.pos.y,guide.radius||1.8,0,Math.PI*2);else{g.moveTo(guide.a.x,guide.a.y);g.lineTo(guide.b.x,guide.b.y);}g.stroke();}
+    const orbs=sceneOrbs();
+    for(const b of orbs.bodies){disk(b.pos,b.radius,b.color);disk(pos(b.pos.x-b.radius*.3,b.pos.y-b.radius*.3),b.radius*.35,'#fff8dc');}
+    for(const fx of orbs.effects){
+      const k=fx.progress,col=fx.outcome==='soak'?'#ffe19a':fx.outcome==='fusion'?'#bf85ff':'#ff6655';
+      g.save();g.globalAlpha=1-k;
+      for(const b of fx.bodies)disk(b.pos,b.radius*Math.max(.01,1-k*3),col);
+      g.strokeStyle=col;g.lineWidth=.25;g.beginPath();g.arc(fx.pos.x,fx.pos.y,fx.radius*Math.min(1,.05+k*2),0,Math.PI*2);g.stroke();
+      for(const p of fx.targets){g.beginPath();g.arc(p.x,p.y,.5+k*1.3,0,Math.PI*2);g.stroke();}
+      g.restore();
+    }
     for(const boss of sceneActors(S.t)){disk(boss.pos,1.4,'#a66dc5');label(boss.pos,boss.tag,'#fff');}
     if(S.phase==='intermission'&&S.t<501.5){for(let i=0;i<6;i++)label(polar(i*60,9),'機雷','#ffd166');}
     if(S.phase==='intermission'&&S.t>=501.822&&S.t<526)label(O,'拉哈布雷亞','#dab6ff');

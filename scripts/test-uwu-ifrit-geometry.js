@@ -32,7 +32,7 @@ for(const gap of [3.99,4.01])test(`Flaming Crush counts a sixth participant at${
  setup('reference',impact-.0001,2);S.events=S.events.filter(e=>Math.abs(e.t-impact)<.001);S.evIdx=0;
  for(const e of S.ents)Object.assign(e,{x:e.i===2?18:e.i===3?-18:0,y:0});
  Object.assign(S.ents[4],{x:0,y:gap});sim.step(.0002);
- if(gap<4)assert.equal(S.over,null);else{assert.equal(S.over?.win,false);assert.match(S.over.reason,/分攤人數不足/);}
+ assert.equal(S.over,null);assert.equal(S.npcFaults.some(f=>f.role===4&&/分攤人數不足/.test(f.reason)),gap>4);
 });
 test('Incinerate ends fifteen meters from Ifrit rather than killing across the arena',()=>{
  const cue=173.497-origin-1.5;setup('reference',cue-.001);S.events=S.events.filter(e=>Math.abs(e.t-cue)<.001);S.evIdx=0;sim.step(.002);

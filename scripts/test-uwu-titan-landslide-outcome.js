@@ -3,14 +3,13 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 const sim=require('../sim/uwu-titan');const {S}=sim;
 function lock(){Object.assign(S.opts,{preset:'random',seed:3,start:43.39,role:7,god:false,assist:true});sim.reset();Object.assign(S.ents[7],{x:8,y:8,dead:false});sim.step(.02);return S.slideWave;}
 function resolve(w){for(const a of S.aoes.filter(a=>a.t1===w.t1))a.onHit();}
-test('one wave records every actual victim, locked bait and struck lane before ending',()=>{
+test('one wave records NPC routing faults without ending player practice',()=>{
  const w=lock();for(const e of S.ents)e.dead=true;
  for(const i of [2,3])Object.assign(S.ents[i],{dead:false,x:w.T.x+Math.cos(w.base)*10,y:w.T.y+Math.sin(w.base)*10});
  resolve(w);assert.deepEqual(S.landslideResult.victims.map(v=>v.role),[2,3]);
  assert.equal(S.landslideResult.target,7);assert.equal(S.landslideResult.lockedAt,w.lockedAt);
- assert(S.landslideResult.victims.every(v=>v.lanes.includes(0)));assert.match(S.over.reason,/H1.*H2/);
- assert.match(S.over.reason,/D4/);assert.equal(S.over.mechanic,'landslide');
- assert(sim.landslideGuides().some(g=>g.type==='line'));
+ assert(S.landslideResult.victims.every(v=>v.lanes.includes(0)));assert.equal(S.over,null);
+ assert.equal(S.npcFaults.length,2);assert(!S.ents[2].dead&&!S.ents[3].dead);
 });
 test('baiting through center is not itself a failure when nobody is struck',()=>{
  const w=lock();for(const e of S.ents)e.dead=true;

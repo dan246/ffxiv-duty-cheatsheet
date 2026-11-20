@@ -77,12 +77,12 @@ test('dodging eruptions without putting them on nails fails awakening',()=>{
  until(check+.001,dt=>{const bait=baits.some(t=>t>S.t-1e-7&&t<=S.t+dt+1e-7);Object.assign(S.ents[6],bait?{x:19,y:0}:{x:0,y:0});});
  assert.equal(S.over?.win,false);assert.match(S.over.reason,/釘子沒有每根炸滿兩次/);
 });
-test('an NPC standing in a resolved Eruption is a real practice failure',()=>{
+test('an NPC Eruption routing defect does not fail solo practice',()=>{
  const c=reference.ifrit.eventCasts.find(c=>c.ability===11098),bait=c.t0-origin,impact=c.t-origin;
  setup(4,bait-.001);onlyEvent(bait);sim.step(.002);const circle=S.aoes[0];
  until(impact-.001,()=>Object.assign(S.ents[4],{x:0,y:0}));
  Object.assign(S.ents[5],circle.shape.c);S.ents[5].avoidGoal={...circle.shape.c};sim.step(.002);
- assert.equal(S.over?.win,false);assert.match(S.over.reason,/D2.*地火/);
+ assert.equal(S.over,null);assert(S.npcFaults.some(f=>f.role===5));
 });
 test('recovering tether distance clears the stretch timer before another brief excursion',()=>{
  setup(1,41);S.events=[];const partner=S.ents[S.fetterDps];partner.dead=true;Object.assign(partner,{x:0,y:0});
@@ -116,9 +116,9 @@ test('eight-role full Ifrit NPC audit avoids lethal snapshots while the player r
   assert.deepEqual(hits,[],`NPC collision audit with ${ROLES[role]} controlled`);
  }
 });
-test('non-tank practice still detects an NPC caught by a tank cone',()=>{
+test('non-tank practice records an NPC tank-cone collision without ending',()=>{
  setup(4,19.3);until(20.92,()=>Object.assign(S.ents[4],{x:0,y:5}));
- S.tank=0;sim.step(.02);assert.equal(S.over?.win,false);assert.match(S.over.reason,/烈焰焚燒/);
+ S.tank=0;sim.step(.02);assert.equal(S.over,null);assert(S.npcFaults.length);
 });
 for(const kind of ['dash','cross'])for(const unsafe of [false,true])test(`${kind} actual snapshot ${unsafe?'fails':'accepts safe placement'} for all eight roles`,()=>{
  for(let role=0;role<8;role++){
@@ -169,9 +169,9 @@ function stationaryTether(gap){
  S.replay={paths:{ST:[[origin+40,-gap/2,0],[origin+47,-gap/2,0]],D1:[[origin+40,gap/2,0],[origin+47,gap/2,0]]}};
  Object.assign(S.ents[1],{x:-gap/2,y:0});Object.assign(S.ents[4],{x:gap/2,y:0});
 }
-for(const gap of [8,24])test(`uncontrolled ST/D1 tether ${gap<10?'accepts safe distance':'fails sustained separation'}`,()=>{
+for(const gap of [8,24])test(`uncontrolled ST/D1 tether ${gap<10?'accepts safe distance':'records sustained NPC separation'}`,()=>{
  stationaryTether(gap);until(45.1);
- if(gap<10)assert.equal(S.over,null);else{assert.equal(S.over?.win,false);assert.match(S.over.reason,/炎獄之鎖.*ST.*D1/);}
+ assert.equal(S.over,null);if(gap>=10)assert(S.npcFaults.some(f=>/炎獄之鎖.*ST.*D1/.test(f.reason)));
 });
 test('uncontrolled tether recovery resets its timer and expiry clears it',()=>{
  stationaryTether(24);until(43.1);assert(S.fetterApart>2);
@@ -188,7 +188,7 @@ for(const role of [2,4,7])for(const count of [5,6])test(`Flaming Crush ${count} 
  // Healers remain isolated; the intended six are MT/ST and four DPS.
  for(const e of S.ents)Object.assign(e,{x:e.i===2?18:e.i===3?0:-12,y:e.i===2?0:e.i===3?18:-10});
  if(count===5)Object.assign(S.ents[6],{x:0,y:0});sim.step(.002);
- if(count===6)assert.equal(S.over,null);else{assert.equal(S.over?.win,false);assert.match(S.over.reason,/烈焰碎擊分攤人數不足/);}
+ assert.equal(S.over,null);if(count===5)assert(S.npcFaults.some(f=>f.role===6&&/分攤人數不足/.test(f.reason)));
 });
 test('NPC tether partner follows the tank through a real AoE dodge without abandoning the pair',()=>{
  setup(7,41);S.events=[];S.replay={rawCoordinates:true,paths:{ST:[[origin+40,-5,0],[origin+47,-5,0]],D1:[[origin+40,4,0],[origin+47,4,0]]}};
@@ -212,7 +212,7 @@ test('Flaming Crush NPC participants assemble around the live controlled marker'
 test('a dead character cannot provide the sixth Flaming Crush participant',()=>{
  const time=262.228-origin;setup(2,time-.001);onlyEvent(time);
  for(const e of S.ents)Object.assign(e,{x:e.i===2?18:e.i===3?0:-12,y:e.i===2?0:e.i===3?18:-10});S.ents[6].dead=true;sim.step(.002);
- assert.equal(S.over?.win,false);assert.match(S.over.reason,/分攤人數不足（5\/6/);
+ assert.equal(S.over,null);assert(S.npcFaults.some(f=>f.role===6&&/分攤人數不足（5\/6/.test(f.reason)));
 });
 test('physical knockback is marked for one transition, then NPC recovery remains speed bounded',()=>{
  const time=170.676-origin;setup(3,time-.001);onlyEvent(time);const b=sim.bossState(S.t).pos;
@@ -220,4 +220,31 @@ test('physical knockback is marked for one transition, then NPC recovery remains
  assert(S.ents.every(e=>e.knockbackPos),'the displacement must be distinguishable from walking');const before=S.ents.map(e=>({x:e.x,y:e.y}));
  sim.step(.02);assert(S.ents.every(e=>!e.knockbackPos),'the transition marker must expire, not exempt future motion');
  for(const e of S.ents)if(e.i!==3)assert(Math.hypot(e.x-before[e.i].x,e.y-before[e.i].y)<=CFG.speed*.02+1e-7);
+});
+
+test('NPC-only Searing Wind splash is diagnostic while a safe player continues',()=>{
+ const pulse=201.130-origin;setup(7,pulse-.001);onlyEvent(pulse);
+ for(const e of S.ents)Object.assign(e,{x:[0,2].includes(e.i)?18:-18,y:0});sim.step(.002);
+ assert.equal(S.over,null);assert(S.npcFaults.some(f=>f.role===0&&/灼熱/.test(f.reason)));assert(!S.ents[0].dead);
+});
+test('missing controlled Flaming Crush participant still fails',()=>{
+ const time=262.228-origin;setup(6,time-.001);onlyEvent(time);
+ for(const e of S.ents)Object.assign(e,{x:e.i===2?18:e.i===3?0:-12,y:e.i===2?0:e.i===3?18:-10});
+ Object.assign(S.ents[6],{x:0,y:0});sim.step(.002);assert.equal(S.over?.win,false);assert.match(S.over.reason,/沒進.*分攤/);
+});
+for(const role of [2,7])test(`Flaming Crush wind responsibility for role ${role}`,()=>{
+ const time=262.228-origin;setup(role,time-.001);onlyEvent(time);
+ for(const e of S.ents)Object.assign(e,{x:e.i===3?18:-12,y:e.i===3?0:-10});
+ // H1's wind is on the stack. H1 caused it; the stack participant is actually hit.
+ sim.step(.002);assert.equal(S.over?.win,false);assert.match(S.over.reason,/灼熱/);
+});
+test('isolated wind healer continues when another NPC wind carrier reaches the stack',()=>{
+ const time=262.228-origin;setup(3,time-.001);onlyEvent(time);
+ for(const e of S.ents)Object.assign(e,{x:e.i===3?18:-12,y:e.i===3?0:-10});
+ sim.step(.002);assert.equal(S.over,null);assert(S.npcFaults.some(f=>f.role===2&&/灼熱/.test(f.reason)));
+});
+test('NPC-only broken fetter is diagnostic and does not end D4 practice',()=>{
+ setup(7,41);S.events=[];S.ents[1].dead=true;S.ents[4].dead=true;
+ Object.assign(S.ents[1],{x:18,y:0});Object.assign(S.ents[4],{x:-18,y:0});until(45.1);
+ assert.equal(S.over,null);assert(S.npcFaults.some(f=>/炎獄之鎖/.test(f.reason)));
 });

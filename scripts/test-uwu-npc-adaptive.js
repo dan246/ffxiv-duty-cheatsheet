@@ -46,7 +46,7 @@ test('Titan complete seed-0 rehearsal has no unintended live NPC hits at actual 
   assert(snapshots>50);assert(checks>100);assert.deepEqual(unexpected,[]);
  }finally{delete globalThis.UWU_REFERENCE;}
 });
-test('a live NPC struck by a real Titan bomb fails normal mode',()=>{
+test('a live NPC bomb routing defect is recorded without failing normal practice',()=>{
  globalThis.UWU_REFERENCE=require('../sim/uwu-reference');const sim=require('../sim/uwu-titan'),S=sim.S;
  try{
   Object.assign(S.opts,{role:4,god:true,preset:'reference',randomJumps:false,seed:0,start:27});sim.reset();
@@ -54,7 +54,7 @@ test('a live NPC struck by a real Titan bomb fails normal mode',()=>{
   const bomb=S.aoes.find(a=>Math.abs(a.t1+300.72-336.230)<.001);assert(bomb);
   Object.assign(S.ents[2],{x:bomb.shape.c.x,y:bomb.shape.c.y});S.opts.god=false;
   while(S.t<336.235-300.72&&!S.over)sim.step(.005);
-  assert(S.ents[2].dead);assert.equal(S.over?.win,false);assert.match(S.over.reason,/H1.*炸彈/);
+  assert(!S.ents[2].dead);assert.equal(S.over,null);assert(S.npcFaults.some(f=>f.role===2));
  }finally{delete globalThis.UWU_REFERENCE;}
 });
 test('a later hazard cannot pull an NPC back into an earlier unresolved puddle',()=>{

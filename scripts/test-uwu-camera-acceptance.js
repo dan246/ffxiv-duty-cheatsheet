@@ -124,6 +124,13 @@ async function main(){
  arena.dist=4;draw();scene.updateMatrixWorld(true);
  const closeBoxes=names.filter(n=>n.visible).map(n=>{const child=n.children[0],world=n.getWorldPosition(new THREE.Vector3()),depth=-world.clone().applyMatrix4(renderedCamera.matrixWorldInverse).z,units=2*depth*Math.tan(renderedCamera.fov*Math.PI/360)/800,p=world.project(renderedCamera);const h=child.scale.y/units,w=child.scale.x/units;assert(h<=26.01,'close camera must not inflate names over the actors');return{x:(p.x+1)*500,y:(1-p.y)*400,w,h};});
  for(let i=0;i<closeBoxes.length;i++)for(let j=i+1;j<closeBoxes.length;j++){const a=closeBoxes[i],b=closeBoxes[j];assert(Math.abs(a.x-b.x)>=(a.w+b.w)/2||Math.abs(a.y-b.y)>=(a.h+b.h)/2,'close stacked labels cannot overlap');}
+ // Real alpha-masked primal materials must survive camera occlusion fading.
+ const firstNew=loads.length;actors[0]={kind:"ultima",pos:{x:0,y:6},look:{x:0,y:0},tag:"Ultima",real:false};arena.cam=0;arena.pitch=.12;arena.dist=15;draw();await tick();await Promise.all(loads.slice(firstNew).map(load=>load.finish()));await tick();draw();
+ const ultima=models().find(m=>m.entry.gltf.scene.name!==undefined&&m.entry===find(o=>o.userData.model&&o.userData.body&&o.visible)[0].userData.model.userData.instance.entry);assert(ultima);
+ const masked=[];ultima.root.traverse(o=>{if(o.isMesh)masked.push(...[].concat(o.material));});
+ assert(masked.some(m=>m.opacity<.5),'front camera activates Ultima fade');
+ for(const m of masked)assert(m.opacity>=m.alphaTest,'opaque texels must not be fully clipped by fade');
+ actors[0].pos={x:30,y:0};draw();for(const m of masked){assert.equal(m.opacity,1);assert.equal(m.alphaTest,.5,'original texture cutout threshold restored');}
  console.log('3D camera: 72 yaw/pitch/zoom cases; real Titan occlusion/restoration; eight stacked nameplates pass.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});

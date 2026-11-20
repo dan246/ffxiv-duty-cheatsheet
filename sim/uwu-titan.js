@@ -4,7 +4,7 @@ const npcMotion=typeof require==='function'?require('./uwu-npc-motion'):globalTh
 // 可核實範圍採 Action 資料與 BossMod（炸彈含 1.3m hitbox）；剩餘角度、位置與教學路線估計另註。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1120-gapfix";
+const BUILD = "1120-bait";
 // Reference casts are rendered FFLogs completed casts, not damage/application packets.
 // Cast starts are inferred from displayed durations; geometry remains a teaching estimate.
 const REFERENCE_ORIGIN = 300.720;
@@ -249,8 +249,9 @@ const CFG = {
   bombR: 6.3,         // Action 11114 range 5 + BombBoulder hitbox 1.3
   kb: 24,           // 隆起擊飛距離（回放實測：30 個樣本 26 個落在 23.7～24.0）
   slideHalf: 3,     // Landslide width 6; main/helper lengths include actor hitbox
-  chainFirst: 6.8,  // 第一個石牢要在第六顆炸彈的爆炸範圍內
-  chain: 7.6,       // 石牢之間連鎖引爆的距離（估：回放間距 6.3～7）
+  chainFirst: 8.1,  // 6.3m bomb blast overlaps the 1.8m gaol hitbox
+  chain: 7.8,       // 6m Freefire overlaps the next 1.8m gaol hitbox
+  chainBoss: 10.55, // 6m sludge overlaps Titan's 4.55m hitbox
   // BossMod P3RockBuster/P3MountainBuster: sourced ranges + Titan R4.55.
   // Both angles are explicitly TODO verify in that source, so remain estimates.
   rockLen: 10.55, rockHalf: Math.PI / 3,
@@ -376,9 +377,18 @@ function bossRing(t) { const b = bossSpot(t); return b.vis && !b.alt ? { pos: b.
 // 畫面層共用介面：泰坦階段沒有這些東西
 const dashers = () => [], nails = () => [], swActive = () => [], hasSw = () => false, fetterOn = () => false;
 function sceneActors(t) { const b = bossSpot(t); return b.vis ? [{ pos: b.pos, alt: b.alt || 0, look: bossLook(t), real: false, tag: "", color: 0xa16207 }] : []; }
+function gaolLinks(t) {
+  const start=S.reference?relative(341.411):41.2,end=S.reference?relative(352.650):52;
+  if(t<start||t>end)return [];
+  const bomb=S.reference&&S.replay?.eventCasts?.find(c=>c.actor===30&&c.instance===6&&c.ability===11114);
+  const first=bomb?practicePoint({x:bomb.x,y:bomb.y},relative(bomb.t)):F(...GAP);
+  const actors=GAOL.map(i=>S.gaols.find(g=>g.who===i)?.pos||S.ents[i]);
+  const points=[first,...actors,TITAN2()],names=['炸彈','H2','H1','D4','泰坦'];
+  return [CFG.chainFirst,CFG.chain,CFG.chain,CFG.chainBoss].map((limit,i)=>({a:points[i],b:points[i+1],label:names[i]+'→'+names[i+1],distance:dist(points[i],points[i+1]),limit,ok:dist(points[i],points[i+1])<=limit}));
+}
 function sceneGuides(t) { // 輔助預兆：擊飛落點線、石牢站位、MT 山崩站位
   if (!S.opts.assist) return [];
-  const out = [], kp = kbPreview();
+  const out = gaolLinks(t).map(link=>({type:"line",a:link.a,b:link.b,color:link.ok?"#55dba6":"#ff6464"})), kp = kbPreview();
   if (S.reference) {
     const observed=practicePosition(ROLES[S.opts.role],t);
     if(observed) out.push({type:"ring",pos:observed,color:"#55dba6"});
@@ -515,13 +525,16 @@ function buildReferenceEvents() {
       const gaps=[375.212,403.859,433.484].includes(row.time), index=slideIndex++;
       spawn(()=>{
         const T={...bossSpot(t0).pos}, pool=S.ents.filter(e=>!e.dead&&!S.jailed[e.i]);
-        // Practice chooses a live eligible bait; recordings calibrate timing only.
+        // The first post-knockback fan prioritizes the controlled, live player
+        // for solo bait practice; later waves retain their original targeting.
         // Freeze the direction here so the targeted player can dodge after the tell.
-        const target=pool[Math.floor(S.rnd()*pool.length)]||{x:0,y:0};
+        const controlled=pool.find(e=>e.i===S.opts.role);
+        const target=(row.time===345.788&&controlled)||pool[Math.floor(S.rnd()*pool.length)]||{x:0,y:0};
         const base=gaps&&S.slideRef?S.slideRef.a0:Math.atan2(target.y-T.y,target.x-T.x);
         const offs=gaps?[22.5,-22.5,90,-90,180]:[0,45,-45,135,-135];
         if(!gaps) S.slideRef={T,a0:base};
         S.slideWave={id:index,T,base,offs,t1:t,hold:0,target:target.i};
+        if(row.time===345.788)flash(`地裂鎖定 ${ROLES[target.i]}：方向已固定，現在閃開再排石牢`);
         for(const off of offs) {const shape=rectAoe(T,base+rad(off),CFG.slideHalf,!gaps&&off===0?44.55:40.5,!gaps&&off===0?4.55:.5); addAoe({...shape,t0:S.t,t1:t,onHit(){hit(shape,'被地裂直線打到');}});}
       });
     }
@@ -595,7 +608,7 @@ function buildReferenceEvents() {
   }
   at(relative(352.650),()=>{
     const chain=S.gaols.filter(g=>g.chain);
-    if(chain.length&& (chain.some(g=>!g.broken)||!chain.some(g=>g.broken&&dist(g.pos,TITAN2())<=CFG.chain)))
+    if(chain.length&& (chain.some(g=>!g.broken)||!chain.some(g=>g.broken&&dist(g.pos,TITAN2())<=CFG.chainBoss)))
       die('石牢連鎖失敗：三牢必須接上第六顆炸彈，逐個連到泰坦。');
   });
   const cutoff=relative(S.replay?.end ?? REFERENCE_END);
@@ -668,16 +681,16 @@ function buildEvents() {
   const slide = (t, gaps) => {
     cast("山崩", t - 2.2, t);
     at(t - 2.2, () => {
-      let T, base, offs;
+      let T, base, offs, target;
       if (gaps) { ({ T } = S.slideRef); base = S.slideRef.a0; offs = [22.5, -22.5, 90, -90, 180]; }
       else {
-        const pool = S.ents.filter((e) => !e.dead && !S.jailed[e.i]); const tg = pool[Math.floor(S.rnd() * pool.length)] || S.ents[0];
+        const pool = S.ents.filter((e) => !e.dead && !S.jailed[e.i]); const tg = (t===45.6&&pool.find(e=>e.i===S.opts.role)) || pool[Math.floor(S.rnd() * pool.length)] || S.ents[0]; target=tg.i;
         T = { ...bossSpot(S.t).pos }; base = Math.atan2(tg.y - T.y, tg.x - T.x); offs = [0, 45, -45, 135, -135]; S.slideRef = { T, a0: base };
         flash(`山崩瞄準 ${ROLES[tg.i]}`);
       }
-      S.slideWave = { id: t, T, base, offs, t1: t, hold: gaps ? t - 2 + 0.03 : 0 }; // 第二波在第一波結算前 0.2 秒就鎖定：等第一波炸完再動
+      S.slideWave = { id: t, T, base, offs, target, t1: t, hold: gaps ? t - 2 + 0.03 : 0 }; // 第二波在第一波結算前 0.2 秒就鎖定：等第一波炸完再動
       for (const off of offs) addAoe({ ...rectAoe(T, base + rad(off), CFG.slideHalf, !gaps&&off===0?44.55:40.5, !gaps&&off===0?4.55:.5), t0: S.t, t1: t, onHit() { hitAll((e) => this.hit(e), "被山崩打到"); } });
-    }, gaps ? "山崩第二波（打在第一波的空隙）" : "山崩（五條線，中線瞄準隨機一人）");
+    }, gaps ? "山崩第二波（打在第一波的空隙）" : t===45.6 ? "山崩（單人練習優先瞄準你）" : "山崩（五條線，中線瞄準隨機一人）");
   };
   slide(45.6); slide(50);
   at(46.1, () => {
@@ -686,10 +699,10 @@ function buildEvents() {
     flash("石牢成形：要靠第六顆炸彈引爆第一個，再一個炸一個");
   }, "石牢成形");
   at(46.6, () => { const c = F(...GAP); addAoe({ ...circleAoe(c, CFG.bombR), t0: S.t, t1: 49.6, onHit() { hitAll((e) => this.hit(e), "被第六顆炸彈岩炸到"); } }); });
-  const breakGaol = (g, why) => { g.broken = true; delete S.jailed[g.who]; S.freed[g.who] = S.t + 1.2; S.props = S.props.filter((p) => p.gaol !== g); S.flashRings.push({ c: g.pos, r: 4, until: S.t + 0.5 }); flash(`${ROLES[g.who]} 的石牢被${why}炸開`); };
+  const breakGaol = (g, why) => { g.broken = true; delete S.jailed[g.who]; S.freed[g.who] = S.t + 1.2; S.props = S.props.filter((p) => p.gaol !== g); S.flashRings.push({ c: g.pos, r: 6, until: S.t + 0.5 }); flash(`${ROLES[g.who]} 的石牢被${why}炸開`); };
   at(49.6, () => { S.props = S.props.filter((p) => !p.sixth); const c = F(...GAP), g = S.gaols.filter((x) => !x.broken).sort((a, b) => dist(a.pos, c) - dist(b.pos, c))[0]; if (g && dist(g.pos, c) <= CFG.chainFirst) breakGaol(g, "炸彈岩"); }, "第六顆炸彈爆炸 → 石牢連鎖");
   for (const t of [50.3, 51.1]) at(t, () => { const done = S.gaols.filter((x) => x.broken); const g = S.gaols.filter((x) => !x.broken).sort((a, b) => Math.min(...done.map((d) => dist(d.pos, a.pos)), 99) - Math.min(...done.map((d) => dist(d.pos, b.pos)), 99))[0]; if (g && done.some((d) => dist(d.pos, g.pos) <= CFG.chain)) breakGaol(g, "隔壁的石牢"); });
-  at(52, () => { if(S.gaols.length===3&&S.gaols.every(g=>g.broken)&&!S.gaols.some(g=>dist(g.pos,TITAN2())<=CFG.chain)){die('石牢連鎖沒有接到泰坦');return;} const stuck = S.gaols.filter((g) => !g.broken); if (stuck.length) { S.over = S.opts.god ? null : { win: false, reason: `石牢沒有全部炸開（${stuck.map((g) => ROLES[g.who]).join("、")} 還關著）：三個人要排成一條鏈，第一個貼近第六顆炸彈，每個相隔 ${CFG.chain} 米內`, t: S.t }; if (S.opts.god) flash("（觀摩模式）石牢沒有全部炸開"); } });
+  at(52, () => { if(S.gaols.length===3&&S.gaols.every(g=>g.broken)&&!S.gaols.some(g=>dist(g.pos,TITAN2())<=CFG.chainBoss)){die('石牢連鎖沒有接到泰坦');return;} const stuck = S.gaols.filter((g) => !g.broken); if (stuck.length) { S.over = S.opts.god ? null : { win: false, reason: `石牢沒有全部炸開（${stuck.map((g) => ROLES[g.who]).join("、")} 還關著）：三個人要排成一條鏈，第一個貼近第六顆炸彈，每個相隔 ${CFG.chain} 米內`, t: S.t }; if (S.opts.god) flash("（觀摩模式）石牢沒有全部炸開"); } });
   at(50.6, () => { for (const i of DIE) { S.ents[i].dead = false; S.ents[i].plannedDeath = false; S.ents[i].fallY=0; S.ents[i].fallTime=0; } flash("自殺的四個人接受復活"); }, "自殺的人接受復活");
   for (let n = 0; n < 8; n++) at(52.2 + n * 1.12, () => { if (n === 0) flash("激震 ×8：全場連續傷害"); }, n === 0 ? "激震 ×8（全場）" : null);
   // ===== 後半（62 秒起）=====
@@ -884,7 +897,7 @@ function referenceHint() {
   else if(abs<330.726) advice='看泰坦起跳前的最後面向，跑向正對面場邊。落地後收進半徑16米的平台。';
   else if(abs<331.926) advice='第二次落地正在移除 16～20 米外圈：往半徑 16 米內移動，掉出平台不算大地之重自殺。';
   else if(abs<339.265) advice='回到泰坦腳前疊好，對準對面的炸彈缺口。大怒震會向外擊退；藍線顯示估計落點。';
-  else if(abs<346.323) advice='擊退後離開炸彈缺口：H2 靠缺口、H1 場中、D4 靠泰坦，排成三牢連鎖。地裂鎖定後避開直線，再回各自位置。';
+  else if(abs<346.323) advice='五顆炸彈爆完後離開缺口。單人練習這波地裂優先鎖定你：先沿缺口同側移動，別穿中央誘導；方向鎖定後閃線，再排 H2 → H1 → D4 → 泰坦的石牢連鎖。';
   else if(abs<352.601) advice='炸彈應連到 H2 → H1 → D4 → 泰坦。石牢解除就立即避開地裂、往泰坦側場邊集合，不要留在原地；牢擺錯不會自動解除。';
   else if(abs<367.719) advice='三牢解除後立即往泰坦側場邊集合，邊移動邊避招；準備怒震與兩輪大地之重。倒地隊友依衰弱／瀕死套用時間作為復活狀態代理。';
   else if(abs<375.212) advice='連續大地之重後接兩波地裂：先移開圈，第一波直線過後再換進剛炸過的位置。';
@@ -916,8 +929,8 @@ function hint() {
   if (t < 41.2) return "被擊飛中，暈眩 2 秒。";
   if (t < 46.2) {
     const g = GAOL.indexOf(r);
-    if (g >= 0) return `你被石牢點名。缺口這格馬上會落下第六顆炸彈，快離開。三個人要排成一條鏈：H2 離第六顆炸彈最近（${CFG.chainFirst} 米內，離泰坦最遠，最先炸開）、H1 在場中、D4 往泰坦方向再 7 米（最後炸開）。你是第 ${g + 1} 個，位置是${["最靠近炸彈缺口的那一點", "場中", "場中往泰坦方向 7 米"][g]}（開輔助預兆有黃圈）。注意 43.4 秒山崩會鎖定方向，中線瞄準隨機一人：四個人先一起待在偏離「泰坦 → 場中」那條線的同一側，鎖定後再踏進自己的位置，46 秒被關住前站好。`;
-    return `山崩五條線的中線會瞄準隨機一名還能動的人（43.4 秒鎖定）。跟石牢三人待在同一側（偏離「泰坦 → 場中」那條線約 22 度${S.opts.assist ? "，有藍圈" : ""}），這樣不管瞄準誰，線都不會經過石牢的位置。鎖定後往側邊走開；50 秒那一波只剩你能被瞄準，一定打你，讀條後再橫移躲掉。`;
+    if (g >= 0) return `你被石牢點名。缺口這格馬上會落下第六顆炸彈，快離開。三個人要排成一條鏈：H2 離第六顆炸彈最近（${CFG.chainFirst} 米內，離泰坦最遠，最先炸開）、H1 在場中、D4 往泰坦方向再 7 米（最後炸開）。你是第 ${g + 1} 個，位置是${["最靠近炸彈缺口的那一點", "場中", "場中往泰坦方向 7 米"][g]}（開輔助預兆有黃圈）。注意單人練習的這波山崩會在 43.4 秒鎖定你：先待在偏離「泰坦 → 場中」那條線的同一側，鎖定後再踏進自己的位置，46 秒被關住前站好。`;
+    return `單人練習這波山崩的中線會瞄準你（43.4 秒鎖定）。跟石牢三人待在同一側（偏離「泰坦 → 場中」那條線約 22 度${S.opts.assist ? "，有藍圈" : ""}），讓線避開中央石牢路徑。鎖定後往側邊走開；50 秒那一波只剩你能被瞄準，一定打你，讀條後再橫移躲掉。`;
   }
   if (r === 0) return "只剩你能被瞄準：這一波山崩的中線一定對準你，詠唱開始就鎖定。看到讀條就橫移到兩條線之間。";
   if (t < 62) return "等復活的人起來，接著是八下全場傷害的激震。";
@@ -969,6 +982,10 @@ function draw() {
   if(S.reference && S.opts.assist) for(const guide of sceneGuides(t).filter(guide=>guide.type==="ring")) {
     g.beginPath(); g.arc(guide.pos.x,guide.pos.y,1,0,7); g.lineWidth=.15; g.strokeStyle=guide.color; g.stroke();
   }
+  if(S.opts.assist)for(const link of gaolLinks(t)){
+    g.beginPath();g.moveTo(link.a.x,link.a.y);g.lineTo(link.b.x,link.b.y);
+    g.lineWidth=.18;g.strokeStyle=link.ok?"#55dba6":"#ff6464";g.stroke();
+  }
   const b = bossSpot(t);
   if (b.vis) {
     g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = b.alt ? "rgba(161,98,7,.45)" : "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke();
@@ -997,6 +1014,7 @@ function updateHud() {
   const st = []; if(S.opts.god) st.push("觀摩模式：碰撞不判失敗"); if(S.reference && S.opts.assist) st.push("綠圈：隊伍路線參考（仍須閃招）"); if (S.ents[r].dead) st.push("倒地"); if (S.jailed[r]) st.push("石牢"); if (t < S.stun && !S.ents[r].dead) st.push("暈眩"); if (S.buff.sprint > t) st.push("衝刺");
   if (r <= 1 && !S.ents[r].dead) st.push(S.tank === r ? "仇恨在你身上" : "仇恨不在你身上");
   const kp = kbPreview(); if (kp) st.push(kp.bad ? "擊飛落點：危險" : "擊飛落點：安全");
+  const links=gaolLinks(t); if(S.opts.assist&&links.length){const gaps=links.filter(l=>!l.ok);st.push(gaps.length?"石牢尚未接上："+gaps.map(l=>`${l.label} ${l.distance.toFixed(1)}/${l.limit}m`).join("、"):"石牢連線：全部接上");}
   $("statusline").textContent = st.join(" · ");
   const ov = $("overlay"); ov.hidden = !(S.over || S.paused);
   if (!ov.hidden) { const win = S.over && S.over.win; $("ovTitle").textContent = S.paused && !S.over ? "暫停" : S.over?.recordEnd ? "本段練習完成" : win ? "通過" : "失敗"; $("ovTitle").className = (S.paused && !S.over) || S.over?.recordEnd ? "" : win ? "win" : "dead"; $("ovReason").textContent = S.over ? S.over.reason : ""; $("ovHint").textContent = S.over ? "按 R 從這一段重來" : "按 P 繼續"; }
@@ -1055,4 +1073,4 @@ function init() {
   requestAnimationFrame(loop);
 }
 if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);
-if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3, kill, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };
+if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3, kill, gaolLinks, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };

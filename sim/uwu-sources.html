@@ -25,4 +25,5 @@ fetch('uwu-evidence.json').then(r=>{if(!r.ok)throw Error();return r.json();}).th
   const deltas=data.reports.map(r=>r[5]-r[4]);document.getElementById('comparison').textContent='8 場的追擊與轉場究極間隔為 '+Math.min(...deltas).toFixed(3)+'–'+Math.max(...deltas).toFixed(3)+' 秒；整場時間隨前段擊殺速度改變。輪迴觀察到土火風 4 場、風火土 3 場、火風土 1 場；樣本比例不是遊戲機率。';
 }).catch(()=>document.getElementById('comparison').textContent='無法載入資料表，請透過本機 HTTP 預覽開啟，或直接查看核對 JSON。');
 </script>
+<h2>單人地裂誘導與石牢連鎖</h2><p>擊退後、三牢成形前的第一波地裂，單人練習優先鎖定正在操控且存活、未被拘束的角色；倒地時由NPC接手。讀條鎖定後方向固定，後續補線保留原規則。這是練習目標選擇。</p><p>連鎖依實體重疊建立練習門檻：炸彈6.3米＋石牢半徑1.8米＝8.1米；石牢爆炸6米＋下一牢1.8米＝7.8米；污泥6米＋泰坦半徑4.55米＝10.55米。輔助綠／紅線及距離採同一門檻，無須踩中指定點。資料依<a href="https://github.com/awgil/ffxiv_bossmod/blob/master/BossMod.Ultimate/Stormblood/Ultimate/UWU/P3Gaols.cs">石牢範圍</a>與<a href="https://github.com/awgil/ffxiv_bossmod/blob/master/BossMod.Ultimate/Stormblood/Ultimate/UWU/UWUEnums.cs">實體半徑</a>；此重疊計算是練習模型，未經伺服器封包邊界實測。</p>
 </html>

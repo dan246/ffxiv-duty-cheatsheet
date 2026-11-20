@@ -1,0 +1,146 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_t1_kous1a.tex",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_c0_rcjr5a.tex.001",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_c0_rcjr0b.tex.001",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_t1_kous2a.tex",
+      "normalTexture": {
+        "index": 6
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_n.tex",
+      "file": "textures/maps/uwu/p3/00_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1194623,
+      "sha256": "9379e05360222629542e055cdf43d580ac16137e55c72e34ea703b86b896e681"
+    },
+    {
+      "index": 1,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_d.tex",
+      "file": "textures/maps/uwu/p3/01_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 2063758,
+      "sha256": "7510ecc4507e3c37d3f107affdf4ba975d14753c2a4bad941b81620d430ad7b6"
+    },
+    {
+      "index": 2,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_n.tex.dds",
+      "file": "textures/maps/uwu/p3/02_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_n.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1579993,
+      "sha256": "a573d60f8d037ffdb81245ad2c88512fe9a8bddd72385ef040e0d1f496d48f03"
+    },
+    {
+      "index": 3,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_d.tex.dds",
+      "file": "textures/maps/uwu/p3/03_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_d.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1664532,
+      "sha256": "fe1674d1c867da0e5735f20e833b52bca5f8ac3157af4aa9fb7d213ae2ad8cfa"
+    },
+    {
+      "index": 4,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock0_n.tex.dds",
+      "file": "textures/maps/uwu/p3/04_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock0_n.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1535834,
+      "sha256": "68111938c94acd0cde6167ce23bfb006bf9d7e3a79aad15130724dfecde2ce59"
+    },
+    {
+      "index": 5,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock1_d.tex.dds",
+      "file": "textures/maps/uwu/p3/05_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock1_d.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1360340,
+      "sha256": "56240011eb71b783bef1c63185308a639ca5fc01c278d9a48ad6a74f01c26367"
+    }
+  ]
+}

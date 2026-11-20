@@ -1,0 +1,68 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "name": "mt_m0315b0001_a",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "mt_m0315b0001_a_e",
+      "file": "textures/characters/chakram/00_mt_m0315b0001_a_e.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 2151,
+      "sha256": "f7fdc12c2962c27de985b50ab5f09dd87216e68250be7d180b27c8110d30f059"
+    },
+    {
+      "index": 1,
+      "name": "mt_m0315b0001_a_n",
+      "file": "textures/characters/chakram/01_mt_m0315b0001_a_n.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 132042,
+      "sha256": "5714c7be54750f3c7fd86aeeeeff14dfd815ed8917601e65738c67b916716694"
+    },
+    {
+      "index": 2,
+      "name": "mt_m0315b0001_a_d",
+      "file": "textures/characters/chakram/02_mt_m0315b0001_a_d.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 164551,
+      "sha256": "551f17625ed423bfe3936120d7457d634898ee9815ef90ab9e0e4fde776f2d0a"
+    }
+  ]
+}

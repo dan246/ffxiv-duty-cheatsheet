@@ -1,0 +1,68 @@
+{
+  "materials": [
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "name": "Material_0",
+      "normalTexture": {
+        "index": 0
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "Image_2",
+      "file": "textures/characters/diveDragon/00_Image_2.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 5184196,
+      "sha256": "ba15dde82ca4fdfbbaaa46156b2e35df55381cd539e727cf797be44e259fbe5e"
+    },
+    {
+      "index": 1,
+      "name": "Image_3-Image_1",
+      "file": "textures/characters/diveDragon/01_Image_3-Image_1.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 5427426,
+      "sha256": "4fad294c0a14381553ac97e4628e890ca998d631b7ceba8dd06149f9494cdade"
+    },
+    {
+      "index": 2,
+      "name": "Image_0",
+      "file": "textures/characters/diveDragon/02_Image_0.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 6045416,
+      "sha256": "3ddb366e33805aa84d819bde5280e58b43a941dd9481e7d2c3e595a499bde0b7"
+    }
+  ]
+}

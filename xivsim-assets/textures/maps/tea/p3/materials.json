@@ -1,0 +1,437 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_cyl01a.tex",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_flo04a.tex",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_met01a.tex.001",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_met02a.tex",
+      "normalTexture": {
+        "index": 6
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_met03a.tex",
+      "normalTexture": {
+        "index": 8
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_met04a.tex",
+      "normalTexture": {
+        "index": 10
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_met06a.tex.001",
+      "normalTexture": {
+        "index": 12
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_flo03a.tex",
+      "normalTexture": {
+        "index": 14
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_a3_net01a.tex",
+      "normalTexture": {
+        "index": 16
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 17
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_gea01a.tex",
+      "normalTexture": {
+        "index": 18
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 19
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_ac_gea02a.tex",
+      "normalTexture": {
+        "index": 20
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 21
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "sampler": 0,
+      "source": 16
+    },
+    {
+      "sampler": 0,
+      "source": 17
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 21
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_n.tex",
+      "file": "textures/maps/tea/p3/00_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_n.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 176202,
+      "sha256": "19bc22eacc71ba2e2061f174d026089fa7952ae7d74913683f05c08e4539dbf6"
+    },
+    {
+      "index": 1,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_d.tex",
+      "file": "textures/maps/tea/p3/01_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 290496,
+      "sha256": "e3743e4f22f627810c93696f424537b2c05d1c80fa9c1bc22f9d412b50654fa9"
+    },
+    {
+      "index": 2,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_n.tex",
+      "file": "textures/maps/tea/p3/02_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_n.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 177030,
+      "sha256": "22571f585c4767dfb7ca2a45a174992764fa9c015d1a3a9891b083c80fc21673"
+    },
+    {
+      "index": 3,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_d.tex",
+      "file": "textures/maps/tea/p3/03_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 385338,
+      "sha256": "fcdb7403d0aacfe1825a64e8f7e7fc7519276af45cf507a771f4818de4235770"
+    },
+    {
+      "index": 4,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_n.tex.dds",
+      "file": "textures/maps/tea/p3/04_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_n.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 103595,
+      "sha256": "f9c97f970c197e6be0e4505229cc8f11dd2a2d52c1fff552c2a88001ca39da26"
+    },
+    {
+      "index": 5,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_d.tex.dds",
+      "file": "textures/maps/tea/p3/05_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_d.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 45291,
+      "sha256": "ab9c637cd68e08f5352591b651e7ea1a6fa3a4d7acc18ce7bd2b4a7f3dcde8c9"
+    },
+    {
+      "index": 6,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_n.tex",
+      "file": "textures/maps/tea/p3/06_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_n.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 104875,
+      "sha256": "c41ed401c8b265901b58952fda6fcbf3c100bc6442888f59ec86691878ab7ca7"
+    },
+    {
+      "index": 7,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_d.tex",
+      "file": "textures/maps/tea/p3/07_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_d.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 101399,
+      "sha256": "40899875dee4d6c957c054754f60290fbd190fb69df6a68cbbd64686f9860569"
+    },
+    {
+      "index": 8,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_n.tex",
+      "file": "textures/maps/tea/p3/08_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_n.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 85238,
+      "sha256": "09c9ea685a92ea0fad0fea362094afa2464ae2ca82620437c2c80feceaa4ad39"
+    },
+    {
+      "index": 9,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_d.tex",
+      "file": "textures/maps/tea/p3/09_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_d.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 97499,
+      "sha256": "a94a85e01de9ee798d59b9233b2a7d9ff5eb84ed0905b9fb095f7b73220dbd06"
+    },
+    {
+      "index": 10,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_n.tex",
+      "file": "textures/maps/tea/p3/10_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_n.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 85886,
+      "sha256": "99cb603011dfbb651109e2c447bb0be7264bba3ab49b077cb2f7a8069906f61a"
+    },
+    {
+      "index": 11,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_d.tex",
+      "file": "textures/maps/tea/p3/11_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_d.tex.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 99558,
+      "sha256": "e68712017f0b4d0eae2eef4c4e6bff03816048168e90ff422260c7a816f6ea46"
+    },
+    {
+      "index": 12,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_n.tex.dds",
+      "file": "textures/maps/tea/p3/12_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_n.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 33574,
+      "sha256": "cfa2ef18d210f67b240f574421af3f828ca498da943df92f13bfd29f0d1a38e7"
+    },
+    {
+      "index": 13,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_d.tex.dds",
+      "file": "textures/maps/tea/p3/13_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_d.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 81064,
+      "sha256": "5b2ffd587d07aa6dd1ec91a2303d7c1dbb76ed55ebf2bc3d5018a68f94b20c09"
+    },
+    {
+      "index": 14,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_n.tex",
+      "file": "textures/maps/tea/p3/14_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_n.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 76712,
+      "sha256": "8db7361e6e797fa8a727387931ffe416f6a9a4fad150e380ba3b9585ea20ce1d"
+    },
+    {
+      "index": 15,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_d.tex",
+      "file": "textures/maps/tea/p3/15_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 373985,
+      "sha256": "b50ae24e3b0be87903ffea840e12fff54395fc6a6fd2003c222f9bbb81c394ce"
+    },
+    {
+      "index": 16,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_n.tex.dds",
+      "file": "textures/maps/tea/p3/16_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_n.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 8198,
+      "sha256": "cb947809af89872ceb13121a75bb12e0b54a223fd1fee5b5815aa3e1b76ee48b"
+    },
+    {
+      "index": 17,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_d.tex.dds",
+      "file": "textures/maps/tea/p3/17_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_d.tex.dds.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 38956,
+      "sha256": "1da801aac54b1827674aaab8b457681629e9c96ce97a2bb8ae7f637f2dbf21d2"
+    },
+    {
+      "index": 18,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_n.tex",
+      "file": "textures/maps/tea/p3/18_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_n.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 121078,
+      "sha256": "e8c85127a1959e3ffd3e305966f47359939c87dc8b06512f3ed7d4f26703f284"
+    },
+    {
+      "index": 19,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_d.tex",
+      "file": "textures/maps/tea/p3/19_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 335638,
+      "sha256": "c68b244e4bd407cdcf87d298e532cb5c3fb2109a828de3d77181f0fe02cbb34d"
+    },
+    {
+      "index": 20,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_n.tex",
+      "file": "textures/maps/tea/p3/20_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_n.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 194706,
+      "sha256": "20dde78e1b0105f78b994c8b1b826454145e3b5eedd52170b3b5bda06dcdc57a"
+    },
+    {
+      "index": 21,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_d.tex",
+      "file": "textures/maps/tea/p3/21_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 330686,
+      "sha256": "64c300fec8bd4f3b71873a9a4475506e69416989594963ac3dd16393d5846cca"
+    }
+  ]
+}

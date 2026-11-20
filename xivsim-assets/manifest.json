@@ -1,0 +1,2069 @@
+[
+  {
+    "file": "models/characters/alexander.glb",
+    "source": "https://cdn.xivsim.com/models/characters/alexander.glb",
+    "bytes": 16029444,
+    "sha256": "b9e706aa5043b37de98b69e7384f932f08c900fbbe341e141de027b3822fd08a",
+    "meshes": 2,
+    "materials": 1,
+    "joints": [
+      107
+    ],
+    "animations": [
+      "n_root|cbbm_02f_lp0|Base Layer",
+      "n_root|cbbm_dedpose|Base Layer",
+      "n_root|cbbm_ded|Base Layer",
+      "n_root|cbbm_hide_sp01|Base Layer",
+      "n_root|cbbm_hide_sp11|Base Layer",
+      "n_root|cbbm_hide_sp12|Base Layer",
+      "n_root|cbbm_id0|Base Layer",
+      "n_root|cbbm_show_sp12|Base Layer",
+      "n_root|cbbm_sp01|Base Layer",
+      "n_root|cbbm_sp01|Base Layer.001",
+      "n_root|cbbm_sp02|Base Layer",
+      "n_root|cbbm_sp02|Base Layer.001",
+      "n_root|cbbm_sp02|Base Layer.002",
+      "n_root|cbbm_sp03|Base Layer",
+      "n_root|cbbm_sp04|Base Layer",
+      "n_root|cbbm_sp04|Base Layer.001",
+      "n_root|cbbm_sp05|Base Layer",
+      "n_root|cbbm_sp05|Base Layer.001",
+      "n_root|cbbm_sp06|Base Layer",
+      "n_root|cbbm_sp07|Base Layer",
+      "n_root|cbbm_sp08|Base Layer",
+      "n_root|cbbm_sp09|Base Layer",
+      "n_root|cbbm_sp10|Base Layer",
+      "n_root|cbbm_sp11|Base Layer",
+      "n_root|cbbm_sp11|Base Layer.001",
+      "n_root|cbbm_sp12|Base Layer",
+      "n_root|cbbm_sp12|Base Layer.001",
+      "n_root|cbbm_sp13|Base Layer",
+      "n_root|cbbm_sp14|Base Layer",
+      "n_root|cbbm_sp_a_2lp|Base Layer",
+      "n_root|cbbm_sp_b_1|Base Layer",
+      "n_root|cbbm_sp_b_2lp|Base Layer",
+      "n_root|cbbm_sp_c_1|Base Layer",
+      "n_root|cbbm_sp_c_2lp|Base Layer",
+      "n_root|cbbm_sp_d_2lp|Base Layer",
+      "n_root|cbbm_trn_l_lp|Base Layer",
+      "n_root|cbbm_trn_r_lp|Base Layer"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "v01_m0354b0001_d.png",
+        "file": "textures/characters/alexander/00_v01_m0354b0001_d.png.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 710718,
+        "sha256": "09778e4f5df644d65fc17805ba1e7cc516d8dc49edd99e712dd3f9dfe4f8ae7f"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/bahamut.glb",
+    "source": "https://cdn.xivsim.com/models/characters/bahamut.glb",
+    "bytes": 16395072,
+    "sha256": "36756f22cc64e72851e7dd22e755dddbeed69e71ccaa98c28eb1a449b14947b7",
+    "meshes": 3,
+    "materials": 2,
+    "joints": [
+      96
+    ],
+    "animations": [
+      "idle",
+      "walk"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0117b0001_a_e",
+        "file": "textures/characters/bahamut/00_mt_m0117b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 52937,
+        "sha256": "80448c4df8dfde348a3941bff85eba112b2e47022c4d2d07bb6ea64b797af17a"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0117b0001_a_n",
+        "file": "textures/characters/bahamut/01_mt_m0117b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4602897,
+        "sha256": "0ff89e4cea62921547d4fd801f990e7085f24439ea1b7f5f89be24a760205e2d"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0117b0001_a_d",
+        "file": "textures/characters/bahamut/02_mt_m0117b0001_a_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5274675,
+        "sha256": "10aaba6dbc31bc19a710673c5e55cbfe073d9bc0b0bd8f007a29ca5dba34838c"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0117b0001_b_e",
+        "file": "textures/characters/bahamut/03_mt_m0117b0001_b_e.png",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 11858,
+        "sha256": "73007780590e2713bf32d247fcd7e9d3435c416c95c7693e95d54f76448892b2"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0117b0001_b_n",
+        "file": "textures/characters/bahamut/04_mt_m0117b0001_b_n.png",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 2124852,
+        "sha256": "ce05b8a3094649230e1c028ac71ad6bdf99f78dcb25f710d28184e2057e81821"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0117b0001_b_d",
+        "file": "textures/characters/bahamut/05_mt_m0117b0001_b_d.png",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 738152,
+        "sha256": "1ed468ffe453abbf77508992920018a2c942192ef551e6d294a79b7aecd3652f"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/brute.glb",
+    "source": "https://cdn.xivsim.com/models/characters/brute.glb",
+    "bytes": 37998008,
+    "sha256": "0ff2621c9caceaaf47f9b5275187f9cbf6bad5b78044af5ef39768b8c2178efe",
+    "meshes": 4,
+    "materials": 1,
+    "joints": [
+      145
+    ],
+    "animations": [
+      "n_root|cbbm_02f_lp0|Base Layer",
+      "n_root|cbbm_atk1|Base Layer",
+      "n_root|cbbm_dedpose|Base Layer",
+      "n_root|cbbm_ded|Base Layer",
+      "n_root|cbbm_hide_sp01|Base Layer",
+      "n_root|cbbm_hide_sp02|Base Layer",
+      "n_root|cbbm_hide_sp03|Base Layer",
+      "n_root|cbbm_id0|Base Layer",
+      "n_root|cbbm_show_sp01|Base Layer",
+      "n_root|cbbm_show_sp02|Base Layer",
+      "n_root|cbbm_show_sp03|Base Layer",
+      "n_root|cbbm_show_sp04|Base Layer",
+      "n_root|cbbm_show_sp05|Base Layer",
+      "n_root|cbbm_show_sp06|Base Layer",
+      "n_root|cbbm_sp01|Base Layer",
+      "n_root|cbbm_sp01|Base Layer.001",
+      "n_root|cbbm_sp01|Base Layer.002",
+      "n_root|cbbm_sp01|Base Layer.003",
+      "n_root|cbbm_sp01|Base Layer.004",
+      "n_root|cbbm_sp01|Base Layer.005",
+      "n_root|cbbm_sp02|Base Layer",
+      "n_root|cbbm_sp02|Base Layer.001",
+      "n_root|cbbm_sp03|Base Layer",
+      "n_root|cbbm_sp04|Base Layer",
+      "n_root|cbbm_sp04|Base Layer.001",
+      "n_root|cbbm_sp05|Base Layer",
+      "n_root|cbbm_sp06|Base Layer",
+      "n_root|cbbm_sp06|Base Layer.001",
+      "n_root|cbbm_sp07|Base Layer",
+      "n_root|cbbm_sp_a_1|Base Layer",
+      "n_root|cbbm_sp_a_2lp|Base Layer",
+      "n_root|cbbm_sp_b_1|Base Layer",
+      "n_root|cbbm_sp_b_2lp|Base Layer",
+      "n_root|cbbm_sp_c_1|Base Layer",
+      "n_root|cbbm_sp_c_2lp|Base Layer",
+      "n_root|cbbm_sp_d_1|Base Layer",
+      "n_root|cbbm_sp_d_2lp|Base Layer",
+      "n_root|cbbm_sp_depop|Base Layer",
+      "n_root|cbbm_sp_e_2lp|Base Layer",
+      "n_root|cbbm_trn_l_lp|Base Layer",
+      "n_root|cbbm_trn_r_lp|Base Layer"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "v01_m0300b0001_d.png",
+        "file": "textures/characters/brute/00_v01_m0300b0001_d.png.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 822020,
+        "sha256": "88f702a8bc660b384d8daeafdd770529864433bd7f1cdbc93a4fb31d174ebc83"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/chakram.glb",
+    "source": "https://cdn.xivsim.com/models/characters/chakram.glb",
+    "bytes": 450616,
+    "sha256": "d1570a26edd63a380916f2188ebaf09c5bd3c96edbcc88280d82769e33acbe8e",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [
+      2
+    ],
+    "animations": [
+      "idle",
+      "run"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0315b0001_a_e",
+        "file": "textures/characters/chakram/00_mt_m0315b0001_a_e.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 2151,
+        "sha256": "f7fdc12c2962c27de985b50ab5f09dd87216e68250be7d180b27c8110d30f059"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0315b0001_a_n",
+        "file": "textures/characters/chakram/01_mt_m0315b0001_a_n.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 132042,
+        "sha256": "5714c7be54750f3c7fd86aeeeeff14dfd815ed8917601e65738c67b916716694"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0315b0001_a_d",
+        "file": "textures/characters/chakram/02_mt_m0315b0001_a_d.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 164551,
+        "sha256": "551f17625ed423bfe3936120d7457d634898ee9815ef90ab9e0e4fde776f2d0a"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/cruise.glb",
+    "source": "https://cdn.xivsim.com/models/characters/cruise.glb",
+    "bytes": 18186816,
+    "sha256": "543268abb81a84d87ac26a991aa25126e251fe3ebd13e3d0210d236cb97493c2",
+    "meshes": 3,
+    "materials": 1,
+    "joints": [
+      84
+    ],
+    "animations": [
+      "n_root|cbba_add_dmg_f|Base Layer",
+      "n_root|cbbm_02f_lp0|Base Layer",
+      "n_root|cbbm_atk1|Base Layer",
+      "n_root|cbbm_dedpose|Base Layer",
+      "n_root|cbbm_ded|Base Layer",
+      "n_root|cbbm_hide_sp01|Base Layer",
+      "n_root|cbbm_hide_sp02|Base Layer",
+      "n_root|cbbm_hide_sp03|Base Layer",
+      "n_root|cbbm_hide_sp12|Base Layer",
+      "n_root|cbbm_id0|Base Layer",
+      "n_root|cbbm_partsbreak|Base Layer",
+      "n_root|cbbm_show_sp01|Base Layer",
+      "n_root|cbbm_show_sp02|Base Layer",
+      "n_root|cbbm_show_sp12|Base Layer",
+      "n_root|cbbm_sp01|Base Layer",
+      "n_root|cbbm_sp01|Base Layer.001",
+      "n_root|cbbm_sp01|Base Layer.002",
+      "n_root|cbbm_sp01|Base Layer.003",
+      "n_root|cbbm_sp02|Base Layer",
+      "n_root|cbbm_sp02|Base Layer.001",
+      "n_root|cbbm_sp02|Base Layer.002",
+      "n_root|cbbm_sp03|Base Layer",
+      "n_root|cbbm_sp04|Base Layer",
+      "n_root|cbbm_sp04|Base Layer.001",
+      "n_root|cbbm_sp04|Base Layer.002",
+      "n_root|cbbm_sp05|Base Layer",
+      "n_root|cbbm_sp06|Base Layer",
+      "n_root|cbbm_sp06|Base Layer.001",
+      "n_root|cbbm_sp07|Base Layer",
+      "n_root|cbbm_sp07|Base Layer.001",
+      "n_root|cbbm_sp08|Base Layer",
+      "n_root|cbbm_sp08|Base Layer.001",
+      "n_root|cbbm_sp09|Base Layer",
+      "n_root|cbbm_sp10|Base Layer",
+      "n_root|cbbm_sp11|Base Layer",
+      "n_root|cbbm_sp12|Base Layer",
+      "n_root|cbbm_sp13|Base Layer",
+      "n_root|cbbm_sp14|Base Layer",
+      "n_root|cbbm_sp15|Base Layer",
+      "n_root|cbbm_sp16|Base Layer",
+      "n_root|cbbm_sp16|Base Layer.001",
+      "n_root|cbbm_sp17|Base Layer",
+      "n_root|cbbm_sp18|Base Layer",
+      "n_root|cbbm_sp19|Base Layer",
+      "n_root|cbbm_sp20|Base Layer",
+      "n_root|cbbm_sp20|Base Layer.001",
+      "n_root|cbbm_sp21|Base Layer",
+      "n_root|cbbm_sp22|Base Layer",
+      "n_root|cbbm_sp23|Base Layer",
+      "n_root|cbbm_sp24|Base Layer",
+      "n_root|cbbm_sp25|Base Layer",
+      "n_root|cbbm_sp26|Base Layer",
+      "n_root|cbbm_sp27|Base Layer",
+      "n_root|cbbm_sp_a_1|Base Layer",
+      "n_root|cbbm_sp_a_2lp|Base Layer",
+      "n_root|cbbm_sp_b_1|Base Layer",
+      "n_root|cbbm_sp_b_2lp|Base Layer",
+      "n_root|cbbm_sp_c_1|Base Layer",
+      "n_root|cbbm_sp_c_2lp|Base Layer",
+      "n_root|cbbm_trn_l_lp|Base Layer",
+      "n_root|cbbm_trn_r_lp|Base Layer"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "v01_m0361b0001_d.png",
+        "file": "textures/characters/cruise/00_v01_m0361b0001_d.png.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 693903,
+        "sha256": "1d2f0c6f4e05c105b20603a308d7d83967734f2ee976aa802c6a51882884e706"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/diveDragon.glb",
+    "source": "https://cdn.xivsim.com/models/characters/diveDragon.glb",
+    "bytes": 20420044,
+    "sha256": "c7ae856ea54a92eddb82df7a6f706e49803e1b9e6abbc6dbbf63936035a9ae45",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [
+      219
+    ],
+    "animations": [
+      "flying"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "Image_2",
+        "file": "textures/characters/diveDragon/00_Image_2.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5184196,
+        "sha256": "ba15dde82ca4fdfbbaaa46156b2e35df55381cd539e727cf797be44e259fbe5e"
+      },
+      {
+        "index": 1,
+        "name": "Image_3-Image_1",
+        "file": "textures/characters/diveDragon/01_Image_3-Image_1.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5427426,
+        "sha256": "4fad294c0a14381553ac97e4628e890ca998d631b7ceba8dd06149f9494cdade"
+      },
+      {
+        "index": 2,
+        "name": "Image_0",
+        "file": "textures/characters/diveDragon/02_Image_0.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 6045416,
+        "sha256": "3ddb366e33805aa84d819bde5280e58b43a941dd9481e7d2c3e595a499bde0b7"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/edensPromise.glb",
+    "source": "https://cdn.xivsim.com/models/characters/edensPromise.glb",
+    "bytes": 12632124,
+    "sha256": "4eca8ff081ff1621fca0dcf42aa53a4eeab555dc13edae2725ec420d134a126e",
+    "meshes": 1,
+    "materials": 3,
+    "joints": [
+      165
+    ],
+    "animations": [
+      "IDLE"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0677b0001_a_e",
+        "file": "textures/characters/edensPromise/00_mt_m0677b0001_a_e.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 30117,
+        "sha256": "2f5542f78d372ecc3685937aec0db0c76dd98365fa0acedbe888b13de2a73f35"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0677b0001_a_n",
+        "file": "textures/characters/edensPromise/01_mt_m0677b0001_a_n.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 891343,
+        "sha256": "3f71e106069217e6da63ee8106dd81241d08d3a9b05e12fe20c580aa77b139f5"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0677b0001_a_d.png-mt_m0677b0001_a_o.png",
+        "file": "textures/characters/edensPromise/02_mt_m0677b0001_a_d.png-mt_m0677b0001_a_o.png.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 948455,
+        "sha256": "d2ab6de5976c5af3b742359320ea89a3af27fd5a377b8b087d68c000cb1b3a0c"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0677b0001_b_e",
+        "file": "textures/characters/edensPromise/03_mt_m0677b0001_b_e.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 4199,
+        "sha256": "0f597c287f7d1a5e5865a50740d70c2c9966f2065cbc111a62163b7a8a24f889"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0677b0001_b_n",
+        "file": "textures/characters/edensPromise/04_mt_m0677b0001_b_n.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 891343,
+        "sha256": "3f71e106069217e6da63ee8106dd81241d08d3a9b05e12fe20c580aa77b139f5"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0677b0001_b_d.png-mt_m0677b0001_b_o.png",
+        "file": "textures/characters/edensPromise/05_mt_m0677b0001_b_d.png-mt_m0677b0001_b_o.png.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 967223,
+        "sha256": "4c9629ea29cc4f1df99c92005847459f26eb9b209b1ff2814f889bd85395c29f"
+      },
+      {
+        "index": 6,
+        "name": "mt_m0677b0001_c_e",
+        "file": "textures/characters/edensPromise/06_mt_m0677b0001_c_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 263750,
+        "sha256": "d4a95ff7f6f0814ba2f5b1f6c3304ad628d2997aa9e4ccbb64a386301d2a9486"
+      },
+      {
+        "index": 7,
+        "name": "mt_m0677b0001_c_n",
+        "file": "textures/characters/edensPromise/07_mt_m0677b0001_c_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 1283066,
+        "sha256": "fbe4edf8c595881ddbdd04eee98b1a09945a4c707d28ba2947bab78bf2b3a4c2"
+      },
+      {
+        "index": 8,
+        "name": "mt_m0677b0001_c_d.png-mt_m0677b0001_c_o.png",
+        "file": "textures/characters/edensPromise/08_mt_m0677b0001_c_d.png-mt_m0677b0001_c_o.png.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 1198722,
+        "sha256": "6fdfa175fb7b434784c3484cd3c5b7cf3f3ba472d1a568be202a03b6bcb7e07f"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/gaol.glb",
+    "source": "https://cdn.xivsim.com/models/characters/gaol.glb",
+    "bytes": 3713492,
+    "sha256": "3e0f708caa9fab01d8cedf9d4c78999b3fce6f66bd22e98ec547895ad8003ae5",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [
+      35
+    ],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0072b0001_a_e",
+        "file": "textures/characters/gaol/00_mt_m0072b0001_a_e.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 49237,
+        "sha256": "bcec6e75fb27dcdca3a1b8faf0668de3ea639de1761ebb6881b50cb5f815efd1"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0072b0001_a_n",
+        "file": "textures/characters/gaol/01_mt_m0072b0001_a_n.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1895766,
+        "sha256": "6a2515fc1067179b91e4866535fa2c2669549e6aab10d88f90e7e0df5f3b218b"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0072b0001_a_d",
+        "file": "textures/characters/gaol/02_mt_m0072b0001_a_d.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1633214,
+        "sha256": "9350773d8b93c343fdc2f7e6f45344226ac4a0a31eb888213e9117534c1a86d8"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/garuda.glb",
+    "source": "https://cdn.xivsim.com/models/characters/garuda.glb",
+    "bytes": 20080892,
+    "sha256": "ad95de85c8c8c963f3b43ba295acc6eb7b1a5a936af0cfe3ffda86a8500f9f3e",
+    "meshes": 99,
+    "materials": 3,
+    "joints": [
+      99
+    ],
+    "animations": [
+      "idle",
+      "walk"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0095b0001_a_e",
+        "file": "textures/characters/garuda/00_mt_m0095b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21224,
+        "sha256": "963e43f86ef2147f2fd7699b121092fff92f016dcc5d6b0ec6e0596a559dd121"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0095b0001_a_n",
+        "file": "textures/characters/garuda/01_mt_m0095b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 3413671,
+        "sha256": "6ff98d9f454ada8d28976e095c705f90a3f31fadef4bc5e6bc51eaabdfaa30bc"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0095b0001_a_d",
+        "file": "textures/characters/garuda/02_mt_m0095b0001_a_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4903278,
+        "sha256": "b780752bdc90ebe6846d467400c84f410ace65dce29fbe6a5e39503b3537b11c"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0095b0001_b_e",
+        "file": "textures/characters/garuda/03_mt_m0095b0001_b_e.png",
+        "width": 256,
+        "height": 1024,
+        "bytes": 3179,
+        "sha256": "1530561f8e4731846f106d90276cdfbdae09a6ea248817b8ec95d20ea8038907"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0095b0001_b_n",
+        "file": "textures/characters/garuda/04_mt_m0095b0001_b_n.png",
+        "width": 256,
+        "height": 1024,
+        "bytes": 184928,
+        "sha256": "246afad02a8661e6e3c2d98c28979b442c92bdb2146367bffdd30167a8a85499"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0095b0001_b_d",
+        "file": "textures/characters/garuda/05_mt_m0095b0001_b_d.png",
+        "width": 256,
+        "height": 1024,
+        "bytes": 216134,
+        "sha256": "5c12ee7a5edcc9736083471b805568f860a6f931f78c1320df61ef0799c8869e"
+      },
+      {
+        "index": 6,
+        "name": "mt_m0095b0001_c_e",
+        "file": "textures/characters/garuda/06_mt_m0095b0001_c_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21224,
+        "sha256": "963e43f86ef2147f2fd7699b121092fff92f016dcc5d6b0ec6e0596a559dd121"
+      },
+      {
+        "index": 7,
+        "name": "mt_m0095b0001_c_n",
+        "file": "textures/characters/garuda/07_mt_m0095b0001_c_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 3413671,
+        "sha256": "6ff98d9f454ada8d28976e095c705f90a3f31fadef4bc5e6bc51eaabdfaa30bc"
+      },
+      {
+        "index": 8,
+        "name": "mt_m0095b0001_c_d",
+        "file": "textures/characters/garuda/08_mt_m0095b0001_c_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5178360,
+        "sha256": "ee47f8207e1eebad05845baccdeff374c0f7f6f1b735001bfd478d6573372abc"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/hesperos.glb",
+    "source": "https://cdn.xivsim.com/models/characters/hesperos.glb",
+    "bytes": 30577524,
+    "sha256": "f0933f9525ab511e7d58ff2c427ee43ea20c93c3bcc4fe64bb5bb10843154c74",
+    "meshes": 1,
+    "materials": 3,
+    "joints": [
+      224
+    ],
+    "animations": [
+      "cbbm_id0"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0733b0001_a_e",
+        "file": "textures/characters/hesperos/00_mt_m0733b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21155,
+        "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0733b0001_a_n",
+        "file": "textures/characters/hesperos/01_mt_m0733b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4271214,
+        "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0733b0001_a_d-mt_m0733b0001_a_o",
+        "file": "textures/characters/hesperos/02_mt_m0733b0001_a_d-mt_m0733b0001_a_o.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4520274,
+        "sha256": "3b1acf2120c36635d9869e86b0a67a3a2e3294c54447f8c7fb56894d5fd9b124"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0733b0001_c_e",
+        "file": "textures/characters/hesperos/03_mt_m0733b0001_c_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21155,
+        "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0733b0001_c_n",
+        "file": "textures/characters/hesperos/04_mt_m0733b0001_c_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4271214,
+        "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0733b0001_c_d-mt_m0733b0001_c_o",
+        "file": "textures/characters/hesperos/05_mt_m0733b0001_c_d-mt_m0733b0001_c_o.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4758680,
+        "sha256": "7b88446b44ab3f812429aaa00f178396f58d3c0d2c55c9a89df1e38e4cfca98a"
+      },
+      {
+        "index": 6,
+        "name": "mt_m0733b0001_b_e",
+        "file": "textures/characters/hesperos/06_mt_m0733b0001_b_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 64400,
+        "sha256": "18e9ba6ae8aab8257bba0a08518ba1c1a4b7cc30f96ffd19982deb8c4f4665f4"
+      },
+      {
+        "index": 7,
+        "name": "mt_m0733b0001_b_n",
+        "file": "textures/characters/hesperos/07_mt_m0733b0001_b_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4271214,
+        "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+      },
+      {
+        "index": 8,
+        "name": "mt_m0733b0001_b_d-mt_m0733b0001_b_o",
+        "file": "textures/characters/hesperos/08_mt_m0733b0001_b_d-mt_m0733b0001_b_o.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5069794,
+        "sha256": "b6de4b7156e9175310cc630383a49b2d69b9c93e7ac7266c876ef36a1208c089"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/ifrit.glb",
+    "source": "https://cdn.xivsim.com/models/characters/ifrit.glb",
+    "bytes": 19812272,
+    "sha256": "a0e2b397401125c2c2bc47c4bf99bae247c1291104b8423bde71da88d173f74b",
+    "meshes": 6,
+    "materials": 2,
+    "joints": [
+      134
+    ],
+    "animations": [
+      "idle",
+      "walk"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0096b0001_b_e",
+        "file": "textures/characters/ifrit/00_mt_m0096b0001_b_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 690252,
+        "sha256": "f7b9e34b47ffd92c65e8a256bc16ee9b4662e1b487322439c03859c3f753bc64"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0096b0001_b_n",
+        "file": "textures/characters/ifrit/01_mt_m0096b0001_b_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4207304,
+        "sha256": "6529c1a5308506dab7c42d33084cb166addfa4aa7bfd776d20159879e279dbd8"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0096b0001_b_d",
+        "file": "textures/characters/ifrit/02_mt_m0096b0001_b_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 3759089,
+        "sha256": "72aa025abff0c1b27cb264ec937314549f4a7be9530be80f52be615ea006e3ca"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0096b0001_a_e",
+        "file": "textures/characters/ifrit/03_mt_m0096b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 741473,
+        "sha256": "6ca26de79ff61d99cc6ca10f53de13926dfe582a09ed1980588dc2fd43d7a78b"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0096b0001_a_n",
+        "file": "textures/characters/ifrit/04_mt_m0096b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4207304,
+        "sha256": "6529c1a5308506dab7c42d33084cb166addfa4aa7bfd776d20159879e279dbd8"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0096b0001_a_d",
+        "file": "textures/characters/ifrit/05_mt_m0096b0001_a_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 3759089,
+        "sha256": "72aa025abff0c1b27cb264ec937314549f4a7be9530be80f52be615ea006e3ca"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/lion.glb",
+    "source": "https://cdn.xivsim.com/models/characters/lion.glb",
+    "bytes": 27782148,
+    "sha256": "ee3a89e15ac2c2486354dd478505545518dfd3c279cd3e078a7c2f83b095766a",
+    "meshes": 21,
+    "materials": 2,
+    "joints": [
+      56
+    ],
+    "animations": [
+      "IDLE"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0415b0001_a_e",
+        "file": "textures/characters/lion/00_mt_m0415b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21155,
+        "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0415b0001_a_n",
+        "file": "textures/characters/lion/01_mt_m0415b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 6318414,
+        "sha256": "e35f2c708ac29759acb871fb142f6d4b362f1e37966fef8cee8c37e5366c8971"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0415b0001_a_d-mt_m0415b0001_a_o",
+        "file": "textures/characters/lion/02_mt_m0415b0001_a_d-mt_m0415b0001_a_o.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 7131712,
+        "sha256": "5ab02245fb8359b8990ce6b86c8b6a3b35397cef6160a150c49051db588507b6"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0415b0001_b_e",
+        "file": "textures/characters/lion/03_mt_m0415b0001_b_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 21155,
+        "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0415b0001_b_n",
+        "file": "textures/characters/lion/04_mt_m0415b0001_b_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 6318414,
+        "sha256": "e35f2c708ac29759acb871fb142f6d4b362f1e37966fef8cee8c37e5366c8971"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0415b0001_b_d-mt_m0415b0001_b_o",
+        "file": "textures/characters/lion/05_mt_m0415b0001_b_d-mt_m0415b0001_b_o.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 7212686,
+        "sha256": "a1641a276061c2ac1d803923931ce33baaf909e3ba0d613ef02b81785db7237c"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/nael.glb",
+    "source": "https://cdn.xivsim.com/models/characters/nael.glb",
+    "bytes": 12560876,
+    "sha256": "95888e87912d30d22a7d4cbbc8e57398705382ec7596800e7fc1c66f299db275",
+    "meshes": 40,
+    "materials": 3,
+    "joints": [
+      86
+    ],
+    "animations": [
+      "idle",
+      "walk"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0196b0001_a_e",
+        "file": "textures/characters/nael/00_mt_m0196b0001_a_e.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 23649,
+        "sha256": "88801e8ddf4cb417ada847ff520a7dae253a3d76a00e272ebf07fc4c006ce52c"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0196b0001_a_n",
+        "file": "textures/characters/nael/01_mt_m0196b0001_a_n.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 4562561,
+        "sha256": "7e297da2a7862ab62a1303c951dc14fc353d6b9849d35596b7bf52623096a02a"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0196b0001_a_d",
+        "file": "textures/characters/nael/02_mt_m0196b0001_a_d.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 5656154,
+        "sha256": "53310d6b49da6dbfe83f89d435e7debae62a119737d59683e3d3e24495eab0d8"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0196b0001_b_e",
+        "file": "textures/characters/nael/03_mt_m0196b0001_b_e.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 4513,
+        "sha256": "8bd0a10da272bb61b654e8af459c20a887cc57bb137b49c1f87404c14e4e6922"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0196b0001_b_n",
+        "file": "textures/characters/nael/04_mt_m0196b0001_b_n.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 156202,
+        "sha256": "ccfa3c509dc39603c15c58b5037dfda6370a8e8dc8a71028a07613a6b4d2f6f5"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0196b0001_b_d",
+        "file": "textures/characters/nael/05_mt_m0196b0001_b_d.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 257921,
+        "sha256": "a4b526ad6ab56530e0f1ea81cb801551f583f3d2dd1a5ee13e51b51200e715b2"
+      },
+      {
+        "index": 6,
+        "name": "mt_m0196b0001_c_e",
+        "file": "textures/characters/nael/06_mt_m0196b0001_c_e.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 6534,
+        "sha256": "2de48fb80c7686a82961549d1b3711fd594ffd6d87471d931bb51d3c35d0abb6"
+      },
+      {
+        "index": 7,
+        "name": "mt_m0196b0001_c_n",
+        "file": "textures/characters/nael/07_mt_m0196b0001_c_n.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 138959,
+        "sha256": "2c779c5e61c86b4a979ee049f0d12abad2700c66029f3b31da7d49b5bf6fd4c1"
+      },
+      {
+        "index": 8,
+        "name": "mt_m0196b0001_c_d",
+        "file": "textures/characters/nael/08_mt_m0196b0001_c_d.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 147218,
+        "sha256": "e93b57dc8f60d489035134c8b1e9a4ba368d9c50bdbe94e772041e69ea4fc19f"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/players/pld_noanim.glb",
+    "source": "https://cdn.xivsim.com/models/characters/players/pld_noanim.glb",
+    "bytes": 4378920,
+    "sha256": "c2805a5f4946ce0a8d548103ed60c56c9679ea3462f5fb32ccd62a3e087cd5ca",
+    "meshes": 8,
+    "materials": 10,
+    "joints": [
+      100
+    ],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "den_n",
+        "file": "textures/characters/players/pld_noanim/00_den_n.jpg",
+        "width": 512,
+        "height": 512,
+        "bytes": 57813,
+        "sha256": "c8677469d3ceaa4bd8b74941d0a7cf0fea8e9a0aeba266fe85a59ad5560ea387"
+      },
+      {
+        "index": 1,
+        "name": "dwn_d.png-dwn_o.png",
+        "file": "textures/characters/players/pld_noanim/01_dwn_d.png-dwn_o.png.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 115719,
+        "sha256": "2c6121753da5a778e27254b77e36b0e7a7d03fb258476352d70cf8b0aa1ff2e4"
+      },
+      {
+        "index": 2,
+        "name": "glv_n",
+        "file": "textures/characters/players/pld_noanim/02_glv_n.jpg",
+        "width": 512,
+        "height": 256,
+        "bytes": 37566,
+        "sha256": "5fb6b2cdf34a8806a3b0b94131ce8d0142ba46a293883c7f27568f55d69934d5"
+      },
+      {
+        "index": 3,
+        "name": "glv_d.png-glv_o.png",
+        "file": "textures/characters/players/pld_noanim/03_glv_d.png-glv_o.png.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 75644,
+        "sha256": "e79cb8e74b781ecd89a9d04ee50c7411845fe4d962255748c3e22820398f1af1"
+      },
+      {
+        "index": 4,
+        "name": "met_n",
+        "file": "textures/characters/players/pld_noanim/04_met_n.jpg",
+        "width": 512,
+        "height": 256,
+        "bytes": 36001,
+        "sha256": "70fc920943f8ea85933c6a5aec979f51b8b0fc11f4d8af7da3cd6c6491b15eb3"
+      },
+      {
+        "index": 5,
+        "name": "met_d.png-met_o.png",
+        "file": "textures/characters/players/pld_noanim/05_met_d.png-met_o.png.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 112939,
+        "sha256": "402ed56407cbd0b7651a2edcdff6922a913323a56511a06149925ffec182519b"
+      },
+      {
+        "index": 6,
+        "name": "sho_n",
+        "file": "textures/characters/players/pld_noanim/06_sho_n.jpg",
+        "width": 512,
+        "height": 512,
+        "bytes": 71470,
+        "sha256": "a6627443f09062e22b01bc7769ece2901639424664698717cd81bc4602802035"
+      },
+      {
+        "index": 7,
+        "name": "sho_d.png-sho_o.png",
+        "file": "textures/characters/players/pld_noanim/07_sho_d.png-sho_o.png.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 209449,
+        "sha256": "f542e1957c59814e2247466bd64e326033063245599c36949b179dc41d05467c"
+      },
+      {
+        "index": 8,
+        "name": "top_n",
+        "file": "textures/characters/players/pld_noanim/08_top_n.jpg",
+        "width": 512,
+        "height": 1024,
+        "bytes": 147721,
+        "sha256": "0e0092cf54b8fa6ad92f4a574ce4f04e1ca066a2c60192d879f5085915659f11"
+      },
+      {
+        "index": 9,
+        "name": "top_d.png-top_o.png",
+        "file": "textures/characters/players/pld_noanim/09_top_d.png-top_o.png.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 357819,
+        "sha256": "d9697b89384d9c522433500e1bfadd16f974a7e65d8c8d715d754db157d6babb"
+      },
+      {
+        "index": 10,
+        "name": "mt_c1201f0001_etc_a_n",
+        "file": "textures/characters/players/pld_noanim/10_mt_c1201f0001_etc_a_n.jpg",
+        "width": 128,
+        "height": 256,
+        "bytes": 2362,
+        "sha256": "054c7e68325072668113af25934da8a57e4cc39ea63da6ca94cc257df25eddab"
+      },
+      {
+        "index": 11,
+        "name": "mt_c1201f0001_etc_a_d-mt_c1201f0001_etc_a_o",
+        "file": "textures/characters/players/pld_noanim/11_mt_c1201f0001_etc_a_d-mt_c1201f0001_etc_a_o.png",
+        "width": 128,
+        "height": 256,
+        "bytes": 26617,
+        "sha256": "cff78689cec68e33a162ed59227de6d796ab711644d747d8c863592e674ffd2b"
+      },
+      {
+        "index": 12,
+        "name": "mt_c1201f0001_fac_a_n",
+        "file": "textures/characters/players/pld_noanim/12_mt_c1201f0001_fac_a_n.jpg",
+        "width": 256,
+        "height": 512,
+        "bytes": 13217,
+        "sha256": "cd045c99321f6b5d9e65af6e0660ee75475f56ba3459a1609820380d386d8a62"
+      },
+      {
+        "index": 13,
+        "name": "mt_c1201f0001_fac_a_d",
+        "file": "textures/characters/players/pld_noanim/13_mt_c1201f0001_fac_a_d.jpg",
+        "width": 256,
+        "height": 512,
+        "bytes": 13421,
+        "sha256": "d1ebb6ca6e73e5725d5ec1e1f6f74f8c06849db4ae1a4aa43cdc660766cac2fa"
+      },
+      {
+        "index": 14,
+        "name": "mt_c1201f0001_iri_a_n",
+        "file": "textures/characters/players/pld_noanim/14_mt_c1201f0001_iri_a_n.jpg",
+        "width": 64,
+        "height": 64,
+        "bytes": 1922,
+        "sha256": "c6bf2241ad02cca02c93d050475584883313b99941cbf76d11cbeac5cd20e63e"
+      },
+      {
+        "index": 15,
+        "name": "mt_c1201f0001_iri_a_d",
+        "file": "textures/characters/players/pld_noanim/15_mt_c1201f0001_iri_a_d.jpg",
+        "width": 64,
+        "height": 64,
+        "bytes": 1151,
+        "sha256": "977a1c88405e9b4c7875bacd8403d061f778fbd4da8f9b26fb5be28d1d82ecfe"
+      },
+      {
+        "index": 16,
+        "name": "mt_c1201h0013_hir_a_n",
+        "file": "textures/characters/players/pld_noanim/16_mt_c1201h0013_hir_a_n.jpg",
+        "width": 512,
+        "height": 256,
+        "bytes": 51209,
+        "sha256": "24236b485339e991b0527816968941b1592f517e23b2c91d3b454f09008cfba9"
+      },
+      {
+        "index": 17,
+        "name": "mt_c1201h0013_hir_a_d.png-mt_c1201h0013_hir_a_o",
+        "file": "textures/characters/players/pld_noanim/17_mt_c1201h0013_hir_a_d.png-mt_c1201h0013_hir_a_o.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 196549,
+        "sha256": "1e2dc21b16fee31e2b801ef68b6a65e68a1dc62e09ff9ca48e6774f522272f66"
+      },
+      {
+        "index": 18,
+        "name": "mt_c1201h0013_acc_b_d",
+        "file": "textures/characters/players/pld_noanim/18_mt_c1201h0013_acc_b_d.jpg",
+        "width": 64,
+        "height": 32,
+        "bytes": 1352,
+        "sha256": "85dba12a30eee1b42a6e6760d035fe02df14d7ff7bda9ed88d5326334979e359"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/titan.glb",
+    "source": "https://cdn.xivsim.com/models/characters/titan.glb",
+    "bytes": 7103332,
+    "sha256": "5c2ccad545a01f95337515feef098d8f13d394bcdb4fae83b58f4655e72357e1",
+    "meshes": 6,
+    "materials": 4,
+    "joints": [
+      2,
+      29,
+      2,
+      38,
+      64,
+      64
+    ],
+    "animations": [
+      null,
+      "idle",
+      "walk"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": null,
+        "file": "textures/characters/titan/00_image.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 879,
+        "sha256": "ac9df37ffbeaf8d7f078efcabaf9cc0033d3be760fb1e21c1d3654cbc84ec278"
+      },
+      {
+        "index": 1,
+        "name": null,
+        "file": "textures/characters/titan/01_image.png",
+        "width": 1024,
+        "height": 512,
+        "bytes": 274647,
+        "sha256": "f0660ec9b254a2ac76bddef4f9b72915618c5fa88fe4deaf7febb5f24cf95e19"
+      },
+      {
+        "index": 2,
+        "name": null,
+        "file": "textures/characters/titan/02_image.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 2173629,
+        "sha256": "4e86268a1fba586295ddddf26c2fb1cd24ceae4795bc1ba9d573c8251ef9e1d8"
+      },
+      {
+        "index": 3,
+        "name": null,
+        "file": "textures/characters/titan/03_image.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 2173629,
+        "sha256": "4e86268a1fba586295ddddf26c2fb1cd24ceae4795bc1ba9d573c8251ef9e1d8"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/twintania.glb",
+    "source": "https://cdn.xivsim.com/models/characters/twintania.glb",
+    "bytes": 3383896,
+    "sha256": "94a35248551b88a3fa799ab2dfd0ec8251f8a860c9457f649ac94a64dac09968",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [
+      66
+    ],
+    "animations": [
+      "idle"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0060b0002_a_e",
+        "file": "textures/characters/twintania/00_mt_m0060b0002_a_e.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 49517,
+        "sha256": "124e2072e97d96d76b3a30b955d24b2813b1ab3a5b314ab132296030c0accf89"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0060b0002_a_n",
+        "file": "textures/characters/twintania/01_mt_m0060b0002_a_n.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1205916,
+        "sha256": "b1e10f0459c9d19ce92606eebaf319e5c67c130212a9b0d499bf6f52f93cc720"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0060b0002_a_d",
+        "file": "textures/characters/twintania/02_mt_m0060b0002_a_d.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1271821,
+        "sha256": "eac3d123fef94d15c8cf65a317e0dd4b87ef4635dcaaf43cde0724247a2062f8"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/characters/ultima.glb",
+    "source": "https://cdn.xivsim.com/models/characters/ultima.glb",
+    "bytes": 6529320,
+    "sha256": "44cd7755abfd65a30449327df84ba7205fb5aa3652739c8b335612802aaeb7df",
+    "meshes": 4,
+    "materials": 2,
+    "joints": [
+      83
+    ],
+    "animations": [
+      "walk",
+      "idle"
+    ],
+    "images": [
+      {
+        "index": 0,
+        "name": "mt_m0099b0003_a_e",
+        "file": "textures/characters/ultima/00_mt_m0099b0003_a_e.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 242787,
+        "sha256": "7c7be32a9935b0f7db8673d7c1ee4bf36142e7b0b2332169e7b0b87833180f98"
+      },
+      {
+        "index": 1,
+        "name": "mt_m0099b0003_a_n",
+        "file": "textures/characters/ultima/01_mt_m0099b0003_a_n.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 1024761,
+        "sha256": "33dcefa5b8adcbf437882b776437ea1b0ee384362978304d70373df3831010f2"
+      },
+      {
+        "index": 2,
+        "name": "mt_m0099b0003_a_d",
+        "file": "textures/characters/ultima/02_mt_m0099b0003_a_d.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 803157,
+        "sha256": "a4fffc472b5a35b10f7273364ed77837fc756a7cf76a66f7ca4018d0367c766e"
+      },
+      {
+        "index": 3,
+        "name": "mt_m0099b0003_b_e",
+        "file": "textures/characters/ultima/03_mt_m0099b0003_b_e.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 138353,
+        "sha256": "3a2b89bd8683020577293cf91d8950c4d7a24d38451ff0d90f6c9f3633f29596"
+      },
+      {
+        "index": 4,
+        "name": "mt_m0099b0003_b_n",
+        "file": "textures/characters/ultima/04_mt_m0099b0003_b_n.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 1024761,
+        "sha256": "33dcefa5b8adcbf437882b776437ea1b0ee384362978304d70373df3831010f2"
+      },
+      {
+        "index": 5,
+        "name": "mt_m0099b0003_b_d",
+        "file": "textures/characters/ultima/05_mt_m0099b0003_b_d.png",
+        "width": 512,
+        "height": 1024,
+        "bytes": 834351,
+        "sha256": "bab63e1a14dce4f83c2925fd2018c53b58e4da7425363d12f0c8105f36d32ac1"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/e12s/p1.glb",
+    "source": "https://cdn.xivsim.com/models/maps/e12s/p1.glb",
+    "bytes": 4404848,
+    "sha256": "71b0cd879bf87a1722ccb38002cbc5b6c48f1bbfc6a3d450fe0e8084b3d07cfa",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": null,
+        "file": "textures/maps/e12s/p1/00_image.png",
+        "width": 1466,
+        "height": 1462,
+        "bytes": 4400808,
+        "sha256": "8540a99c03ff7dc790a919793f11fcbbd8fc1a8860ea62d035e324e687ad4517"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/pandemonium/p1.glb",
+    "source": "https://cdn.xivsim.com/models/maps/pandemonium/p1.glb",
+    "bytes": 17174908,
+    "sha256": "81eb98ded0ae9c9dc8e0e8033136f38ffb00dd6016dcc0f4a059e64dcfbf9bca",
+    "meshes": 3,
+    "materials": 7,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_flo01_d.tex.dds",
+        "file": "textures/maps/pandemonium/p1/00_bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_flo01_d.tex.dds.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 8337570,
+        "sha256": "be1defd4bb6316545af0ab29c36d0c4d7b79b4f4f3b785f9183f570d236b0698"
+      },
+      {
+        "index": 1,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_flo02_d.tex.dds",
+        "file": "textures/maps/pandemonium/p1/01_bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_flo02_d.tex.dds.png",
+        "width": 256,
+        "height": 1024,
+        "bytes": 440112,
+        "sha256": "10a4b613e748dbc02585f01864e51e3fee4da81cbb07a1927948eafc768b81e5"
+      },
+      {
+        "index": 2,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_mtl01_d.tex.dds",
+        "file": "textures/maps/pandemonium/p1/02_bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_mtl01_d.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1600631,
+        "sha256": "8e70d856c814287edc1d70f4167059c1ad2a040d6ffe9505053a042529ad4acb"
+      },
+      {
+        "index": 3,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_bat01_d.tex.dds",
+        "file": "textures/maps/pandemonium/p1/03_bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_bat01_d.tex.dds.png",
+        "width": 128,
+        "height": 128,
+        "bytes": 12285,
+        "sha256": "e43f264046b68f744e488e0a6b9a7518e51fec92518857128f79019dc350bdec"
+      },
+      {
+        "index": 4,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_cag01_d.tex",
+        "file": "textures/maps/pandemonium/p1/04_bg_ex4_01_nvt_n5_rad_n5r1_texture_n5r1_a0_cag01_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1714395,
+        "sha256": "60849f1419046c0f69bfb1d276f3c3604194f18e7040409beb0b8cb778ca0bb6"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/pandemonium/p2.glb",
+    "source": "https://cdn.xivsim.com/models/maps/pandemonium/p2.glb",
+    "bytes": 15252972,
+    "sha256": "f27bf026841e105dafe2ef0caacb8e681f3486015c1dbb74223398efe92205fa",
+    "meshes": 10,
+    "materials": 10,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor1_d.tex",
+        "file": "textures/maps/pandemonium/p2/00_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor1_d.tex.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 7608960,
+        "sha256": "605351d79d8f61797ccdb14862d82b9e2c81dc274995cf112fa1fe143927b594"
+      },
+      {
+        "index": 1,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_cag01_d.tex.dds",
+        "file": "textures/maps/pandemonium/p2/01_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_cag01_d.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1876107,
+        "sha256": "a743389eb09ea6657acacfcfdd6cd05eaaf17eeb9209e4ec1f1f7cd46f1d4936"
+      },
+      {
+        "index": 2,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_b0_flor3_d.tex",
+        "file": "textures/maps/pandemonium/p2/02_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_b0_flor3_d.tex.png",
+        "width": 256,
+        "height": 1024,
+        "bytes": 389884,
+        "sha256": "798521c99e6dd19ac10378085ca807a5226021d445a74560b624bf2c9c3bb2aa"
+      },
+      {
+        "index": 3,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor3_d.tex",
+        "file": "textures/maps/pandemonium/p2/03_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor3_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 439684,
+        "sha256": "0e3b87134436eebf7a53965fe9b601e2b9e799e0504e9b07c7436ef3a2fb3a0e"
+      },
+      {
+        "index": 4,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor2_d.tex",
+        "file": "textures/maps/pandemonium/p2/04_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor2_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1989944,
+        "sha256": "051983991c6a75e5f433c7080fcd03ed72fa420d758480bea93d0ddeedd31297"
+      },
+      {
+        "index": 5,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_c1_wal02_d.tex",
+        "file": "textures/maps/pandemonium/p2/05_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_c1_wal02_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 2083729,
+        "sha256": "304bd0d7dcaa8248a043344b2b81250ec67004cc368c248f8c3ce97af55bc20a"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/pandemonium/p3.glb",
+    "source": "https://cdn.xivsim.com/models/maps/pandemonium/p3.glb",
+    "bytes": 9425204,
+    "sha256": "2b61b8fe9416f7ec92cbef46a63e240753e52cc50a846f4a2a9df3bf6836cc6b",
+    "meshes": 7,
+    "materials": 7,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_isd02_d.tex",
+        "file": "textures/maps/pandemonium/p3/00_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_isd02_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1828517,
+        "sha256": "2210d736e9f3bfc98fcfd85f269eb08cd260c06901626cc028a728ca1caf8f44"
+      },
+      {
+        "index": 1,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_stg01_d.tex",
+        "file": "textures/maps/pandemonium/p3/01_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_stg01_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1600279,
+        "sha256": "4288fff865e633b6ceac0c362695dd5a8a679325c9bdb3c081c3728a05e79173"
+      },
+      {
+        "index": 2,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_con05_d.tex",
+        "file": "textures/maps/pandemonium/p3/02_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_con05_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1408899,
+        "sha256": "b4906f488a28b10efa9426a94e6dda9c588f8b6e8341e40c54a7a92bb2759500"
+      },
+      {
+        "index": 3,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd02_d.tex",
+        "file": "textures/maps/pandemonium/p3/03_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd02_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1419303,
+        "sha256": "02b231d6937819eb06d4204cee02036ab82eb898f379cbe77d7597307219b98d"
+      },
+      {
+        "index": 4,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd07_d.tex",
+        "file": "textures/maps/pandemonium/p3/04_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd07_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1693259,
+        "sha256": "fd8ea0d94eac7e4277722c14038a68af2cf8d739b6cacf34f7540dd2cb6bb7c9"
+      },
+      {
+        "index": 5,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_mtl01_d.tex",
+        "file": "textures/maps/pandemonium/p3/05_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_mtl01_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 471687,
+        "sha256": "6c10fd10f1a0b9f0c2297c46f9d4e57cc7896ff82d788e5ccdfec27761f6e2fd"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/pandemonium/p4.glb",
+    "source": "https://cdn.xivsim.com/models/maps/pandemonium/p4.glb",
+    "bytes": 8889480,
+    "sha256": "7a1c389ff939423c14573b9add6770340d546507d3ea9b448a973ade46e4d1eb",
+    "meshes": 1,
+    "materials": 1,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex4_01_nvt_n5_rad_n5r4_texture_n5r4_a1_flo01_d.tex.dds",
+        "file": "textures/maps/pandemonium/p4/00_bg_ex4_01_nvt_n5_rad_n5r4_texture_n5r4_a1_flo01_d.tex.dds.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 8321055,
+        "sha256": "0235123feccb410dcf7028d5b910b8cdeeef391e08724b6c3c882206f05299cd"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/tea/p1.glb",
+    "source": "https://cdn.xivsim.com/models/maps/tea/p1.glb",
+    "bytes": 3859424,
+    "sha256": "a35011d2c3a845ba955e4c56ea93f57d9e969208ea2f9b215be284bcc90a528a",
+    "meshes": 2,
+    "materials": 2,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_n.tex",
+        "file": "textures/maps/tea/p1/00_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 459851,
+        "sha256": "d83c530974c96708334085fd15a1857b8af02ffa077b5216e64af8bfb5805d20"
+      },
+      {
+        "index": 1,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_d.tex",
+        "file": "textures/maps/tea/p1/01_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1382068,
+        "sha256": "e3a117bef82c15b5049c8f84c251d955d54d72e5392d4a13a0806dda344ab1dc"
+      },
+      {
+        "index": 2,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_n.tex",
+        "file": "textures/maps/tea/p1/02_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 548463,
+        "sha256": "b60b55a5c7ec9ce52dac6e5a2e5d4ce974db06dd930a29d4d6624c44e419654f"
+      },
+      {
+        "index": 3,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_d.tex",
+        "file": "textures/maps/tea/p1/03_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1404490,
+        "sha256": "9b2ab7e1cb86c7044e068bdf3975e2c1ccc97b7039b8bba2b17a7cb6a00b30f9"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/tea/p3.glb",
+    "source": "https://cdn.xivsim.com/models/maps/tea/p3.glb",
+    "bytes": 6893056,
+    "sha256": "24f7dd7af2726bb6fcf731e3904b0ce7265ab71bdcc3e5bce932048f520fbe22",
+    "meshes": 11,
+    "materials": 11,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_n.tex",
+        "file": "textures/maps/tea/p3/00_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_n.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 176202,
+        "sha256": "19bc22eacc71ba2e2061f174d026089fa7952ae7d74913683f05c08e4539dbf6"
+      },
+      {
+        "index": 1,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_d.tex",
+        "file": "textures/maps/tea/p3/01_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_cyl01_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 290496,
+        "sha256": "e3743e4f22f627810c93696f424537b2c05d1c80fa9c1bc22f9d412b50654fa9"
+      },
+      {
+        "index": 2,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_n.tex",
+        "file": "textures/maps/tea/p3/02_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_n.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 177030,
+        "sha256": "22571f585c4767dfb7ca2a45a174992764fa9c015d1a3a9891b083c80fc21673"
+      },
+      {
+        "index": 3,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_d.tex",
+        "file": "textures/maps/tea/p3/03_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo04_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 385338,
+        "sha256": "fcdb7403d0aacfe1825a64e8f7e7fc7519276af45cf507a771f4818de4235770"
+      },
+      {
+        "index": 4,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_n.tex.dds",
+        "file": "textures/maps/tea/p3/04_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_n.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 103595,
+        "sha256": "f9c97f970c197e6be0e4505229cc8f11dd2a2d52c1fff552c2a88001ca39da26"
+      },
+      {
+        "index": 5,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_d.tex.dds",
+        "file": "textures/maps/tea/p3/05_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met01_d.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 45291,
+        "sha256": "ab9c637cd68e08f5352591b651e7ea1a6fa3a4d7acc18ce7bd2b4a7f3dcde8c9"
+      },
+      {
+        "index": 6,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_n.tex",
+        "file": "textures/maps/tea/p3/06_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_n.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 104875,
+        "sha256": "c41ed401c8b265901b58952fda6fcbf3c100bc6442888f59ec86691878ab7ca7"
+      },
+      {
+        "index": 7,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_d.tex",
+        "file": "textures/maps/tea/p3/07_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met02_d.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 101399,
+        "sha256": "40899875dee4d6c957c054754f60290fbd190fb69df6a68cbbd64686f9860569"
+      },
+      {
+        "index": 8,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_n.tex",
+        "file": "textures/maps/tea/p3/08_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_n.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 85238,
+        "sha256": "09c9ea685a92ea0fad0fea362094afa2464ae2ca82620437c2c80feceaa4ad39"
+      },
+      {
+        "index": 9,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_d.tex",
+        "file": "textures/maps/tea/p3/09_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met03_d.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 97499,
+        "sha256": "a94a85e01de9ee798d59b9233b2a7d9ff5eb84ed0905b9fb095f7b73220dbd06"
+      },
+      {
+        "index": 10,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_n.tex",
+        "file": "textures/maps/tea/p3/10_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_n.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 85886,
+        "sha256": "99cb603011dfbb651109e2c447bb0be7264bba3ab49b077cb2f7a8069906f61a"
+      },
+      {
+        "index": 11,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_d.tex",
+        "file": "textures/maps/tea/p3/11_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met04_d.tex.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 99558,
+        "sha256": "e68712017f0b4d0eae2eef4c4e6bff03816048168e90ff422260c7a816f6ea46"
+      },
+      {
+        "index": 12,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_n.tex.dds",
+        "file": "textures/maps/tea/p3/12_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_n.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 33574,
+        "sha256": "cfa2ef18d210f67b240f574421af3f828ca498da943df92f13bfd29f0d1a38e7"
+      },
+      {
+        "index": 13,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_d.tex.dds",
+        "file": "textures/maps/tea/p3/13_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_met06_d.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 81064,
+        "sha256": "5b2ffd587d07aa6dd1ec91a2303d7c1dbb76ed55ebf2bc3d5018a68f94b20c09"
+      },
+      {
+        "index": 14,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_n.tex",
+        "file": "textures/maps/tea/p3/14_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_n.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 76712,
+        "sha256": "8db7361e6e797fa8a727387931ffe416f6a9a4fad150e380ba3b9585ea20ce1d"
+      },
+      {
+        "index": 15,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_d.tex",
+        "file": "textures/maps/tea/p3/15_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_flo03_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 373985,
+        "sha256": "b50ae24e3b0be87903ffea840e12fff54395fc6a6fd2003c222f9bbb81c394ce"
+      },
+      {
+        "index": 16,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_n.tex.dds",
+        "file": "textures/maps/tea/p3/16_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_n.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 8198,
+        "sha256": "cb947809af89872ceb13121a75bb12e0b54a223fd1fee5b5815aa3e1b76ee48b"
+      },
+      {
+        "index": 17,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_d.tex.dds",
+        "file": "textures/maps/tea/p3/17_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_net01_d.tex.dds.png",
+        "width": 256,
+        "height": 256,
+        "bytes": 38956,
+        "sha256": "1da801aac54b1827674aaab8b457681629e9c96ce97a2bb8ae7f637f2dbf21d2"
+      },
+      {
+        "index": 18,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_n.tex",
+        "file": "textures/maps/tea/p3/18_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_n.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 121078,
+        "sha256": "e8c85127a1959e3ffd3e305966f47359939c87dc8b06512f3ed7d4f26703f284"
+      },
+      {
+        "index": 19,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_d.tex",
+        "file": "textures/maps/tea/p3/19_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea01_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 335638,
+        "sha256": "c68b244e4bd407cdcf87d298e532cb5c3fb2109a828de3d77181f0fe02cbb34d"
+      },
+      {
+        "index": 20,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_n.tex",
+        "file": "textures/maps/tea/p3/20_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_n.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 194706,
+        "sha256": "20dde78e1b0105f78b994c8b1b826454145e3b5eedd52170b3b5bda06dcdc57a"
+      },
+      {
+        "index": 21,
+        "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_d.tex",
+        "file": "textures/maps/tea/p3/21_bg_ex1_02_dra_d2_alx_common_texture_d2a0_ac_gea02_d.tex.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 330686,
+        "sha256": "64c300fec8bd4f3b71873a9a4475506e69416989594963ac3dd16393d5846cca"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/ucob/p1.glb",
+    "source": "https://cdn.xivsim.com/models/maps/ucob/p1.glb",
+    "bytes": 9292536,
+    "sha256": "41dca86aaaa024f50b057a77961c1bd1a82a128ef2777e5f106e6de3fb806afa",
+    "meshes": 9,
+    "materials": 9,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_n.tex",
+        "file": "textures/maps/ucob/p1/00_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1227358,
+        "sha256": "1044075c608e1df5c2afb4c24aa2433cf77d410aa6c8008d0affbc7c85b5159b"
+      },
+      {
+        "index": 1,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_d.tex",
+        "file": "textures/maps/ucob/p1/01_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1603756,
+        "sha256": "770a948a59fa209287fa5b3d154d2adc126080b5122da600b68ae2de83c6b398"
+      },
+      {
+        "index": 2,
+        "name": "bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall1_n.tex",
+        "file": "textures/maps/ucob/p1/02_bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall1_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1888161,
+        "sha256": "86e79768f8fcc70b0f47c6077452bccdfd61412cc3ef614a9a904ee985044b85"
+      },
+      {
+        "index": 3,
+        "name": "bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall3_d.tex",
+        "file": "textures/maps/ucob/p1/03_bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall3_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1444391,
+        "sha256": "f5df4ad1e3e214bb4f70018efaf2312924fdca98712e48652a304c32d19aac7a"
+      },
+      {
+        "index": 4,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_n.tex",
+        "file": "textures/maps/ucob/p1/04_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_n.tex.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 2979,
+        "sha256": "891c323e4f2324cb7f6f96fdc9f413b96fa39f9224efd2655842ee356109a84c"
+      },
+      {
+        "index": 5,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_d.tex",
+        "file": "textures/maps/ucob/p1/05_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_d.tex.png",
+        "width": 512,
+        "height": 256,
+        "bytes": 125304,
+        "sha256": "50d690ca4746586b8989e5fec6c4da6a1f147fa8c8b62e1a76f0ee4444d4c276"
+      },
+      {
+        "index": 6,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_n.tex",
+        "file": "textures/maps/ucob/p1/06_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 897656,
+        "sha256": "23d0eeec2aa88495ca1c2621c5590cea89ee3bd9fb6f3342df4640e90c7bdcdc"
+      },
+      {
+        "index": 7,
+        "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_d.tex",
+        "file": "textures/maps/ucob/p1/07_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1297298,
+        "sha256": "7a2adb8fa6df025a7ce72522ae26c9fd16eed98e75f920daf029018e9f250e2b"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/uwu/p3.glb",
+    "source": "https://cdn.xivsim.com/models/maps/uwu/p3.glb",
+    "bytes": 9741844,
+    "sha256": "09fed7823472e52421598034d43ceb833656067cc64e086292b688f6e6790418",
+    "meshes": 1,
+    "materials": 4,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_n.tex",
+        "file": "textures/maps/uwu/p3/00_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_n.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1194623,
+        "sha256": "9379e05360222629542e055cdf43d580ac16137e55c72e34ea703b86b896e681"
+      },
+      {
+        "index": 1,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_d.tex",
+        "file": "textures/maps/uwu/p3/01_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_t1_kous1_d.tex.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 2063758,
+        "sha256": "7510ecc4507e3c37d3f107affdf4ba975d14753c2a4bad941b81620d430ad7b6"
+      },
+      {
+        "index": 2,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_n.tex.dds",
+        "file": "textures/maps/uwu/p3/02_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_n.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1579993,
+        "sha256": "a573d60f8d037ffdb81245ad2c88512fe9a8bddd72385ef040e0d1f496d48f03"
+      },
+      {
+        "index": 3,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_d.tex.dds",
+        "file": "textures/maps/uwu/p3/03_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock2_d.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1664532,
+        "sha256": "fe1674d1c867da0e5735f20e833b52bca5f8ac3157af4aa9fb7d213ae2ad8cfa"
+      },
+      {
+        "index": 4,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock0_n.tex.dds",
+        "file": "textures/maps/uwu/p3/04_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock0_n.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1535834,
+        "sha256": "68111938c94acd0cde6167ce23bfb006bf9d7e3a79aad15130724dfecde2ce59"
+      },
+      {
+        "index": 5,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock1_d.tex.dds",
+        "file": "textures/maps/uwu/p3/05_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_c0_rock1_d.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1360340,
+        "sha256": "56240011eb71b783bef1c63185308a639ca5fc01c278d9a48ad6a74f01c26367"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  },
+  {
+    "file": "models/maps/uwu/p4.glb",
+    "source": "https://cdn.xivsim.com/models/maps/uwu/p4.glb",
+    "bytes": 8502400,
+    "sha256": "8738187ac4d9c9e70811e09e6a95dd52bf4815e433c9bf71bf7580fcb55b174c",
+    "meshes": 4,
+    "materials": 4,
+    "joints": [],
+    "animations": [],
+    "images": [
+      {
+        "index": 0,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_yuka1_d.tex",
+        "file": "textures/maps/uwu/p4/00_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_yuka1_d.tex.png",
+        "width": 2048,
+        "height": 2048,
+        "bytes": 3596922,
+        "sha256": "3ffa722b2b123588421787ddadddcdd19a159aff4f2ec50f1cc6ad9be238f87c"
+      },
+      {
+        "index": 1,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_n.tex",
+        "file": "textures/maps/uwu/p4/01_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_n.tex.png",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 1061319,
+        "sha256": "f51ae2f6659df97d591c6e6b92e921961fdc10ff74bbcecd18687c209e9b1e8b"
+      },
+      {
+        "index": 2,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_d.tex",
+        "file": "textures/maps/uwu/p4/02_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_d.tex.png",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 2116613,
+        "sha256": "9699882d47c5ef3ce69eb466cf3bba946d3b9e2e39e6c782fa9872fedc8aa703"
+      },
+      {
+        "index": 3,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_n.tex.dds",
+        "file": "textures/maps/uwu/p4/03_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_n.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 15799,
+        "sha256": "8fa966135f1d1780dfa35628a455f8866c542c637471f66fb9476943af4c9d45"
+      },
+      {
+        "index": 4,
+        "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_d.tex.dds",
+        "file": "textures/maps/uwu/p4/04_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_d.tex.dds.png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 395750,
+        "sha256": "63af76dae600c2dca4fbca598f2493c763557aff0c552ddfb045f5e20c0fa7ba"
+      },
+      {
+        "index": 5,
+        "name": "bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_n.tex.dds",
+        "file": "textures/maps/uwu/p4/05_bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_n.tex.dds.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 656305,
+        "sha256": "860812b3a79cd0bc7e4a7b731ab594563413930415409d92ac5703bfe274aa25"
+      },
+      {
+        "index": 6,
+        "name": "bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_d.tex.dds",
+        "file": "textures/maps/uwu/p4/06_bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_d.tex.dds.png",
+        "width": 512,
+        "height": 512,
+        "bytes": 548791,
+        "sha256": "21a8d7b76aaf194c3b873c64ca92d68d6d10ec9773af64e3c6fab175e212f7a2"
+      }
+    ],
+    "extensionsRequired": [],
+    "validation": "GLB structure, buffer/accessor bounds, selected references, image decode; no 3D visual/import validation"
+  }
+]

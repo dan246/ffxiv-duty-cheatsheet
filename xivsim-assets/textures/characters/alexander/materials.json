@@ -1,0 +1,30 @@
+{
+  "materials": [
+    {
+      "name": "Material.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        }
+      }
+    }
+  ],
+  "textures": [
+    {
+      "source": 0,
+      "sampler": 0
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "v01_m0354b0001_d.png",
+      "file": "textures/characters/alexander/00_v01_m0354b0001_d.png.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 710718,
+      "sha256": "09778e4f5df644d65fc17805ba1e7cc516d8dc49edd99e712dd3f9dfe4f8ae7f"
+    }
+  ]
+}

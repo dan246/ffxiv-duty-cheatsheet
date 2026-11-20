@@ -1,0 +1,44 @@
+[
+  {
+    "job": "war",
+    "file": "models/characters/players/war_noanim.glb",
+    "sha256": "feb774676d197ef1156c83bb042ed61b55adb8259f0132582d9d248182f14d4d",
+    "url": "https://cdn.xivsim.com/models/characters/players/war_noanim.glb"
+  },
+  {
+    "job": "drk",
+    "file": "models/characters/players/drk_noanim.glb",
+    "sha256": "8d66ffd9c833933ba1947497bc7e9078dd659b0f298055bba7746a28987d89aa",
+    "url": "https://cdn.xivsim.com/models/characters/players/drk_noanim.glb"
+  },
+  {
+    "job": "ast",
+    "file": "models/characters/players/ast_noanim.glb",
+    "sha256": "b86bb68cf024d47f250ea078444f8e4558326eeb878ef0c032ebcd437d2601d7",
+    "url": "https://cdn.xivsim.com/models/characters/players/ast_noanim.glb"
+  },
+  {
+    "job": "drg",
+    "file": "models/characters/players/drg_noanim.glb",
+    "sha256": "97b0c413aa86fb04217bfe4ecf8737ebdb55986aa71ecccf56a032fb3095d402",
+    "url": "https://cdn.xivsim.com/models/characters/players/drg_noanim.glb"
+  },
+  {
+    "job": "sam",
+    "file": "models/characters/players/sam_noanim.glb",
+    "sha256": "807a47ae03d59070e0f209cfff85ba363eca0d2fac4afd9c43c7ec4fffe0446b",
+    "url": "https://cdn.xivsim.com/models/characters/players/sam_noanim.glb"
+  },
+  {
+    "job": "dnc",
+    "file": "models/characters/players/dnc_noanim.glb",
+    "sha256": "c1d4b963fe37af75881691e9bc958ca01f82c208335580a902107537c9ff4581",
+    "url": "https://cdn.xivsim.com/models/characters/players/dnc_noanim.glb"
+  },
+  {
+    "job": "smn",
+    "file": "models/characters/players/smn_noanim.glb",
+    "sha256": "9f49d13b93e242b2fbc25982449a4359fc2e1ff1a459291fd13bc8fd26852f59",
+    "url": "https://cdn.xivsim.com/models/characters/players/smn_noanim.glb"
+  }
+]

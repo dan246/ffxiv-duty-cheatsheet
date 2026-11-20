@@ -1,0 +1,30 @@
+{
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "texCoord": 0,
+          "index": 0
+        }
+      },
+      "name": "Material.001"
+    }
+  ],
+  "textures": [
+    {
+      "source": 0,
+      "sampler": 0
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "v01_m0361b0001_d.png",
+      "file": "textures/characters/cruise/00_v01_m0361b0001_d.png.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 693903,
+      "sha256": "1d2f0c6f4e05c105b20603a308d7d83967734f2ee976aa802c6a51882884e706"
+    }
+  ]
+}

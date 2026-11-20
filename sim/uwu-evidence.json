@@ -1,0 +1,1078 @@
+{
+  "verifiedOn": "2026-11-20",
+  "method": "Read rendered FFLogs enemy Cast event tables, both pages per report. Values are cast-completion seconds from pull. Canceled casts excluded. Selected anchors and roulette order were verified, not every damage snapshot or actor coordinate.",
+  "columns": [
+    "report",
+    "fight",
+    "slipstream",
+    "aerialBlast",
+    "ultimaTransition",
+    "predation",
+    "annihilation",
+    "suppression",
+    "aethericBoom",
+    "roulette",
+    "rouletteRaidwides"
+  ],
+  "reports": [
+    [
+      "hJPRQNdF7HWyL86x",
+      1,
+      7.655,
+      76.051,
+      536.112,
+      599.56,
+      677.872,
+      735.806,
+      795.8,
+      "TIG",
+      [
+        835.42,
+        856.421,
+        875.447
+      ]
+    ],
+    [
+      "a9ycXjTvMhRzLV67",
+      3,
+      7.657,
+      76.125,
+      522.027,
+      585.439,
+      663.91,
+      721.749,
+      781.725,
+      "TIG",
+      [
+        821.282,
+        842.358,
+        861.377
+      ]
+    ],
+    [
+      "v2Y8NZQbjVAgDFPJ",
+      8,
+      7.664,
+      76.275,
+      540.841,
+      604.265,
+      682.6,
+      740.386,
+      800.367,
+      "TIG",
+      [
+        839.936,
+        861.021,
+        880.007
+      ]
+    ],
+    [
+      "1HLdj3h9VyfPwWqX",
+      27,
+      7.665,
+      76.096,
+      528.137,
+      591.512,
+      669.874,
+      727.726,
+      787.761,
+      "TIG",
+      [
+        827.351,
+        848.428,
+        867.497
+      ]
+    ],
+    [
+      "cwD6bZnzTRafGhHv",
+      9,
+      6.906,
+      75.277,
+      522.718,
+      586.144,
+      664.473,
+      722.314,
+      782.296,
+      "GIT",
+      [
+        821.681,
+        842.923,
+        862.121
+      ]
+    ],
+    [
+      "zg6r2Xv3hDWwKJmG",
+      16,
+      7.702,
+      76.077,
+      519.14,
+      582.519,
+      660.829,
+      718.601,
+      778.603,
+      "GIT",
+      [
+        818.001,
+        839.239,
+        858.393
+      ]
+    ],
+    [
+      "vMA4Wg6nGw9c7KCj",
+      5,
+      7.673,
+      76.059,
+      510.786,
+      574.207,
+      652.658,
+      710.618,
+      770.722,
+      "GIT",
+      [
+        810.155,
+        831.368,
+        850.571
+      ]
+    ],
+    [
+      "Nb3K196zrhLvDnaP",
+      14,
+      7.68,
+      76.183,
+      513.393,
+      576.806,
+      655.122,
+      713.824,
+      773.864,
+      "IGT",
+      [
+        814.397,
+        833.412,
+        853.681
+      ]
+    ]
+  ],
+  "limits": {
+    "legacy": "Ifrit retains Claude's 5 fast and 8 slow local extracts; Titan retains 8 local extracts. Existing timelines and new Mintotto inverse-Z tactic retained.",
+    "newTimeline": "Detailed ability schedule from report 1; anchors and three roulette branches cross-checked against 8 reports. Other roulette branches are normalized to the reference timeline for practice.",
+    "geometry": "Action-sheet dimensions and raw cast times are used where recovered. Plume centers and laser side directions are diagram reconstructions, marker positions screenshot estimates; not complete server precision.",
+    "bots": "Practice routes use primary-party sampled positions for Garuda, Ifrit and Titan plus bounded movement and live hazard/duty responses. Ultima uses scripted practice routes; not the party replay. Full-role keyboard tests exercise these routes.",
+    "models": "36 verified GLB assets; eight distinct job configurations. Sage is a custom white-haired male Lalafell derivative with four nouliths. Garuda and Ifrit use Titan p3 map as a disclosed proxy; original phase textures have not been recovered.",
+    "simulation": "No complete damage, healing or DPS model. Raidwides advisory. LB input windows estimated. Independent stages; next-stage navigation is not cumulative full-fight clear verification.",
+    "laser": {
+      "ids": {
+        "11140": "center; animation altema_maetbeam",
+        "11141": "right; animation altema_migibeam",
+        "11142": "left; animation altema_hidaribeam"
+      },
+      "observedSequence": [
+        [
+          754.792,
+          757.77,
+          11141
+        ],
+        [
+          758.925,
+          761.908,
+          11141
+        ],
+        [
+          763.066,
+          766.048,
+          11142
+        ]
+      ],
+      "geometry": {
+        "shape": "single forward rectangle per cast",
+        "length": 46,
+        "halfWidth": 4,
+        "bossPosition": [
+          13.7,
+          -13.7
+        ],
+        "sideAngleDegrees": 45,
+        "orientationBasis": "Diagram-reconstructed: center points SW (225 degrees), left south (180), right west (270). Not server packet rotation."
+      },
+      "orientationUncertainty": "FFLogs does not expose CastInfo.Rotation/LocXZ. Side directions are reconstructed from the author diagram and firsthand south/center/west description; not packet-measured. Dates/timing/ability variants remain the three 2026 reports.",
+      "sources": [
+        "https://raw.githubusercontent.com/awgil/ffxiv_bossmod/master/BossMod.Ultimate/Stormblood/Ultimate/UWU/UWUEnums.cs",
+        "https://raw.githubusercontent.com/awgil/ffxiv_bossmod/master/BossMod.Ultimate/Stormblood/Ultimate/UWU/UWU.cs",
+        "https://raw.githubusercontent.com/awgil/ffxiv_bossmod/master/BossMod/Components/GenericAOEs.cs",
+        "https://clees.me/guides/uwu/",
+        "https://arutora.com/16466",
+        "https://arutora.com/wordpress/wp-content/uploads/2018/07/2018_07_30_1_6.jpg",
+        "https://na.finalfantasyxiv.com/lodestone/character/18710035/blog/3845052/"
+      ]
+    }
+  },
+  "reference_replay": {
+    "report": "CFfcHwYn2rGzxPdD",
+    "positions_m_from_supplied_replay_screenshot_approx": {
+      "A": [
+        0,
+        -6.5
+      ],
+      "B": [
+        6.5,
+        0
+      ],
+      "C": [
+        0,
+        6.5
+      ],
+      "D": [
+        -6.5,
+        0
+      ],
+      "1": [
+        0,
+        0
+      ],
+      "2": [
+        0,
+        -18
+      ],
+      "3": [
+        12.7,
+        -12.7
+      ],
+      "4": [
+        12.7,
+        12.7
+      ]
+    },
+    "inverse_z_relative_nail_order": [
+      6,
+      3,
+      0,
+      1
+    ],
+    "date": "2026-11-19",
+    "date_source": "FFLogs report title read live 2026-11-20",
+    "fight": 13,
+    "nails_observed": [
+      {
+        "instance": 1,
+        "x": 107,
+        "y": 107,
+        "death_s": 213.009
+      },
+      {
+        "instance": 4,
+        "x": 100,
+        "y": 90,
+        "death_s": 215.243
+      },
+      {
+        "instance": 2,
+        "x": 93,
+        "y": 106.95,
+        "death_s": 217.611
+      },
+      {
+        "instance": 3,
+        "x": 90,
+        "y": 100,
+        "death_s": 218.863
+      }
+    ],
+    "nail_evidence": "Enemy deaths table plus replay tooltips at 3:28; SE,N,SW,W => normalized [6,3,0,1].",
+    "result": "wipe",
+    "endDisplayed": "7:29",
+    "phaseReached": "Titan",
+    "bossRemainingDisplayed": "44%",
+    "reportPulls": 20,
+    "reportHasUltima": false
+  },
+  "inverse_z_comparisons_2026": [
+    {
+      "report": "QMJG87krhKLXFnT4",
+      "fight": 12,
+      "report_date": "2026-10-26",
+      "url": "https://www.fflogs.com/reports/QMJG87krhKLXFnT4#fight=12&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0,
+          -6.5
+        ],
+        "B": [
+          6.5,
+          0
+        ],
+        "C": [
+          0,
+          6.5
+        ],
+        "D": [
+          -6.5,
+          0
+        ],
+        "1": [
+          0,
+          0
+        ],
+        "2": [
+          0,
+          -18.7
+        ],
+        "3": [
+          12.5,
+          -13.7
+        ],
+        "4": [
+          -6,
+          -5.3
+        ]
+      },
+      "marker4_state": "present",
+      "four_dash_relative_directions": []
+    },
+    {
+      "report": "pY9Xaq8QFBRVmALf",
+      "fight": 51,
+      "report_date": "2026-10-29",
+      "url": "https://www.fflogs.com/reports/pY9Xaq8QFBRVmALf#fight=51&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0,
+          -5.9
+        ],
+        "B": [
+          5.9,
+          -0.1
+        ],
+        "C": [
+          0,
+          6
+        ],
+        "D": [
+          -5.9,
+          0
+        ],
+        "1": [
+          0,
+          0
+        ],
+        "2": [
+          0.2,
+          -17.6
+        ],
+        "3": [
+          12.5,
+          -13.3
+        ],
+        "4": [
+          -12.4,
+          12.6
+        ]
+      },
+      "marker4_state": "present",
+      "four_dash_relative_directions": []
+    },
+    {
+      "report": "hJPRQNdF7HWyL86x",
+      "fight": 1,
+      "report_date": "2026-05-28",
+      "url": "https://www.fflogs.com/reports/hJPRQNdF7HWyL86x#fight=1&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {},
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "a9ycXjTvMhRzLV67",
+      "fight": 3,
+      "report_date": "2026-08-27",
+      "url": "https://www.fflogs.com/reports/a9ycXjTvMhRzLV67#fight=3&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          -0.1,
+          -7
+        ],
+        "B": [
+          6.3,
+          0.1
+        ],
+        "C": [
+          0,
+          6.3
+        ],
+        "D": [
+          -6.7,
+          0
+        ],
+        "1": [
+          0,
+          0.1
+        ],
+        "2": [
+          -0.1,
+          -17.1
+        ],
+        "3": [
+          12.3,
+          -12.9
+        ],
+        "4": [
+          -13.1,
+          0.5
+        ]
+      },
+      "marker4_state": "present",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "v2Y8NZQbjVAgDFPJ",
+      "fight": 8,
+      "report_date": "2026-06-29",
+      "url": "https://www.fflogs.com/reports/v2Y8NZQbjVAgDFPJ#fight=8&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0,
+          -6.8
+        ],
+        "B": [
+          6.2,
+          -0.4
+        ],
+        "C": [
+          -0.2,
+          5.9
+        ],
+        "D": [
+          -6.3,
+          -0.6
+        ],
+        "1": [
+          -0.1,
+          -17.8
+        ],
+        "2": [
+          12,
+          -12.8
+        ],
+        "3": [
+          -0.2,
+          -0.5
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "1HLdj3h9VyfPwWqX",
+      "fight": 27,
+      "report_date": "2026-09-12",
+      "url": "https://www.fflogs.com/reports/1HLdj3h9VyfPwWqX#fight=27&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0,
+          -6.6
+        ],
+        "B": [
+          7.2,
+          -0.4
+        ],
+        "C": [
+          0,
+          6.4
+        ],
+        "D": [
+          -6.8,
+          0.1
+        ],
+        "1": [
+          0,
+          -0.1
+        ],
+        "2": [
+          0.2,
+          -17.4
+        ],
+        "3": [
+          13,
+          -13.4
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "cwD6bZnzTRafGhHv",
+      "fight": 9,
+      "report_date": "2026-10-01",
+      "url": "https://www.fflogs.com/reports/cwD6bZnzTRafGhHv#fight=9&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          -0.1,
+          -6.2
+        ],
+        "B": [
+          6.4,
+          -0.2
+        ],
+        "C": [
+          0.1,
+          5.8
+        ],
+        "D": [
+          -6.1,
+          -0.1
+        ],
+        "1": [
+          0.1,
+          -0.1
+        ],
+        "2": [
+          -0.5,
+          -18
+        ],
+        "3": [
+          11.9,
+          -12.6
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "zg6r2Xv3hDWwKJmG",
+      "fight": 16,
+      "report_date": "2026-09-11",
+      "url": "https://www.fflogs.com/reports/zg6r2Xv3hDWwKJmG#fight=16&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          -0.2,
+          -6.8
+        ],
+        "B": [
+          6.3,
+          -0.1
+        ],
+        "C": [
+          -0.2,
+          6.6
+        ],
+        "D": [
+          -6.7,
+          0
+        ],
+        "1": [
+          -0.2,
+          -0.1
+        ],
+        "2": [
+          -0.1,
+          -16.7
+        ],
+        "3": [
+          12.5,
+          -12.6
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "vMA4Wg6nGw9c7KCj",
+      "fight": 5,
+      "report_date": "2026-05-20",
+      "url": "https://www.fflogs.com/reports/vMA4Wg6nGw9c7KCj#fight=5&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0.2,
+          -7.9
+        ],
+        "B": [
+          8,
+          0.2
+        ],
+        "C": [
+          0.2,
+          7.2
+        ],
+        "D": [
+          -7.6,
+          -0.3
+        ],
+        "1": [
+          0.2,
+          -0.2
+        ],
+        "2": [
+          0.8,
+          -18.5
+        ],
+        "3": [
+          10.7,
+          -13.4
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "report": "Nb3K196zrhLvDnaP",
+      "fight": 14,
+      "report_date": "2026-10-19",
+      "url": "https://www.fflogs.com/reports/Nb3K196zrhLvDnaP#fight=14&view=replay",
+      "inverse_z": true,
+      "nail_death_order_relative": [
+        6,
+        3,
+        0,
+        1
+      ],
+      "markers": {
+        "A": [
+          0,
+          -6.4
+        ],
+        "B": [
+          5.7,
+          -0.4
+        ],
+        "C": [
+          -0.3,
+          6.2
+        ],
+        "D": [
+          -6.1,
+          -0.6
+        ],
+        "1": [
+          -0.2,
+          -0.5
+        ],
+        "2": [
+          -0.1,
+          -18.3
+        ],
+        "3": [
+          12.1,
+          -12.3
+        ]
+      },
+      "marker4_state": "missing_from_export",
+      "four_dash_relative_directions": [
+        6,
+        3,
+        0,
+        1
+      ]
+    }
+  ],
+  "recent_marker_screening": {
+    "source": "FFLogs zone/reports zone59 boss1074 pages1-3 live UI 2026-11-20",
+    "records": [
+      {
+        "report": "DXkMLZGv427KHbhR",
+        "uploader": "BAMFington",
+        "listing_local_date": "2026-11-20",
+        "status": "不同：3 標在東南；基準為東北。此場只到風神。",
+        "url": "https://cn.fflogs.com/reports/DXkMLZGv427KHbhR?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Wipe 12 / 0:46",
+        "observed_time": "00:04",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "VAfXDwxPMkmr1QzW",
+        "uploader": "mohawkitty",
+        "listing_local_date": "2026-11-20",
+        "status": "未知：此回放未顯示場地標記。已排除同報告的 Queen Eternal。",
+        "url": "https://cn.fflogs.com/reports/VAfXDwxPMkmr1QzW?fight=10&view=replay",
+        "fight": 10,
+        "observed_pull": "Wipe 10 / 2:28",
+        "observed_time": "00:14",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "wa7ngjTxRZp8VW4m",
+        "uploader": "Raven Hyskaris",
+        "listing_local_date": "2026-11-20",
+        "status": "不同：1 西北、2 東北、3 東南、4 西南。",
+        "url": "https://cn.fflogs.com/reports/wa7ngjTxRZp8VW4m?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Kill / 12:45",
+        "observed_time": "00:51",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "mJgG7T8wrBYcjx2d",
+        "uploader": "tuxokwak",
+        "listing_local_date": "2026-11-20",
+        "status": "不同：2 西北、3 東南。",
+        "url": "https://cn.fflogs.com/reports/mJgG7T8wrBYcjx2d?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Wipe 18 / 5:59",
+        "observed_time": "00:37",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "1RY8ZHmtgDy3JXCb",
+        "uploader": "AkiraEacho",
+        "listing_local_date": "2026-11-20",
+        "status": "不同：D／B 靠近場邊，2 西北、3 內圈西北。",
+        "url": "https://cn.fflogs.com/reports/1RY8ZHmtgDy3JXCb?fight=3&view=replay",
+        "fight": 3,
+        "observed_pull": "Wipe 2 / 11:00",
+        "observed_time": "00:43",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "21YCHVcfndWA8yb3",
+        "uploader": "beerpsi",
+        "listing_local_date": "2026-11-20",
+        "status": "未知：此回放未顯示場地標記。",
+        "url": "https://cn.fflogs.com/reports/21YCHVcfndWA8yb3?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Wipe 12 / 4:11",
+        "observed_time": "00:15",
+        "report_date": "2026-11-20",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "CBgYGfqva6tWRd9b",
+        "uploader": "困困小树叶",
+        "listing_local_date": "2026-11-19",
+        "status": "不同：可見標記分布在東西場邊及西北；圖示文字未載入，未判讀標記名稱。",
+        "url": "https://cn.fflogs.com/reports/CBgYGfqva6tWRd9b?fight=16&view=replay",
+        "fight": 16,
+        "observed_pull": "Wipe 15 / 6:16",
+        "observed_time": "00:24",
+        "report_date": "2026-11-19",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "djVQAT8HhaZCgzn1",
+        "uploader": "MistTheGreys",
+        "listing_local_date": "2026-11-19",
+        "status": "不同：D／B 靠近場邊，2 西北、3 內圈西北。",
+        "url": "https://cn.fflogs.com/reports/djVQAT8HhaZCgzn1?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Kill 2 / 13:02",
+        "observed_time": "00:51",
+        "report_date": "2026-11-19",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "TawrmtAfVMBh1dH8",
+        "uploader": "wunyalinter",
+        "listing_local_date": "2026-11-19",
+        "status": "不同：2 西北、4 內圈東南。",
+        "url": "https://cn.fflogs.com/reports/TawrmtAfVMBh1dH8?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Wipe 12 / 6:10",
+        "observed_time": "00:38",
+        "report_date": "2026-11-19",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      },
+      {
+        "report": "MnabCKzXfFTgQ87h",
+        "uploader": "Peskypenguin",
+        "listing_local_date": "2026-11-19",
+        "status": "不同：2 西北、3 東南。",
+        "url": "https://cn.fflogs.com/reports/MnabCKzXfFTgQ87h?fight=last&view=replay",
+        "fight": "last",
+        "observed_pull": "Wipe 28 / 9:11",
+        "observed_time": "00:58",
+        "report_date": "2026-11-19",
+        "date_source": "FFLogs report title verified live 2026-11-20",
+        "full_route_match": "not verified"
+      }
+    ],
+    "method": "十份不同報告、不同上傳者的標記初篩，不代表十隊獨立打法或十份全程走位驗證。last 為當時最後一場，已記錄場次顯示名稱、時長及觀察時間；報告續傳後 last 可能改變。無標記視為未知。標記不同不能證明機制解法不同。"
+  },
+  "reference_calibration_status": "Garuda/Ifrit reference and Titan partial-to-wipe implemented. Titan manual/cluster paths and exact cast/death/gaol status times; resurrection proxies from Weakness/Brink apply. No Ultima data in team report; intermission/Ultima retain separate other-report practice.",
+  "reference_calibration_data": "uwu-reference.js",
+  "ultimaRawVerification": {
+    "verifiedOn": "2026-11-20",
+    "report": "hJPRQNdF7HWyL86x",
+    "fight": 1,
+    "eventCount": 4857,
+    "clock": "(timestamp - 485888 - 755) / 1000",
+    "source": "https://www.fflogs.com/reports/hJPRQNdF7HWyL86x?fight=1&type=casts&hostility=1",
+    "method": "Official FFLogs client API cast, begincast, damage and debuff events, with resources. Timing and valid source positions cross-checked. This is a different party; no claim of user-party Ultima coverage.",
+    "gameData": "https://v2.xivapi.com/api/sheet/Action",
+    "verifiedDimensions": {
+      "GreatWhirlwind": {
+        "id": 11073,
+        "radius": 8
+      },
+      "ViscousAetheroplasmApplication": {
+        "id": 11129,
+        "radius": 2
+      },
+      "ViscousAetheroplasmBurst": {
+        "id": 11130,
+        "radius": 4
+      },
+      "Landslide": {
+        "ids": [
+          11119,
+          11120,
+          11121,
+          11298,
+          11134,
+          11135
+        ],
+        "width": 6,
+        "length": 40
+      },
+      "CrimsonCyclone": {
+        "id": 11103,
+        "width": 18,
+        "length": 44
+      },
+      "CrimsonCycloneAfterburn": {
+        "id": 11104,
+        "width": 10,
+        "length": 44
+      },
+      "BombImpact": {
+        "id": 11113,
+        "radius": 3
+      },
+      "BombExplosion": {
+        "id": 11114,
+        "radius": 5
+      },
+      "RadiantPlume": {
+        "id": 11105,
+        "radius": 8
+      }
+    },
+    "limits": [
+      "Radiant Plume helper resources contain stale positions. Eight centers are reconstructed from guide diagrams; cardinal17.5m/intercardinal15.5m are not exact server coordinates.",
+      "Original wind/fire arena models remain unavailable in the discovered public bundles.",
+      "NPC movement uses bounded normal/Sprint speed and current duties/hazards; it is not frame-by-frame playback.",
+      "Full job damage, HP/healing and enrage DPS are not simulated."
+    ]
+  },
+  "recentUltimaComparison": {
+    "verifiedOn": "2026-11-20",
+    "method": "Official API; timings normalized independently to each fight first Ultimate (Action11147), so report UI offsets and earlier phase DPS do not distort comparison. No claim of identical player routes.",
+    "baseline": {
+      "report": "hJPRQNdF7HWyL86x",
+      "fight": 1
+    },
+    "reports": [
+      {
+        "report": "DXkMLZGv427KHbhR",
+        "fight": 2,
+        "kill": true,
+        "events": 11056,
+        "firstUltimaSecondsFromAPIPull": 441.414,
+        "anchors": [
+          {
+            "ability": 11126,
+            "name": "追擊",
+            "secondsAfterUltima": 63.379,
+            "baselineSecondsAfterUltima": 63.448,
+            "differenceSeconds": -0.069
+          },
+          {
+            "ability": 11596,
+            "name": "爆擊",
+            "secondsAfterUltima": 141.797,
+            "baselineSecondsAfterUltima": 141.76,
+            "differenceSeconds": 0.037
+          },
+          {
+            "ability": 11597,
+            "name": "亂擊",
+            "secondsAfterUltima": 199.746,
+            "baselineSecondsAfterUltima": 199.694,
+            "differenceSeconds": 0.052
+          },
+          {
+            "ability": 11144,
+            "name": "以太波動",
+            "secondsAfterUltima": 259.774,
+            "baselineSecondsAfterUltima": 259.688,
+            "differenceSeconds": 0.086
+          }
+        ],
+        "lasers": [
+          {
+            "id": 11140,
+            "secondsAfterUltima": 221.694
+          },
+          {
+            "id": 11140,
+            "secondsAfterUltima": 225.845
+          },
+          {
+            "id": 11142,
+            "secondsAfterUltima": 229.994
+          }
+        ],
+        "plumeCoordinates": "Rejected: reused/stale helper resources, not exact cast locations"
+      },
+      {
+        "report": "wa7ngjTxRZp8VW4m",
+        "fight": 1,
+        "kill": true,
+        "events": 11358,
+        "firstUltimaSecondsFromAPIPull": 432.575,
+        "anchors": [
+          {
+            "ability": 11126,
+            "name": "追擊",
+            "secondsAfterUltima": 63.4,
+            "baselineSecondsAfterUltima": 63.448,
+            "differenceSeconds": -0.048
+          },
+          {
+            "ability": 11596,
+            "name": "爆擊",
+            "secondsAfterUltima": 141.735,
+            "baselineSecondsAfterUltima": 141.76,
+            "differenceSeconds": -0.025
+          },
+          {
+            "ability": 11597,
+            "name": "亂擊",
+            "secondsAfterUltima": 199.555,
+            "baselineSecondsAfterUltima": 199.694,
+            "differenceSeconds": -0.139
+          },
+          {
+            "ability": 11144,
+            "name": "以太波動",
+            "secondsAfterUltima": 259.536,
+            "baselineSecondsAfterUltima": 259.688,
+            "differenceSeconds": -0.152
+          }
+        ],
+        "lasers": [
+          {
+            "id": 11140,
+            "secondsAfterUltima": 221.477
+          },
+          {
+            "id": 11142,
+            "secondsAfterUltima": 225.627
+          },
+          {
+            "id": 11141,
+            "secondsAfterUltima": 229.771
+          }
+        ],
+        "plumeCoordinates": "Rejected: reused/stale helper resources, not exact cast locations"
+      }
+    ]
+  }
+}

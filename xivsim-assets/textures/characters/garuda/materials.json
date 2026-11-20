@@ -1,0 +1,194 @@
+{
+  "materials": [
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "name": "mt_m0095b0001_a",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    },
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 3
+      },
+      "name": "mt_m0095b0001_b",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    },
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "name": "mt_m0095b0001_c",
+      "normalTexture": {
+        "index": 7
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 8
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "mt_m0095b0001_a_e",
+      "file": "textures/characters/garuda/00_mt_m0095b0001_a_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 21224,
+      "sha256": "963e43f86ef2147f2fd7699b121092fff92f016dcc5d6b0ec6e0596a559dd121"
+    },
+    {
+      "index": 1,
+      "name": "mt_m0095b0001_a_n",
+      "file": "textures/characters/garuda/01_mt_m0095b0001_a_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 3413671,
+      "sha256": "6ff98d9f454ada8d28976e095c705f90a3f31fadef4bc5e6bc51eaabdfaa30bc"
+    },
+    {
+      "index": 2,
+      "name": "mt_m0095b0001_a_d",
+      "file": "textures/characters/garuda/02_mt_m0095b0001_a_d.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4903278,
+      "sha256": "b780752bdc90ebe6846d467400c84f410ace65dce29fbe6a5e39503b3537b11c"
+    },
+    {
+      "index": 3,
+      "name": "mt_m0095b0001_b_e",
+      "file": "textures/characters/garuda/03_mt_m0095b0001_b_e.png",
+      "width": 256,
+      "height": 1024,
+      "bytes": 3179,
+      "sha256": "1530561f8e4731846f106d90276cdfbdae09a6ea248817b8ec95d20ea8038907"
+    },
+    {
+      "index": 4,
+      "name": "mt_m0095b0001_b_n",
+      "file": "textures/characters/garuda/04_mt_m0095b0001_b_n.png",
+      "width": 256,
+      "height": 1024,
+      "bytes": 184928,
+      "sha256": "246afad02a8661e6e3c2d98c28979b442c92bdb2146367bffdd30167a8a85499"
+    },
+    {
+      "index": 5,
+      "name": "mt_m0095b0001_b_d",
+      "file": "textures/characters/garuda/05_mt_m0095b0001_b_d.png",
+      "width": 256,
+      "height": 1024,
+      "bytes": 216134,
+      "sha256": "5c12ee7a5edcc9736083471b805568f860a6f931f78c1320df61ef0799c8869e"
+    },
+    {
+      "index": 6,
+      "name": "mt_m0095b0001_c_e",
+      "file": "textures/characters/garuda/06_mt_m0095b0001_c_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 21224,
+      "sha256": "963e43f86ef2147f2fd7699b121092fff92f016dcc5d6b0ec6e0596a559dd121"
+    },
+    {
+      "index": 7,
+      "name": "mt_m0095b0001_c_n",
+      "file": "textures/characters/garuda/07_mt_m0095b0001_c_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 3413671,
+      "sha256": "6ff98d9f454ada8d28976e095c705f90a3f31fadef4bc5e6bc51eaabdfaa30bc"
+    },
+    {
+      "index": 8,
+      "name": "mt_m0095b0001_c_d",
+      "file": "textures/characters/garuda/08_mt_m0095b0001_c_d.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 5178360,
+      "sha256": "ee47f8207e1eebad05845baccdeff374c0f7f6f1b735001bfd478d6573372abc"
+    }
+  ]
+}

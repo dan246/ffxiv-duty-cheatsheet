@@ -1,0 +1,269 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah01c.tex",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah03a.tex",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah04a.tex",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah01b.tex",
+      "normalTexture": {
+        "index": 6
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah01a.tex",
+      "normalTexture": {
+        "index": 8
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah02a.tex",
+      "normalTexture": {
+        "index": 10
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_bah02b.tex",
+      "normalTexture": {
+        "index": 12
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_rbah1b.tex",
+      "normalTexture": {
+        "index": 14
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_material_f1bz_t1_rbah1c.tex",
+      "normalTexture": {
+        "index": 16
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 17
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_n.tex",
+      "file": "textures/maps/ucob/p1/00_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1227358,
+      "sha256": "1044075c608e1df5c2afb4c24aa2433cf77d410aa6c8008d0affbc7c85b5159b"
+    },
+    {
+      "index": 1,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_d.tex",
+      "file": "textures/maps/ucob/p1/01_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah01_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1603756,
+      "sha256": "770a948a59fa209287fa5b3d154d2adc126080b5122da600b68ae2de83c6b398"
+    },
+    {
+      "index": 2,
+      "name": "bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall1_n.tex",
+      "file": "textures/maps/ucob/p1/02_bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall1_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1888161,
+      "sha256": "86e79768f8fcc70b0f47c6077452bccdfd61412cc3ef614a9a904ee985044b85"
+    },
+    {
+      "index": 3,
+      "name": "bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall3_d.tex",
+      "file": "textures/maps/ucob/p1/03_bg_ffxiv_fst_f1_bah_common_texture_f1b0_b1_wall3_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1444391,
+      "sha256": "f5df4ad1e3e214bb4f70018efaf2312924fdca98712e48652a304c32d19aac7a"
+    },
+    {
+      "index": 4,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_n.tex",
+      "file": "textures/maps/ucob/p1/04_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_n.tex.png",
+      "width": 512,
+      "height": 256,
+      "bytes": 2979,
+      "sha256": "891c323e4f2324cb7f6f96fdc9f413b96fa39f9224efd2655842ee356109a84c"
+    },
+    {
+      "index": 5,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_d.tex",
+      "file": "textures/maps/ucob/p1/05_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_flr00_d.tex.png",
+      "width": 512,
+      "height": 256,
+      "bytes": 125304,
+      "sha256": "50d690ca4746586b8989e5fec6c4da6a1f147fa8c8b62e1a76f0ee4444d4c276"
+    },
+    {
+      "index": 6,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_n.tex",
+      "file": "textures/maps/ucob/p1/06_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 897656,
+      "sha256": "23d0eeec2aa88495ca1c2621c5590cea89ee3bd9fb6f3342df4640e90c7bdcdc"
+    },
+    {
+      "index": 7,
+      "name": "bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_d.tex",
+      "file": "textures/maps/ucob/p1/07_bg_ffxiv_fst_f1_bah_f1bz_texture_f1bz_t1_bah04_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1297298,
+      "sha256": "7a2adb8fa6df025a7ce72522ae26c9fd16eed98e75f920daf029018e9f250e2b"
+    }
+  ]
+}

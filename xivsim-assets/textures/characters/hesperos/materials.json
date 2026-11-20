@@ -1,0 +1,194 @@
+{
+  "materials": [
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "name": "mt_m0733b0001_a.001",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 3
+      },
+      "name": "mt_m0733b0001_c.001",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "name": "mt_m0733b0001_b.001",
+      "normalTexture": {
+        "index": 7
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 8
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "mt_m0733b0001_a_e",
+      "file": "textures/characters/hesperos/00_mt_m0733b0001_a_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 21155,
+      "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+    },
+    {
+      "index": 1,
+      "name": "mt_m0733b0001_a_n",
+      "file": "textures/characters/hesperos/01_mt_m0733b0001_a_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4271214,
+      "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+    },
+    {
+      "index": 2,
+      "name": "mt_m0733b0001_a_d-mt_m0733b0001_a_o",
+      "file": "textures/characters/hesperos/02_mt_m0733b0001_a_d-mt_m0733b0001_a_o.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4520274,
+      "sha256": "3b1acf2120c36635d9869e86b0a67a3a2e3294c54447f8c7fb56894d5fd9b124"
+    },
+    {
+      "index": 3,
+      "name": "mt_m0733b0001_c_e",
+      "file": "textures/characters/hesperos/03_mt_m0733b0001_c_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 21155,
+      "sha256": "e8a32ca85f49ebadd826ea46d3fb0ea1c7a6760f6c5eb9b80dc5f2e773718184"
+    },
+    {
+      "index": 4,
+      "name": "mt_m0733b0001_c_n",
+      "file": "textures/characters/hesperos/04_mt_m0733b0001_c_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4271214,
+      "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+    },
+    {
+      "index": 5,
+      "name": "mt_m0733b0001_c_d-mt_m0733b0001_c_o",
+      "file": "textures/characters/hesperos/05_mt_m0733b0001_c_d-mt_m0733b0001_c_o.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4758680,
+      "sha256": "7b88446b44ab3f812429aaa00f178396f58d3c0d2c55c9a89df1e38e4cfca98a"
+    },
+    {
+      "index": 6,
+      "name": "mt_m0733b0001_b_e",
+      "file": "textures/characters/hesperos/06_mt_m0733b0001_b_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 64400,
+      "sha256": "18e9ba6ae8aab8257bba0a08518ba1c1a4b7cc30f96ffd19982deb8c4f4665f4"
+    },
+    {
+      "index": 7,
+      "name": "mt_m0733b0001_b_n",
+      "file": "textures/characters/hesperos/07_mt_m0733b0001_b_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4271214,
+      "sha256": "8bc54279a7ec05111df02ec2d32b6951b559dd8f6f6496173bbd45f5af879d75"
+    },
+    {
+      "index": 8,
+      "name": "mt_m0733b0001_b_d-mt_m0733b0001_b_o",
+      "file": "textures/characters/hesperos/08_mt_m0733b0001_b_d-mt_m0733b0001_b_o.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 5069794,
+      "sha256": "b6de4b7156e9175310cc630383a49b2d69b9c93e7ac7266c876ef36a1208c089"
+    }
+  ]
+}

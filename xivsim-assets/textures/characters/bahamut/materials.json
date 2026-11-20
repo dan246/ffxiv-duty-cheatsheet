@@ -1,0 +1,132 @@
+{
+  "materials": [
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "name": "mt_m0117b0001_a",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    },
+    {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        1,
+        1,
+        1
+      ],
+      "emissiveTexture": {
+        "index": 3
+      },
+      "name": "mt_m0117b0001_b",
+      "normalTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "roughnessFactor": 0.858578622341156
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "mt_m0117b0001_a_e",
+      "file": "textures/characters/bahamut/00_mt_m0117b0001_a_e.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 52937,
+      "sha256": "80448c4df8dfde348a3941bff85eba112b2e47022c4d2d07bb6ea64b797af17a"
+    },
+    {
+      "index": 1,
+      "name": "mt_m0117b0001_a_n",
+      "file": "textures/characters/bahamut/01_mt_m0117b0001_a_n.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 4602897,
+      "sha256": "0ff89e4cea62921547d4fd801f990e7085f24439ea1b7f5f89be24a760205e2d"
+    },
+    {
+      "index": 2,
+      "name": "mt_m0117b0001_a_d",
+      "file": "textures/characters/bahamut/02_mt_m0117b0001_a_d.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 5274675,
+      "sha256": "10aaba6dbc31bc19a710673c5e55cbfe073d9bc0b0bd8f007a29ca5dba34838c"
+    },
+    {
+      "index": 3,
+      "name": "mt_m0117b0001_b_e",
+      "file": "textures/characters/bahamut/03_mt_m0117b0001_b_e.png",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 11858,
+      "sha256": "73007780590e2713bf32d247fcd7e9d3435c416c95c7693e95d54f76448892b2"
+    },
+    {
+      "index": 4,
+      "name": "mt_m0117b0001_b_n",
+      "file": "textures/characters/bahamut/04_mt_m0117b0001_b_n.png",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 2124852,
+      "sha256": "ce05b8a3094649230e1c028ac71ad6bdf99f78dcb25f710d28184e2057e81821"
+    },
+    {
+      "index": 5,
+      "name": "mt_m0117b0001_b_d",
+      "file": "textures/characters/bahamut/05_mt_m0117b0001_b_d.png",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 738152,
+      "sha256": "1ed468ffe453abbf77508992920018a2c942192ef551e6d294a79b7aecd3652f"
+    }
+  ]
+}

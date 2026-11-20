@@ -1,0 +1,33 @@
+{
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9,
+        "baseColorTexture": {
+          "index": 0
+        }
+      },
+      "extensions": {
+        "KHR_materials_unlit": {}
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": null,
+      "file": "textures/maps/e12s/p1/00_image.png",
+      "width": 1466,
+      "height": 1462,
+      "bytes": 4400808,
+      "sha256": "8540a99c03ff7dc790a919793f11fcbbd8fc1a8860ea62d035e324e687ad4517"
+    }
+  ]
+}

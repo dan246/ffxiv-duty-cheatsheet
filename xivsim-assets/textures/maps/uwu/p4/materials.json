@@ -1,0 +1,148 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_a4_yuka1a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_a4_moyo1a.tex",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_material_w1fz_a4_met01a.tex.001",
+      "normalTexture": {
+        "index": 3
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ffxiv_wil_w1_dun_w1d5_material_w1d5_q7_lift2a.tex",
+      "normalTexture": {
+        "index": 5
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 6
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_yuka1_d.tex",
+      "file": "textures/maps/uwu/p4/00_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_yuka1_d.tex.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 3596922,
+      "sha256": "3ffa722b2b123588421787ddadddcdd19a159aff4f2ec50f1cc6ad9be238f87c"
+    },
+    {
+      "index": 1,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_n.tex",
+      "file": "textures/maps/uwu/p4/01_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_n.tex.png",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 1061319,
+      "sha256": "f51ae2f6659df97d591c6e6b92e921961fdc10ff74bbcecd18687c209e9b1e8b"
+    },
+    {
+      "index": 2,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_d.tex",
+      "file": "textures/maps/uwu/p4/02_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_moyo1_d.tex.png",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 2116613,
+      "sha256": "9699882d47c5ef3ce69eb466cf3bba946d3b9e2e39e6c782fa9872fedc8aa703"
+    },
+    {
+      "index": 3,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_n.tex.dds",
+      "file": "textures/maps/uwu/p4/03_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_n.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 15799,
+      "sha256": "8fa966135f1d1780dfa35628a455f8866c542c637471f66fb9476943af4c9d45"
+    },
+    {
+      "index": 4,
+      "name": "bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_d.tex.dds",
+      "file": "textures/maps/uwu/p4/04_bg_ffxiv_wil_w1_fld_w1fz_texture_w1fz_a4_met01_d.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 395750,
+      "sha256": "63af76dae600c2dca4fbca598f2493c763557aff0c552ddfb045f5e20c0fa7ba"
+    },
+    {
+      "index": 5,
+      "name": "bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_n.tex.dds",
+      "file": "textures/maps/uwu/p4/05_bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_n.tex.dds.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 656305,
+      "sha256": "860812b3a79cd0bc7e4a7b731ab594563413930415409d92ac5703bfe274aa25"
+    },
+    {
+      "index": 6,
+      "name": "bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_d.tex.dds",
+      "file": "textures/maps/uwu/p4/06_bg_ffxiv_wil_w1_dun_w1d5_texture_w1d5_q7_lift4_d.tex.dds.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 548791,
+      "sha256": "21a8d7b76aaf194c3b873c64ca92d68d6d10ec9773af64e3c6fab175e212f7a2"
+    }
+  ]
+}

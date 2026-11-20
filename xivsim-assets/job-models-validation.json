@@ -1,0 +1,58 @@
+[
+  {
+    "file": "ast_noanim.glb",
+    "bytes": 4099524,
+    "sha256": "b86bb68cf024d47f250ea078444f8e4558326eeb878ef0c032ebcd437d2601d7",
+    "meshes": 11,
+    "images": 20
+  },
+  {
+    "file": "dnc_noanim.glb",
+    "bytes": 4413456,
+    "sha256": "c1d4b963fe37af75881691e9bc958ca01f82c208335580a902107537c9ff4581",
+    "meshes": 13,
+    "images": 21
+  },
+  {
+    "file": "drg_noanim.glb",
+    "bytes": 4572348,
+    "sha256": "97b0c413aa86fb04217bfe4ecf8737ebdb55986aa71ecccf56a032fb3095d402",
+    "meshes": 9,
+    "images": 17
+  },
+  {
+    "file": "drk_noanim.glb",
+    "bytes": 2942960,
+    "sha256": "8d66ffd9c833933ba1947497bc7e9078dd659b0f298055bba7746a28987d89aa",
+    "meshes": 8,
+    "images": 10
+  },
+  {
+    "file": "sam_noanim.glb",
+    "bytes": 4698632,
+    "sha256": "807a47ae03d59070e0f209cfff85ba363eca0d2fac4afd9c43c7ec4fffe0446b",
+    "meshes": 10,
+    "images": 20
+  },
+  {
+    "file": "sge_training.glb",
+    "bytes": 4554388,
+    "sha256": "0dd5b2adf54747f31292cc32d5ecbc634d77afb5348c281ee46af55b078d88c2",
+    "meshes": 40,
+    "images": 20
+  },
+  {
+    "file": "smn_noanim.glb",
+    "bytes": 4346400,
+    "sha256": "9f49d13b93e242b2fbc25982449a4359fc2e1ff1a459291fd13bc8fd26852f59",
+    "meshes": 12,
+    "images": 22
+  },
+  {
+    "file": "war_noanim.glb",
+    "bytes": 4829744,
+    "sha256": "feb774676d197ef1156c83bb042ed61b55adb8259f0132582d9d248182f14d4d",
+    "meshes": 10,
+    "images": 20
+  }
+]

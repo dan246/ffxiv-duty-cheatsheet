@@ -1,0 +1,30 @@
+{
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        }
+      },
+      "name": "Material"
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "v01_m0300b0001_d.png",
+      "file": "textures/characters/brute/00_v01_m0300b0001_d.png.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 822020,
+      "sha256": "88f702a8bc660b384d8daeafdd770529864433bd7f1cdbc93a4fb31d174ebc83"
+    }
+  ]
+}

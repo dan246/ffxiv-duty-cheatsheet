@@ -1,0 +1,3 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');const session=require('../sim/uwu-session');
+test('paused single-step advances one tenth second without resuming the simulation',()=>{const s={paused:true,t:0,over:null},deltas=[];assert(session.advancePaused(s,dt=>{assert(!s.paused);s.t+=dt;deltas.push(dt);}));assert(Math.abs(s.t-.1)<1e-9);assert(s.paused);assert(deltas.every(d=>d<=.02));});
+test('single-step cannot advance running, complete, or failed attempts',()=>{for(const s of[{paused:false},{paused:true,done:true},{paused:true,dead:true},{paused:true,over:{win:false}}])assert.equal(session.advancePaused(s,()=>assert.fail('advanced')),false);});

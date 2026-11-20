@@ -61,6 +61,7 @@ kbd{font:11px "Fira Code",monospace;background:var(--bg3);border:1px solid var(-
 a{color:var(--accent)}
 @media(max-width:900px){.wrap{grid-template-columns:1fr}}
 </style>
+<link rel="stylesheet" href="uwu-session.css?v=1120-13">
 </head>
 <body>
 <div class="wrap">
@@ -76,11 +77,12 @@ a{color:var(--accent)}
   <aside>
     <h1>絕神兵・火神階段 <small>機制模擬器（試作）· <a href="../index.html#/sb-uwu">回小抄</a> · <a href="uwu-titan.html">泰坦階段</a> · <span id="build"></span></small></h1>
     <div class="card">
-      <div class="row"><span id="clock">0:00</span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
+      <div class="row"><span id="clock">0:00</span><span id="replayClock" class="note" hidden></span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
       <div class="row"><label>職能 <select id="role"></select></label><label>速度 <select id="speed"><option value="1.5">1.5×</option><option value="1.25">1.25×</option><option value="1" selected>1×</option><option value="0.75">0.75×</option><option value="0.5">0.5×</option></select></label></div>
       <div class="row"><label style="flex:1">視角 <select id="view"><option value="game">遊戲視角（第三人稱）</option><option value="top">俯視（學走法用）</option></select></label></div>
       <div class="row"><label style="flex:1">從 <select id="start"></select></label></div>
-      <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">打滿（含烈焰碎擊、四連火神衝、第三輪地火，約 155 秒擊殺）</option><option value="0">97 秒擊殺（壓掉後面機制）</option></select></label></div>
+      <div class="row"><label style="flex:1">排列 <select id="preset"><option value="reference">參考回放・第 13 場</option><option value="random">隨機練習</option></select></label></div>
+      <div class="row"><label style="flex:1">長度 <select id="full"><option value="1">練到轉場（含烈焰碎擊、四連深紅旋風）</option><option value="0">短版練習（97 秒結束）</option></select></label></div>
       <div class="row"><label><input type="checkbox" id="assist" checked> 輔助預兆</label><label><input type="checkbox" id="hints" checked> 提示</label><label><input type="checkbox" id="god"> 觀摩（不會死）</label></div>
     </div>
     <div class="card"><h2>現在該做什麼</h2><p id="hint"></p></div>
@@ -98,11 +100,16 @@ a{color:var(--accent)}
     <div class="card keys"><h2>操作</h2>
       <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 朝鏡頭方向移動 · 滑鼠拖曳轉鏡頭（左右轉向、上下調俯角）· <kbd>Q</kbd><kbd>E</kbd> 也能轉 · 滾輪拉遠近 · <kbd>P</kbd> 暫停
     </div>
-    <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。時間、釘子順序、站位、場地標記取自 FFLogs 日本區 13 筆擊殺回放；判定範圍（衝鋒與十字寬度、地火、灼熱、炎柱）是估計值。</p>
-  </aside>
+    <p class="note">「輔助預兆」會把遊戲裡沒有地面提示的招（深紅旋風、烈焰焚燒、十字）畫出來，關掉才是實戰的樣子。預設沿用第 13 場的逆 Z。隊友走位使用本隊第 13 場 FFLogs API 原始事件座標，事件之間插值，NPC按正常跑速與實際Sprint狀態移動、避開當下攻擊；仍不是逐幀回放。場地標記與傷害範圍為近似值。參考排列的地火、灼熱、連線、死刑扇形、衝鋒與十字均有受擊失敗判定；火釘強化、換坦與技能操作也會影響通過。王的連續朝向位置提醒不等同持續傷害。種子只影響隨機練習。</p>
+  <p class="note"><a href="https://cn.fflogs.com/reports/CFfcHwYn2rGzxPdD?fight=13&amp;view=replay">FFLogs 第 13 場回放</a> · <a href="uwu-sources.html">來源與判定近似說明</a></p>
+  <p class="note">NPC依本隊路線與分工移動並避讓當下攻擊；事件之間屬教學重建，並非回放逐幀動作。</p>
+</aside>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="uwu-ifrit.js?v=1119-09"></script>
-<script src="uwu-view3d.js?v=1119-09"></script>
+<script src="vendor/three-r128/three.min.js"></script>
+<script src="uwu-npc-motion.js?v=1120-ranges2"></script>
+<script src="uwu-reference.js?v=1120-ranges2"></script>
+<script src="uwu-ifrit.js?v=1120-ranges2"></script>
+<script src="uwu-view3d.js?v=1120-ranges2"></script>
+<script src="uwu-session.js?v=1120-ranges2"></script>
 </body>
 </html>

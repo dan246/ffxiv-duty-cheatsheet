@@ -1,0 +1,124 @@
+{
+  "materials": [
+    {
+      "name": "mt_m0098b0001_c",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 1.0
+      }
+    },
+    {
+      "name": "mt_m0098b0001_b",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 1.0
+      }
+    },
+    {
+      "name": "mt_m0098b0001_d",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 1.0
+      }
+    },
+    {
+      "name": "mt_m0098b0001_a",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 1.0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": null,
+      "file": "textures/characters/titan/00_image.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 879,
+      "sha256": "ac9df37ffbeaf8d7f078efcabaf9cc0033d3be760fb1e21c1d3654cbc84ec278"
+    },
+    {
+      "index": 1,
+      "name": null,
+      "file": "textures/characters/titan/01_image.png",
+      "width": 1024,
+      "height": 512,
+      "bytes": 274647,
+      "sha256": "f0660ec9b254a2ac76bddef4f9b72915618c5fa88fe4deaf7febb5f24cf95e19"
+    },
+    {
+      "index": 2,
+      "name": null,
+      "file": "textures/characters/titan/02_image.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 2173629,
+      "sha256": "4e86268a1fba586295ddddf26c2fb1cd24ceae4795bc1ba9d573c8251ef9e1d8"
+    },
+    {
+      "index": 3,
+      "name": null,
+      "file": "textures/characters/titan/03_image.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 2173629,
+      "sha256": "4e86268a1fba586295ddddf26c2fb1cd24ceae4795bc1ba9d573c8251ef9e1d8"
+    }
+  ]
+}

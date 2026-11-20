@@ -1,0 +1,160 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_isd02a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_stg01a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_con05a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_flo01a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_gnd07a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_mtl01a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_material_n5r3_a1_gnd02a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 6
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_isd02_d.tex",
+      "file": "textures/maps/pandemonium/p3/00_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_isd02_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1828517,
+      "sha256": "2210d736e9f3bfc98fcfd85f269eb08cd260c06901626cc028a728ca1caf8f44"
+    },
+    {
+      "index": 1,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_stg01_d.tex",
+      "file": "textures/maps/pandemonium/p3/01_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_stg01_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1600279,
+      "sha256": "4288fff865e633b6ceac0c362695dd5a8a679325c9bdb3c081c3728a05e79173"
+    },
+    {
+      "index": 2,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_con05_d.tex",
+      "file": "textures/maps/pandemonium/p3/02_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_con05_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1408899,
+      "sha256": "b4906f488a28b10efa9426a94e6dda9c588f8b6e8341e40c54a7a92bb2759500"
+    },
+    {
+      "index": 3,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd02_d.tex",
+      "file": "textures/maps/pandemonium/p3/03_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd02_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1419303,
+      "sha256": "02b231d6937819eb06d4204cee02036ab82eb898f379cbe77d7597307219b98d"
+    },
+    {
+      "index": 4,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd07_d.tex",
+      "file": "textures/maps/pandemonium/p3/04_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_gnd07_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1693259,
+      "sha256": "fd8ea0d94eac7e4277722c14038a68af2cf8d739b6cacf34f7540dd2cb6bb7c9"
+    },
+    {
+      "index": 5,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_mtl01_d.tex",
+      "file": "textures/maps/pandemonium/p3/05_bg_ex4_01_nvt_n5_rad_n5r3_texture_n5r3_a1_mtl01_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 471687,
+      "sha256": "6c10fd10f1a0b9f0c2297c46f9d4e57cc7896ff82d788e5ccdfec27761f6e2fd"
+    }
+  ]
+}

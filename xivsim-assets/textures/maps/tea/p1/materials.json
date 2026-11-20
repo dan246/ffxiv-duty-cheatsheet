@@ -1,0 +1,86 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_a3_yuka1a.tex.001",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex1_02_dra_d2_alx_common_material_d2a0_a3_yuka2a.tex.001",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_n.tex",
+      "file": "textures/maps/tea/p1/00_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 459851,
+      "sha256": "d83c530974c96708334085fd15a1857b8af02ffa077b5216e64af8bfb5805d20"
+    },
+    {
+      "index": 1,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_d.tex",
+      "file": "textures/maps/tea/p1/01_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka1_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1382068,
+      "sha256": "e3a117bef82c15b5049c8f84c251d955d54d72e5392d4a13a0806dda344ab1dc"
+    },
+    {
+      "index": 2,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_n.tex",
+      "file": "textures/maps/tea/p1/02_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_n.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 548463,
+      "sha256": "b60b55a5c7ec9ce52dac6e5a2e5d4ce974db06dd930a29d4d6624c44e419654f"
+    },
+    {
+      "index": 3,
+      "name": "bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_d.tex",
+      "file": "textures/maps/tea/p1/03_bg_ex1_02_dra_d2_alx_common_texture_d2a0_a3_yuka2_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1404490,
+      "sha256": "9b2ab7e1cb86c7044e068bdf3975e2c1ccc97b7039b8bba2b17a7cb6a00b30f9"
+    }
+  ]
+}

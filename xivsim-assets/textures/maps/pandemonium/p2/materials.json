@@ -1,0 +1,200 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_flor1a_bgs0.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_cag01a.tex.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_b0_flor3a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_flor3a.tex.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_kuro1a.tex.001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_flor1a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_flor2a1.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_c1_wal02a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 6
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_a0_flor3a_bgs1.tex",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_material_n5r2_c1_wal02a_bgs0.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor1_d.tex",
+      "file": "textures/maps/pandemonium/p2/00_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor1_d.tex.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 7608960,
+      "sha256": "605351d79d8f61797ccdb14862d82b9e2c81dc274995cf112fa1fe143927b594"
+    },
+    {
+      "index": 1,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_cag01_d.tex.dds",
+      "file": "textures/maps/pandemonium/p2/01_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_cag01_d.tex.dds.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1876107,
+      "sha256": "a743389eb09ea6657acacfcfdd6cd05eaaf17eeb9209e4ec1f1f7cd46f1d4936"
+    },
+    {
+      "index": 2,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_b0_flor3_d.tex",
+      "file": "textures/maps/pandemonium/p2/02_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_b0_flor3_d.tex.png",
+      "width": 256,
+      "height": 1024,
+      "bytes": 389884,
+      "sha256": "798521c99e6dd19ac10378085ca807a5226021d445a74560b624bf2c9c3bb2aa"
+    },
+    {
+      "index": 3,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor3_d.tex",
+      "file": "textures/maps/pandemonium/p2/03_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor3_d.tex.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 439684,
+      "sha256": "0e3b87134436eebf7a53965fe9b601e2b9e799e0504e9b07c7436ef3a2fb3a0e"
+    },
+    {
+      "index": 4,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor2_d.tex",
+      "file": "textures/maps/pandemonium/p2/04_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_a0_flor2_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1989944,
+      "sha256": "051983991c6a75e5f433c7080fcd03ed72fa420d758480bea93d0ddeedd31297"
+    },
+    {
+      "index": 5,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_c1_wal02_d.tex",
+      "file": "textures/maps/pandemonium/p2/05_bg_ex4_01_nvt_n5_rad_n5r2_texture_n5r2_c1_wal02_d.tex.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 2083729,
+      "sha256": "304bd0d7dcaa8248a043344b2b81250ec67004cc368c248f8c3ce97af55bc20a"
+    }
+  ]
+}

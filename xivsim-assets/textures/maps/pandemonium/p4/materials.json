@@ -1,0 +1,31 @@
+{
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r4_material_n5r4_a0_flo00a.tex",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "name": "bg_ex4_01_nvt_n5_rad_n5r4_texture_n5r4_a1_flo01_d.tex.dds",
+      "file": "textures/maps/pandemonium/p4/00_bg_ex4_01_nvt_n5_rad_n5r4_texture_n5r4_a1_flo01_d.tex.dds.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 8321055,
+      "sha256": "0235123feccb410dcf7028d5b910b8cdeeef391e08724b6c3c882206f05299cd"
+    }
+  ]
+}

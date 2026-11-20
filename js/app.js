@@ -310,7 +310,7 @@
   }
 
   // 有機制模擬器的副本
-  const SIM_PAGES = { "sb-uwu": [{ href: "sim/uwu-ifrit.html?v=1119-09", name: "機制模擬器・火神", note: "WASD 實際走位練習，走錯會死" }, { href: "sim/uwu-titan.html?v=1119-09", name: "機制模擬器・泰坦", note: "自殺、隆起擊飛、三連石牢" }], "sb-omega-o8-savage": [{ href: "sim/o8s-replay.html?v=1119-07", name: "走位回放・門神", note: "真實擊殺紀錄，逐段機制重播，標 MT/ST/H/D" }, { href: "sim/o8s-replay.html?v=1119-07#body", name: "走位回放・本體", note: "遺棄末世、妖星亂舞等每段怎麼跑" }] };
+  const SIM_PAGES = { "sb-uwu": [{ href: "sim/uwu.html?phase=garuda", name: "絕神兵全階段模擬器", note: "風神、火神、泰坦、轉場與神兵；保留新敏脫打法" }, { href: "sim/uwu-ifrit.html?v=1120-uwu", name: "單練・火神", note: "逆 Z 釘子、四連衝與覺醒十字" }, { href: "sim/uwu-titan.html?v=1120-uwu", name: "單練・泰坦", note: "自殺、隆起擊飛、三連石牢與後半機制" }], "sb-omega-o8-savage": [{ href: "sim/o8s-replay.html?v=1119-07", name: "走位回放・門神", note: "真實擊殺紀錄，逐段機制重播，標 MT/ST/H/D" }, { href: "sim/o8s-replay.html?v=1119-07#body", name: "走位回放・本體", note: "遺棄末世、妖星亂舞等每段怎麼跑" }] };
 
   function renderDuty(d, opts = {}) {
     const isFav = state.favs.has(d.id);

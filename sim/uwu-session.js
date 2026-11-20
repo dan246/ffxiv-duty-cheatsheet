@@ -66,7 +66,7 @@ const UwuSession = (() => {
       const label = document.createElement("label"); label.textContent = "排列種子 ";
       const input = document.createElement("input"); input.type = "number"; input.min = "0"; input.max = "4294967295"; input.step = "1"; input.value = S.opts.seed; input.id = "sessionSeed";
       label.append(input); controls.append(label);
-      const change = document.createElement("button"); change.type = "button"; change.textContent = "換一組";
+      const change = document.createElement("button"); change.type = "button"; change.textContent = current === "titan" ? "重抽跳躍方向" : "換一組";
       const applySeed = (seed) => { S.opts.seed = seed; input.value = seed; save(); reset(); };
       input.addEventListener("change", () => { if (input.validity.valid && input.value !== "") applySeed(+input.value); else input.value = S.opts.seed; });
       change.addEventListener("click", () => { applySeed(crypto.getRandomValues(new Uint32Array(1))[0]); change.blur(); }); controls.append(change);
@@ -74,7 +74,7 @@ const UwuSession = (() => {
       pause.addEventListener("click",()=>{if(!S.dead&&!S.over&&!S.done)S.paused=!S.paused;pause.blur();});controls.append(pause);
       const singleStep=document.createElement("button");singleStep.type="button";singleStep.textContent="前進 0.1 秒";
       singleStep.addEventListener("click",()=>{advancePaused(S,step);singleStep.blur();});controls.append(singleStep);
-      const note = document.createElement("p"); note.className = "note"; note.textContent = "R 重練相同排列。通過後可接下一階段；各階段保留獨立練習判定；切換階段會關閉觀摩免死。";
+      const note = document.createElement("p"); note.className = "note"; note.textContent = (current === "titan" ? "R 重練相同排列（跳躍方向不變）；按「重抽跳躍方向」換一組。" : "R 重練相同排列。") + "通過後可接下一階段；各階段保留獨立練習判定；切換階段會關閉觀摩免死。";
       controls.append(note); nav.after(controls);
       const next = document.createElement("button"); next.type = "button"; next.className = "uwu-next"; next.hidden = true;
       next.textContent = at < phases.length - 1 ? "繼續 → " + phases[at + 1].name : "全階段完成・回到風神";

@@ -4,7 +4,7 @@ const npcMotion=typeof require==='function'?require('./uwu-npc-motion'):globalTh
 // 可核實範圍採 Action 資料與 BossMod（炸彈含 1.3m hitbox）；剩餘角度、位置與教學路線估計另註。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1120-ranges2";
+const BUILD = "1120-gapfix";
 // Reference casts are rendered FFLogs completed casts, not damage/application packets.
 // Cast starts are inferred from displayed durations; geometry remains a teaching estimate.
 const REFERENCE_ORIGIN = 300.720;
@@ -321,7 +321,7 @@ function reset() {
   S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
   S.stun = -Infinity; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null; S.slideWave = null; S.slideRef = null;
   S.gaolStage={}; S.wotl = [0, 0, 0, 0, 0, 0, 0, 0]; S.sacrificeDeadline=null;
-  S.ents = ROLES.map((_, i) => ({ ...((i===o.role?practicePosition(ROLES[i],o.start):npcReferencePosition(ROLES[i],o.start)) || home(i,o.start)), i, face: 0, fallY: 0, fallTime: 0, plannedDeath: false, dead: !S.reference && o.start > 27.3 && o.start < 50.6 && DIE.includes(i) }));
+  S.ents = ROLES.map((_, i) => ({ ...((i===o.role?practicePosition(ROLES[i],o.start):npcReferencePosition(ROLES[i],o.start)) || home(i,o.start)), i, face: 0, fallY: 0, fallTime: 0, plannedDeath: false, dead: !S.reference && o.start > 24.9 && o.start < 50.6 && DIE.includes(i) }));
   if (S.reference) for (const e of referenceLifeEvents().filter(e=>relative(e.time)<o.start)) applyReferenceLife(e);
   if(S.reference){
     if(o.role===5&&o.start<relative(325.589))Object.assign(S.ents[5],npcReferencePosition('D2',o.start));
@@ -799,6 +799,11 @@ function moveReferenceNpc(e,dt) {
   e.x=x; e.y=y; return true;
 }
 function npcTarget(e) {
+  // After Upheaval, hold the safe landing through the actual five-bomb
+  // resolution frame. Moving toward gaol anchors at stun expiry walks into
+  // still-live explosions; the player must not lose to this NPC scheduling bug.
+  if(!S.reference && S.t>=39.1 && S.aoes.some(a=>!a.done&&a.t1===41.5))
+    return {x:e.x,y:e.y};
   const observed=npcReferencePosition(ROLES[e.i],S.t); if(observed) return observed;
   const h = home(e.i, S.t);
   if (S.t >= 43.4 && S.t < 46.2 && GAOL.includes(e.i)) {

@@ -4,8 +4,8 @@ const {test} = require('node:test');
 const sim = require('../sim/uwu-titan.js');
 const {S, reset, step, npcTarget} = sim;
 const setup = (opts={}) => { Object.assign(S.opts,{preset:'reference',randomJumps:false,seed:0,start:-4,role:7,god:true},opts); reset(); };
-test('Titan defaults to fight 13, uses cast completions and excludes canceled casts',()=>{
-  assert.equal(S.opts.preset,'reference'); setup();
+test('Titan defaults to composite practice; explicit reference preserves cast completions',()=>{
+  assert.equal(S.opts.preset,'random'); setup();
   for (const [abs,name] of [[300.720,'大地粉碎'],[339.265,'大怒震'],[341.411,'花岗岩牢狱'],[384.978,'大地粉碎'],[433.484,'地裂'],[448.368,'大地之重']])
     assert(S.tl.some(e=>Math.abs(e.t+300.720-abs)<1e-6&&e.name.includes(name)),`${abs} ${name}`);
   assert(!S.tl.some(e=>e.name.includes('花岗岩冲击')));
@@ -152,8 +152,13 @@ test('recorded gaol binding excludes direct player bomb and landslide hits until
       Object.assign(S.ents[2],type==='circle'?shape.c:{x:shape.from.x+Math.cos(shape.ang)*6,y:shape.from.y+Math.sin(shape.ang)*6});
       assert(hazard.hit(S.ents[2]));
       advanceAbsolute(abs+.001); assert.equal(S.over,null,`${type} must not directly hit jailed player`);
+      // A fan resolves only once. Check the unprotected counterexample in a
+      // fresh attempt, rather than replaying an already-resolved damage packet.
+      setup({start:346.5-300.720,role:2,god:false});
+      advanceAbsolute(abs-.02);
       delete S.jailed[2];
-      hazard.onHit.call(hazard);
+      Object.assign(S.ents[2],type==='circle'?shape.c:{x:shape.from.x+Math.cos(shape.ang)*6,y:shape.from.y+Math.sin(shape.ang)*6});
+      advanceAbsolute(abs+.001);
       assert.equal(S.over.win,false,`${type} still hits after gaol release`);
     }
   } finally {delete globalThis.UWU_REFERENCE;}

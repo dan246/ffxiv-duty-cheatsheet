@@ -61,7 +61,7 @@ kbd{font:11px "Fira Code",monospace;background:var(--bg3);border:1px solid var(-
 a{color:var(--accent)}
 @media(max-width:900px){.wrap{grid-template-columns:1fr}}
 </style>
-<link rel="stylesheet" href="uwu-session.css?v=1120-bait">
+<link rel="stylesheet" href="uwu-session.css?v=1120-slide">
 </head>
 <body>
 <div class="wrap">
@@ -78,7 +78,7 @@ a{color:var(--accent)}
     <h1>絕神兵・泰坦階段 <small>機制模擬器（試作）· <a href="../index.html#/sb-uwu">回小抄</a> · <a href="uwu-ifrit.html">火神階段</a> · <span id="build"></span></small></h1>
     <div class="card">
       <div class="row"><span id="clock">0:00</span><span id="replayClock" class="note"></span><button id="restart" type="button">重來 <kbd>R</kbd></button></div>
-      <div class="row"><label style="flex:1">模式 <select id="preset"><option value="reference">本隊打法練習</option><option value="random">隨機練習 · 多場綜合</option></select></label></div>
+      <p class="note">多場綜合練習 · 保留自殺三連桶分工</p>
       <div class="row"><label>職能 <select id="role"></select></label><label>速度 <select id="speed"><option value="1.5">1.5×</option><option value="1.25">1.25×</option><option value="1" selected>1×</option><option value="0.75">0.75×</option><option value="0.5">0.5×</option></select></label></div>
       <div class="row"><label style="flex:1">視角 <select id="view"><option value="game">遊戲視角（第三人稱）</option><option value="top">俯視（學走法用）</option></select></label></div>
       <div class="row"><label style="flex:1">從 <select id="start"></select></label></div>
@@ -97,16 +97,15 @@ a{color:var(--accent)}
     <div class="card keys"><h2>操作</h2>
       <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 朝鏡頭方向移動 · 滑鼠拖曳轉鏡頭（左右轉向、上下調俯角）· <kbd>Q</kbd><kbd>E</kbd> 也能轉 · 滾輪拉遠近 · <kbd>P</kbd> 暫停
     </div>
-    <p class="note">預設來源：<a href="https://cn.fflogs.com/reports/CFfcHwYn2rGzxPdD?fight=13&amp;type=casts&amp;hostility=1">本隊 Fight 13</a>，來源回放未通關、紀錄到 7:29；階段 0 秒對應回放 5:00.720 的大地粉碎施法完成。施法完成、實際死亡分開計時；讀條起點採原始起手事件。站位已改用 FFLogs API 原始事件座標；事件間線性插值，並非逐幀座標。落石衝擊半徑 4.3 米、大爆炸半徑 6.3 米（含炸彈本體半徑）；地重半徑 6 米、地裂全寬 6 米依公開技能與判定資料；第二、三跳隨機四正點，起跳前可能轉90度；以最後面向判斷落點。炸彈與後續NPC分工隨方向旋轉，時間採原始事件，地裂依當下存活角色的位置誘導，其餘部分範圍、擊退仍為近似值；稀疏路徑可能漏掉短暫躲招。受控角色除指定大地之重自殺外，碰撞仍判失敗，觀摩需自行勾選。外圈崩落為重建動畫，並非原始遊戲動畫；第二、三次跳躍後分別縮為 16、12 米，請及時收進內圈。NPC 會依即時攻擊避讓；吃到非指定自殺機制也會判定失敗。練習中的受控角色不會被原紀錄強制殺死，原紀錄死亡另行標示；觀摩只取消失敗判定，不強制重播原紀錄死亡。本隊校準區段完成後顯示「本段練習完成」，不視為玩家失敗，也不代表泰坦擊殺；此來源沒有神兵階段。隨機練習保留原本多場綜合機制。</p>
+    <p class="note">多場綜合機制練習，採用教學動線，不重播本隊拓荒時的走位失誤。泰坦第二、三跳隨機四正點，起跳前可能轉90度；看最後面向判斷落點。場地依序縮至16、12米，擊退後第一波地裂優先鎖定你操控的存活角色。石牢依連鎖範圍判定，紅綠線提示是否接上。ST、D1、D2、D3的指定自殺及復活分工保留。部分範圍、時間與動畫仍為練習重建，來源與限制見下方說明。</p>
   <p class="note"><a href="uwu-sources.html">來源交叉核對・素材與判定近似說明</a></p>
-  <p class="note">NPC 以本隊動線為預定路徑，依當下攻擊即時避讓，再步行接回動線；指定自殺與石牢分工保留。事件空檔仍需插值。</p>
+  <p class="note">NPC 依多場綜合的教學走位處理機制；你可自由移動、誘導及練習自己的分工。</p>
 </aside>
 </div>
 <script src="vendor/three-r128/three.min.js"></script>
-<script src="uwu-npc-motion.js?v=1120-bait"></script>
-<script src="uwu-reference.js?v=1120-bait"></script>
-<script src="uwu-titan.js?v=1120-bait"></script>
-<script src="uwu-view3d.js?v=1120-bait"></script>
-<script src="uwu-session.js?v=1120-bait"></script>
+<script src="uwu-npc-motion.js?v=1120-slide"></script>
+<script src="uwu-titan.js?v=1120-slide"></script>
+<script src="uwu-view3d.js?v=1120-slide-final"></script>
+<script src="uwu-session.js?v=1120-slide"></script>
 </body>
 </html>

@@ -825,6 +825,8 @@ const View3D = (() => {
         ring.scale.setScalar(radius / 1.3);
         ring.position.set(guide.pos.x, Y + 0.03, guide.pos.y);
         ring.material.color.set(guide.color);
+        ring.material.depthTest = !guide.diagnostic;
+        ring.renderOrder = guide.diagnostic ? 100 : 0;
       } else if (guide.type === "line") {
         if (lines === guideLines.length) {
           const geometry = new THREE.BufferGeometry();
@@ -840,6 +842,8 @@ const View3D = (() => {
         points.setXYZ(1, guide.b.x, 0.3, guide.b.y);
         points.needsUpdate = true;
         line.material.color.set(guide.color);
+        line.material.depthTest = !guide.diagnostic;
+        line.renderOrder = guide.diagnostic ? 100 : 0;
         line.visible = true;
       }
     }

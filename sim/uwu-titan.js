@@ -4,7 +4,7 @@ const npcMotion=typeof require==='function'?require('./uwu-npc-motion'):globalTh
 // 可核實範圍採 Action 資料與 BossMod（炸彈含 1.3m hitbox）；剩餘角度、位置與教學路線估計另註。畫面層共用 uwu-view3d.js。
 "use strict";
 
-const BUILD = "1120-bait";
+const BUILD = "1120-slide";
 // Reference casts are rendered FFLogs completed casts, not damage/application packets.
 // Cast starts are inferred from displayed durations; geometry remains a teaching estimate.
 const REFERENCE_ORIGIN = 300.720;
@@ -275,7 +275,7 @@ const lerp = (a, b, k) => ({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
-const S = { opts: { preset: "reference", seed: Math.floor(Math.random() * 0x100000000), role: 7, start: -4, speed: 1, assist: true, hints: true, god: false, view: "game" }, pitch: 0.55, dist: 22 };
+const S = { opts: { preset: "random", seed: Math.floor(Math.random() * 0x100000000), role: 7, start: -4, speed: 1, assist: true, hints: true, god: false, view: "game" }, pitch: 0.55, dist: 22 };
 // 第二次地裂的方位決定整個座標框：以下站位都用「泰坦在北 (0,-14)」來寫，再用 F() 轉成實際方位。
 // 回放裡四個方位各自的炸彈缺口：北 (-5,12)、南 (-5,-12)、西 (12,-5)、東 (-12,5)。
 const FRAME = [(x, y) => ({ x, y }), (x, y) => ({ x: -y, y: -x }), (x, y) => ({ x, y: -y }), (x, y) => ({ x: y, y: x })];
@@ -320,7 +320,7 @@ function reset() {
     .map((j,index)=>({...j,index,cue:j.launch-2.0,target:polar(j.direction*90,14),feint:o.randomJumps!==false&&jumpRnd()<.5,feintSign:jumpRnd()<.5?-1:1}));
   S.tank = o.start < 3 ? null : o.start >= 104 && o.start < 119.6 ? 1 : 0; // 泰坦出場時仇恨重置，MT 要挑釁（回放 7/8 筆在落地後 2.5～5.6 秒按）
   S.fetterDps = 4; S.bossCard = 0; S.bossDyn = null;
-  S.stun = -Infinity; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null; S.slideWave = null; S.slideRef = null;
+  S.stun = -Infinity; S.jailed = {}; S.freed = {}; S.gaols = []; S.slide = []; S.gaol4 = null; S.slideWave = null; S.slideRef = null; S.landslideResult = null;
   S.gaolStage={}; S.wotl = [0, 0, 0, 0, 0, 0, 0, 0]; S.sacrificeDeadline=null;
   S.ents = ROLES.map((_, i) => ({ ...((i===o.role?practicePosition(ROLES[i],o.start):npcReferencePosition(ROLES[i],o.start)) || home(i,o.start)), i, face: 0, fallY: 0, fallTime: 0, plannedDeath: false, dead: !S.reference && o.start > 24.9 && o.start < 50.6 && DIE.includes(i) }));
   if (S.reference) for (const e of referenceLifeEvents().filter(e=>relative(e.time)<o.start)) applyReferenceLife(e);
@@ -387,8 +387,8 @@ function gaolLinks(t) {
   return [CFG.chainFirst,CFG.chain,CFG.chain,CFG.chainBoss].map((limit,i)=>({a:points[i],b:points[i+1],label:names[i]+'→'+names[i+1],distance:dist(points[i],points[i+1]),limit,ok:dist(points[i],points[i+1])<=limit}));
 }
 function sceneGuides(t) { // 輔助預兆：擊飛落點線、石牢站位、MT 山崩站位
-  if (!S.opts.assist) return [];
-  const out = gaolLinks(t).map(link=>({type:"line",a:link.a,b:link.b,color:link.ok?"#55dba6":"#ff6464"})), kp = kbPreview();
+  if (!S.opts.assist) return landslideGuides();
+  const out = [...landslideGuides(), ...gaolLinks(t).map(link=>({type:"line",a:link.a,b:link.b,color:link.ok?"#55dba6":"#ff6464"}))], kp = kbPreview();
   if (S.reference) {
     const observed=practicePosition(ROLES[S.opts.role],t);
     if(observed) out.push({type:"ring",pos:observed,color:"#55dba6"});
@@ -451,6 +451,41 @@ function coneAoe(from, to, half, len) {
   };
 }
 function fillAoe(g, k) { g.fillStyle = `rgba(255,150,40,${0.14 + 0.3 * k})`; g.fill(); g.lineWidth = 0.12; g.strokeStyle = `rgba(255,190,90,${0.5 + 0.4 * k})`; g.stroke(); }
+// Resolve a fan atomically: stopping on the first lane used to hide additional
+// victims. Keep the frozen geometry, not a later target position, as evidence.
+function addLandslideFan(wave,gaps) {
+  const lanes=wave.offs.map(off=>({off,...rectAoe(wave.T,wave.base+rad(off),CFG.slideHalf,!gaps&&off===0?44.55:40.5,!gaps&&off===0?4.55:.5)}));
+  const resolve=()=>{
+    if(wave.resolved)return;
+    wave.resolved=true;
+    const victims=S.ents.filter(e=>!e.dead&&!S.jailed[e.i]&&!(S.freed[e.i]>S.t)).flatMap(e=>{
+      const struck=lanes.filter(l=>l.hit(e));
+      return struck.length?[{role:e.i,position:{x:e.x,y:e.y},lanes:struck.map(l=>l.off)}]:[];
+    });
+    const result={target:wave.target,lockedAt:wave.lockedAt,lockPosition:wave.lockPosition&&{...wave.lockPosition},resolvedAt:wave.t1,origin:{...wave.T},base:wave.base,victims};
+    S.landslideResult=result;
+    if(!victims.length)return;
+    const label=i=>`${i===S.opts.role?'你 ':''}${ROLES[i]}`;
+    const lines=[...new Set(victims.flatMap(v=>v.lanes))].map(o=>o===0?'主線':`${o>0?'+':''}${o}°線`).join('、');
+    const reason=`地裂命中 ${victims.map(v=>label(v.role)).join('、')}；${wave.target===undefined?'覺醒追加波':`鎖定對象：${label(wave.target)}`}；命中線：${lines}。紅線與紅圈標出命中位置。`;
+    if(S.opts.god){flash(`（觀摩判定）${reason}`);return;}
+    for(const v of victims){S.ents[v.role].dead=true;S.ents[v.role].plannedDeath=false;}
+    die(reason);
+    if(S.over){S.over.mechanic='landslide';S.over.evidence=result;}
+  };
+  for(const lane of lanes)addAoe({...lane,t0:wave.lockedAt,t1:wave.t1,onHit:resolve});
+}
+function landslideGuides() {
+  const r=S.over?.mechanic==='landslide'?S.over.evidence:null;
+  if(!r)return [];
+  const out=r.victims.map(v=>({type:'ring',pos:v.position,color:'#ff5555',diagnostic:true}));
+  for(const off of new Set(r.victims.flatMap(v=>v.lanes))){
+    const a=r.base+rad(off);
+    out.push({type:'line',a:r.origin,b:{x:r.origin.x+Math.cos(a)*40.5,y:r.origin.y+Math.sin(a)*40.5},color:'#ff5555',diagnostic:true});
+  }
+  if(r.lockPosition)out.push({type:'ring',pos:r.lockPosition,color:'#4cc2ff',diagnostic:true});
+  return out;
+}
 const flash = (msg) => { S.log.unshift({ msg, t: S.t }); S.log.length = Math.min(S.log.length, 6); };
 function die(reason) { if (S.opts.god) return flash("（觀摩模式）" + reason); if (!S.over) S.over = { win: false, reason, t: S.t }; }
 function kill(i, why, mechanic = null) { // 有人被打死：玩家死在該自殺的時候不算失敗
@@ -533,9 +568,9 @@ function buildReferenceEvents() {
         const base=gaps&&S.slideRef?S.slideRef.a0:Math.atan2(target.y-T.y,target.x-T.x);
         const offs=gaps?[22.5,-22.5,90,-90,180]:[0,45,-45,135,-135];
         if(!gaps) S.slideRef={T,a0:base};
-        S.slideWave={id:index,T,base,offs,t1:t,hold:0,target:target.i};
+        S.slideWave={id:index,T,base,offs,t1:t,hold:0,target:target.i,lockedAt:S.t,lockPosition:{x:target.x,y:target.y}};
         if(row.time===345.788)flash(`地裂鎖定 ${ROLES[target.i]}：方向已固定，現在閃開再排石牢`);
-        for(const off of offs) {const shape=rectAoe(T,base+rad(off),CFG.slideHalf,!gaps&&off===0?44.55:40.5,!gaps&&off===0?4.55:.5); addAoe({...shape,t0:S.t,t1:t,onHit(){hit(shape,'被地裂直線打到');}});}
+        addLandslideFan(S.slideWave,gaps);
       });
     }
     if(row.name==='大怒震') at(t,()=>{
@@ -688,8 +723,8 @@ function buildEvents() {
         T = { ...bossSpot(S.t).pos }; base = Math.atan2(tg.y - T.y, tg.x - T.x); offs = [0, 45, -45, 135, -135]; S.slideRef = { T, a0: base };
         flash(`山崩瞄準 ${ROLES[tg.i]}`);
       }
-      S.slideWave = { id: t, T, base, offs, target, t1: t, hold: gaps ? t - 2 + 0.03 : 0 }; // 第二波在第一波結算前 0.2 秒就鎖定：等第一波炸完再動
-      for (const off of offs) addAoe({ ...rectAoe(T, base + rad(off), CFG.slideHalf, !gaps&&off===0?44.55:40.5, !gaps&&off===0?4.55:.5), t0: S.t, t1: t, onHit() { hitAll((e) => this.hit(e), "被山崩打到"); } });
+      S.slideWave = { id: t, T, base, offs, target, lockedAt:S.t, lockPosition:target===undefined?null:{x:S.ents[target].x,y:S.ents[target].y}, t1: t, hold: gaps ? t - 2 + 0.03 : 0 }; // 第二波在第一波結算前 0.2 秒就鎖定：等第一波炸完再動
+      addLandslideFan(S.slideWave,gaps);
     }, gaps ? "山崩第二波（打在第一波的空隙）" : t===45.6 ? "山崩（單人練習優先瞄準你）" : "山崩（五條線，中線瞄準隨機一人）");
   };
   slide(45.6); slide(50);
@@ -986,6 +1021,12 @@ function draw() {
     g.beginPath();g.moveTo(link.a.x,link.a.y);g.lineTo(link.b.x,link.b.y);
     g.lineWidth=.18;g.strokeStyle=link.ok?"#55dba6":"#ff6464";g.stroke();
   }
+  for(const guide of landslideGuides()) {
+    g.beginPath(); g.strokeStyle=guide.color; g.lineWidth=.25;
+    if(guide.type==='line'){g.moveTo(guide.a.x,guide.a.y);g.lineTo(guide.b.x,guide.b.y);}
+    else g.arc(guide.pos.x,guide.pos.y,.9,0,7);
+    g.stroke();
+  }
   const b = bossSpot(t);
   if (b.vis) {
     g.beginPath(); g.arc(b.pos.x, b.pos.y, 3, 0, 7); g.fillStyle = b.alt ? "rgba(161,98,7,.45)" : "#a16207"; g.fill(); g.lineWidth = 0.2; g.strokeStyle = "#fde68a"; g.stroke();
@@ -1003,7 +1044,7 @@ function draw() {
   for (const e of S.ents.filter(e=>!(e.fallY < -3))) label(e, (e.i === role ? "你 " : "") + ROLES[e.i] + (e.dead ? "（倒地）" : e.recordedDead ? "（原紀錄倒地）" : ""), e.i === role ? "#fff" : "#cbd5e1", e.i === role ? 12 : 10, -15);
   const c = S.casts.filter((x) => t >= x.t0 && t < x.t1).pop();
   if (c) { const w = W * 0.5, x = (W - w) / 2, y = 14; g.fillStyle = "rgba(2,6,23,.8)"; g.fillRect(x, y, w, 20); g.fillStyle = "#a16207"; g.fillRect(x, y, w * clamp01((t - c.t0) / (c.t1 - c.t0)), 20); g.strokeStyle = "#fde68a"; g.lineWidth = 1; g.strokeRect(x, y, w, 20); g.font = '600 13px "Fira Sans",system-ui,sans-serif'; g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(c.name, W / 2, y + 11); }
-  if (S.over || S.paused) { g.fillStyle = S.over?"rgba(2,6,23,.72)":"rgba(2,6,23,.12)"; g.fillRect(0, 0, W, W); g.textAlign = "center"; g.textBaseline = "middle"; g.font = '800 30px "Fira Sans",system-ui,sans-serif'; g.fillStyle = (S.paused && !S.over) || S.over?.recordEnd ? "#f8fafc" : S.over.win ? "#5fd08a" : "#ff6b6b"; g.fillText(S.paused && !S.over ? "暫停" : S.over.recordEnd ? "本段練習完成" : S.over.win ? "通過" : "失敗", W / 2, W / 2 - 40); g.font = '500 15px "Fira Sans",system-ui,sans-serif'; g.fillStyle = "#f8fafc"; if (S.over) wrapText(S.over.reason, W / 2, W / 2, W * 0.8, 22); g.fillStyle = "#aeb9cc"; g.fillText(S.over ? "按 R 從這一段重來" : "按 P 繼續", W / 2, W / 2 + 90); }
+  if (S.over || S.paused) { g.fillStyle = S.over?(S.over.mechanic==='landslide'?"rgba(2,6,23,.35)":"rgba(2,6,23,.72)"):"rgba(2,6,23,.12)"; g.fillRect(0, 0, W, W); g.textAlign = "center"; g.textBaseline = "middle"; g.font = '800 30px "Fira Sans",system-ui,sans-serif'; g.fillStyle = (S.paused && !S.over) || S.over?.recordEnd ? "#f8fafc" : S.over.win ? "#5fd08a" : "#ff6b6b"; g.fillText(S.paused && !S.over ? "暫停" : S.over.recordEnd ? "本段練習完成" : S.over.win ? "通過" : "失敗", W / 2, W / 2 - 40); g.font = '500 15px "Fira Sans",system-ui,sans-serif'; g.fillStyle = "#f8fafc"; if (S.over) wrapText(S.over.reason, W / 2, W / 2, W * 0.8, 22); g.fillStyle = "#aeb9cc"; g.fillText(S.over ? "按 R 從這一段重來" : "按 P 繼續", W / 2, W / 2 + 90); }
 }
 function wrapText(text, x, y, maxW, lh) { let line = ""; for (const ch of text) { if (g.measureText(line + ch).width > maxW) { g.fillText(line, x, y); y += lh; line = ch; } else line += ch; } g.fillText(line, x, y); }
 
@@ -1016,7 +1057,7 @@ function updateHud() {
   const kp = kbPreview(); if (kp) st.push(kp.bad ? "擊飛落點：危險" : "擊飛落點：安全");
   const links=gaolLinks(t); if(S.opts.assist&&links.length){const gaps=links.filter(l=>!l.ok);st.push(gaps.length?"石牢尚未接上："+gaps.map(l=>`${l.label} ${l.distance.toFixed(1)}/${l.limit}m`).join("、"):"石牢連線：全部接上");}
   $("statusline").textContent = st.join(" · ");
-  const ov = $("overlay"); ov.hidden = !(S.over || S.paused);
+  const ov = $("overlay"); ov.hidden = !(S.over || S.paused); ov.style.background = S.over?.mechanic==='landslide'?"rgba(2,6,23,.35)":"";
   if (!ov.hidden) { const win = S.over && S.over.win; $("ovTitle").textContent = S.paused && !S.over ? "暫停" : S.over?.recordEnd ? "本段練習完成" : win ? "通過" : "失敗"; $("ovTitle").className = (S.paused && !S.over) || S.over?.recordEnd ? "" : win ? "win" : "dead"; $("ovReason").textContent = S.over ? S.over.reason : ""; $("ovHint").textContent = S.over ? "按 R 從這一段重來" : "按 P 繼續"; }
 }
 function updatePanel() {
@@ -1048,7 +1089,7 @@ function init() {
   $("start").innerHTML = CHECKPOINTS.map((c) => `<option value="${c.t}">${c.name}</option>`).join("");
   $("start").value = S.opts.start;
   const bind = (id, key, conv, restart) => $(id).addEventListener("change", (e) => { S.opts[key] = conv(e.target); if (restart) reset(); e.target.blur(); });
-  bind("preset", "preset", (el)=>el.value, true); $("preset").addEventListener("change",refreshRoleLabels); $("preset").value=S.opts.preset;
+  S.opts.preset = "random"; // The playable page only offers multi-run practice.
   bind("role", "role", (el) => +el.value, true); bind("start", "start", (el) => +el.value, true); bind("speed", "speed", (el) => +el.value, false);
   bind("assist", "assist", (el) => el.checked, false); bind("hints", "hints", (el) => el.checked, false); bind("god", "god", (el) => el.checked, false);
   $("restart").addEventListener("click", (e) => { reset(); e.target.blur(); }); $("skSprint").addEventListener("click", () => useSkill("sprint")); if ($("skProvoke")) $("skProvoke").addEventListener("click", () => useSkill("provoke"));
@@ -1073,4 +1114,4 @@ function init() {
   requestAnimationFrame(loop);
 }
 if (typeof document !== "undefined") addEventListener("DOMContentLoaded", init);
-if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3, kill, gaolLinks, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };
+if (typeof module !== "undefined") module.exports = { S, CFG, arenaAt, arenaSupportRadius, ROLES, CHECKPOINTS, DIE, GAOL, reset, step, home, npcTarget, useSkill, END_T, F, stackSpot, polar, D3, kill, gaolLinks, landslideGuides, REFERENCE_CASTS, REFERENCE_ORIGIN, REFERENCE_END, bossSpot, bossLook, practicePoint, practicePosition, referencePosition, npcReferencePosition };
